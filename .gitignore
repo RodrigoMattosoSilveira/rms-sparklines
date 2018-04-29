@@ -60,3 +60,5 @@ typings/
 # dist folders, will be picked up by npm publish
 */**/dist/
 
+compiler.xml
+.idea
