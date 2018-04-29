@@ -1,0 +1,25 @@
+{
+  "name": "@rms/sparklines",
+  "version": "0.0.1",
+  "description": "A sparkline collection, written as web components",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RodrigoMattosoSilveira/rms-sparklines.git"
+  },
+  "keywords": [
+    "rms",
+    "sparkline",
+    "angular",
+    "webcompnent"
+  ],
+  "author": "Rodrigo Silveira",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RodrigoMattosoSilveira/rms-sparklines/issues"
+  },
+  "homepage": "https://github.com/RodrigoMattosoSilveira/rms-sparklines#README"
+}
