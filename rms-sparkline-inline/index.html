@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>rms-sparkline-inline demos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script src="./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+  <script nomodule src="./node_modules/browser-es-module-loader/dist/babel-browser-build.js"></script>
+  <script nomodule src="./node_modules/browser-es-module-loader/dist/browser-es-module-loader.js"></script>
+
+  <script src="./dist/rms-sparkline-inline.js" type="module"></script>
+  <style>
+    body {
+      background-color: #eee;
+      padding: 24px;
+    }
+
+    rms-sparkline-inline {
+      margin: 8px;
+    }
+
+    rms-sparkline-inline.blue {
+      --rms-sparkline-inline-background-color: #03A9F4;
+    }
+  </style>
+</head>
+<body>
+  <rms-sparkline-inline></rms-sparkline-inline>
+
+  <rms-sparkline-inline className="Pickle" width="Pickle" height="Pickle" lineColor="Pickle" lineWidth="Pickle" startColor="Pickle" endColor="Pickle" maxColor="Pickle" minColor="Pickle" dotRadius="Pickle" toolTip="Pickle"></rms-sparkline-inline>
+
+  <rms-sparkline-inline>Slot content</rms-sparkline-inline>
+
+  <rms-sparkline-inline class="blue"></rms-sparkline-inline>
+</body>
+</html>
