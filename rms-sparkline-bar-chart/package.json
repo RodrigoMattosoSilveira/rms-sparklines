@@ -3,6 +3,15 @@
   "author": "Rodrigo Silveira",
   "version": "0.0.1",
   "description": "Sparkline Bar Chart Web Component",
+  "homepage": "hhttps://github.com/RodrigoMattosoSilveira/rms-sparklines#README",
+  "repository" :
+  { "type" : "git"
+  , "url" : "hhttps://github.com/RodrigoMattosoSilveira/rms-sparklines.git"
+  }
+  "bugs": {
+    "url" : "https://github.com/RodrigoMattosoSilveira/rms-sparklines/issues",
+    "email": "rodrigomattososilveira@gmail.com"
+  },
   "main": "dist/rms-sparkline-bar-chart.js",
   "types": "dist/rms-sparkline-bar-chart.d.ts",
   "directories": {
