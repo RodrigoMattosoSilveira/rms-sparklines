@@ -4,13 +4,13 @@
   "version": "0.0.1",
   "description": "Sparkline Bar Chart Web Component",
   "homepage": "hhttps://github.com/RodrigoMattosoSilveira/rms-sparklines#README",
+  "bugs": {
+    "url": "hhttps://github.com/RodrigoMattosoSilveira/rms-sparklines/issues",
+    "email": "rodrigomattososilveira@gmail.com"
+  },
   "repository" :
   { "type" : "git"
   , "url" : "hhttps://github.com/RodrigoMattosoSilveira/rms-sparklines.git"
-  },
-  "bugs": {
-    "url" : "https://github.com/RodrigoMattosoSilveira/rms-sparklines/issues",
-    "email": "rodrigomattososilveira@gmail.com"
   },
   "main": "dist/rms-sparkline-inline.js",
   "types": "dist/rms-sparkline-inline.d.ts",
