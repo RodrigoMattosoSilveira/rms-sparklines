@@ -18,24 +18,24 @@ See examples of applications on the Angular web application, **app**, included i
 
 
 #### Declare the component on the Angular application
-The software engineer updates the host application's _packages.json_ to include _rms-sparkline-inline_:
+The software engineer updates the host application's _packages.json_ to include _@guigo/rms-sparkline-inline_:
 
 ````json
-    "rms-sparkline-inline": "0.0.1",
+    "@guigo/rms-sparkline-inline": "MAJOR.minor.patch",
 ````
 
 As part of the development process the software engineer can simply _symlink_ the component to **app**, as follows:
-* navigate to the **app** root folder: **$** `cd sparklines/app`
-* link to the component: **$** `nmp link ../components/rms-sparkline-inline`
+* navigate to the root folder of the target: **$** `cd~/target-application/`
+* link to the component: **$** `nmp link ~/rms-sparklines/rms-sparkline/rms-sparkline-inline/`
 
 To remove the _symlink_ simply:
-* navigate to the **app** root folder: **$** `cd sparklines/app`
+* navigate to the **app** root folder: **$** `cd~/target-application/`
 * link to the component: **$** `nmp unlink rms-sparkline-inline`
 
 #### Import the web component into the Angular application, **app**:
 ```typescript
 // ...
-import 'rms-sparkline-inline';
+import '@guigo/rms-sparkline-inline';
 // ...
 ````
 
