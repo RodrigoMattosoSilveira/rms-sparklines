@@ -10,22 +10,22 @@ These sparkline can be styled. See the properties section for details
 
 
 ### Usage
-See examples of applications on the Angular web application, **app**, included in this repository.
+See examples of applications on the Angular web application, [rms-sparklines-=styleguid](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide).
 
 
 #### Declare the component on the Angular application
 The software engineer updates the host application's _packages.json_ to include _rms-sparkline-bar-chart_:
 
 ````json
-    "rms-sparkline-bar-chart": "0.0.1",
+    "rms-sparkline-bar-chart": "MAJOR.minor.patch",
 ````
 
 As part of the development process the software engineer can simply _symlink_ the component to **app**, as follows:
-* navigate to the **app** root folder: **$** `cd sparklines/app`
-* link to the component: **$** `nmp link ../components/rms-sparkline-bar-chart`
+* navigate to the [rms-sparklines-=styleguid](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide) root folder: **$** `cd ~/rms-sparklines-styleguide`
+* link to the component: **$** `nmp link ~/rms-sparklines/rms-sparkline-bar-chart`
 
 To remove the _symlink_ simply:
-* navigate to the **app** root folder: **$** `cd sparklines/app`
+* navigate to the **app** root folder: **$** `cd ~/rms-sparklines-styleguide`
 * link to the component: **$** `nmp unlink rms-sparkline-bar-chart`
 
 #### Import the web component into the Angular application, **app**:
