@@ -18,10 +18,10 @@ See examples of applications on the Angular web application, **app**, included i
 
 
 #### Declare the component on the Angular application
-The software engineer updates the host application's _packages.json_ to include _@guigo/rms-sparkline-inline_:
+The software engineer updates the host application's _packages.json_ to include _rms-sparkline-inline_:
 
 ````json
-    "@guigo/rms-sparkline-inline": "MAJOR.minor.patch",
+    "rms-sparkline-inline": "MAJOR.minor.patch",
 ````
 
 As part of the development process the software engineer can simply _symlink_ the component to **app**, as follows:
@@ -35,7 +35,7 @@ To remove the _symlink_ simply:
 #### Import the web component into the Angular application, **app**:
 ```typescript
 // ...
-import '@guigo/rms-sparkline-inline';
+import 'rms-sparkline-inline';
 // ...
 ````
 
