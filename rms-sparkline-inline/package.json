@@ -1,5 +1,5 @@
 {
-  "name": "@guigo/rms-sparkline-inline",
+  "name": "rms-sparkline-inline",
   "author": "Rodrigo Silveira",
   "version": "0.0.2",
   "description": "Sparkline Bar Chart Web Component",
