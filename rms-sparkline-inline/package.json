@@ -4,6 +4,9 @@
   "version": "0.0.2",
   "description": "Sparkline Bar Chart Web Component",
   "homepage": "hhttps://github.com/RodrigoMattosoSilveira/rms-sparklines#README",
+  "publishConfig": {
+    "access": "public"
+  },
   "bugs": {
     "url": "hhttps://github.com/RodrigoMattosoSilveira/rms-sparklines/issues",
     "email": "rodrigomattososilveira@gmail.com"
