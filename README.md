@@ -1,19 +1,28 @@
 &lt;rms-sparklines&gt;
 =
 
+Source code
+--
+[rms-sparklines](https://github.com/RodrigoMattosoSilveira/rms-sparklines)
+
+
 Description
 --
 This is a collection of web components to render [sparklines](https://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0001OR), conceived by [Edward Tufte](https://www.edwardtufte.com/tufte/). My motivation for this project is to use web component technology to implement sparklines. The project's overall concepts, but not source code, borrows extensively from [Gareth Watts](https://omnipotent.net/jquery.sparkline/#s-about) jQery project.
 
 These webcomponents are built using the [@nutmeg/cli](https://github.com/abraham/nutmeg-cli); this document assumes you are familiar with it and the ancilary technbologies required by [@nutmeg/cli](https://github.com/abraham/nutmeg-cli).
 
+## Sparkline portifolio
+* [<rms-sparkline-inline>](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/rms-sparkline-inline): A simple line with start / end / high / low points, and an optional drop shade.
+* [<rms-sparkline-bar-chart>](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/rms-sparkline-bar-chart): A bar chart sparkline.
+
 ## Installation
 Cloning this repository: 
 * **$** `cd ~`
-* **$** `git clone https://github.com/RodrigoMattosoSilveira/sparklines`
+* **$** `git clone https://github.com/RodrigoMattosoSilveira/rms-sparklines`
 
 Initialize the sparklines
-* **$** `cd ~/sparklines`
+* **$** `cd ~/rms-sparklines`
 * **$** `npm run setup`
 
 This will take a few minutes, and does the following
@@ -23,33 +32,24 @@ This will take a few minutes, and does the following
     
 ## Write a new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component
 The following steps are required:
-* Install `rms-sparklines`
-* Create a [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component scaffold.
-* Install `rms-sparklines-styleguide` to showcase the new web component
-* Create a `rms-sparklines-styleguide` application component, `rms-sparkline-awesome`, to showcase its [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component cousin. 
-* Integrate the `rms-sparkline-awesome` web component into the `rms-sparklines-styleguide` application.
-* Develop the new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component.
-* Publish the new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component.
-* Set up the new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) component for general usage.
+* Web Component Development
+    * Install `rms-sparklines`
+    * Develop the new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component.
+    * Develop unit tests for the new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component.
+    * Publish the new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component.
+* Show case the new web component in the style guide
+    * 
 
 #### Install `rms-sparklines` 
-See installation instructions above for details
+If not already installed, install according to the instructions above.
 
 #### Create a [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component
 I use the [nutmeg-cli](https://github.com/abraham/nutmeg-cli) to generate web components; see the instructions therein for details:
 * **$** `cd ~/rms-sparklines`
 * **$** `nutmeg new rms-sparkline-awesome attribute_1:attribute_type ... attribute_4:attribute_type`
 
-This will create a new folder, `rms-sparklines`, with the 
+This will create a new folder, `rms-sparklines-awesome`, including a scaffold for the new web component
 
-#### Install `rms-sparklines-styleguide` to showcase the new web component
-See the [rms-sparklines-styleguide](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide) README for instructions
-
-#### Create a `rms-sparklines-styleguide` component
-See the [rms-sparklines-styleguide](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide) README / Setup to write a new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component section for instructions
-
-#### Integrate the `rms-sparkline-awesome` component into the `rms-sparklines-styleguide` application
-See the [rms-sparklines-styleguide](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide) README / Setup to write a new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component section for instructions
 
 #### Develop and publish the new component 
 I reflect the patterns in the existing [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web components to set up the new web component:
@@ -59,13 +59,11 @@ I reflect the patterns in the existing [@rms/sparkline](https://github.com/Rodri
 * update the `getter methods` to return default values were appropriate.
 * Update the unit tests to validate the handling of default attributes, and changed attributes; once the sparkline is complete, then include the image generation validation.
 * Renamde the `readme.md` to `README.md` and document your component requirements; keep this file updated as your component gains life.
-* Create a `CHAGELOG.md` file, see the other `CHAGELOG.md` files in the repository for details.
+* Hook up `rms-sparkline-awesome` to `rms-sparklines`
+    * Add an index.js file, exporting the component: `export * from 'dist/rms-sparkline-awesome';`
+    * Update the ~/rms-sparklines/index.js to the component: `export * from './rms-sparkline-awesome;'`
 
-Add the required logic, ensure the new logic is covered by unit tests, and that the existing tets pass:
-* **$** `cd ~/rms-sparklines/rms-sparline-awesome`
-* **$** `ng run test`
-
-Update the `~/sparklines/app/setup.sh` script
+Update the `~/sparklines/app/setup.sh` script to initialize `rms-sparkline-awesome`
 * Add logic to re-install each of the web components packages, test, and build it
     * **$** `pushd rms-sparkline-awesome`
     * **$** `rm -rf node_modules`
@@ -74,38 +72,26 @@ Update the `~/sparklines/app/setup.sh` script
     * **$** `npm run prepare`
     * **$** `popd`
 
-#### Publish the new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component.
-
-#### Set up the new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) component for general usage.
-See the [rms-sparklines-styleguide](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide). README for instructions
-
-## Update an existing [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component
-The following steps are required:
-* Install `rms-sparklines`
-* Install `rms-sparklines-styleguide`
-* Set up the [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) component for development.
-* Develop and publish the new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component.
-* Set up the updated [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) component general usage.
-
-#### Install `rms-sparklines`
-See installation instructions above for details
-
-#### Install `rms-sparklines-styleguide`
-See the [rms-sparklines-styleguide](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide) README for instructions
-
-#### Set up the [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) component for development.
-See the [rms-sparklines-styleguide](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide) README / Setup to update and existing [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component section for instructions
-
-#### Update the exiting [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component.
-Change the existing component logic as required. Ensure the new logic is covered by unit tests, and that the existing tets pass:
-* **$** `cd ~/rms-sparklines/rms-sparline-inilint`
+#### Develop unit tests for the new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component.
+Ensure the web component's logic is covered by unit tests, and that the existing tests pass:
+* **$** `cd ~/rms-sparklines/rms-sparline-awesome`
 * **$** `ng run test`
 
-#### Publish the updated [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component.
 
-#### Set up the updated [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) component general usage.
-See the [rms-sparklines-styleguide](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide) README / Setup to update and existing [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component section for instructions
+#### Show case the new web component in the style guide
+See the [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) README for instructions
 
+#### Publish the new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component.
+This is done in the root directory:
+* **$** `cd ~/rms-sparklines`
+* Increment packages.json version using `semver` notation
+* **$** `npm publish`
+
+See the [rms-sparklines-styleguide](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide). README for instructions on how and when to use the web component's published and under developemnt versions.
+
+
+## Update an existing [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component
+Similar as when creating a new component, except that you will skip the create component steps.
 
 ## Last but not least
     
