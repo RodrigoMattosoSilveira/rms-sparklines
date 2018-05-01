@@ -29,6 +29,9 @@ This will take a few minutes, and does the following
 * For each sparkline package
     * Installs the packages required by each sparkline package
     * Builds the sparkline package
+    * Tests the sparkline
+    
+Note that this same script is used to tell the continuous development framwework to build and test all sparklines.
     
 ## Write a new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component
 The following steps are required:
@@ -64,13 +67,17 @@ I reflect the patterns in the existing [@rms/sparkline](https://github.com/Rodri
     * Update the ~/rms-sparklines/index.js to the component: `export * from './rms-sparkline-awesome;'`
 
 Update the `~/sparklines/app/setup.sh` script to initialize `rms-sparkline-awesome`
-* Add logic to re-install each of the web components packages, test, and build it
-    * **$** `pushd rms-sparkline-awesome`
-    * **$** `rm -rf node_modules`
-    * **$** `npm install`
-    * **$** `npm run test`
-    * **$** `npm run prepare`
-    * **$** `popd`
+* Add the relative web component path to the `setup.sh` script webComponents array`setup.sh`
+````bash
+#!/usr/bin/env bash
+
+declare -a webComponents=("rms-sparkline-inline" \
+. . . \
+"rms-sparkline-bar-awesome"
+)
+
+. . . 
+````
 
 #### Develop unit tests for the new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component.
 Ensure the web component's logic is covered by unit tests, and that the existing tests pass:
@@ -87,8 +94,9 @@ This is done in the root directory:
 * Increment packages.json version using `semver` notation
 * **$** `npm publish`
 
-See the [rms-sparklines-styleguide](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide). README for instructions on how and when to use the web component's published and under developemnt versions.
+See the [rms-sparklines-styleguide](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide). README for instructions on how and when to use the web component's published and under development versions.
 
+Note that the publishing is done in the library's not the web component's root folder. 
 
 ## Update an existing [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component
 Similar as when creating a new component, except that you will skip the create component steps.
