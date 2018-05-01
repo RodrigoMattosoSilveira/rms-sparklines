@@ -3,7 +3,7 @@
 
 Source code
 --
-[rms-sparklines](https://github.com/RodrigoMattosoSilveira/rms-sparklines)
+[rms-sparklines](https://github.com/RodrigoMattosoSilveira/rms-sparklines) https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines.svg?branch=single-package
 
 
 Description
