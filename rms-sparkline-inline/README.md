@@ -14,7 +14,7 @@ The sparkline can be styled. See the properties section for details
 
 
 ### Usage
-See examples of applications on the Angular web application, **app**, included in this repository.
+See examples of applications on the Angular web application, [rms-sparklines-=styleguid](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide).
 
 
 #### Declare the component on the Angular application
@@ -29,7 +29,7 @@ As part of the development process the software engineer can simply _symlink_ th
 * link to the component: **$** `nmp link ~/rms-sparklines/rms-sparkline/rms-sparkline-inline/`
 
 To remove the _symlink_ simply:
-* navigate to the **app** root folder: **$** `cd~/target-application/`
+* navigate to the [rms-sparklines-=styleguid](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide) root folder: **$** `cd ~/rms-sparklines-styleguide`
 * link to the component: **$** `nmp unlink rms-sparkline-inline`
 
 #### Import the web component into the Angular application, **app**:
