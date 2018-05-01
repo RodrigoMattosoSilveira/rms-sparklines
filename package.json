@@ -1,5 +1,5 @@
 {
-  "name": "@rms/sparklines",
+  "name": "rms-sparklines",
   "version": "0.0.1",
   "description": "A sparkline collection, written as web components",
   "main": "index.js",
