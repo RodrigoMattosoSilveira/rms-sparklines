@@ -5,7 +5,7 @@ Source code
 --
 [rms-sparklines](https://github.com/RodrigoMattosoSilveira/rms-sparklines) 
 
-[![Build Status](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines.svg?branch=single-package)](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines)
+[![Build Status](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines.svg?branch=master)](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines)
 
 
 Description
