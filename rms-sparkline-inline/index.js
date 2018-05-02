@@ -1,0 +1,1 @@
+export * from 'dist/rms-sparkline-inline';

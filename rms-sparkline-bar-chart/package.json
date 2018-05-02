@@ -11,9 +11,9 @@
     "url": "hhttps://github.com/RodrigoMattosoSilveira/rms-sparklines/issues",
     "email": "rodrigomattososilveira@gmail.com"
   },
-  "repository" :
-  { "type" : "git"
-  , "url" : "hhttps://github.com/RodrigoMattosoSilveira/rms-sparklines.git"
+  "repository": {
+    "type": "git",
+    "url": "hhttps://github.com/RodrigoMattosoSilveira/rms-sparklines.git"
   },
   "main": "dist/rms-sparkline-bar-chart.js",
   "types": "dist/rms-sparkline-bar-chart.d.ts",

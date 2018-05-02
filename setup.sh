@@ -1,21 +1,15 @@
 #!/usr/bin/env bash
 
-# Build the rms-sparkline-inline web component
-#
-echo "Build the rms-sparkline-inline web component"
-pushd rms-sparkline-inline
-rm -rf node_modules
-npm install
-npm run test
-npm run prepare
-popd
+declare -a webComponents=("rms-sparkline-inline" \
+"rms-sparkline-bar-chart"
+)
 
-# Build the rms-sparkline-bar-chart web component
-#
-echo "Build the rms-sparkline-bar-chart web component"
-pushd rms-sparkline-bar-chart
-rm -rf node_modules
-npm install
-npm run test
-npm run prepare
-popd
+for webComponent in "${webComponents[@]}"
+do
+    echo "Initializing " + $webComponent
+    pushd $webComponent
+    rm -rf node_modules
+    npm install
+    npm run test
+    popd
+done
