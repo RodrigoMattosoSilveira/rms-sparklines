@@ -1,9 +1,17 @@
 language: node.js
-script: ./setup.sh
+script: "./setup.sh"
 sudo: required
 dist: trusty
 addons:
-    chrome: stable
+  chrome: stable
 before_script:
     - "sudo chown root /opt/google/chrome/chrome-sandbox"
     - "sudo chmod 4755 /opt/google/chrome/chrome-sandbox"
+deploy:
+  provider: npm
+  email: rodrigomattososilveira@gmail.com
+  api_key:
+    secure: lRFXNqEp1tad92RZfUWMqq86XH3FZj3X+NKYSMIkfCb3EFXO5vv9Ljq1rl7KQdzhFvI85J4GbQ9gOI0HsS8Gok86HT12qzZI6NS885ing/hqDnH3ToEItSnjIZTiCYNfm9R5oNjcwY3p8TGbaSrUFR/E6l+ZWNdQBTLdnspwKF28oK3i8V1LcT+LOhRZdPcpoc56KhV3nCNcAiQLZSQqb8brHggyWm8TI4VnpeF/1IUzEA5iz9m5mPYIqRgEgif0+YyoLIHnZJcKlSMSx1WyvKDCvR4ASNHE1hrGLMHaes9jds91W8zciEpxM1OMHaZm1kxQv7J/p0rUUFw+XZVyDFz7CFe5lxc9iaIXLwfFzW1r3jKMFi5vJ6qsqmWVb8BqsUBZpvnGttU28V0kN+JJAs25JlnRQfTr9qDz9kpCaezHD9n+6w0PK1wsCHVTqm9J2fz75kjm5LAWQXuiLQLxj3FSfaOA6rE9yf/mE7d+FUrddT/0uQUjJ9Y8aSsAilMiDPl0rQYJMuhHiGFNKsqfZ/gk0mdPQfYJmoEteA8GNcYM9LyEVsY5SeVMs0mC7FtxFIxPjfpaurjgn4c/9SH9Ip0HcoKwiwvhf61eNMIWkH2OzR+1eI86qECpuZuStWVaJZKs0n3R5qPNahAVOAQMSmt1YvjNkqfdV1O42NAByJI=
+  on:
+    repo: RodrigoMattosoSilveira/rms-sparklines
+    branch: master
