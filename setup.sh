@@ -10,6 +10,7 @@ do
     pushd $webComponent
     rm -rf node_modules
     npm install
+    npm run prepare
     npm run test
     popd
 done
