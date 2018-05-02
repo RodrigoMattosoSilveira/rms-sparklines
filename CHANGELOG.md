@@ -6,10 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- N/A
+- Added License (MIT)
 
 ### Changed
-- N/A
+- Now dist/ folders are published
 
 ### Removed
 - N/A
