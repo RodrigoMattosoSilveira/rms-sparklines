@@ -14,6 +14,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Removed
 - N/A
 
+## [0.0.7-alpha.1] - 2018-05-03
+### Added
+- Created a new class to host drawing methods, DrawMethods; started with a circle.
+
+### Changed
+- Fixed a bug on CanvasMath, where the dotRadius needed to be counted twice
+- Refactored rms-sparkline-inline to use DrawMethods.circle
+
+### Removed
+- N/A
+
 ## [0.0.4] - 2018-04-29
 ### Changed
 * CHANGELOG
