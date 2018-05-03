@@ -1,7 +1,7 @@
 {
   "name": "rms-sparklines",
   "author": "Rodrigo Silveira",
-  "version": "0.0.6",
+  "version": "0.0.7-alpha.1",
   "description": "A sparkline collection, written as web components",
   "homepage": "hhttps://github.com/RodrigoMattosoSilveira/rms-sparklines#README",
   "license": "MIT",
@@ -18,7 +18,7 @@
   },
   "main": "index.js",
   "scripts": {
-	"setup": "./setup.sh",
+    "setup": "./setup.sh",
     "test": "./setup.sh"
   },
   "keywords": [
@@ -26,5 +26,9 @@
     "sparkline",
     "nutemeg",
     "webcompnent"
-  ]
+  ],
+  "dependencies": {
+    "codelyzer": "^4.3.0",
+    "tslint": "^5.9.1"
+  }
 }
