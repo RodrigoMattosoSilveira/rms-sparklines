@@ -71,7 +71,7 @@ describe('<rms-sparkline-inline>', () => {
 				expect(component.maxcolor).to.equal('teal');
 			});
 			it(`dotradius attribute is set to 1`, () => {
-				expect(component.dotradius).to.equal(1);
+				expect(component.dotradius).to.equal(0);
 			});
 			it(`toolTip attribute is set to false`, () => {
 				expect(component.tooltip).to.equal(false);
