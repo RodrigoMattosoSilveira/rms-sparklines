@@ -18,7 +18,7 @@ export class CanvasMath {
 	 * Returns the number of pixels between two consecutive values in the x-axis
 	 */
 	static xStep(width: number, linePoints: number[], dotradius: number): number {
-		return (width - dotradius) / linePoints.length;
+		return (width - dotradius*2) / linePoints.length;
 	}
 
 	/**
@@ -30,14 +30,14 @@ export class CanvasMath {
 			if (entry > max) max = entry;
 		}
 
-		return ((height - dotradius) / max);
+		return ((height - dotradius*2) / max);
 	}
 
 	/**
 	 * Translate from bottom left to top left coordinates
 	 */
 	static translateToCanvas(height: number, point: Point, dotradius: number): Point {
-		return new Point(point.getX() + dotradius/2, height - (point.getY() + dotradius/2));
+		return new Point(point.getX() + dotradius*2, height - (point.getY() + dotradius));
 	}
 
 	/**

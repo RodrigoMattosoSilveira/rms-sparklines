@@ -1,6 +1,7 @@
 import { html, render, TemplateResult } from 'lit-html';
 import { CanvasMath } from '../../util/CanvasMath'
 import { Point } from '../../util/Point'
+import {DrawMethods} from '../../util/DrawMethods';
 
 export class RmsSparklineInline extends HTMLElement {
   public linePoints: number[] = [];
@@ -161,9 +162,9 @@ export class RmsSparklineInline extends HTMLElement {
 
   get dotradius(): number {
 	  if (this.hasAttribute('dotradius')) {
-		  return Number(this.getAttribute('dotradius')) == 0 ? 1.5 : Number(this.getAttribute('dotradius'));
+		  return Number(this.getAttribute('dotradius'));
 	  } else {
-		  return 1;
+		  return 0;
 	  }
   }
 
@@ -292,34 +293,25 @@ export class RmsSparklineInline extends HTMLElement {
 			}
 		}
 		ctx.stroke();
-
-		// Draw start point ... an arc using the first point in canvasPoints
-		// https://www.w3schools.com/jsref/canvas_arc.asp
-		ctx.beginPath();
-		ctx.arc(canvasPoints[0].getX(), canvasPoints[0].getY(), this.dotradius, 0, Math.PI * 2);
-		ctx.fillStyle = this.startcolor;
-		ctx.fill();
-
-		// Draw end point ... an arc using the last point in canvasPoints
-		// https://www.w3schools.com/jsref/canvas_arc.asp
-		ctx.beginPath();
-		ctx.arc(canvasPoints[canvasPoints.length-1].getX(), canvasPoints[canvasPoints.length-1].getY(), this.dotradius, 0, Math.PI * 2);
-		ctx.fillStyle = this.endcolor;
-		ctx.fill();
-
-		// Draw max point
-		let  maxPointIndex = CanvasMath.maxPointIndex(this.linePoints);
-		ctx.beginPath();
-		ctx.arc(canvasPoints[maxPointIndex].getX(), canvasPoints[maxPointIndex].getY(), this.dotradius, 0, Math.PI * 2);
-		ctx.fillStyle = this.maxcolor;
-		ctx.fill();
-
-		// Draw min point
-		let minPointIndex = CanvasMath.mixPointIndex(this.linePoints);
-		ctx.beginPath();
-		ctx.arc(canvasPoints[minPointIndex].getX(), canvasPoints[minPointIndex].getY(), this.dotradius, 0, Math.PI * 2);
-		ctx.fillStyle = this.mincolor;
-		ctx.fill();
+        
+        /**
+         * Draw points only if a dotRadius is supplied and it is greater than zero
+         */
+		if (this.dotradius > 0) {
+            // Draw start point ... an arc using the first point in canvasPoints
+            DrawMethods.circle(ctx, canvasPoints[0], this.dotradius, 0, Math.PI * 2, this.startcolor);
+            
+            // Draw end point ... an arc using the last point in canvasPoints
+            DrawMethods.circle(ctx, canvasPoints[canvasPoints.length-1], this.dotradius, 0, Math.PI * 2, this.endcolor);
+            
+            // Draw max point
+            let  maxPointIndex = CanvasMath.maxPointIndex(this.linePoints);
+            DrawMethods.circle(ctx, canvasPoints[maxPointIndex], this.dotradius, 0, Math.PI * 2, this.maxcolor);
+            
+            // Draw min point
+            let minPointIndex = CanvasMath.mixPointIndex(this.linePoints);
+            DrawMethods.circle(ctx, canvasPoints[minPointIndex], this.dotradius, 0, Math.PI * 2, this.mincolor);
+        }
 
 		/**
 		 * used to aid in unit testing; the results published to the console are compared with the results produced by
