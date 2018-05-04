@@ -15,8 +15,8 @@ This is a collection of web components to render [sparklines](https://www.edward
 These webcomponents are built using the [@nutmeg/cli](https://github.com/abraham/nutmeg-cli); this document assumes you are familiar with it and the ancilary technbologies required by [@nutmeg/cli](https://github.com/abraham/nutmeg-cli).
 
 ## Sparkline portifolio
-* [<rms-sparkline-inline>](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/rms-sparkline-inline): A simple line with start / end / high / low points, and an optional drop shade.
-* [<rms-sparkline-bar-chart>](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/rms-sparkline-bar-chart): A bar chart sparkline.
+* [rms-sparkline-inline](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/rms-sparkline-inline): A simple line with start / end / high / low points, and an optional drop shade.
+* [rms-sparkline-bar-chart](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/rms-sparkline-bar-chart): A bar chart sparkline.
 
 ## Installation
 Cloning this repository: 
