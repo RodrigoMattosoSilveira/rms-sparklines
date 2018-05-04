@@ -21,8 +21,6 @@ describe('<rms-sparkline-inline>', () => {
 		},
 	};
 
-	const expectedSparkline_1 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAQCAYAAACm53kpAAADbklEQVRYR82XT2wUVRzHv7/Z1HQTQpZURRsXUSwxnXlPTEqEg7gQNcYE/HMxxkNtL8YAiVBPxqSvIcaEA4IxvUCiCRcuBMVqggrS6IEL2r63s5O4F/Ui6IHGGDbs7MzPvN0tTofCDpUu/V02m/f9ze/3+/x+b94bwt02pUoAPgKwCcCvAF6BUjPdSou6FeimcVrFPpFYn4FST3Yrr5UAgG8oVqmu5XVHAs3Ozm4homdsJ/P5/MjAwMC1zB1Uyo79wwn9LJSy26ErtmQAQRCUGo3GewBs4ReJaDqO4z+JaLsQYlfW7D+cmvrqoNbiSr1evL+3t7F17dpXvxgZ+TKr///VLQmA7/tPR1G0B8DRer0+PTQ0FM4nYoz5hpkPSim/65ScMeZtAJ4QYrfVGmOeB7BfCPFCJ9/bWWfgMwDDbZ/z9kVLwJz9vwAAA6rdUbt2noCJdCCt9TYAB6SUtvM3WBAEG8MwPC2lfPxWSfq+/1QURYellFuTOmPMFDNPSim/Xsy/Uqk8ODg4+EcnANVqdUMYho3i6OiWVRcunEjp9xFweAEABuxx9H1KuJ0AS6xpxhirUUII+3tT01p/4jhOxfO8ycVEvu/fE8fx30KI3vR6EATrwzA8J6V8NL1WLpcnmNkCmykUCuPFYrG2SINeJCLbOPseeujeY8dWP3DkyJqUboJazf5vAtrdH08Ka553PG/MKBE1fN/fEcfx+0KIHZ3ot2HFQggnra1Wq/fVarUTuVzuDdd1Ly32LK31Icdxfvc8r9klZnaMMbYR30opDxhj3mXmCSKa7OvrG+/v77+qtZ4v/DIzj0spLzZ9W/eLn1NxRqi1LRYAeBPAp0nhpbEx/6/h4Y1EdIaZ81LKZ7MU3wawF8Bj4uTJU7ZjUGrOGPMaM39MRFIIcbnDFIV2QiqVSimKojO5XK7kuu6PSR9jzJgFAeA0Ea1OFp7UMfAOgJcBFAB8Pt/9BQDatCzl+b09Ta1t0Rx9IcT1rZAJglKlVT09Z/8Jw+YU7Fq37qcPNm/+RQjxehZ/rfVbjuO8FMdxj5TyuVv52Jey67o/ZHluWrOkUyBTIKWSMFsut3nBKZfLOz3PW9YjsbsAgEfQuvisGFtOAMmz1xb8G5Rav2IqbyeynAAKYFYg2gTmORCpbn7lZQW9fACyZnCXdf8CwpFKIGant1sAAAAASUVORK5CYII=";
-	let actualSparkline_1;
 	let canvas;
 
 	before(() => {
@@ -42,12 +40,11 @@ describe('<rms-sparkline-inline>', () => {
 				component = fixture.load(fixturePath)[FIXTURES.DEFAULT];
 				component.linePoints = [4, 3, 7, 8, 1, 4, 9, 2, 5, 3, 5, 5];
 				canvas = component.shadowRoot.children[0];
-				actualSparkline_1 = canvas.toDataURL();
 			});
 			it('tag name is correct', () => {
 				expect(component.tagName).to.equal('RMS-SPARKLINE-INLINE');
 			});
-			it('tag name is correct', () => {
+			it('has a CANVAS element', () => {
 				expect(canvas.tagName).to.equal('CANVAS');
 			});
 			it('linePoints attarray is empty', () => {

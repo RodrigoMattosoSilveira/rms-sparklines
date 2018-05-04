@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.0.7] - 2018-05-03
 ### Changed
-- rms-sparkline-inline to fix issue#3: Inline dots chopped in half 
+- rms-sparkline-inline to fix issue#3: Inline dots chopped in half; see rms-sparkline-inline/README for details on the component changes
 
 ## [0.0.1] - 2018-05-01
 ### Added
