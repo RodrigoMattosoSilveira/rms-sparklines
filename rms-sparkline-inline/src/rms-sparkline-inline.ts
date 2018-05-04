@@ -317,7 +317,9 @@ export class RmsSparklineInline extends HTMLElement {
 		 * used to aid in unit testing; the results published to the console are compared with the results produced by
 		 * the unit test!
 		 */
-		// console.log(sparkline.toDataURL());
+        // console.log('dotradius: ' + this.dotradius);
+        // console.log(sparkline.toDataURL());
+        // console.log(ctx.getImageData(0, 0, this.width, this.height))
 
 		return sparkline;
 	}
