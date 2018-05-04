@@ -4,15 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.0.7] - 2018-05-03
 ### Added
-- N/A
+- Created a new class to host drawing methods, DrawMethods; started with a circle.
 
 ### Changed
-- N/A
-
-### Removed
-- N/A
+- Fixed a bug on CanvasMath, where the dotRadius needed to be counted twice
+- Refactored rms-sparkline-inline to use DrawMethods.circle
 
 ## [0.0.4] - 2018-04-29
 ### Changed
