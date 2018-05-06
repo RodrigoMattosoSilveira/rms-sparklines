@@ -1,24 +1,31 @@
 &lt;rms-sparklines&gt;
 =
 
-Source code
---
-[rms-sparklines](https://github.com/RodrigoMattosoSilveira/rms-sparklines) 
 
 [![Build Status](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines.svg?branch=master)](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines)
 
 
-Description
---
+# Description
 This is a collection of web components to render [sparklines](https://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0001OR), conceived by [Edward Tufte](https://www.edwardtufte.com/tufte/). My motivation for this project is to use web component technology to implement sparklines. The project's overall concepts, but not source code, borrows extensively from [Gareth Watts](https://omnipotent.net/jquery.sparkline/#s-about) jQery project.
 
 These webcomponents are built using the [@nutmeg/cli](https://github.com/abraham/nutmeg-cli); this document assumes you are familiar with it and the ancilary technbologies required by [@nutmeg/cli](https://github.com/abraham/nutmeg-cli).
 
-## Sparkline portifolio
-* [rms-sparkline-inline](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/rms-sparkline-inline): A simple line with start / end / high / low points, and an optional drop shade.
-* [rms-sparkline-bar-chart](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/rms-sparkline-bar-chart): A bar chart sparkline.
+### Source code
+Check [rms-sparklines](https://github.com/RodrigoMattosoSilveira/rms-sparklines) for the web components repository.
 
-## Installation
+Check [rms-sparklines-styleguide](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide) for the repository of an Angular web application illustrating their usage.
+
+### Build Status
+* *master*: [![Build Status](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines.svg?branch=master)](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines)
+
+### Live Application
+You can navigate to [rms-sparklines-styleguide](https://rms-sparklines-styleguide.herokuapp.com/) to see a live version of the Angular web application illustrating their usage.
+
+### Sparkline portifolio
+* [<rms-sparkline-inline>](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/rms-sparkline-inline): A simple line with start / end / high / low points, and an optional drop shade.
+* [<rms-sparkline-bar-chart>](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/rms-sparkline-bar-chart): A bar chart sparkline.
+
+# Installation
 Cloning this repository: 
 * **$** `cd ~`
 * **$** `git clone https://github.com/RodrigoMattosoSilveira/rms-sparklines`
@@ -35,7 +42,7 @@ This will take a few minutes, and does the following
     
 Note that this same script is used to tell the continuous development framwework to build and test all sparklines.
     
-## Write a new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component
+### Write a new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component
 The following steps are required:
 * Web Component Development
     * Install `rms-sparklines`
@@ -103,8 +110,7 @@ Note that the publishing is done in the library's not the web component's root f
 ## Update an existing [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component
 Similar as when creating a new component, except that you will skip the create component steps.
 
-## Last but not least
-    
+# Last but not least
 ````html
  _   _                   _____            
 | | | | __ ___   _____  |  ___|   _ _ __  
