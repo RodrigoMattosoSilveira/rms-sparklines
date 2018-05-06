@@ -228,90 +228,20 @@ export class RmsSparklineInline extends HTMLElement {
 
 		let ctx: CanvasRenderingContext2D = sparkline.getContext('2d');
 
-		// Clear the rectangle
-		ctx.clearRect(0, 0, this.width, this.height);
-
-		// Calculate the x-axis and y-axis steps
-		let xStep = CanvasMath.xStep(this.width, this.linePoints, this.dotradius);
-		// // console.log('CanvasMath:xStep = ' + this.xStep);
-
-		let yStep = CanvasMath.yStep(this.height, this.linePoints, this.dotradius);
-		//// console.log('CanvasMath:yStep = ' + this.yStep);
-
-		// Build the drawPoints and shadePoints arrays
-		let drawPoints: Point[] = [];
-		drawPoints.push(new Point(0,0)); // used to build the shade area, it will be dropped
-		for (let i: number = 0; i < this.linePoints.length; i++) {
-			drawPoints.push(new Point(xStep*i, this.linePoints[i]*yStep));
-		}
-		drawPoints.push(new Point(drawPoints[drawPoints.length-1].getX(),0)); // used to build the shade area, it will be dropped
-		// this.logMessage = 'drawPoints:\n';
-		// for (let drawPoint of this.drawPoints) {
-		//   this.logMessage += ' Drawpoint x: ' + drawPoint.getX() + '   Drawpoint y: ' + drawPoint.getY() + '\n';
-		// }
-		// // console.log(this.logMessage);
-
-		// Translate drawPoints into canvasPoints
-		let canvasPoints: Point[] = [];
-		for (let drawPoint of drawPoints) {
-			canvasPoints.push(CanvasMath.translateToCanvas(this.height, drawPoint, this.dotradius));
-		}
-
-		// Fill the area underneath the sparkline, if shade is true
-		// // console.log(`shade me: ` + this.shade ? `Do it` : `Don't do it`);
-		if (this.shade) {
-
-			// Fill up the area
-			ctx.beginPath();
-			ctx.fillStyle = this.shadecolor;
-			for (let i: number = 0; i <canvasPoints.length; i++) {
-				if (i === 0) {
-					ctx.moveTo(canvasPoints[0].getX(), canvasPoints[0].getY())
-				}
-				else {
-					ctx.lineTo(canvasPoints[i].getX(), canvasPoints[i].getY())
-				}
-			}
-			ctx.fill();
-		}
-
-		// Drop first and last points, they were used to build the shade area
-		canvasPoints.splice(0,1);
-		canvasPoints.splice(canvasPoints.length-1, 1);
-
-		// Draw the path, on top of the shade area
-		// https://www.w3schools.com/graphics/canvas_coordinates.asp
-		ctx.beginPath();
-		ctx.lineWidth = this.linewidth;
-		ctx.strokeStyle = this.linecolor;
-		for (let i: number = 0; i <canvasPoints.length; i++) {
-			if (i === 0) {
-				ctx.moveTo(canvasPoints[0].getX(), canvasPoints[0].getY())
-			}
-			else {
-				ctx.lineTo(canvasPoints[i].getX(), canvasPoints[i].getY())
-			}
-		}
-		ctx.stroke();
-        
-        /**
-         * Draw points only if a dotRadius is supplied and it is greater than zero
-         */
-		if (this.dotradius > 0) {
-            // Draw start point ... an arc using the first point in canvasPoints
-            DrawMethods.circle(ctx, canvasPoints[0], this.dotradius, 0, Math.PI * 2, this.startcolor);
-            
-            // Draw end point ... an arc using the last point in canvasPoints
-            DrawMethods.circle(ctx, canvasPoints[canvasPoints.length-1], this.dotradius, 0, Math.PI * 2, this.endcolor);
-            
-            // Draw max point
-            let  maxPointIndex = CanvasMath.maxPointIndex(this.linePoints);
-            DrawMethods.circle(ctx, canvasPoints[maxPointIndex], this.dotradius, 0, Math.PI * 2, this.maxcolor);
-            
-            // Draw min point
-            let minPointIndex = CanvasMath.mixPointIndex(this.linePoints);
-            DrawMethods.circle(ctx, canvasPoints[minPointIndex], this.dotradius, 0, Math.PI * 2, this.mincolor);
-        }
+		// Draw the line
+        DrawMethods.line(ctx,
+            this.linePoints,
+            this.width,
+            this.linewidth,
+            this.linecolor,
+            this.height,
+            this.shade,
+            this.shadecolor,
+            this.dotradius,
+            this.startcolor,
+            this.endcolor,
+            this.maxcolor,
+            this.mincolor);
 
 		/**
 		 * used to aid in unit testing; the results published to the console are compared with the results produced by
