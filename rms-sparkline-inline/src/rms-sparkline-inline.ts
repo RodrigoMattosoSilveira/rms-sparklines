@@ -1,5 +1,6 @@
 import { html, render, TemplateResult } from 'lit-html';
 import {DrawMethods} from '../../util/DrawMethods';
+import {Decoration} from '../dist/util/Decoration';
 
 export class RmsSparklineInline extends HTMLElement {
 
@@ -49,13 +50,13 @@ export class RmsSparklineInline extends HTMLElement {
     });
   }
     
-    get linepoints(): string {
-        return this.getAttribute('linepoints') || JSON.stringify([]);
+    get linepoints(): number[] {
+        return  JSON.parse(this.getAttribute('linepoints')) || JSON.stringify([]);
     }
     
-    set linepoints(value: string) {
+    set linepoints(value: number[]) {
         if (value) {
-            this.setAttribute('linepoints', value);
+            this.setAttribute('linepoints', JSON.stringify(value));
         } else {
             this.removeAttribute('linepoints');
         }
@@ -184,19 +185,18 @@ export class RmsSparklineInline extends HTMLElement {
 			this.removeAttribute('shadecolor');
 		}
 	}
-    
-    get decorationpoints(): string {
-        return this.getAttribute('decorationpoints') || JSON.stringify([]);
+    get decorationpoints(): Decoration [] {
+        return  JSON.parse(this.getAttribute('decorationpoints')) || JSON.parse(JSON.stringify([]));
     }
     
-    set decorationpoints(value: string) {
+    set decorationpoints(value: Decoration []) {
         if (value) {
-            this.setAttribute('decorationpoints', value);
+            this.setAttribute('decorationpoints', JSON.stringify(value));
         } else {
             this.removeAttribute('decorationpoints');
         }
     }
-
+ 
 	/**
 	 * Draw an inline sparkline
 	 */

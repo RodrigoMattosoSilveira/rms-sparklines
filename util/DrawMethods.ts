@@ -21,7 +21,7 @@ export class DrawMethods {
     }
  
     static line(ctx: CanvasRenderingContext2D,
-        linepoints: string,
+        linePoints: number[],
         width: number,
         linewidth: number,
         linecolor: string,
@@ -29,10 +29,10 @@ export class DrawMethods {
         shade: boolean,
         shadecolor:string,
         dotradius: number,
-        decorationPoints: string): void {
+        decorationpoints:  Decoration[]): void {
         
         // console.log('DrawMethods::line_1 linepoints = ' + linepoints);
-        const linePoints: number[] = JSON.parse(linepoints);
+        // const linePoints: number[] = JSON.parse(linepoints);
         if (linePoints.length === 0) return;
         
         // Clear the rectangle
@@ -104,11 +104,10 @@ export class DrawMethods {
         /**
          * Draw decoration points only if a dotRadius is supplied and it is greater than zero
          */
-        if (dotradius > 0) {
-            const dp: Decoration[] = JSON.parse(decorationPoints);
-            
-            for (let i = 0; i < dp.length; i++) {
-                DrawMethods.circle(ctx, canvasPoints[dp[i].index], dotradius, 0, Math.PI * 2, dp[i].color);
+        if (dotradius > 0 && decorationpoints.length > 0) {
+            console.log('DrawMethods::line decorationPoint = ' + JSON.stringify(decorationpoints));
+            for (let i = 0; i < decorationpoints.length; i++) {
+                DrawMethods.circle(ctx, canvasPoints[Number(decorationpoints[i].index)], dotradius, 0, Math.PI * 2, decorationpoints[i].color);
             }
         }
     }
