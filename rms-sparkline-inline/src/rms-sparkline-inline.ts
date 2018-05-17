@@ -211,7 +211,7 @@ export class RmsSparklineInline extends HTMLElement {
 		let ctx: CanvasRenderingContext2D = sparkline.getContext('2d');
 
 		// Draw the line
-        DrawMethods.line_1(ctx,
+        DrawMethods.line(ctx,
             this.linepoints,
             this.width,
             this.linewidth,
