@@ -1,6 +1,4 @@
 import { html, render, TemplateResult } from 'lit-html';
-import { CanvasMath } from '../../util/CanvasMath'
-import { Point } from '../../util/Point'
 import {DrawMethods} from '../../util/DrawMethods';
 
 export class RmsSparklineInline extends HTMLElement {
@@ -12,7 +10,18 @@ export class RmsSparklineInline extends HTMLElement {
   }
 
   static get observedAttributes(): string[] {
-    return ['classname', 'width', 'height', 'linecolor', 'linewidth', 'startcolor', 'endcolor', 'maxcolor', 'mincolor', 'dotradius', 'tooltip', 'shade', 'shadecolor'];
+    return [
+        'classname',
+        'width',
+        'height',
+        'linecolor',
+        'linewidth',
+        'dotradius',
+        'tooltip',
+        'shade',
+        'shadecolor',
+        'decorationpoints'
+    ];
   }
 
   connectedCallback() {
@@ -112,54 +121,6 @@ export class RmsSparklineInline extends HTMLElement {
     }
   }
 
-  get startcolor(): string {
-    return this.getAttribute('startcolor') || 'red';
-  }
-
-  set startcolor(value: string) {
-    if (value) {
-      this.setAttribute('startcolor', value);
-    } else {
-      this.removeAttribute('startcolor');
-    }
-  }
-
-  get endcolor(): string {
-    return this.getAttribute('endcolor') || 'red';
-  }
-
-  set endcolor(value: string) {
-    if (value) {
-      this.setAttribute('endcolor', value);
-    } else {
-      this.removeAttribute('endcolor');
-    }
-  }
-
-  get maxcolor(): string {
-    return this.getAttribute('maxcolor') || 'teal';
-  }
-
-  set maxcolor(value: string) {
-    if (value) {
-      this.setAttribute('maxcolor', value);
-    } else {
-      this.removeAttribute('maxcolor');
-    }
-  }
-
-  get mincolor(): string {
-    return this.getAttribute('mincolor') || 'teal';
-  }
-
-  set mincolor(value: string) {
-    if (value) {
-      this.setAttribute('mincolor', value);
-    } else {
-      this.removeAttribute('mincolor');
-    }
-  }
-
   get dotradius(): number {
 	  if (this.hasAttribute('dotradius')) {
 		  return Number(this.getAttribute('dotradius'));
@@ -211,6 +172,18 @@ export class RmsSparklineInline extends HTMLElement {
 			this.removeAttribute('shadecolor');
 		}
 	}
+    
+    get decorationpoints(): string {
+        return this.getAttribute('decorationpoints') || JSON.stringify([]);
+    }
+    
+    set decorationpoints(value: string) {
+        if (value) {
+            this.setAttribute('decorationpoints', value);
+        } else {
+            this.removeAttribute('decorationpoints');
+        }
+    }
 
 	/**
 	 * Draw an inline sparkline
@@ -229,7 +202,7 @@ export class RmsSparklineInline extends HTMLElement {
 		let ctx: CanvasRenderingContext2D = sparkline.getContext('2d');
 
 		// Draw the line
-        DrawMethods.line(ctx,
+        DrawMethods.line_1(ctx,
             this.linePoints,
             this.width,
             this.linewidth,
@@ -238,10 +211,7 @@ export class RmsSparklineInline extends HTMLElement {
             this.shade,
             this.shadecolor,
             this.dotradius,
-            this.startcolor,
-            this.endcolor,
-            this.maxcolor,
-            this.mincolor);
+            this.decorationpoints);
 
 		/**
 		 * used to aid in unit testing; the results published to the console are compared with the results produced by
@@ -264,31 +234,6 @@ export class RmsSparklineInline extends HTMLElement {
   private get template(): TemplateResult {
 	  let sparkline: HTMLCanvasElement = this.draw();
 	  return html`${sparkline}`;
-    // return html`
-    //   ${sparkline}
-    //   ${this.styles}
-    //   <div class="content">
-    //     Welcome to &lt;rms-sparkline-inline-new&gt;
-	//
-    //     <ul>
-    //       <li>className: ${this.classname === null ? 'N/A' : this.classname}</li>
-    //       <li>width: ${this.width === null ? 'N/A' : this.width}</li>
-    //       <li>height: ${this.height === null ? 'N/A' : this.height}</li>
-    //       <li>lineColor: ${this.linecolor === null ? 'N/A' : this.linecolor}</li>
-    //       <li>lineWidth: ${this.linewidth === null ? 'N/A' : this.linewidth}</li>
-    //       <li>startColor: ${this.startcolor === null ? 'N/A' : this.startcolor}</li>
-    //       <li>endColor: ${this.endcolor === null ? 'N/A' : this.endcolor}</li>
-    //       <li>maxColor: ${this.maxcolor === null ? 'N/A' : this.maxcolor}</li>
-    //       <li>minColor: ${this.mincolor === null ? 'N/A' : this.mincolor}</li>
-    //       <li>dotradius: ${this.dotradius === null ? 'N/A' : this.dotradius}</li>
-    //       <li>toolTip: ${this.tooltip === null ? 'N/A' : this.tooltip}</li>
-    //       <li>shade: ${this.shade === null ? 'N/A' : this.shade}</li>
-    //      <li>shadeColor: ${this.shadecolor === null ? 'N/A' : this.shadecolor}</li>
-    //    </ul>
-	//
-    //     <slot></slot>
-    //   </div>
-    // `;
   }
 
   render() {
