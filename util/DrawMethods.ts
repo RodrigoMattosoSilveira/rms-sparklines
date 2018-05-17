@@ -148,7 +148,7 @@ export class DrawMethods {
         dotradius: number,
         decorationPoints: string): void {
         
-        console.log('DrawMethods::line_1 linepoints = ' + linepoints);
+        // console.log('DrawMethods::line_1 linepoints = ' + linepoints);
         const linePoints: number[] = JSON.parse(linepoints);
         if (linePoints.length === 0) return;
         
