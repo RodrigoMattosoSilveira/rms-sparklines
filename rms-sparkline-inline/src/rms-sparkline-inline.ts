@@ -2,7 +2,6 @@ import { html, render, TemplateResult } from 'lit-html';
 import {DrawMethods} from '../../util/DrawMethods';
 
 export class RmsSparklineInline extends HTMLElement {
-  public linePoints: number[] = [];
 
   constructor() {
     super();
@@ -11,6 +10,7 @@ export class RmsSparklineInline extends HTMLElement {
 
   static get observedAttributes(): string[] {
     return [
+        'linepoints',
         'classname',
         'width',
         'height',
@@ -48,6 +48,18 @@ export class RmsSparklineInline extends HTMLElement {
       }
     });
   }
+    
+    get linepoints(): string {
+        return this.getAttribute('linepoints') || JSON.stringify([]);
+    }
+    
+    set linepoints(value: string) {
+        if (value) {
+            this.setAttribute('linepoints', value);
+        } else {
+            this.removeAttribute('linepoints');
+        }
+    }
 
   get classname(): string {
     return this.getAttribute('classname') || '';
@@ -196,14 +208,11 @@ export class RmsSparklineInline extends HTMLElement {
 		sparkline.style.display = 'inline-block';
 		sparkline.style.verticalAlign = 'top';
 
-		// this enables an empty canvas element to be created, helping unit tests.
-		if (this.linePoints.length === 0) return sparkline;
-
 		let ctx: CanvasRenderingContext2D = sparkline.getContext('2d');
 
 		// Draw the line
         DrawMethods.line_1(ctx,
-            this.linePoints,
+            this.linepoints,
             this.width,
             this.linewidth,
             this.linecolor,

@@ -138,7 +138,7 @@ export class DrawMethods {
     
     
     static line_1(ctx: CanvasRenderingContext2D,
-        linePoints: number[],
+        linepoints: string,
         width: number,
         linewidth: number,
         linecolor: string,
@@ -147,6 +147,10 @@ export class DrawMethods {
         shadecolor:string,
         dotradius: number,
         decorationPoints: string): void {
+        
+        console.log('DrawMethods::line_1 linepoints = ' + linepoints);
+        const linePoints: number[] = JSON.parse(linepoints);
+        if (linePoints.length === 0) return;
         
         // Clear the rectangle
         ctx.clearRect(0, 0, width, height);
