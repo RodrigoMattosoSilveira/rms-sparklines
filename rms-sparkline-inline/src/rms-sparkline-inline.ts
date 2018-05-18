@@ -18,7 +18,6 @@ export class RmsSparklineInline extends HTMLElement {
         'linecolor',
         'linewidth',
         'dotradius',
-        'tooltip',
         'shadecolor',
         'decorationpoints'
     ];
@@ -146,18 +145,6 @@ export class RmsSparklineInline extends HTMLElement {
       this.setAttribute('dotradius', String(value));
     } else {
       this.removeAttribute('dotradius');
-    }
-  }
-
-  get tooltip(): boolean {
-    return this.hasAttribute('tooltip');
-  }
-
-  set tooltip(value: boolean) {
-    if (value) {
-      this.setAttribute('tooltip', '');
-    } else {
-      this.removeAttribute('tooltip');
     }
   }
 
