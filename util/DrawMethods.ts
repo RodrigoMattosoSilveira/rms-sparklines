@@ -26,7 +26,6 @@ export class DrawMethods {
         linewidth: number,
         linecolor: string,
         height: number,
-        shade: boolean,
         shadecolor:string,
         dotradius: number,
         decorationpoints:  Decoration[]): void {
@@ -66,7 +65,7 @@ export class DrawMethods {
         
         // Fill the area underneath the sparkline, if shade is true
         // // console.log(`shade me: ` + shaderadius ? `Do it` : `Don't do it`);
-        if (shade) {
+        if (shadecolor) {
             
             // Fill up the area
             ctx.beginPath();

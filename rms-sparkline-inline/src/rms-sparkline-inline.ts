@@ -19,7 +19,6 @@ export class RmsSparklineInline extends HTMLElement {
         'linewidth',
         'dotradius',
         'tooltip',
-        'shade',
         'shadecolor',
         'decorationpoints'
     ];
@@ -162,20 +161,8 @@ export class RmsSparklineInline extends HTMLElement {
     }
   }
 
-	get shade(): boolean {
-		return this.hasAttribute('shade');
-	}
-
-	set shade(value: boolean) {
-		if (value) {
-			this.setAttribute('shade', '');
-		} else {
-			this.removeAttribute('shade');
-		}
-	}
-
 	get shadecolor(): string {
-		return this.getAttribute('shadecolor') || 'lightblue';
+		return this.getAttribute('shadecolor');
 	}
 
 	set shadecolor(value: string) {
@@ -217,7 +204,6 @@ export class RmsSparklineInline extends HTMLElement {
             this.linewidth,
             this.linecolor,
             this.height,
-            this.shade,
             this.shadecolor,
             this.dotradius,
             this.decorationpoints);
