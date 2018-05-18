@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.0.9] - 2018-05-18
+### Changed
+* rms-sparklines-inline
+  * Fixed a README incorrect reference to `linePoints` to be `linepoints`
+  * Commented out a console.log statement  in DrawMethods.line
+
 ## [0.0.8] - 2018-05-03
 ### Changed
 - rms-sparklines-inline, significant changes, see its README for details

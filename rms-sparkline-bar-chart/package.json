@@ -1,7 +1,7 @@
 {
   "name": "rms-sparkline-bar-chart",
   "author": "Rodrigo Silveira",
-  "version": "0.0.8",
+  "version": "0.0.0-see-parent-for-version",
   "description": "Sparkline Bar Chart Web Component",
   "homepage": "hhttps://github.com/RodrigoMattosoSilveira/rms-sparklines#README",
   "publishConfig": {

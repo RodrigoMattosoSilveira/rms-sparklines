@@ -9,7 +9,7 @@ The `rms-sparkline-inline` web component renders a simple sparkline including th
 * an optional dropdown shade
 
 ### Attributes
-* **linePoints**: An array of numbers representing the sparkline data source. Default is empty array. See below for formating details.
+* **linepoints**: An array of numbers representing the sparkline data source. Default is empty array. See below for formating details.
 * **className**:A string of space separated classe names to be added to the canvas element. Default is no classes.
 * **width**: A number giving the width of the sparkline box in pixels. Default is 64.
 * **height**: A number giving the height of the sparkline box in pixels. Default is 16.

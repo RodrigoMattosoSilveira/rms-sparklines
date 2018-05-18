@@ -104,7 +104,7 @@ export class DrawMethods {
          * Draw decoration points only if a dotRadius is supplied and it is greater than zero
          */
         if (dotradius > 0 && decorationpoints.length > 0) {
-            console.log('DrawMethods::line decorationPoint = ' + JSON.stringify(decorationpoints));
+            // console.log('DrawMethods::line decorationPoint = ' + JSON.stringify(decorationpoints));
             for (let i = 0; i < decorationpoints.length; i++) {
                 DrawMethods.circle(ctx, canvasPoints[Number(decorationpoints[i].index)], dotradius, 0, Math.PI * 2, decorationpoints[i].color);
             }
