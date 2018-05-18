@@ -65,26 +65,8 @@ describe('<rms-sparkline-inline>', () => {
 			it(`linewidth attribute is set to 1`, () => {
 				expect(component.linewidth).to.equal(1);
 			});
-			it(`startcolor attribute is set to "red"`, () => {
-				expect(component.startcolor).to.equal('red');
-			});
-			it(`endcolor attribute is set to "red"`, () => {
-				expect(component.endcolor).to.equal('red');
-			});
-			it(`maxcolor attribute is set to "teal"`, () => {
-				expect(component.maxcolor).to.equal('teal');
-			});
-			it(`dotradius attribute is set to 0`, () => {
-				expect(component.dotradius).to.equal(0);
-			});
-			it(`toolTip attribute is set to false`, () => {
-				expect(component.tooltip).to.equal(false);
-			});
-			it(` shade attribute is set to false`, () => {
-				expect(component.shade).to.equal(false);
-			});
 			it(`shadecolor attribute is set to "lightblue"`, () => {
-				expect(component.shadecolor).to.equal('lightblue');
+				expect(component.shadecolor).to.equal(null);
 			});
 			it(' children size is 1', () => {
 				expect(component.shadowRoot.children.length).equal(1);
@@ -133,23 +115,8 @@ describe('<rms-sparkline-inline>', () => {
 			it(`linewidth attribute is set to 5.7`, () => {
 				expect(component.linewidth).to.equal(5.7);
 			});
-			it(`startcolor attribute is set to "startcolor"`, () => {
-				expect(component.startcolor).to.equal('startcolor');
-			});
-			it(`endcolor attribute is set to "endcolor"`, () => {
-				expect(component.endcolor).to.equal('endcolor');
-			});
-			it(`maxcolor attribute is set to "maxcolor"`, () => {
-				expect(component.maxcolor).to.equal('maxcolor');
-			});
 			it(`dotradius attribute is set to 1.7`, () => {
 				expect(component.dotradius).to.equal(1.7);
-			});
-			it(`toolTip attribute is set to true`, () => {
-				expect(component.tooltip).to.equal(true);
-			});
-			it(` shade attribute is set to true`, () => {
-				expect(component.shade).to.equal(true);
 			});
 			it(`shadecolor attribute is set to "lightblue"`, () => {
 				expect(component.shadecolor).to.equal('shadecolor');
