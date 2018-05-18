@@ -8,19 +8,14 @@ The `rms-sparkline-bar-chart` web component renders a sparkline including the fo
 
 These sparkline can be styled. See the properties section for details
 
-### Usage
-
-See usage guidelies on the style guide application, [rms-sparklines-=styleguid](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide) README.
-
-#### Properties
-* **className**:A string of space separated classe names to be added to the canvas element. Default is no classes.
+#### Attributes
 * **barPoints**: An array of numbers representing the sparkline data source. Default is empty array.
+* **className**:A string of space separated classe names to be added to the canvas element. Default is no classes.
 * **width**: A number giving the width of the sparkline box in pixels. Default is 64.
 * **height**: A number giving the height of the sparkline box in pixels. Default is 16.
 * **linecolor**: A string giving the color of the sparkline; any valid CSS color. Default is black.
 * **linewidth**: A number giving the stroke of the line in pixels. Default is 1.
 * **fillcolor**: A string giving the color to fill the bars; any valid CSS color. Default value is blue
-* **tooltip**: Whether to show values the mouse glides over the sparkline. Default value is false;
 
 #### Methods
 The web element does not offer an API. It interactions are controlled by changing its attributes.
@@ -32,7 +27,13 @@ none
 none
 
 ### Development
-   
+
+
+### Usage
+
+See usage guidelies on the style guide application, [rms-sparklines-styleguide](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide) README.
+
+# Last but not least
 ````html
  _   _                   _____            
 | | | | __ ___   _____  |  ___|   _ _ __  

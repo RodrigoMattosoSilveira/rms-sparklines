@@ -8,7 +8,11 @@
 # Description
 This is a collection of web components to render [sparklines](https://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0001OR), conceived by [Edward Tufte](https://www.edwardtufte.com/tufte/). My motivation for this project is to use web component technology to implement sparklines. The project's overall concepts, but not source code, borrows extensively from [Gareth Watts](https://omnipotent.net/jquery.sparkline/#s-about) jQery project.
 
-These webcomponents are built using the [@nutmeg/cli](https://github.com/abraham/nutmeg-cli); this document assumes you are familiar with it and the ancilary technbologies required by [@nutmeg/cli](https://github.com/abraham/nutmeg-cli).
+These webcomponents are built using the [@nutmeg/cli](https://github.com/abraham/nutmeg-cli); this document assumes you are familiar with it and the ancillary technologies required by [@nutmeg/cli](https://github.com/abraham/nutmeg-cli).
+
+### Sparkline portifolio
+* [rms-sparkline-inline](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/rms-sparkline-inline): A simple line. Please refer to its [README](https://github.com/RodrigoMattosoSilveira/rms-sparklines/blob/master/rms-sparkline-inline/README.md) for usage details.
+* [rms-sparkline-bar-chart](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/rms-sparkline-bar-chart): A bar chart sparkline. Please refer to its [README](https://github.com/RodrigoMattosoSilveira/rms-sparklines/blob/master/rms-sparkline-bar-chart/README.md) for usage details.
 
 ### Source code
 Check [rms-sparklines](https://github.com/RodrigoMattosoSilveira/rms-sparklines) for the web components repository.
@@ -20,10 +24,6 @@ Check [rms-sparklines-styleguide](https://github.com/RodrigoMattosoSilveira/rms-
 
 ### Live Application
 You can navigate to [rms-sparklines-styleguide](https://rms-sparklines-styleguide.herokuapp.com/) to see a live version of the Angular web application illustrating their usage.
-
-### Sparkline portifolio
-* [<rms-sparkline-inline>](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/rms-sparkline-inline): A simple line with start / end / high / low points, and an optional drop shade.
-* [<rms-sparkline-bar-chart>](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/rms-sparkline-bar-chart): A bar chart sparkline.
 
 # Installation
 Cloning this repository: 
