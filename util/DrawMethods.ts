@@ -15,7 +15,7 @@ export class DrawMethods {
      */
     static circle(ctx: CanvasRenderingContext2D, point: Point, dotradius: number, startAngle: number, endAngle: number, color: string, ...myArguments: any[] ): void {
         if (myArguments.length !== 6) {
-            console.error ('DrawMethods.circle - Number of arguments(' + myArguments.length + ') less than 6, ' + myArguments.length);
+            // console.error ('DrawMethods.circle - Number of arguments(' + myArguments.length + ') less than 6, ' + myArguments.length);
             return;
         }
         if (!ctx) {
