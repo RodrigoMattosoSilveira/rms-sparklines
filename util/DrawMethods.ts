@@ -15,15 +15,15 @@ export class DrawMethods {
      */
     static circle(ctx: CanvasRenderingContext2D, point: Point, dotradius: number, startAngle: number, endAngle: number, color: string, ...myArguments: any[] ): void {
         if (myArguments.length !== 6) {
-            console.error ('DrawMethods.circle - Number of arguments(' + myArguments.length + ') less than 6');
+            console.error ('DrawMethods.circle - Number of arguments(' + myArguments.length + ') less than 6, ' + myArguments.length);
             return;
         }
         if (!ctx) {
-            console.error ('DrawMethods.circle - CanvasRenderingContext2D is null');
+            // console.error ('DrawMethods.circle - CanvasRenderingContext2D is null');
             return;
         }
         if (!point) {
-            console.error ('DrawMethods.circle - Point is null');
+            // console.error ('DrawMethods.circle - Point is null');
             return;
         }
         
@@ -119,7 +119,12 @@ export class DrawMethods {
         if (dotradius > 0 && decorationpoints.length > 0) {
             // console.log('DrawMethods::line decorationPoint = ' + JSON.stringify(decorationpoints));
             for (let i = 0; i < decorationpoints.length; i++) {
-                DrawMethods.circle(ctx, canvasPoints[Number(decorationpoints[i].index)], dotradius, 0, Math.PI * 2, decorationpoints[i].color);
+                //todo: a hack to solve a problem when running inside vaadin-grid
+                if(decorationpoints[i].index > canvasPoints.length-1) {
+                    //do nothing
+                } else {
+                    DrawMethods.circle(ctx, canvasPoints[Number(decorationpoints[i].index)], dotradius, 0, Math.PI * 2, decorationpoints[i].color);
+                }
             }
         }
     }

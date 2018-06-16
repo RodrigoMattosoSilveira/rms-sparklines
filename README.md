@@ -19,9 +19,6 @@ Check [rms-sparklines](https://github.com/RodrigoMattosoSilveira/rms-sparklines)
 
 Check [rms-sparklines-styleguide](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide) for the repository of an Angular web application illustrating their usage.
 
-### Build Status
-* *master*: [![Build Status](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines.svg?branch=master)](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines)
-
 ### Live Application
 You can navigate to [rms-sparklines-styleguide](https://rms-sparklines-styleguide.herokuapp.com/) to see a live version of the Angular web application illustrating their usage.
 
