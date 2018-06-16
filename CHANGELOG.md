@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.0.10-alpha.1] - 2018-06-14
+### Changed
+* Fixed Polymer component throws an exception inside the static circle() function #22
+** DrawMethods.circle requires 6 arguments
+** DrawMethods.circle requires a !null CanvasRenderingContext2D argument
+** DrawMethods.circle requires a !null Point argument
+
 ## [0.0.9] - 2018-05-18
 ### Changed
 * rms-sparklines-inline

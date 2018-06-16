@@ -13,7 +13,20 @@ export class DrawMethods {
      * @param {number} endAngle
      * @param {string} color
      */
-    static circle(ctx: CanvasRenderingContext2D, point: Point, dotradius: number, startAngle: number, endAngle: number, color: string): void {
+    static circle(ctx: CanvasRenderingContext2D, point: Point, dotradius: number, startAngle: number, endAngle: number, color: string, ...myArguments: any[] ): void {
+        if (myArguments.length !== 6) {
+            console.error ('DrawMethods.circle - Number of arguments(' + myArguments.length + ') less than 6');
+            return;
+        }
+        if (!ctx) {
+            console.error ('DrawMethods.circle - CanvasRenderingContext2D is null');
+            return;
+        }
+        if (!point) {
+            console.error ('DrawMethods.circle - Point is null');
+            return;
+        }
+        
         ctx.beginPath();
         ctx.arc(point.getX(), point.getY(), dotradius, startAngle, endAngle);
         ctx.fillStyle = color;
