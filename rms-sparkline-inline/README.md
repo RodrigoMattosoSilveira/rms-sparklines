@@ -62,6 +62,36 @@ Below is example of a sparkline inline drawn without a shade and with decoration
 
 See usage guidelines on the style guide application, [rms-sparklines-styleguide](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide) README.
 
+# Development Notes
+Observations regarding problems integrating a web component, rms-sparkline-inline in this case, into an angular component Vaadin table hosted by an Angular component.
+ 
+## Technical Background
+rms-sparkline-inline draws the sparkline using an array of numbers, linePoints, where f(0) is the first point in the array, f(1) the second and so forth.
+ 
+It uses a array of objects, decorationPoints, to describing decoration points to be rendered alongside the sparkline; these are used to represent start, end, min, max, etc. A decorationPoint object consists of two key / pair values, one indicating the index of the point to be decorated, and another indicating its color; therefore, in order to draw a blue dot on sparkline's second we include a {index: 1, color: 'blue'} in the decorationPoints array.
+ 
+## Observed Behavior
+Sporadically rms-sparkline-inline was called with decoration points indexes higher than the linePoints array length. This cased rms-sparkline-inline to fail; we also observed NaN values being returned when calculating such decorationPoints screen coordinates.
+ 
+## Expected Behavior
+rms-sparkline-inline fails gracefully when dealing with decoration points indexes higher than the linePoints array length.
+ 
+This 'work around' has been implemented, but represents only part of the story. The other part of the story is the actual cause of the decoration points indexes being higher than the length of the linePoints array. I believe it is linked to how the linePoints array is filled in the Angular component using the Vaadin table, and how the rms-sparkline-inline web component embbeded in the Vaadin component reacts to changes its observed attributes, the linePoints array in particular.
+ 
+## Analysis
+We know that rms-sparkline-inline observes its linePoints array attribute and when it changes it draws the sparkline. My hypothesis is that, sporadically, the loop used to fill it up is interrupted, leading rms-sparkline-inline to decide that the linePoints attribute has changed and to re-draw the sparkline. When this happens the linePoints array will be incomplete and some of its decoration points might point to non-existing indexes.
+ 
+If this is true, it represents an insidious condition likely to happen in many similar situations. The workaround is to populate a temporary array where interrupts would not cause the web component to execute, and then copy the temporary arry to the target array using the fastest possible mechanism, as follows:
+````typescript
+    let _linePoint: number[] = [];
+    loop
+        ...
+        _linePoint.push(value);
+        ...
+    end loop;
+    // See https://jsperf.com/cloning-arrays/3 for benchmarks indiciting this is the fastest mechanism
+    linePoint = _linePoint.slice(0);
+````
 # Last but not least
 ````html
  _   _                   _____            
