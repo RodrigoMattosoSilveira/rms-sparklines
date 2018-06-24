@@ -214,6 +214,8 @@ export class BarChart {
         // fillColorPlus must be a valid CSS color
         if (!this.CSS_VALID_COLOR.test(fillColorPlus)) { throw new Error('barChart: Invalid fillColorPlus: ' + fillColorPlus); }
         this.setFillColorPlus(fillColorPlus);
+
+        // TODO: Add logic to validate that all required attributes have been supplied
     }
 
     draw() {

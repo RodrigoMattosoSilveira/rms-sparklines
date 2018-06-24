@@ -46,68 +46,53 @@ describe(`bar-chart`, () => {
     let fillColorMinus;
     let fillColorZero;
     let fillColorPlus;
-    describe(`when I initialize it`, () => {
-        before(() => {
-            canvasEl = document.createElement('canvas');
-            canvasEl.width = 64;
-            canvasEl.height = 16;
-            canvasEl.style.display = 'inline-block';
-            canvasEl.style.verticalAlign = 'top';
-            barGap = 2;
-            chartType = 'positive';
-            barHeights = [4, 3, 7, 8, 1, 4, 3, 2, 5, 3, 5, 8];
-            minimumBarWidth = 3;
-            fillColorMinus = 'rgb(255,0,0)';
-            fillColorZero = 'rgb(0,255,0)';
-            fillColorPlus = 'rgb(0,0,255)';
-            barChart = new BarChart(canvasEl, chartType, barHeights, minimumBarWidth, barGap, fillColorMinus, fillColorZero, fillColorPlus);
-        });
 
-        it(`is defined`, () => {
+    before(() => {
+        canvasEl = document.createElement('canvas');
+        canvasEl.width = 64;
+        canvasEl.height = 16;
+        canvasEl.style.display = 'inline-block';
+        canvasEl.style.verticalAlign = 'top';
+        barGap = 2;
+        chartType = 'positive';
+        barHeights = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+        minimumBarWidth = 3;
+        fillColorMinus = 'rgb(255,0,0)';
+        fillColorZero = 'rgb(0,255,0)';
+        fillColorPlus = 'rgb(0,0,255)';
+        barChart = new BarChart(canvasEl, chartType, barHeights, minimumBarWidth, barGap, fillColorMinus, fillColorZero, fillColorPlus);
+    });
+    describe(`is initialized`, () => {
+
+        it(`with a valid barChart object`, () => {
             expect(barChart).to.not.equal(null);
         });
         it(`the canvas element is initialized `, () => {
             expect(barChart.getCanvasEl().tagName).to.equal(canvasEl.tagName);
         });
-        it(`the barGap value is valid`, () => {
+        it(`with a bar gap attribute that has the value of barGap (2)`, () => {
             expect(barChart.getBarGap()).to.equal(barGap);
         });
-        it(`the barHeights value is valid`, () => {
+        it(`with a bar heights attribute that has the value of barHeights [1, 2, ... , 12]`, () => {
             expect(barChart.getBarHeights().equals(barHeights)).to.equal(true);
         });
-        it(`the chartType value is valid`, () => {
+        it(`with a chart type attribute that has the value of chartType ('positive')`, () => {
             expect(barChart.getChartType()).to.equal(chartType);
         });
-        it(`the minimumBarWidth value is valid`, () => {
+        it(`with a minimum bar width attribute that has the value of minimumBarWidth (3)`, () => {
             expect(barChart.getMinimumBarWidth()).to.equal(minimumBarWidth);
         });
-        it(`the fillColorMinus value is valid`, () => {
+        it(`with a fill color for negative bars that has the value of fillColorMinus ('rgb(255,0,0)')`, () => {
             expect(barChart.getFillColorMinus()).to.equal(fillColorMinus);
         });
-        it(`the fillColorPlus value is valid`, () => {
+        it(`with a fill color for zero bars that has the value of fillColorZero ('rgb(0,255,0)')`, () => {
             expect(barChart.getFillColorZero()).to.equal(fillColorZero);
         });
-        it(`the fillColorZero value is valid`, () => {
+        it(`with a fill color for positive bars that has the value of fillColorPlus ('rgb(0,0,255)')`, () => {
             expect(barChart.getFillColorPlus()).to.equal(fillColorPlus);
         });
     });
     describe(`when I compute the barWith`, () => {
-        before(() => {
-            canvasEl = document.createElement('canvas');
-            canvasEl.width = 64;
-            canvasEl.height = 16;
-            canvasEl.style.display = 'inline-block';
-            canvasEl.style.verticalAlign = 'top';
-            barGap = 2;
-            chartType = 'positive';
-            barHeights = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-            minimumBarWidth = 3;
-            fillColorMinus = 'rgb(255,0,0)';
-            fillColorZero = 'rgb(0,255,0)';
-            fillColorPlus = 'rgb(0,0,255)';
-            barChart = new BarChart(canvasEl, chartType, barHeights, minimumBarWidth, barGap, fillColorMinus, fillColorZero, fillColorPlus);
-        });
-
         it(`with enough canvas width`, () => {
             expect(barChart.calculateBarWidth(canvasEl.width, barHeights, minimumBarWidth).length).to.equal(12);
             expect(barChart.getBarHeights().equals(barHeights)).to.equal(true);
