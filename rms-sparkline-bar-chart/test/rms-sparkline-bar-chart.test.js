@@ -1,9 +1,13 @@
+/*
+ * Copyright © Markodojo Inc., 2013 - ${YEAR}
+ * All Rights Reserved. No part of this website may be reproduced without Markodojo express consent.
+ */
+
 // TODO: Move test file to TypeScript.
 // import 'mocha';
 // import { expect } from 'chai';
 // import 'karma-fixture';
 import '@webcomponents/webcomponentsjs/webcomponents-lite';
-import { RmsSparklineBarChart } from '../src/rms-sparkline-bar-chart';
 
 describe('<rms-sparkline-bar-chart>', () => {
   let component;
