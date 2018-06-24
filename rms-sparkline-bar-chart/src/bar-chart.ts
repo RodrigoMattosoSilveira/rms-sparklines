@@ -98,9 +98,9 @@ export class BarChart {
     barHeights: number[];           // the bar heights world coordinates
     minimumBarWidth: number;        // the minimum width for a bar
     barGap: number;                 // the width of the gap between two bars, likely to be always 1
-    fillColorPlus: string;          // the color to fill up the postive bars
+    fillColorMinus: string;          // the color to fill up the negative bars
     fillColorZero: string;          // the color to fill up the zero bars
-    fillColorMinus: string;         // the color to fill up the negative bars
+    fillColorPlus: string;         // the color to fill up the positive bars
 
     // Calculated
     ctx: CanvasRenderingContext2D;  // canvas context
@@ -109,12 +109,14 @@ export class BarChart {
     barWidth: number;               // the bars' width
     bars: Bar[];                    // bar bars to be drawn
 
-    VALID_TYPES: string[] = ['[positive', 'negative', 'dual', 'tri'];
+    VALID_TYPES: string[] = ['positive', 'negative', 'dual', 'tri'];
     POSITIVE = 1;
     NEGATIVE = 1;
     DUAL = 1;
     TRI = 1;
-    CSS_VALID_COLOR = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+
+    // from here: https://gist.github.com/olmokramer/82ccce673f86db7cda5e
+    CSS_VALID_COLOR: any = /(#(?:[0-9a-f]{2}){2,4}|(#[0-9a-f]{3})|(rgb|hsl)a?\((-?\d+%?[,\s]+){2,3}\s*[\d\.]+%?\))/i;
 
     // Attributes setters and Getters
     setCanvasEl(value: HTMLCanvasElement) { this.canvasEl = value; }
@@ -132,14 +134,14 @@ export class BarChart {
     setBarGap(value: number) { this.barGap = value; }
     getBarGap(): number { return this.barGap; }
 
-    setFillColorPlus(value: string) { this.fillColorPlus = value; }
-    getFillColorPlus(): string { return this.fillColorPlus; }
+    setFillColorMinus(value: string) { this.fillColorMinus = value; }
+    getFillColorMinus(): string { return this.fillColorMinus; }
 
     setFillColorZero(value: string) { this.fillColorZero = value; }
-    getFillColorMinus(): string { return this.fillColorZero; }
+    getFillColorZero(): string { return this.fillColorZero; }
 
-    setFillColorMinus(value: string) { this.fillColorMinus = value; }
-    getFillColorZero(): string { return this.fillColorMinus; }
+    setFillColorPlus(value: string) { this.fillColorPlus = value; }
+    getFillColorPlus(): string { return this.fillColorPlus; }
 
     // Parameters setters and getters
     setCtx(value: CanvasRenderingContext2D) { this.ctx = value; }
@@ -171,7 +173,7 @@ export class BarChart {
         this.setCanvasEl(canvasEl);
 
         // chartType must be valid
-        if (this.VALID_TYPES.findIndex(checkCartType) === -1) { throw new Error('barchat: Invalid chart type' + chartType); }
+        if (this.VALID_TYPES.findIndex(checkCartType) === -1) { throw new Error('barChart: Invalid chart type:  + chartType'); }
         function checkCartType(_chartType: string): boolean {
             return _chartType === chartType;
         }
@@ -189,8 +191,8 @@ export class BarChart {
         this.setBarGap(barGap);
 
         // fillColorPlus must be a valid CSS color
-        if (!this.CSS_VALID_COLOR.test(fillColorPlus)) { throw new Error('barChart: Invalid fillColorMinus: ' + fillColorMinus); }
-        this.setFillColorPlus(fillColorPlus);
+        if (!this.CSS_VALID_COLOR.test(fillColorMinus)) { throw new Error('barChart: Invalid fillColorMinus: ' + fillColorMinus); }
+        this.setFillColorMinus(fillColorMinus);
 
         // fillColorZero must be a valid CSS color
         if (!this.CSS_VALID_COLOR.test(fillColorZero)) { throw new Error('barChart: Invalid fillColorZero: ' + fillColorZero); }
@@ -198,7 +200,7 @@ export class BarChart {
 
         // fillColorPlus must be a valid CSS color
         if (!this.CSS_VALID_COLOR.test(fillColorPlus)) { throw new Error('barChart: Invalid fillColorPlus: ' + fillColorPlus); }
-        this.setFillColorMinus(fillColorPlus);
+        this.setFillColorPlus(fillColorPlus);
     }
 
     draw() {
