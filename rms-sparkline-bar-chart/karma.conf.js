@@ -14,7 +14,7 @@ module.exports = function(config) {
         pattern: 'test/fixture/**/*',
       },
     ],
-    reporters: ['progress'],
+    reporters: ['mocha'],
     singleRun: true,
     port: 9876,
     colors: true,
@@ -29,5 +29,19 @@ module.exports = function(config) {
     webpackMiddleware: {
       stats: 'errors-only'
     },
+      mochaReporter: {
+          colors: {
+              success: 'blue',
+              info: 'bgGreen',
+              warning: 'cyan',
+              error: 'bgRed'
+          },
+          symbols: {
+              success: '+',
+              info: '#',
+              warning: '!',
+              error: 'x'
+          }
+      }
   });
-}
+};
