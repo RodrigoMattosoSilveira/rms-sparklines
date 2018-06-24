@@ -111,34 +111,38 @@ describe(`bar-chart`, () => {
             expect(barChart.computeBarWidth(canvasEl.width, __barHeights)).to.equal(3);
         });
     });
-    describe(`when I insert the bar graph using the barWidth`, () => {
+    describe(`when I compute the bar width `, () => {
         before(() => {
-            canvasEl = document.createElement('canvas');
-            canvasEl.width = 64;
-            canvasEl.height = 16;
-            canvasEl.style.display = 'inline-block';
-            canvasEl.style.verticalAlign = 'top';
-            barGap = 2;
-            chartType = 'positive';
             barHeights = [1, 2, 3, 4, 5, 6, 7, 8];
-            minimumBarWidth = 3;
-            fillColorMinus = 'rgb(255,0,0)';
-            fillColorZero = 'rgb(0,255,0)';
-            fillColorPlus = 'rgb(0,0,255)';
-            barChart = new BarChart(canvasEl, chartType, barHeights, minimumBarWidth, barGap, fillColorMinus, fillColorZero, fillColorPlus);
+            barChart.setBarHeights(barHeights.slice(0))
         });
-        it(`with enough canvas width and barWidth`, () => {
-            // get the barWidth; there is enough canvas width for a barWidth equal to 8
-            let expectedBarWidth = 8;
-            let _barHeights = barChart.calculateBarWidth(canvasEl.width, barHeights, minimumBarWidth);
-            expect(barChart.getBarHeights().equals(barHeights)).to.equal(true);
-            expect(barChart.computeBarWidth(canvasEl.width, barHeights)).to.equal(expectedBarWidth);
+        describe(`with enough canvas width and barWidth`, () => {
+            it(`with enough canvas width and barWidth`, () => {
+                // get the barWidth; there is enough canvas width for a barWidth equal to 8
+                let expectedBarWidth = 8;
+                let _barHeights = barChart.calculateBarWidth(canvasEl.width, barHeights, minimumBarWidth);
+                expect(barChart.getBarHeights().equals(barHeights)).to.equal(true);
+                expect(barChart.computeBarWidth(canvasEl.width, barHeights)).to.equal(expectedBarWidth);
 
-            // Insert the bar gaps. There isn't enough canvas width to insert them, the can be inserted with a narrower barWidth
-            let barWidth = 8;
-            expectedBarWidth = 6;
-            expect(barChart.insertGapsUsingBarWidth(canvasEl.width, _barHeights, barWidth, barGap, minimumBarWidth)).to.equal(expectedBarWidth);
-            expect(barChart.getBarHeights().equals(_barHeights)).to.equal(true);
+                // Insert the bar gaps. There isn't enough canvas width to insert them, the can be inserted with a narrower barWidth
+                let barWidth = 8;
+                expectedBarWidth = 6;
+                expect(barChart.insertGapsUsingBarWidth(canvasEl.width, _barHeights, barWidth, barGap, minimumBarWidth)).to.equal(expectedBarWidth);
+                expect(barChart.getBarHeights().equals(_barHeights)).to.equal(true);
+            });
+            it(`with enough canvas width and barWidth`, () => {
+                // get the barWidth; there is enough canvas width for a barWidth equal to 8
+                let expectedBarWidth = 8;
+                let _barHeights = barChart.calculateBarWidth(canvasEl.width, barHeights, minimumBarWidth);
+                expect(barChart.getBarHeights().equals(barHeights)).to.equal(true);
+                expect(barChart.computeBarWidth(canvasEl.width, barHeights)).to.equal(expectedBarWidth);
+
+                // Insert the bar gaps. There isn't enough canvas width to insert them, the can be inserted with a narrower barWidth
+                let barWidth = 8;
+                expectedBarWidth = 6;
+                expect(barChart.insertGapsUsingBarWidth(canvasEl.width, _barHeights, barWidth, barGap, minimumBarWidth)).to.equal(expectedBarWidth);
+                expect(barChart.getBarHeights().equals(_barHeights)).to.equal(true);
+            });
         });
     });
 });

@@ -180,42 +180,44 @@ export class BarChart {
                 fillColorZero: string,
                 fillColorPlus: string) {
 
+        // Must have 8 argumets
+        if (arguments.length !== 8) { throw new Error('barChart::constructor: invalid numer of arguments: ' + arguments.length); }
+
         // canvasEl must be provided
-        if (canvasEl === null) { throw new Error('barChart: canvasEl is null'); }
+        if (canvasEl === null) { throw new Error('barChar::constructor: canvasEl is null'); }
+        if (canvasEl.tagName !== `CANVAS`) { throw new Error('barChar::constructor: canvasEl is is not CANVAS: ' + canvasEl.tagName); }
         this.setCanvasEl(canvasEl);
 
         // chartType must be valid
-        if (this.VALID_TYPES.findIndex(checkCartType) === -1) { throw new Error('barChart: Invalid chart type:  + chartType'); }
+        if (this.VALID_TYPES.findIndex(checkCartType) === -1) { throw new Error('barChart::constructor: Invalid chart type:  + chartType'); }
         function checkCartType(_chartType: string): boolean {
             return _chartType === chartType;
         }
         this.setChartType(chartType);
 
-        if (!barHeights) { throw new Error('barChart: barHeights is null'); }
-        if (barHeights.length === 0) { throw new Error('barChart: barHeights is empty'); }
+        if (!barHeights) { throw new Error('barChart::constructor: barHeights is null'); }
+        if (barHeights.length === 0) { throw new Error('barChart::constructor: barHeights is empty'); }
         this.setBarHeights(barHeights.slice(0));
 
         // Minimum barWidth must be equal or higher than 3
-        if (minimumBarWidth < 3) { throw new Error('barChart: minimumBarWidth less than 3: ' + minimumBarWidth); }
+        if (minimumBarWidth < 3) { throw new Error('barChart::constructor: minimumBarWidth less than 3: ' + minimumBarWidth); }
         this.setMinimumBarWidth(minimumBarWidth);
 
         // Bar gap must be equal or higher than 1
-        if (barGap < 1) { throw new Error('barChart: barGap less than 1: ' + barGap); }
+        if (barGap < 1) { throw new Error('barChart::constructor: barGap less than 1: ' + barGap); }
         this.setBarGap(barGap);
 
         // fillColorPlus must be a valid CSS color
-        if (!this.CSS_VALID_COLOR.test(fillColorMinus)) { throw new Error('barChart: Invalid fillColorMinus: ' + fillColorMinus); }
+        if (!this.CSS_VALID_COLOR.test(fillColorMinus)) { throw new Error('barChart::constructor: Invalid fillColorMinus: ' + fillColorMinus); }
         this.setFillColorMinus(fillColorMinus);
 
         // fillColorZero must be a valid CSS color
-        if (!this.CSS_VALID_COLOR.test(fillColorZero)) { throw new Error('barChart: Invalid fillColorZero: ' + fillColorZero); }
+        if (!this.CSS_VALID_COLOR.test(fillColorZero)) { throw new Error('barChart::constructor: Invalid fillColorZero: ' + fillColorZero); }
         this.setFillColorZero(fillColorZero);
 
         // fillColorPlus must be a valid CSS color
-        if (!this.CSS_VALID_COLOR.test(fillColorPlus)) { throw new Error('barChart: Invalid fillColorPlus: ' + fillColorPlus); }
+        if (!this.CSS_VALID_COLOR.test(fillColorPlus)) { throw new Error('barChart::constructor: Invalid fillColorPlus: ' + fillColorPlus); }
         this.setFillColorPlus(fillColorPlus);
-
-        // TODO: Add logic to validate that all required attributes have been supplied
     }
 
     draw() {
@@ -287,9 +289,10 @@ export class BarChart {
     calculateBarWidth(canvasWidth: number, barHeights: number[], minBarWidth: number): number[] {
         let _barHeights = barHeights.slice(0);
 
-         while (_barHeights.length > 0 && this.computeBarWidth(canvasWidth, _barHeights) < minBarWidth ) {
+         while (this.computeBarWidth(canvasWidth, _barHeights) < minBarWidth ) {
             _barHeights = _barHeights.slice(1);
-        }
+             if (_barHeights.length === 0) { throw new Error(`bar-chart::calculateBarWidth - Nothing to draw, canvas width is too narrow: ` + canvasWidth)}
+         }
 
         return _barHeights;
     }
@@ -317,12 +320,10 @@ export class BarChart {
         let _barHeights = barHeights.slice(0);
         let _barWidth = barWidth;
 
-        if (_barHeights.length > 0) {
-            let requiredWidth = this.computeRequiredWidth(_barWidth, _barHeights, barGap);
-            while (requiredWidth > canvasWidth && barWidth >= minimumBarWidth) {
-                _barWidth--;
-                requiredWidth = this.computeRequiredWidth(_barWidth, _barHeights, barGap);
-            }
+        let requiredWidth = this.computeRequiredWidth(_barWidth, _barHeights, barGap);
+        while (requiredWidth > canvasWidth && barWidth >= minimumBarWidth) {
+            _barWidth--;
+            requiredWidth = this.computeRequiredWidth(_barWidth, _barHeights, barGap);
         }
 
         return _barWidth;
@@ -345,8 +346,10 @@ export class BarChart {
      */
     insertGapsUsingBarHeights(canvasWidth: number, barHeights: number[], barWidth: number, barGap: number): number[] {
         let _barHeights = barHeights.slice(0);
-        while (_barHeights.length > 0 && this.computeRequiredWidth(barWidth, _barHeights, barGap) > canvasWidth) {
+
+        while (this.computeRequiredWidth(barWidth, _barHeights, barGap) > canvasWidth) {
             _barHeights = _barHeights.slice(1);
+            if (_barHeights.length === 0) { throw new Error(`bar-chart::insertGapsUsingBarHeights - Nothing to draw, canvas width is too narrow: ` + canvasWidth)}
         }
 
         return _barHeights;
