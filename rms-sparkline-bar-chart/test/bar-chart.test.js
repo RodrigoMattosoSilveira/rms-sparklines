@@ -66,29 +66,64 @@ describe(`bar-chart`, () => {
         it(`is defined`, () => {
             expect(barChart).to.not.equal(null);
         });
-        it(`has the canvas element it was initialized `, () => {
+        it(`the canvas element is initialized `, () => {
             expect(barChart.getCanvasEl().tagName).to.equal(canvasEl.tagName);
         });
-        it(`has the barGap value it was initialized with`, () => {
+        it(`the barGap value is valid`, () => {
             expect(barChart.getBarGap()).to.equal(barGap);
         });
-        it(`has the barHeights element it was initialized with`, () => {
+        it(`the barHeights value is valid`, () => {
             expect(barChart.getBarHeights().equals(barHeights)).to.equal(true);
         });
-        it(`has the chartType element it was initialized with`, () => {
+        it(`the chartType value is valid`, () => {
             expect(barChart.getChartType()).to.equal(chartType);
         });
-        it(`has the minimumBarWidth element it was initialized `, () => {
+        it(`the minimumBarWidth value is valid`, () => {
             expect(barChart.getMinimumBarWidth()).to.equal(minimumBarWidth);
         });
-        it(`has the fillColorMinus element it was initialized with`, () => {
+        it(`the fillColorMinus value is valid`, () => {
             expect(barChart.getFillColorMinus()).to.equal(fillColorMinus);
         });
-        it(`has the fillColorPlus element it was initialized with`, () => {
+        it(`the fillColorPlus value is valid`, () => {
             expect(barChart.getFillColorZero()).to.equal(fillColorZero);
         });
-        it(`has the fillColorZero element it was initialized with`, () => {
+        it(`the fillColorZero value is valid`, () => {
             expect(barChart.getFillColorPlus()).to.equal(fillColorPlus);
+        });
+    });
+    describe(`when I compute the barWith`, () => {
+        before(() => {
+            canvasEl = document.createElement('canvas');
+            canvasEl.width = 64;
+            canvasEl.height = 16;
+            canvasEl.style.display = 'inline-block';
+            canvasEl.style.verticalAlign = 'top';
+            barGap = 2;
+            chartType = 'positive';
+            barHeights = [4, 3, 7, 8, 1, 4, 3, 2, 5, 3, 5, 8];
+            minimumBarWidth = 3;
+            fillColorMinus = 'rgb(255,0,0)';
+            fillColorZero = 'rgb(0,255,0)';
+            fillColorPlus = 'rgb(0,0,255)';
+            barChart = new BarChart(canvasEl, chartType, barHeights, minimumBarWidth, barGap, fillColorMinus, fillColorZero, fillColorPlus);
+        });
+
+        it(`with enough canvas width`, () => {
+            expect(barChart.calculateBarWidth(canvasEl.width, barHeights, minimumBarWidth).length).to.equal(12);
+            expect(barChart.getBarHeights().equals(barHeights)).to.equal(true);
+            expect(barChart.computeBarWidth(canvasEl.width, barHeights)).to.equal(5);
+        });
+
+        it(`without enough canvas width`, () => {
+            let _barHeights = [4, 3, 7, 8, 1, 4, 3, 2, 5, 3, 5, 8, 4, 3, 7, 8, 1, 4, 3, 2, 5, 3, 5, 8];
+            let __barHeights = barChart.calculateBarWidth(canvasEl.width, _barHeights, minimumBarWidth);
+
+            // drop the 3 leftmost elements
+            expect(__barHeights.equals([8, 1, 4, 3, 2, 5, 3, 5, 8, 4, 3, 7, 8, 1, 4, 3, 2, 5, 3, 5, 8])).to.equal(true);
+            expect(__barHeights.length).to.equal(21);
+
+            // Got the barWidth over the required bar
+            expect(barChart.computeBarWidth(canvasEl.width, __barHeights)).to.equal(3);
         });
     });
 });
