@@ -31,7 +31,7 @@
  * Bar width calculation
  * The bar width, barWidth, is the ratio between the canvas width and the
  * number of bars to draw, rounded down. The barWidth calculation is an
- * interation seeking the number o bars to draw, barHeights.length, that yiels
+ * iteration seeking the number o bars to draw, barHeights.length, that yields
  * a barWidth equal or higher than the minimum bar width, minimumBarWidth. If
  * the initial barWidth, Math.floor(canvas.width / heights.length), yields a
  * barWidth that is less than minimumBarWidth, we drop the leftmost barHeights
@@ -39,15 +39,27 @@
  * iterate until the barWidth is greater or equal to minBarWidth.
  *
  * Bar gap insertion
- * The bar gaps, barGap, inserted between the bars might cause rightmostbars to
- * be cropped out. The barGap insertion is an iteration seeking for a
+ * The bar gaps, barGap, inserted between the bars might cause rightmost bars to
+ * be cropped. The barGap insertion is an iteration seeking for a
  * barHeights.length enabling barGaps to be inserted without cropping any
- * rightmost bars. If the initial width required, widthRequired, to insert the
+ * rightmost bars. It has two phases: reducing the barWidth and pruning
+ * barHeights leftmost elements.
+ *
+ * If the initial width required, widthRequired, to insert the
  * bars and their gaps,
  * barWidth*barHeights.length + barGap*(barHeights.length - 1), is greater than
- * the canvas.width, we drop the leftmost barHeights element and recalculate
- * the widthRequired using the new heights.length; we iterate until the
+ * the canvas.width and the barWidth is greater than the minimumBarWidth,
+ * decrement the barWidth by one pixel and recalculate
+ * the widthRequired using the new barWidth; we iterate until the
  * widthRequired is less or equal to canvas.width.
+ *
+ * If the initial width required, widthRequired, to insert the
+ * bars and their gaps,
+ * barWidth*barHeights.length + barGap*(barHeights.length - 1), is greater than
+ * the canvas.width and the barWidth is not greater than the minimumBarWidth, we
+ * drop the leftmost barHeights element and recalculate the widthRequired using
+ * the new heights.length; we iterate until the widthRequired is less or equal to
+ * canvas.width.
  *
  0        1         2         3         4         5         6         7         8
  12345678901234567890123456789012345678901234567890123456789012345678901234567890
@@ -169,7 +181,7 @@ export class BarChart {
                 fillColorPlus: string) {
 
         // canvasEl must be provided
-        if (canvasEl === null) { throw new Error('barchat: canvasEl is null'); }
+        if (canvasEl === null) { throw new Error('barChart: canvasEl is null'); }
         this.setCanvasEl(canvasEl);
 
         // chartType must be valid
@@ -179,15 +191,16 @@ export class BarChart {
         }
         this.setChartType(chartType);
 
-        if (barHeights.length === 0) { throw new Error('barchat: barHeights is empty'); }
+        if (!barHeights) { throw new Error('barChart: barHeights is null'); }
+        if (barHeights.length === 0) { throw new Error('barChart: barHeights is empty'); }
         this.setBarHeights(barHeights.slice(0));
 
-        // Minumum barWidth must be equal or higher than 3
-        if (minimumBarWidth < 3) { throw new Error('barchat: minimumBarWidth less than 3: ' + minimumBarWidth); }
+        // Minimum barWidth must be equal or higher than 3
+        if (minimumBarWidth < 3) { throw new Error('barChart: minimumBarWidth less than 3: ' + minimumBarWidth); }
         this.setMinimumBarWidth(minimumBarWidth);
 
         // Bar gap must be equal or higher than 1
-        if (barGap < 1) { throw new Error('barchat: barGap less than 1: ' + barGap); }
+        if (barGap < 1) { throw new Error('barChart: barGap less than 1: ' + barGap); }
         this.setBarGap(barGap);
 
         // fillColorPlus must be a valid CSS color
@@ -218,13 +231,25 @@ export class BarChart {
 
         // Save the bar width
         this.setBarWidth(this.computeBarWidth(this.getCanvasWidth(), _barHeights));
+        if (_barHeights.length === 0) { throw new Error('barChart::calculateBarWidth: barHeights was trimmed to be empty'); }
 
-        // Insert the gaps
-        _barHeights = this.insertGaps(
+        // Insert the gaps by reducing barWidth to be no lower than 3, if necessary
+        this.setBarWidth(
+            this.insertGapsUsingBarWidth(
+                this.getCanvasWidth(),
+                _barHeights,
+                this.getMinimumBarWidth(),
+                this.getBarGap(),
+                this.getMinimumBarWidth())
+        );
+
+        // Insert the gaps by trimming barHeights, if necessary
+        _barHeights = this.insertGapsUsingBarHeights(
             this.getCanvasWidth(),
             _barHeights,
             this.getMinimumBarWidth(),
-            this.getBarGap()).slice(0);
+            this.getBarGap());
+        if (_barHeights.length === 0) { throw new Error('barChart::insertGapsUsingBarHeights: barHeights was trimmed to be empty'); }
 
         // Set the bars to be drawn
         this.setBars(this.buildBars(
@@ -250,7 +275,7 @@ export class BarChart {
     /**
      * The bar width, barWidth, is the ratio between the canvas width and the
      * number of bars to draw, rounded down. The barWidth calculation is an
-     * interation seeking the number o bars to draw, barHeights.length, that yiels
+     * iteration seeking the number o bars to draw, barHeights.length, that yields
      * a barWidth equal or higher than the minimum bar width, minimumBarWidth. If
      * the initial barWidth, Math.floor(canvas.width / heights.length), yields a
      * barWidth that is less than minimumBarWidth, we drop the leftmost barHeights
@@ -258,15 +283,10 @@ export class BarChart {
      * until the barWidth is greater or equal to minBarWidth.
      */
     calculateBarWidth(canvasWidth: number, barHeights: number[], minBarWidth: number): number[] {
-        let barWidth = 0;
         let _barHeights = barHeights.slice(0);
 
-        if (_barHeights.length > 0) {
-            barWidth = this.computeBarWidth(canvasWidth, _barHeights);
-            while (barWidth < minBarWidth) {
-                _barHeights = _barHeights.slice(1);
-                barWidth = this.computeBarWidth(canvasWidth, _barHeights);
-            }
+         while (_barHeights.length > 0 && this.computeBarWidth(canvasWidth, _barHeights) < minBarWidth ) {
+            _barHeights = _barHeights.slice(1);
         }
 
         return _barHeights;
@@ -276,24 +296,55 @@ export class BarChart {
     }
 
     /**
-     * The bar gaps, barGap, inserted between the bars might cause rightmostbars to
-     * be cropped out. The barGap insertion is an iteration seeking for a
-     * barHeights.length enabling barGaps to be inserted without cropping any
-     * rightmost bars. If the initial width required, widthRequired, to insert the
+     * If the initial width required, widthRequired, to insert the
      * bars and their gaps,
      * barWidth*barHeights.length + barGap*(barHeights.length - 1), is greater than
-     * the canvas.width, we drop the leftmost barHeights element and recalculate the
-     * widthRequired using the new heights.length; we iterate until the widthRequired
-     * is less or equal to canvas.width.
+     * the canvas.width and the barWidth is greater than the minimumBarWidth,
+     * decrement the barWidth by one pixel and recalculate
+     * the widthRequired using the new barWidth; we iterate until the
+     * widthRequired is less or equal to canvas.width.
+     *
+     * @param {number} canvasWidth
+     * @param {number[]} barHeights
+     * @param {number} barWidth
+     * @param {number} barGap
+     * @param {number} minimumBarWidth
+     * @returns {number}
      */
-    insertGaps(canvasWidth: number, barHeights: number[], barWidth: number, barGap: number): number[] {
+    insertGapsUsingBarWidth(canvasWidth: number, barHeights: number[], barWidth: number, barGap: number, minimumBarWidth: number): number {
         let _barHeights = barHeights.slice(0);
+        let _barWidth = barWidth;
+
         if (_barHeights.length > 0) {
-            let requiredWidth = this.computeRequiredWidth(barWidth, _barHeights, barGap);
-            while (requiredWidth > canvasWidth) {
-                _barHeights = _barHeights.slice(1);
-                requiredWidth = this.computeRequiredWidth(barWidth, _barHeights, barGap);
+            let requiredWidth = this.computeRequiredWidth(_barWidth, _barHeights, barGap);
+            while (requiredWidth > canvasWidth && barWidth >= minimumBarWidth) {
+                _barWidth--;
+                requiredWidth = this.computeRequiredWidth(_barWidth, _barHeights, barGap);
             }
+        }
+
+        return _barWidth;
+    }
+
+    /**
+     * If the initial width required, widthRequired, to insert the
+     * bars and their gaps,
+     * barWidth*barHeights.length + barGap*(barHeights.length - 1), is greater than
+     * the canvas.width and the barWidth is not greater than the minimumBarWidth, we
+     * drop the leftmost barHeights element and recalculate the widthRequired using
+     * the new heights.length; we iterate until the widthRequired is less or equal to
+     * canvas.width.
+     *
+     * @param {number} canvasWidth
+     * @param {number[]} barHeights
+     * @param {number} barWidth
+     * @param {number} barGap
+     * @returns {number[]}
+     */
+    insertGapsUsingBarHeights(canvasWidth: number, barHeights: number[], barWidth: number, barGap: number): number[] {
+        let _barHeights = barHeights.slice(0);
+        while (_barHeights.length > 0 && this.computeRequiredWidth(barWidth, _barHeights, barGap) > canvasWidth) {
+            _barHeights = _barHeights.slice(1);
         }
 
         return _barHeights;
