@@ -1,7 +1,22 @@
-/*
- * Copyright © Markodojo Inc., 2013 - ${YEAR}
- * All Rights Reserved. No part of this website may be reproduced without Markodojo express consent.
- */
+
+// Copyright2018 Rodrigo Silveira
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of
+// this software and associated documentation files (the "Software"), to deal in
+// the Software without restriction, including without limitation the rights to
+// use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+// the Software, and to permit persons to whom the Software is furnished to do so,
+// subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+// FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+// COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+// IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+// CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 /**
  * Introduction
@@ -113,14 +128,14 @@ export class BarChart {
     fillColorMinus: string;          // the color to fill up the negative bars
     fillColorZero: string;          // the color to fill up the zero bars
     fillColorPlus: string;         // the color to fill up the positive bars
-
+    
     // Calculated
     ctx: CanvasRenderingContext2D;  // canvas context
     canvasWidth: number;            // the canvas width
     canvasHeight: number;           // the canvas height
     barWidth: number;               // the bars' width
     bars: Bar[];                    // bar bars to be drawn
-
+    
     VALID_TYPES: string[] = ['positive', 'negative', 'dual', 'tri'];
     POSITIVE = 0;
     NEGATIVE = 1;
@@ -301,7 +316,7 @@ export class BarChart {
     calculateBarWidth(canvasWidth: number, barHeights: number[], minBarWidth: number): number[] {
         let _barHeights = barHeights.slice(0);
 
-         let maxBars = Math.floor(canvasWidth / minBarWidth);
+         const maxBars = Math.floor(canvasWidth / minBarWidth);
          if (maxBars < _barHeights.length) {
              _barHeights =  _barHeights.slice(-1 * maxBars);
          }
@@ -345,7 +360,7 @@ export class BarChart {
         // console.log(`bar-chart::insertGapsUsingBarWidth - barGap: ` + barGap);
         // console.log(`bar-chart::insertGapsUsingBarWidth - minimumBarWidth: ` + minimumBarWidth);
 
-        console.log(`bar-chart::insertGapsUsingBarWidth - requiredBarWidth: `+ Math.floor( (canvasWidth - (barGap * (barHeights.length - 1))) / barHeights.length));
+        console.log(`bar-chart::insertGapsUsingBarWidth - requiredBarWidth: ` + Math.floor( (canvasWidth - (barGap * (barHeights.length - 1))) / barHeights.length));
         return  Math.max(minimumBarWidth, Math.floor( (canvasWidth - (barGap * (barHeights.length - 1))) / barHeights.length));
 
     }
@@ -376,7 +391,7 @@ export class BarChart {
      * @returns {number[]}
      */
     insertGapsUsingBarHeights(canvasWidth: number, barHeights: number[], barWidth: number, barGap: number): number[] {
-        let desiredLength = Math.floor((canvasWidth + barGap) / (barWidth + barGap));
+        const desiredLength = Math.floor((canvasWidth + barGap) / (barWidth + barGap));
 
         return barHeights.slice(-desiredLength);
     }
