@@ -122,10 +122,10 @@ export class BarChart {
     bars: Bar[];                    // bar bars to be drawn
 
     VALID_TYPES: string[] = ['positive', 'negative', 'dual', 'tri'];
-    POSITIVE = 1;
+    POSITIVE = 0;
     NEGATIVE = 1;
-    DUAL = 1;
-    TRI = 1;
+    DUAL = 2;
+    TRI = 3;
 
     // from here: https://gist.github.com/olmokramer/82ccce673f86db7cda5e
     CSS_VALID_COLOR: any = /(#(?:[0-9a-f]{2}){2,4}|(#[0-9a-f]{3})|(rgb|hsl)a?\((-?\d+%?[,\s]+){2,3}\s*[\d\.]+%?\))/i;

@@ -5,6 +5,7 @@
 
 import '@webcomponents/webcomponentsjs/webcomponents-lite';
 import { BarChart } from "../src/bar-chart";
+import { Bar } from "../src/bar";
 
 // Warn if overriding existing method
 if(Array.prototype.equals)
@@ -38,6 +39,7 @@ Object.defineProperty(Array.prototype, "equals", {enumerable: false});
 
 describe(`bar-chart`, () => {
     let canvasEl;
+    let canvasHeight;
     let barChart = null;
     let barGap;
     let chartType;
@@ -47,6 +49,7 @@ describe(`bar-chart`, () => {
     let fillColorZero;
     let fillColorPlus;
     let barWidth;
+    let  bars = null;
 
     before(() => {
         canvasEl = document.createElement('canvas');
@@ -122,7 +125,7 @@ describe(`bar-chart`, () => {
             });
         });
     });
-    describe(`when I attempt to insert gaps`, () => {
+   describe(`when I attempt to insert gaps`, () => {
          describe(`with the bar width large enough to be decremented and be greater of equal to the minimum bar width`, () => {
              before(() => {
                  barHeights = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -162,6 +165,32 @@ describe(`bar-chart`, () => {
                     expect(_barHeight.length).to.equal(expectedBarHeightLength);
                     expect(_barHeight.equals(_exprectedBarHeights)).to.equal(true);
                 });
+            });
+        });
+    });
+    describe(`when I attempt to builds the bars array`, () => {
+        before(() => {
+            canvasHeight = canvasEl.height;
+            barHeights = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+            barWidth = 3;
+            chartType = 'positive';
+            bars = barChart.buildBars(canvasHeight, barHeights, barWidth, chartType, fillColorMinus, fillColorZero, fillColorPlus);
+        });
+        describe(`for a positive chart type`, () => {
+            // canvasHeight, barHeights, barWidth, chartType, fillColorMinus, fillColorZero, fillColorPlus
+            it(`it builds an array of bars, 13 elements long`, () => {
+                let expectedBarsLength = 13;
+                expect(bars.length).to.equal(expectedBarsLength);
+            });
+            it(`with properly formatted bars`, () => {
+                for (let i = 0; i < bars.length;  i++) {
+                    const bar = bars[i];
+                    expect(bar.getX()).to.equal(0);
+                    expect(bars[i].getY()).to.equal(0);
+                    expect(bars[i].getWidth()).to.equal(barWidth);
+                    expect(bars[i].getHeight()).to.equal(barHeights[i]);
+                    expect(bars[i].getFillColor()).to.equal(fillColorPlus);
+                }
             });
         });
     });
