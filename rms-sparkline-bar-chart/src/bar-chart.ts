@@ -237,12 +237,11 @@ export class BarChart {
         this.setBarWidth(this.computeBarWidth(this.getCanvasWidth(), _barHeights));
         if (_barHeights.length === 0) { throw new Error('barChart::calculateBarWidth: barHeights was trimmed to be empty'); }
 
-        // Insert the gaps by reducing barWidth to be no lower than 3, if necessary
+        // Insert the gaps by reducing barWidth to be no lower than minimumBarWidth, if necessary
         this.setBarWidth(
             this.insertGapsUsingBarWidth(
                 this.getCanvasWidth(),
                 _barHeights,
-                this.getMinimumBarWidth(),
                 this.getBarGap(),
                 this.getMinimumBarWidth())
         );
@@ -309,6 +308,14 @@ export class BarChart {
      * the widthRequired using the new barWidth; we iterate until the
      * widthRequired is less or equal to canvas.width.
      *
+     *
+     * In essence, The iteration seeks to find the barWidth that solves the
+     * following equation:
+     * canvas.width <= barWidth * barHeights.length + barGap * (barHeights.length - 1)
+     *
+     * Resolving for barWidth.length, we get:
+     * barWidth = Matth.max(minimumBarWidth, Math.floor(canvas.width + barGap - barGap * barHeights.length) /barHeights.length))
+     *
      * @param {number} canvasWidth
      * @param {number[]} barHeights
      * @param {number} barWidth
@@ -316,17 +323,8 @@ export class BarChart {
      * @param {number} minimumBarWidth
      * @returns {number}
      */
-    insertGapsUsingBarWidth(canvasWidth: number, barHeights: number[], barWidth: number, barGap: number, minimumBarWidth: number): number {
-        let _barHeights = barHeights.slice(0);
-        let _barWidth = barWidth;
-
-        let requiredWidth = this.computeRequiredWidth(_barWidth, _barHeights, barGap);
-        while (requiredWidth > canvasWidth && barWidth >= minimumBarWidth) {
-            _barWidth--;
-            requiredWidth = this.computeRequiredWidth(_barWidth, _barHeights, barGap);
-        }
-
-        return _barWidth;
+    insertGapsUsingBarWidth(canvasWidth: number, barHeights: number[], barGap: number, minimumBarWidth: number): number {
+        return Math.max(minimumBarWidth, Math.floor((canvasWidth + barGap - barGap * barHeights.length) /barHeights.length));
     }
 
     /**
@@ -338,6 +336,16 @@ export class BarChart {
      * the new heights.length; we iterate until the widthRequired is less or equal to
      * canvas.width.
      *
+     * In essence, The iteration seeks to find the barHeights.length that solves the
+     * following equation:
+     * canvas.width <= barHeights.length * barWidth + (barHeights.length - 1) * barGap
+     *
+     * Resolving for barHeights.length, we get:
+     * barHeights.length = Math.floor((canvas.width + barGap) / (barWidth + barGap))
+     *
+     * Given the desired barHeights.length, we prune barHeights to have the desired
+     * length
+     *
      * @param {number} canvasWidth
      * @param {number[]} barHeights
      * @param {number} barWidth
@@ -345,14 +353,9 @@ export class BarChart {
      * @returns {number[]}
      */
     insertGapsUsingBarHeights(canvasWidth: number, barHeights: number[], barWidth: number, barGap: number): number[] {
-        let _barHeights = barHeights.slice(0);
+        let desiredLength = Math.floor((canvasWidth + barGap) / (barWidth + barGap));
 
-        while (this.computeRequiredWidth(barWidth, _barHeights, barGap) > canvasWidth) {
-            _barHeights = _barHeights.slice(1);
-            if (_barHeights.length === 0) { throw new Error(`bar-chart::insertGapsUsingBarHeights - Nothing to draw, canvas width is too narrow: ` + canvasWidth)}
-        }
-
-        return _barHeights;
+        return barHeights.slice(-desiredLength);
     }
     computeRequiredWidth(barWidth: number, barHeights: number[], barGap: number): number {
         return barWidth * barHeights.length + barGap * (barHeights.length - 1);
