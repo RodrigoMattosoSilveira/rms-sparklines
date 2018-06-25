@@ -154,6 +154,14 @@ describe(`bar-chart`, () => {
                     let _barWidth = barChart.insertGapsUsingBarWidth(canvasEl.width, barHeights, barGap, minimumBarWidth);
                     expect(_barWidth).to.equal(expectedBarWidth)
                 });
+                it(`and barHeight pruned to 13 elements to make room for the gaps`, () => {
+                    let _barWidth = 3;
+                    let expectedBarHeightLength = 13;
+                    let _exprectedBarHeights = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+                    let _barHeight = barChart.insertGapsUsingBarHeights(canvasEl.width, barHeights, _barWidth, barGap);
+                    expect(_barHeight.length).to.equal(expectedBarHeightLength);
+                    expect(_barHeight.equals(_exprectedBarHeights)).to.equal(true);
+                });
             });
         });
     });
