@@ -284,13 +284,26 @@ export class BarChart {
      * barWidth that is less than minimumBarWidth, we drop the leftmost barHeights
      * element and recalculate the barWidth using the new heights.length; we iterate
      * until the barWidth is greater or equal to minBarWidth.
+     *
+     * Ideally, all bars will fit in the canvas.width, when drawn with the
+     * minBarWidth. Therefore, if maximum number of bars that can be drawn in the
+     * canvas is equal of larger than the number of bars to be drawn, we are done.
+     * Otherwise, if barHeights has more bars than can be draw and must be pruned
+     * to the maximum number of bars that can be drawn in the canvas.
+     *
+     * maxNumberOfBarsThatCanBeDrawnOnCanvas = Math.floor(canvasWidth / minBarWidth)
+     *
+     * @param {number} canvasWidth
+     * @param {number[]} barHeights
+     * @param {number} minBarWidth
+     * @returns {number[]}
      */
     calculateBarWidth(canvasWidth: number, barHeights: number[], minBarWidth: number): number[] {
         let _barHeights = barHeights.slice(0);
 
-         while (this.computeBarWidth(canvasWidth, _barHeights) < minBarWidth ) {
-            _barHeights = _barHeights.slice(1);
-             if (_barHeights.length === 0) { throw new Error(`bar-chart::calculateBarWidth - Nothing to draw, canvas width is too narrow: ` + canvasWidth)}
+         let maxBars = Math.floor(canvasWidth / minBarWidth);
+         if (maxBars < _barHeights.length) {
+             _barHeights =  _barHeights.slice(-1 * maxBars);
          }
 
         return _barHeights;
@@ -314,7 +327,10 @@ export class BarChart {
      * canvas.width <= barWidth * barHeights.length + barGap * (barHeights.length - 1)
      *
      * Resolving for barWidth.length, we get:
-     * barWidth = Matth.max(minimumBarWidth, Math.floor(canvas.width + barGap - barGap * barHeights.length) /barHeights.length))
+     * barWidth = Math.max(minimumBarWidth, Math.floor(canvas.width + barGap - barGap * barHeights.length) /barHeights.length))
+     *
+     * barWidth = Math.max(minimumBarWidth, Math.floor( (canvasWidth - (barGap * (barHeights.length - 1))) / barHeights.length));
+     *
      *
      * @param {number} canvasWidth
      * @param {number[]} barHeights
@@ -324,7 +340,14 @@ export class BarChart {
      * @returns {number}
      */
     insertGapsUsingBarWidth(canvasWidth: number, barHeights: number[], barGap: number, minimumBarWidth: number): number {
-        return Math.max(minimumBarWidth, Math.floor((canvasWidth + barGap - barGap * barHeights.length) /barHeights.length));
+        // console.log(`bar-chart::insertGapsUsingBarWidth - canvasWidth: ` + canvasWidth);
+        // console.log(`bar-chart::insertGapsUsingBarWidth - barHeights.length: ` + barHeights.length);
+        // console.log(`bar-chart::insertGapsUsingBarWidth - barGap: ` + barGap);
+        // console.log(`bar-chart::insertGapsUsingBarWidth - minimumBarWidth: ` + minimumBarWidth);
+
+        console.log(`bar-chart::insertGapsUsingBarWidth - requiredBarWidth: `+ Math.floor( (canvasWidth - (barGap * (barHeights.length - 1))) / barHeights.length));
+        return  Math.max(minimumBarWidth, Math.floor( (canvasWidth - (barGap * (barHeights.length - 1))) / barHeights.length));
+
     }
 
     /**
@@ -356,9 +379,6 @@ export class BarChart {
         let desiredLength = Math.floor((canvasWidth + barGap) / (barWidth + barGap));
 
         return barHeights.slice(-desiredLength);
-    }
-    computeRequiredWidth(barWidth: number, barHeights: number[], barGap: number): number {
-        return barWidth * barHeights.length + barGap * (barHeights.length - 1);
     }
 
     buildBars(
