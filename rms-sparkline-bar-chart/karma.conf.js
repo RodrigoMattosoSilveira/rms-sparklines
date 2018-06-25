@@ -7,7 +7,7 @@ module.exports = function(config) {
     browsers: ['ChromeHeadless'],
     files: [
       {
-        pattern: 'test/*.test.js',
+        pattern: 'test/bar-chart.test.js',
         watched: false,
       },
       {
@@ -31,10 +31,10 @@ module.exports = function(config) {
     },
       mochaReporter: {
           colors: {
-              success: 'blue',
+              success: 'green',
               info: 'bgGreen',
               warning: 'cyan',
-              error: 'bgRed'
+              error: 'red'
           },
           symbols: {
               success: '+',
