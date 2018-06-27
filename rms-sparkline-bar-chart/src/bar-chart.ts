@@ -250,10 +250,12 @@ export class BarChart {
                 this.getCanvasWidth(),
                 this.getBarHeights(),
                 this.getMinimumBarWidth()).slice(0);
+        console.log('BarChart::draw - calculateBarWidth: ' + JSON.stringify(this.getBarHeights()));
 
         // Save the bar width
         this.setBarWidth(this.computeBarWidth(this.getCanvasWidth(), _barHeights));
         if (_barHeights.length === 0) { throw new Error('barChart::calculateBarWidth: barHeights was trimmed to be empty'); }
+        console.log('BarChart::draw - computeBarWidth: ' + this.getBarWidth());
 
         // Insert the gaps by reducing barWidth to be no lower than minimumBarWidth, if necessary
         this.setBarWidth(
@@ -263,6 +265,7 @@ export class BarChart {
                 this.getBarGap(),
                 this.getMinimumBarWidth())
         );
+        console.log('BarChart::draw - insertGapsUsingBarWidth: ' + this.getBarWidth());
 
         // Insert the gaps by trimming barHeights, if necessary
         _barHeights = this.insertGapsUsingBarHeights(
@@ -271,6 +274,7 @@ export class BarChart {
             this.getMinimumBarWidth(),
             this.getBarGap());
         if (_barHeights.length === 0) { throw new Error('barChart::insertGapsUsingBarHeights: barHeights was trimmed to be empty'); }
+        console.log('BarChart::draw - insertGapsUsingBarHeights: ' + JSON.stringify(this.getBarHeights()));
 
         // Set the bars to be drawn
         this.setBars(this.buildBars(
@@ -281,6 +285,7 @@ export class BarChart {
             this.getFillColorMinus(),
             this.getFillColorZero(),
             this.getFillColorPlus()).slice(0));
+        console.log('BarChart::draw - buildBars: ' +  JSON.stringify(this.getBars()));
 
         // Transform the canvas
         this.transformCanvas(
@@ -290,7 +295,7 @@ export class BarChart {
             this.getBarHeights());
 
         // Draw the sparkline
-        this._draw(this.getCtx(), this.getBars(), this.getCanvasHeight());
+        this._draw(this.getCtx(), this.getBars(), this.getBarGap());
     }
 
     /**
@@ -494,7 +499,7 @@ export class BarChart {
     }
 
     // Draw the bars!
-    _draw(ctx: CanvasRenderingContext2D, bars: Bar[], barGap: number): void {
+    _draw(ctx: CanvasRenderingContext2D, bars: Bar[], barGap: number): void {;
         for (const bar of bars) {
             // set the bar fill color
             ctx.fillStyle = bar.getFillColor();

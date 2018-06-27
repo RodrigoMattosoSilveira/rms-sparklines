@@ -237,19 +237,6 @@ export class RmsSparklineBarChart extends HTMLElement {
         console.log('::render - width: ' + this.width);
         console.log('::render - height: ' + this.height);
         
-        // const __this = this;
-        // if (this.VALID_CHART_TYPES.findIndex(checkChartType) === -1) { throw new Error('RmsSparklineBarChart::render: Invalid chart type:  ' + this.chartType); }
-        // function checkChartType(_charttype: string): boolean {
-        //     return _charttype === __this.chartType;
-        // }
-        // if (!this.barHeights) { throw new Error('RmsSparklineBarChart::render: barHeights is null'); }
-        // if (this.barHeights.length === 0) { throw new Error('RmsSparklineBarChart::render: barHeights is empty'); }
-        // if (this.minimumBarWidth < 3) { throw new Error('RmsSparklineBarChart::render: minimumBarWidth less than 3: ' + this.minimumBarWidth); }
-        // if (this.barGap < 1) { throw new Error('RmsSparklineBarChart::render: barGap less than 1: ' + this.barGap); }
-        // if (!this.CSS_VALID_COLOR.test(this.fillColorMinus)) { throw new Error('RmsSparklineBarChart::render: Invalid fillColorMinus: ' + this.fillColorMinus); }
-        // if (!this.CSS_VALID_COLOR.test(this.fillColorZero)) { throw new Error('RmsSparklineBarChart::render: Invalid fillColorMinus: ' + this.fillColorZero); }
-        // if (!this.CSS_VALID_COLOR.test(this.fillColorPlus)) { throw new Error('RmsSparklineBarChart::render: Invalid fillColorMinus: ' + this.fillColorPlus); }
-
         render(this.template, this.shadowRoot);
     }
 }
