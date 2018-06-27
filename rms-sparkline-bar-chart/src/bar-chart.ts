@@ -195,16 +195,19 @@ export class BarChart {
                 fillColorZero: string,
                 fillColorPlus: string) {
 
-        // Must have 8 argumets
-        if (arguments.length !== 8) { throw new Error('barChart::constructor: invalid numer of arguments: ' + arguments.length); }
+        // Must have 8 arguments
+        if (arguments.length !== 8) { throw new Error('barChart::constructor: invalid number of arguments: ' + arguments.length); }
 
         // canvasEl must be provided
         if (canvasEl === null) { throw new Error('barChar::constructor: canvasEl is null'); }
         if (canvasEl.tagName !== `CANVAS`) { throw new Error('barChar::constructor: canvasEl is is not CANVAS: ' + canvasEl.tagName); }
         this.setCanvasEl(canvasEl);
-
+    
+        if (canvasEl.width === 0) { throw new Error('barChar::constructor: canvas width  is zero'); }
+        if (canvasEl.height === 0) { throw new Error('barChar::constructor: canvas height  is zero'); }
+        
         // chartType must be valid
-        if (this.VALID_TYPES.findIndex(checkCartType) === -1) { throw new Error('barChart::constructor: Invalid chart type:  + chartType'); }
+        if (this.VALID_TYPES.findIndex(checkCartType) === -1) { throw new Error('barChart::constructor: Invalid chart type:  ' + chartType); }
         function checkCartType(_chartType: string): boolean {
             return _chartType === chartType;
         }

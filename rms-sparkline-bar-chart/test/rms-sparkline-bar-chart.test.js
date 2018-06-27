@@ -47,7 +47,7 @@ describe('<rms-sparkline-bar-chart>', () => {
 			it('barPoints array is empty', () => {
 				expect(component.barPoints.length).to.equal(12);
 			});
-			it('classname attribute is set to none', () => {
+			it('className attribute is set to none', () => {
 				expect(component.className).to.equal('no class provided');
 			});
 			it('width attribute is set to 64', () => {

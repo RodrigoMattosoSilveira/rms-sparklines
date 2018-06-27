@@ -34,7 +34,7 @@ export class RmsSparklineBarChart extends HTMLElement {
     }
     
     static get observedAttributes(): string[] {
-        return ['className', 'width', 'height', 'lineColor', 'lineWidth', 'fillColor', 'toolTip'];
+        return ['chartType', 'barHeights', 'minimumBarWidth', 'barGap', 'fillColorPlus', 'fillColorZero', 'fillColorMinus', 'className', 'width', 'height'];
     }
     
     connectedCallback() {
@@ -210,17 +210,45 @@ export class RmsSparklineBarChart extends HTMLElement {
     render() {
         // ensure attribute coherence
         //
-        if (this.VALID_CHART_TYPES.findIndex(checkCartType) === -1) { throw new Error('barChart::constructor: Invalid chart type:  + chartType'); }
-        function checkCartType(_chartType: string): boolean {
-            return _chartType === this.chartType;
+        const __this = this;
+        if (this.VALID_CHART_TYPES.findIndex(checkChartType) === -1) { return; }
+        function checkChartType(_charttype: string): boolean {
+            return _charttype === __this.chartType;
         }
-        if (!this.barHeights) { throw new Error('RmsSparklineBarChart::render: barHeights is null'); }
-        if (this.barHeights.length === 0) { throw new Error('RmsSparklineBarChart::render: barHeights is empty'); }
-        if (this.minimumBarWidth < 3) { throw new Error('RmsSparklineBarChart::render: minimumBarWidth less than 3: ' + this.minimumBarWidth); }
-        if (this.barGap < 1) { throw new Error('RmsSparklineBarChart::render: barGap less than 1: ' + this.barGap); }
-        if (!this.CSS_VALID_COLOR.test(this.fillColorMinus)) { throw new Error('RmsSparklineBarChart::render: Invalid fillColorMinus: ' + this.fillColorMinus); }
-        if (!this.CSS_VALID_COLOR.test(this.fillColorZero)) { throw new Error('RmsSparklineBarChart::render: Invalid fillColorMinus: ' + this.fillColorZero); }
-        if (!this.CSS_VALID_COLOR.test(this.fillColorPlus)) { throw new Error('RmsSparklineBarChart::render: Invalid fillColorMinus: ' + this.fillColorPlus); }
+        if (!this.barHeights) { return; }
+        if (this.barHeights.length === 0) { return; }
+        if (this.minimumBarWidth < 3) {return; }
+        if (this.barGap < 1) { return; }
+        if (!this.CSS_VALID_COLOR.test(this.fillColorMinus)) { return; }
+        if (!this.CSS_VALID_COLOR.test(this.fillColorZero)) { return; }
+        if (!this.CSS_VALID_COLOR.test(this.fillColorPlus)) { return; }
+        if (this.width === 0) { return; }
+        if (this.height === 0) { return; }
+        
+        // Little debugging
+        //
+        console.log('::render - chartType: ' + this.chartType);
+        console.log('::render - barHeights: ' + JSON.stringify(this.barHeights));
+        console.log('::render - minimumBarWidth: ' + this.minimumBarWidth);
+        console.log('::render - barGap: ' + this.barGap);
+        console.log('::render - fillColorMinus: ' + this.fillColorMinus);
+        console.log('::render - fillColorZero: ' + this.fillColorZero);
+        console.log('::render - fillColorPlus: ' + this.fillColorPlus);
+        console.log('::render - width: ' + this.width);
+        console.log('::render - height: ' + this.height);
+        
+        // const __this = this;
+        // if (this.VALID_CHART_TYPES.findIndex(checkChartType) === -1) { throw new Error('RmsSparklineBarChart::render: Invalid chart type:  ' + this.chartType); }
+        // function checkChartType(_charttype: string): boolean {
+        //     return _charttype === __this.chartType;
+        // }
+        // if (!this.barHeights) { throw new Error('RmsSparklineBarChart::render: barHeights is null'); }
+        // if (this.barHeights.length === 0) { throw new Error('RmsSparklineBarChart::render: barHeights is empty'); }
+        // if (this.minimumBarWidth < 3) { throw new Error('RmsSparklineBarChart::render: minimumBarWidth less than 3: ' + this.minimumBarWidth); }
+        // if (this.barGap < 1) { throw new Error('RmsSparklineBarChart::render: barGap less than 1: ' + this.barGap); }
+        // if (!this.CSS_VALID_COLOR.test(this.fillColorMinus)) { throw new Error('RmsSparklineBarChart::render: Invalid fillColorMinus: ' + this.fillColorMinus); }
+        // if (!this.CSS_VALID_COLOR.test(this.fillColorZero)) { throw new Error('RmsSparklineBarChart::render: Invalid fillColorMinus: ' + this.fillColorZero); }
+        // if (!this.CSS_VALID_COLOR.test(this.fillColorPlus)) { throw new Error('RmsSparklineBarChart::render: Invalid fillColorMinus: ' + this.fillColorPlus); }
 
         render(this.template, this.shadowRoot);
     }

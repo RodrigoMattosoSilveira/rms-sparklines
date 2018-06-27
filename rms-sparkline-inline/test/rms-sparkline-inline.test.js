@@ -50,8 +50,8 @@ describe('<rms-sparkline-inline>', () => {
 			it('linePoints attarray is empty', () => {
 				expect(component.linePoints.length).to.equal(12);
 			});
-			it('classname attribute is set to none', () => {
-				expect(component.classname).to.equal('');
+			it('className attribute is set to none', () => {
+				expect(component.className).to.equal('');
 			});
 			it('width attribute is set to 64', () => {
 				expect(component.width).to.equal(64);
@@ -101,7 +101,7 @@ describe('<rms-sparkline-inline>', () => {
 				expect(component.linePoints.length).to.equal(12);
 			});
 			it(`classname attribute is set to "class_1 class_2 class_3`, () => {
-				expect(component.classname).to.equal('class_1 class_2 class_3');
+				expect(component.className).to.equal('class_1 class_2 class_3');
 			});
 			it('width attribute is set to 65', () => {
 				expect(component.width).to.equal(65);
