@@ -106,7 +106,7 @@ export class DrawMethods {
         if (dotradius > 0 && decorationpoints.length > 0) {
             // console.log('DrawMethods::line decorationPoint = ' + JSON.stringify(decorationpoints));
             for (let i = 0; i < decorationpoints.length; i++) {
-                //todo: a hack to solve a problem when running inside vaadin-grid
+                // todo: a hack to solve a problem when running inside vaadin-grid
                 if(decorationpoints[i].index > canvasPoints.length-1) {
                     //do nothing
                 } else {
