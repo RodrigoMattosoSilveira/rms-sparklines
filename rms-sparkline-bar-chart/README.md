@@ -13,7 +13,7 @@ The `rms-sparkline-bar-chart` web component renders four distinct bar chart type
 * `chartType: string`: The chart type, one of ['positive', 'negative', 'dual', 'tri']
 * `barHeights: number[]`: The sparkline data source.
 * `className: string`: A classe names to be added to the canvas element. Default is no classes.
-* `idth: number`: The width of the sparkline box in pixels. See the source for comments on how to fit bars into the provided box.
+* `width: number`: The width of the sparkline box in pixels. See the source for comments on how to fit bars into the provided box.
 * `height: number`: The height of the sparkline box in pixels.
 * `minimumBarWidth`: number**: The minimum bar width, in pixels.
 * `barGap: number`: The that bar gap, in pixels.
