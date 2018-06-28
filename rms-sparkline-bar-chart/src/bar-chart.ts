@@ -202,10 +202,14 @@ export class BarChart {
         if (canvasEl === null) { throw new Error('barChar::constructor: canvasEl is null'); }
         if (canvasEl.tagName !== `CANVAS`) { throw new Error('barChar::constructor: canvasEl is is not CANVAS: ' + canvasEl.tagName); }
         this.setCanvasEl(canvasEl);
+        this.setCtx(this.getCanvasEl().getContext('2d'));
     
-        if (canvasEl.width === 0) { throw new Error('barChar::constructor: canvas width  is zero'); }
-        if (canvasEl.height === 0) { throw new Error('barChar::constructor: canvas height  is zero'); }
-        
+        if (canvasEl.width === 0) { throw new Error('barChar::constructor: canvas width is zero'); }
+        this.setCanvasWidth(canvasEl.width);
+     
+        if (canvasEl.height === 0) { throw new Error('barChar::constructor: canvas height is zero'); }
+        this.setCanvasHeight(canvasEl.height);
+    
         // chartType must be valid
         if (this.VALID_TYPES.findIndex(checkCartType) === -1) { throw new Error('barChart::constructor: Invalid chart type:  ' + chartType); }
         function checkCartType(_chartType: string): boolean {
@@ -240,9 +244,9 @@ export class BarChart {
 
     draw() {
         // Calculate parameters
-        this.setCtx(this.getCanvasEl().getContext('2d'));
-        this.setCanvasWidth(this.getCanvasEl().width);
-        this.setCanvasHeight(this.getCanvasEl().height);
+        // this.setCtx(this.getCanvasEl().getContext('2d'));
+        // this.setCanvasWidth(this.getCanvasEl().width);
+        // this.setCanvasHeight(this.getCanvasEl().height);
 
         // Insert the bars
         let _barHeights: number[] =
@@ -278,7 +282,7 @@ export class BarChart {
 
         // Set the bars to be drawn
         this.setBars(this.buildBars(
-            this.getCanvasWidth(),
+            this.getCanvasHeight(),
             _barHeights,
             this.getBarWidth(),
             this.getChartType(),
@@ -441,10 +445,11 @@ export class BarChart {
                     break;
                 case this.VALID_TYPES[this.TRI]:
                     xOrigin = 0;
-                    yOrigin = -canvasHeight / 4;
-                    height = barHeight === 0 ? canvasHeight : canvasHeight / 4;
+                    height = barHeight < 0 ? -canvasHeight / 2 : barHeight === 0 ? canvasHeight / 4 : canvasHeight / 2;
+                    yOrigin = barHeight === 0 ? -height / 2 : 0;
                     fillColor = barHeight < 0 ? fillColorMinus : barHeight === 0 ? fillColorZero : fillColorPlus;
-                    break;
+                    console.log(`::buildBars - tri /  barHeight: ` + barHeight + `    height: ` + height);
+                     break;
                 default:
                     break;
             }
@@ -482,15 +487,22 @@ export class BarChart {
                 break;
             case this.VALID_TYPES[this.DUAL]:
                 hScaling = 1;
-                vScaling = -1 * canvasHeight / (Math.max(Math.abs(Math.min(...barHeights)), Math.max(...barHeights)) / 2);
+                    console.log(`::transformCanvas - DUAL /  vScaling / Math.min(...barHeights: ` + Math.min(...barHeights));
+                    console.log(`::transformCanvas - DUAL /  vScaling / Math.max(...barHeights: ` + Math.max(...barHeights));
+                vScaling = -1 * canvasHeight / (Math.max(Math.abs(Math.min(...barHeights)), Math.max(...barHeights)) * 2);
                 hMoving  = 0;
                 vMoving  = canvasHeight / 2;
+                    console.log(`::transformCanvas - DUAL /  vScaling / vMoving: ` + vMoving);
                 break;
             case this.VALID_TYPES[this.TRI]:
                 hScaling = 1;
+                    console.log(`::transformCanvas - TRI /  vScaling / Math.min(...barHeights: ` + Math.min(...barHeights));
+                    console.log(`::transformCanvas - TRI /  vScaling / Math.max(...barHeights: ` + Math.max(...barHeights));
+                // vScaling = -1 * canvasHeight / (Math.max(Math.abs(Math.min(...barHeights)), Math.max(...barHeights)) * 2);
                 vScaling = -1;
                 hMoving  = 0;
                 vMoving  = canvasHeight / 2;
+                    console.log(`::transformCanvas - TRI /  vScaling / vMoving: ` + vMoving);
                 break;
             default:
                 break;
@@ -499,7 +511,7 @@ export class BarChart {
     }
 
     // Draw the bars!
-    _draw(ctx: CanvasRenderingContext2D, bars: Bar[], barGap: number): void {;
+    _draw(ctx: CanvasRenderingContext2D, bars: Bar[], barGap: number): void {
         for (const bar of bars) {
             // set the bar fill color
             ctx.fillStyle = bar.getFillColor();

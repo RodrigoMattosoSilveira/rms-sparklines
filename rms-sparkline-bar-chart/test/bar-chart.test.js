@@ -44,7 +44,8 @@ Object.defineProperty(Array.prototype, "equals", {enumerable: false});
 
 describe(`bar-chart`, () => {
     let canvasEl;
-    let canvasHeight;
+    let canvasHeight = 16;
+    let canvasWidth = 64;
     let barChart = null;
     let barGap;
     let chartType;
@@ -58,8 +59,8 @@ describe(`bar-chart`, () => {
 
     before(() => {
         canvasEl = document.createElement('canvas');
-        canvasEl.width = 64;
-        canvasEl.height = 16;
+        canvasEl.width = canvasWidth;
+        canvasEl.height = canvasHeight;
         canvasEl.style.display = 'inline-block';
         canvasEl.style.verticalAlign = 'top';
         barGap = 2;
@@ -79,7 +80,13 @@ describe(`bar-chart`, () => {
         it(`the canvas element is initialized `, () => {
             expect(barChart.getCanvasEl().tagName).to.equal(canvasEl.tagName);
         });
-        it(`with a bar gap attribute that has the value of barGap (2)`, () => {
+	    it(`with a canvas width equal to canvasWidth`, () => {
+		    expect(barChart.getCanvasWidth()).to.equal(canvasWidth);
+	    });
+	    it(`with a canvas height equal to canvasHeight`, () => {
+		    expect(barChart.getCanvasHeight()).to.equal(canvasHeight);
+	    });
+	    it(`with a bar gap attribute that has the value of barGap (2)`, () => {
             expect(barChart.getBarGap()).to.equal(barGap);
         });
         it(`with a bar heights attribute that has the value of barHeights [1, 2, ... , 12]`, () => {
@@ -174,15 +181,15 @@ describe(`bar-chart`, () => {
         });
     });
     describe(`when I attempt to builds the bars array`, () => {
-        before(() => {
-            canvasHeight = canvasEl.height;
-            barHeights = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
-            barWidth = 3;
-            chartType = 'positive';
-            bars = barChart.buildBars(canvasHeight, barHeights, barWidth, chartType, fillColorMinus, fillColorZero, fillColorPlus);
-        });
-        describe(`for a positive chart type`, () => {
-            // canvasHeight, barHeights, barWidth, chartType, fillColorMinus, fillColorZero, fillColorPlus
+         describe(`for a positive chart type`, () => {
+	         before(() => {
+		         canvasHeight = canvasEl.height;
+		         barHeights = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+		         barWidth = 3;
+		         chartType = 'positive';
+		         bars = barChart.buildBars(canvasHeight, barHeights, barWidth, chartType, fillColorMinus, fillColorZero, fillColorPlus);
+	         });
+	         // canvasHeight, barHeights, barWidth, chartType, fillColorMinus, fillColorZero, fillColorPlus
             it(`it builds an array of bars, 13 elements long`, () => {
                 let expectedBarsLength = 13;
                 expect(bars.length).to.equal(expectedBarsLength);
@@ -198,5 +205,105 @@ describe(`bar-chart`, () => {
                 }
             });
         });
+	    describe(`for a negative chart type`, () => {
+		    before(() => {
+			    barHeights = [-12, -13, -14, -15, -16, -17, -18, -19, -20, -21, -22, -23, -24];
+			    chartType = 'negative';
+			    bars = barChart.buildBars(canvasHeight, barHeights, barWidth, chartType, fillColorMinus, fillColorZero, fillColorPlus);
+		    });
+		    // canvasHeight, barHeights, barWidth, chartType, fillColorMinus, fillColorZero, fillColorPlus
+		    it(`it builds an array of bars, 13 elements long`, () => {
+			    let expectedBarsLength = 13;
+			    expect(bars.length).to.equal(expectedBarsLength);
+		    });
+		    it(`with properly formatted bars`, () => {
+			    for (let i = 0; i < bars.length;  i++) {
+				    const bar = bars[i];
+				    expect(bar.getX()).to.equal(0);
+				    expect(bars[i].getY()).to.equal(0);
+				    expect(bars[i].getWidth()).to.equal(barWidth);
+				    expect(bars[i].getHeight()).to.equal(barHeights[i]);
+				    expect(bars[i].getFillColor()).to.equal(fillColorMinus);
+			    }
+		    });
+	    });
+	    describe(`for a dual chart type`, () => {
+		    before(() => {
+			    barHeights = [-12, 13, -14, -15, 16, 17, -18, 19, 20, -21, -22, 23, -24];
+			    chartType = 'dual';
+			    bars = barChart.buildBars(canvasHeight, barHeights, barWidth, chartType, fillColorMinus, fillColorZero, fillColorPlus);
+		    });
+		    // canvasHeight, barHeights, barWidth, chartType, fillColorMinus, fillColorZero, fillColorPlus
+		    it(`it builds an array of bars, 13 elements long`, () => {
+			    let expectedBarsLength = 13;
+			    expect(bars.length).to.equal(expectedBarsLength);
+		    });
+		    it(`with properly formatted bars`, () => {
+			    for (let i = 0; i < bars.length;  i++) {
+				    const bar = bars[i];
+				    expect(bar.getX()).to.equal(0);
+				    expect(bars[i].getY()).to.equal(0);
+				    expect(bars[i].getWidth()).to.equal(barWidth);
+				    expect(bars[i].getHeight()).to.equal(barHeights[i]);
+				    if (barHeights[i] < 0) {
+					    expect(bars[i].getFillColor()).to.equal(fillColorMinus);
+				    }
+				    else {
+					    expect(bars[i].getFillColor()).to.equal(fillColorPlus);
+				    }
+			    }
+		    });
+	    });
+	    describe(`for a tri chart type`, () => {
+		    before(() => {
+			    barHeights = [-12, 0, -14, 0, 16, 17, 0, 19, 20, -21, 0, 0, -24];
+			    chartType = 'tri';
+			    bars = barChart.buildBars(canvasHeight, barHeights, barWidth, chartType, fillColorMinus, fillColorZero, fillColorPlus);
+		    });
+		    // canvasHeight, barHeights, barWidth, chartType, fillColorMinus, fillColorZero, fillColorPlus
+		    it(`it builds an array of bars, 13 elements long`, () => {
+			    let expectedBarsLength = 13;
+			    expect(bars.length).to.equal(expectedBarsLength);
+		    });
+		    it(`with properly formatted bars`, () => {
+			    for (let i = 0; i < bars.length;  i++) {
+				    const bar = bars[i];
+				    expect(bar.getX()).to.equal(0);
+				    if (barHeights[i] === 0) {
+					    expect(bars[i].getY()).to.equal(-bar.getHeight()/2);
+				    }
+				    else {
+					    expect(bars[i].getY()).to.equal(0);
+				    }
+				    // expect(bars[i].getY()).to.equal(0);
+				    expect(bars[i].getWidth()).to.equal(barWidth);
+				    //expect(bars[i].getHeight()).to.equal(barHeights[i]);
+				    console.log(`::with properly formatted bars - barHeight: ` + bar.getHeight() + `   canvasHeight: ` + barChart.getCanvasHeight());
+				    if (barHeights[i] < 0) {
+					    expect(bar.getHeight()).to.equal(-barChart.getCanvasHeight() / 2);
+				    }
+				    else {
+					    if (barHeights[i] === 0) {
+						    expect(bar.getHeight()).to.equal(barChart.getCanvasHeight() / 4);
+					    }
+					    else {
+						    expect(bar.getHeight()).to.equal(barChart.getCanvasHeight() / 2);
+					    }
+				    }
+
+				    if (barHeights[i] < 0) {
+					    expect(bars[i].getFillColor()).to.equal(fillColorMinus);
+				    }
+				    else {
+					    if (barHeights[i] === 0) {
+						    expect(bars[i].getFillColor()).to.equal(fillColorZero);
+					    }
+					    else {
+						    expect(bars[i].getFillColor()).to.equal(fillColorPlus);
+					    }
+				    }
+			    }
+		    });
+	    });
     });
 });
