@@ -7,7 +7,7 @@ The `rms-sparkline-bar-chart` web component renders four distinct bar chart type
 1. `positive`: Positive charts' bars with positve heights are drawn northward; bars with negative heights are cropped out. 
 1. `negative`:  Negative charts' bars with negative heights are drawn southward; bars with positive heights are cropped out. 
 1. `dual`: Dual charts' bars heights are negative, zero, or positive, with a positive height bars drawn northward and negative ones southward.
-1. `tri`: Tri charts have negative, zero, and positive bars. The positive and negative bars are half of the box height, whereas the aero bar is one fouth of it.
+1. `tri`: Tri charts have negative, zero, and positive bars. The positive and negative bars are half of the box height, whereas the aero bar is one fouth of it. Negative bara are drawn sothward, zeros stradding the x-axis, and positives northward.
 
 #### Attributes
 * `chartType: string`: The chart type, one of ['positive', 'negative', 'dual', 'tri']
