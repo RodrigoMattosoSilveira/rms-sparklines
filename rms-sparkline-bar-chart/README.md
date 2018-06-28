@@ -4,9 +4,6 @@
 Description
 ----
 The `rms-sparkline-bar-chart` web component renders four distinct bar chart types, as per the `chartType` attribute:
-1. `postitive`: All 
-
-The `rms-sparkline-bar-chart` web component renders four distinct bar chart types, as per the `chartType` attribute:
 1. `positive`: Positive charts' bars with positve heights are drawn northward; bars with negative heights are cropped out. 
 1. `negative`:  Negative charts' bars with negative heights are drawn southward; bars with positive heights are cropped out. 
 1. `dual`: Dual charts' bars heights are negative, zero, or positive, with a positive height bars drawn northward and negative ones southward.
