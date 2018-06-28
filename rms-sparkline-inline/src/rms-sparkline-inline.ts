@@ -200,6 +200,7 @@ export class RmsSparklineInline extends HTMLElement {
         sparkline.height = this.height;
         sparkline.style.display = 'inline-block';
         sparkline.style.verticalAlign = 'top';
+        if (this.className && this.className !== ``) { sparkline.classList.add(this.className); }
         
         const ctx: CanvasRenderingContext2D = sparkline.getContext('2d');
         

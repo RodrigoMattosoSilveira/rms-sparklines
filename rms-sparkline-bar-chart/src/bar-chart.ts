@@ -114,6 +114,8 @@
  *   - fit the barHeights into half of the canvas height.
  *   - All bars are drawn with height = canvas.height / 2
  *   - zero heights are drawn half northward, and hald southward
+ *
+ *   TODO: Add validation for color names ... ValidColors.ts
  */
 import { Bar } from './bar';
 
