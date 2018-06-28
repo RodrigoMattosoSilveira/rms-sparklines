@@ -44,28 +44,28 @@ export class RmsSparklineInline extends HTMLElement {
 
   connectedCallback() {
     this.upgradeProperties();
-	  // console.log("RmsSparklineInlineNew::connectedCallback");
+    // console.log("RmsSparklineInlineNew::connectedCallback");
     this.render();
   }
 
   disconnectedCallback() {
   }
 
-  attributeChangedCallback(_name: string, _oldValue: any, _newValue: any) {
-	  // console.log("RmsSparklineInlineNew::attributeChangedCallback_name = " + _name);
-    this.render();
-  }
+    attributeChangedCallback(_name: string, _oldValue: any, _newValue: any) {
+        // console.log("RmsSparklineInlineNew::attributeChangedCallback_name = " + _name);
+        this.render();
+    }
 
-  private upgradeProperties() {
-    // Support lazy properties https://developers.google.com/web/fundamentals/web-components/best-practices#lazy-properties
-    (<any>this).constructor['observedAttributes'].forEach((prop: string) => {
-      if (this.hasOwnProperty(prop)) {
-        let value = (<any>this)[prop];
-        delete (<any>this)[prop];
-        (<any>this)[prop] = value;
-      }
-    });
-  }
+    private upgradeProperties() {
+        // Support lazy properties https://developers.google.com/web/fundamentals/web-components/best-practices#lazy-properties
+        (<any>this).constructor['observedAttributes'].forEach((prop: string) => {
+        if (this.hasOwnProperty(prop)) {
+            const value = (<any>this)[prop];
+            delete (<any>this)[prop];
+            (<any>this)[prop] = value;
+            }
+        });
+    }
     
     get linepoints(): number[] {
         return  JSON.parse(this.getAttribute('linepoints')) || JSON.stringify([]);
@@ -79,25 +79,25 @@ export class RmsSparklineInline extends HTMLElement {
         }
     }
 
-  get classname(): string {
-    return this.getAttribute('classname') || '';
-  }
-
-  set classname(value: string) {
-    if (value) {
-      this.setAttribute('classname', value);
-    } else {
-      this.removeAttribute('classname');
+    get classname(): string {
+        return this.getAttribute('classname') || '';
     }
-  }
 
-  get width(): number {
-	  if (this.hasAttribute('width')) {
-		  return Number(this.getAttribute('width')) == 0 ? 64 : Number(this.getAttribute('width'));
-	  } else {
-		  return 64;
-	  }
-  }
+    set classname(value: string) {
+        if (value) {
+            this.setAttribute('classname', value);
+        } else {
+            this.removeAttribute('classname');
+        }
+    }
+
+    get width(): number {
+        if (this.hasAttribute('width')) {
+            return Number(this.getAttribute('width')) === 0 ? 64 : Number(this.getAttribute('width'));
+        } else {
+            return 0;
+        }
+    }
 
   set width(value: number) {
     if (value) {
@@ -107,77 +107,77 @@ export class RmsSparklineInline extends HTMLElement {
     }
   }
 
-  get height(): number {
-	  if (this.hasAttribute('height')) {
-		  return Number(this.getAttribute('height')) == 0 ? 16 : Number(this.getAttribute('height'));
-	  } else {
-		  return 16;
-	  }
-  }
-
-  set height(value: number) {
-    if (value) {
-      this.setAttribute('height', String(value));
-    } else {
-      this.removeAttribute('height');
+    get height(): number {
+        if (this.hasAttribute('height')) {
+            return Number(this.getAttribute('height')) === 0 ? 16 : Number(this.getAttribute('height'));
+        } else {
+            return 0;
+        }
     }
-  }
 
-  get linecolor(): string {
-    return this.getAttribute('linecolor') || 'lightgrey';
-  }
-
-  set linecolor(value: string) {
-    if (value) {
-      this.setAttribute('linecolor', value);
-    } else {
-      this.removeAttribute('linecolor');
+    set height(value: number) {
+        if (value) {
+            this.setAttribute('height', String(value));
+        } else {
+            this.removeAttribute('height');
+        }
     }
-  }
 
-  get linewidth(): number {
-	  if (this.hasAttribute('linewidth')) {
-		  return Number(this.getAttribute('linewidth')) == 0 ? 1 : Number(this.getAttribute('linewidth'));
-	  } else {
-		  return 1;
-	  }
-  }
-
-  set linewidth(value: number) {
-    if (value) {
-      this.setAttribute('linewidth', String(value));
-    } else {
-      this.removeAttribute('linewidth');
+    get linecolor(): string {
+        return this.getAttribute('linecolor') || '';
     }
-  }
 
-  get dotradius(): number {
-	  if (this.hasAttribute('dotradius')) {
-		  return Number(this.getAttribute('dotradius'));
-	  } else {
-		  return 0;
-	  }
-  }
-
-  set dotradius(value: number) {
-    if (value) {
-      this.setAttribute('dotradius', String(value));
-    } else {
-      this.removeAttribute('dotradius');
+    set linecolor(value: string) {
+        if (value) {
+            this.setAttribute('linecolor', value);
+        } else {
+            this.removeAttribute('linecolor');
+        }
     }
-  }
 
-	get shadecolor(): string {
-		return this.getAttribute('shadecolor');
-	}
+    get linewidth(): number {
+        if (this.hasAttribute('linewidth')) {
+            return Number(this.getAttribute('linewidth')) === 0 ? 1 : Number(this.getAttribute('linewidth'));
+        } else {
+            return 0;
+        }
+    }
 
-	set shadecolor(value: string) {
-		if (value) {
-			this.setAttribute('shadecolor', value);
-		} else {
-			this.removeAttribute('shadecolor');
-		}
-	}
+    set linewidth(value: number) {
+        if (value) {
+            this.setAttribute('linewidth', String(value));
+        } else {
+            this.removeAttribute('linewidth');
+        }
+    }
+
+    get dotradius(): number {
+        if (this.hasAttribute('dotradius')) {
+            return Number(this.getAttribute('dotradius'));
+        } else {
+            return 0;
+        }
+    }
+
+    set dotradius(value: number) {
+        if (value) {
+            this.setAttribute('dotradius', String(value));
+        } else {
+            this.removeAttribute('dotradius');
+        }
+    }
+
+    get shadecolor(): string {
+        return this.getAttribute('shadecolor');
+    }
+
+    set shadecolor(value: string) {
+        if (value) {
+            this.setAttribute('shadecolor', value);
+        } else {
+         this.removeAttribute('shadecolor');
+        }
+    }
     get decorationpoints(): Decoration [] {
         return  JSON.parse(this.getAttribute('decorationpoints')) || JSON.parse(JSON.stringify([]));
     }
@@ -190,55 +190,71 @@ export class RmsSparklineInline extends HTMLElement {
         }
     }
  
-	/**
-	 * Draw an inline sparkline
-	 */
-	draw (): HTMLCanvasElement {
-
-		let sparkline: HTMLCanvasElement = document.createElement('canvas');
-		sparkline.width = this.width;
-		sparkline.height = this.height;
-		sparkline.style.display = 'inline-block';
-		sparkline.style.verticalAlign = 'top';
-
-		let ctx: CanvasRenderingContext2D = sparkline.getContext('2d');
-
-		// Draw the line
+    /**
+    * Draw an inline sparkline
+    */
+    draw (): HTMLCanvasElement {
+    
+        const sparkline: HTMLCanvasElement = document.createElement('canvas');
+        sparkline.width = this.width;
+        sparkline.height = this.height;
+        sparkline.style.display = 'inline-block';
+        sparkline.style.verticalAlign = 'top';
+        
+        const ctx: CanvasRenderingContext2D = sparkline.getContext('2d');
+        
+        // Draw the line
         DrawMethods.line(ctx,
-            this.linepoints,
-            this.width,
-            this.linewidth,
-            this.linecolor,
-            this.height,
-            this.shadecolor,
-            this.dotradius,
-            this.decorationpoints);
-
-		/**
-		 * used to aid in unit testing; the results published to the console are compared with the results produced by
-		 * the unit test!
-		 */
+        this.linepoints,
+        this.width,
+        this.linewidth,
+        this.linecolor,
+        this.height,
+        this.shadecolor,
+        this.dotradius,
+        this.decorationpoints);
+        
+        /**
+        * used to aid in unit testing; the results published to the console are compared with the results produced by
+        * the unit test!
+        */
         // console.log('dotradius: ' + this.dotradius);
         // console.log(sparkline.toDataURL());
         // console.log(ctx.getImageData(0, 0, this.width, this.height))
+        
+        return sparkline;
+    }
 
-		return sparkline;
-	}
+    private get styles(): TemplateResult {
+        return html`
+            <style>
+            </style>
+        `;
+    }
 
-  private get styles(): TemplateResult {
-    return html`
-      <style>
-      </style>
-    `;
-  }
-
-  private get template(): TemplateResult {
-	  let sparkline: HTMLCanvasElement = this.draw();
-	  return html`${sparkline}`;
-  }
+    private get template(): TemplateResult {
+        const sparkline: HTMLCanvasElement = this.draw();
+        return html`
+            ${this.styles}
+            ${sparkline}
+        `;
+    }
 
   render() {
     // console.log("RmsSparklineInlineNew::render");
+      if (!this.linepoints) { return; }
+      if (this.linepoints.length === 0) { return; }
+      if (this.linewidth === 0 ) {return; }
+      if (this.linecolor === '') { return; }
+      if (this.width === 0) { return; }
+      if (this.height === 0) { return; }
+      if (this.decorationpoints && this.decorationpoints.length > 0) {
+          for (let i = 0; i < this.decorationpoints.length; i++) {
+              // todo: a hack to solve a problem when running inside vaadin-grid
+              if (this.decorationpoints[i].index > this.linepoints.length - 1) { return; }
+          }
+      }
+      
     render(this.template, this.shadowRoot);
   }
 }
