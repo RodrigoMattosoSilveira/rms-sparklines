@@ -21,6 +21,12 @@ The `rms-sparkline-bar-chart` web component renders four distinct bar chart type
 * `fillColorZero: string`: The color to render zero bars.
 * `fillColorPlus: string`: The color to render positive bars.
 
+#### barHeights
+A simple sequence of values representing f(x), with x being equally spaced units accross the horizontal axis, as for instance:
+````typescript
+    barHeights: number[] = [4, 3, 7, 8, 1, 4, 9, 2, 5, 3, 5, 5, 8 , 9, 7, 1];
+````
+
 #### Methods
 The web element does not offer an API. It interactions are controlled by changing its attributes.
 
@@ -34,8 +40,25 @@ none
 
 
 ### Usage
+Below is example of a barchar sparkline. In this example, sparkline is being declared as a child of an Angular component, with its attribute values being set at the Angular's component controller.
 
-See usage guidelies on the style guide application, [rms-sparklines-styleguide](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide) README.
+````html
+    <rms-sparkline-bar-chart
+        [chartType] = "chartType"
+        [barHeights] = "barHeights"
+        [minimumBarWidth] = "minimumBarWidth"
+        [barGap] = "barGap"
+        [fillColorPlus] = "fillColorPlus"
+        [fillColorZero] = "fillColorZero"
+        [fillColorMinus] = "fillColorMinus"
+        [className] = "className"
+        [height] = "height"
+        [width] = "width"
+    >
+    </rms-sparkline-bar-chart>
+````
+
+See the style guide application source code, [rms-sparklines-styleguide](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide) for usage details.
 
 # Last but not least
 ````html

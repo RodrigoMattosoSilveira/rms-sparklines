@@ -8,16 +8,22 @@ The `rms-sparkline-inline` web component renders a simple sparkline including th
 * optional decorating points, drawn along the line, e.g. min / max / start / end / alert. etc.
 * an optional dropdown shade
 
+The `rrms-sparkline-inline` web component renders the folloing  line sparlines types:
+1. `simple`: A simple line, all points positive
+1. `decorated`:  A simple line, all points positive, with decoration points alongside the line.
+1. `shade`: Dual charts' bars heights are negative, zero, or positive, with a positive height bars drawn northward and negative ones southward.
+
+
 ### Attributes
-* **linepoints**: An array of numbers representing the sparkline data source. Default is empty array. See below for formating details.
-* **className**:A string of space separated classe names to be added to the canvas element. Default is no classes.
-* **width**: A number giving the width of the sparkline box in pixels. Default is 64.
-* **height**: A number giving the height of the sparkline box in pixels. Default is 16.
-* **linecolor**: A string giving the color of the sparkline; any valid CSS color. Default is black.
-* **linewidth**: A number giving the stroke of the line in pixels. Default is 1.
-* **shadecolor**: A string giving the color of the dot marking the highest value; any valid CSS color. Must be present and valide for the dropdown shade to be drawn.
-* **dotradius**: A number giving the size of the dots used to mark important values. Default value is 0. It must be a valid positive number for the deecoration points to be drawn.
-* **decorationpoints** An array of objects describing decoration points,  e.g. min / max / start / end / alert. etc. See below for formating details.
+* `linepoints: number[]`: An array of numbers representing the sparkline data source. Default is empty array. See below for formating details.
+* `className: string`: The classe names to be added to the canvas element. Default is no classes.
+* `width: number`: The width of the sparkline box in pixels.
+* `height: number`: The height of the sparkline box in pixels.
+* `linecolor: string`: The color of the sparkline; any valid CSS color. 
+* `linewidth: number`: A number giving the stroke of the line in pixels. Default is 1.
+* `shadecolor: string`: The color of to shade the area underneath the sparkline.
+* `dotradius: Number`: The size of the decoration dots.
+* `decorationpoints` An array of objects describing decoration points,  e.g. min / max / start / end / alert. etc. See below for formating details.
 
 #### linepoints
 A simple sequence of values representing f(x), with x being equally spaced units accross the horizontal axis, as for instance:
@@ -29,7 +35,7 @@ Assuming the default width, 64 pixels, fifteen segments would will be drawn, fou
 #### decoratingtoints
 An array of objects descring the decorations to be added to the line. Presently only circles are supported, with the object describing a decorating point being formated as follows:
 ````typescript
-    decorationpoints = [{index: 0, color: 'red'}, {index: 15, color: 'black'}];
+    decorationpoints = [{linepointsIndex: 0, color: 'red'}, {linepointsIndex: 15, color: 'black'}];
 ````
 
 There are two decorations this example, one red dot indexed to be drawn over the line point of inxdex 0 and one black dot indexed to be drawn over the line point of inxdex 15. Considering the linepoints example above, these decorations would represent the sparkline's start and end points. 
@@ -60,7 +66,7 @@ Below is example of a sparkline inline drawn without a shade and with decoration
     </rms-sparkline-inline>
 ````
 
-See usage guidelines on the style guide application, [rms-sparklines-styleguide](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide) README.
+See the style guide application source code, [rms-sparklines-styleguide](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide) for usage details.
 
 # Development Notes
 Observations regarding problems integrating a web component, rms-sparkline-inline in this case, into an angular component Vaadin table hosted by an Angular component.
