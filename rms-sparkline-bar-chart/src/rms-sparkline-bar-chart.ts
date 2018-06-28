@@ -227,15 +227,15 @@ export class RmsSparklineBarChart extends HTMLElement {
         
         // Little debugging
         //
-        console.log('::render - chartType: ' + this.chartType);
-        console.log('::render - barHeights: ' + JSON.stringify(this.barHeights));
-        console.log('::render - minimumBarWidth: ' + this.minimumBarWidth);
-        console.log('::render - barGap: ' + this.barGap);
-        console.log('::render - fillColorMinus: ' + this.fillColorMinus);
-        console.log('::render - fillColorZero: ' + this.fillColorZero);
-        console.log('::render - fillColorPlus: ' + this.fillColorPlus);
-        console.log('::render - width: ' + this.width);
-        console.log('::render - height: ' + this.height);
+        // console.log('::render - chartType: ' + this.chartType);
+        // console.log('::render - barHeights: ' + JSON.stringify(this.barHeights));
+        // console.log('::render - minimumBarWidth: ' + this.minimumBarWidth);
+        // console.log('::render - barGap: ' + this.barGap);
+        // console.log('::render - fillColorMinus: ' + this.fillColorMinus);
+        // console.log('::render - fillColorZero: ' + this.fillColorZero);
+        // console.log('::render - fillColorPlus: ' + this.fillColorPlus);
+        // console.log('::render - width: ' + this.width);
+        // console.log('::render - height: ' + this.height);
         
         render(this.template, this.shadowRoot);
     }
