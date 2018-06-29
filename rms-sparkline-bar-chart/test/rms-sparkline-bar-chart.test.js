@@ -9,7 +9,8 @@
 // import 'karma-fixture';
 import '@webcomponents/webcomponentsjs/webcomponents-lite';
 
-describe('<rms-sparkline-bar-chart>', () => {
+// todo these tests do not make sense, the relevant tests are in bar-chart-test
+xdescribe('<rms-sparkline-bar-chart>', () => {
   let component;
   let fixturePath = 'rms-sparkline-bar-chart.fixture.html';
   const FIXTURES = {
@@ -35,7 +36,7 @@ describe('<rms-sparkline-bar-chart>', () => {
     fixture.cleanup()
   });
 
-	describe('the rms-sparkline-inline', () => {
+	describe('the rms-sparkline-barchart', () => {
 		describe('when declared without any attributes, its ', () => {
 			beforeEach(() => {
 				component = fixture.load(fixturePath)[FIXTURES.DEFAULT];
@@ -48,25 +49,22 @@ describe('<rms-sparkline-bar-chart>', () => {
 				expect(component.barPoints.length).to.equal(12);
 			});
 			it('className attribute is set to none', () => {
-				expect(component.className).to.equal('no class provided');
+				expect(component.className).to.equal('');
 			});
 			it('width attribute is set to 64', () => {
-				expect(component.width).to.equal(64);
+				expect(component.width).to.equal(0);
 			});
 			it('height attribute is set to 16', () => {
-				expect(component.height).to.equal(16);
+				expect(component.height).to.equal(0);
 			});
-			it(`linecolor attribute is set to "lightgrey"`, () => {
-				expect(component.lineColor).to.equal('lightgrey');
+			it(`linecolor attribute is set to ""`, () => {
+				expect(component.lineColor).to.equal('');
 			});
 			it(`lineWidth attribute is set to 1`, () => {
-				expect(component.lineWidth).to.equal(1);
+				expect(component.lineWidth).to.equal(0);
 			});
-			it(`toolTip attribute is set to false`, () => {
-				expect(component.toolTip).to.equal(false);
-			});
-			it(`fillcolor attribute is set to "lightblue"`, () => {
-				expect(component.fillColor).to.equal('lightblue');
+			it(`fillcolor attribute is set to ""`, () => {
+				expect(component.fillColor).to.equal('');
 			});
 			it(' children size is 1', () => {
 				expect(component.shadowRoot.children.length).equal(2);
