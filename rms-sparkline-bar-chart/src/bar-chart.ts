@@ -450,7 +450,7 @@ export class BarChart {
                     height = barHeight < 0 ? -canvasHeight / 2 : barHeight === 0 ? canvasHeight / 4 : canvasHeight / 2;
                     yOrigin = barHeight === 0 ? -height / 2 : 0;
                     fillColor = barHeight < 0 ? fillColorMinus : barHeight === 0 ? fillColorZero : fillColorPlus;
-                    console.log(`::buildBars - tri /  barHeight: ` + barHeight + `    height: ` + height);
+                    // console.log(`::buildBars - tri /  barHeight: ` + barHeight + `    height: ` + height);
                      break;
                 default:
                     break;
@@ -489,22 +489,22 @@ export class BarChart {
                 break;
             case this.VALID_TYPES[this.DUAL]:
                 hScaling = 1;
-                    console.log(`::transformCanvas - DUAL /  vScaling / Math.min(...barHeights: ` + Math.min(...barHeights));
-                    console.log(`::transformCanvas - DUAL /  vScaling / Math.max(...barHeights: ` + Math.max(...barHeights));
+                    // console.log(`::transformCanvas - DUAL /  vScaling / Math.min(...barHeights: ` + Math.min(...barHeights));
+                    // console.log(`::transformCanvas - DUAL /  vScaling / Math.max(...barHeights: ` + Math.max(...barHeights));
                 vScaling = -1 * canvasHeight / (Math.max(Math.abs(Math.min(...barHeights)), Math.max(...barHeights)) * 2);
                 hMoving  = 0;
                 vMoving  = canvasHeight / 2;
-                    console.log(`::transformCanvas - DUAL /  vScaling / vMoving: ` + vMoving);
+                    // console.log(`::transformCanvas - DUAL /  vScaling / vMoving: ` + vMoving);
                 break;
             case this.VALID_TYPES[this.TRI]:
                 hScaling = 1;
-                    console.log(`::transformCanvas - TRI /  vScaling / Math.min(...barHeights: ` + Math.min(...barHeights));
-                    console.log(`::transformCanvas - TRI /  vScaling / Math.max(...barHeights: ` + Math.max(...barHeights));
+                    // console.log(`::transformCanvas - TRI /  vScaling / Math.min(...barHeights: ` + Math.min(...barHeights));
+                    // console.log(`::transformCanvas - TRI /  vScaling / Math.max(...barHeights: ` + Math.max(...barHeights));
                 // vScaling = -1 * canvasHeight / (Math.max(Math.abs(Math.min(...barHeights)), Math.max(...barHeights)) * 2);
                 vScaling = -1;
                 hMoving  = 0;
                 vMoving  = canvasHeight / 2;
-                    console.log(`::transformCanvas - TRI /  vScaling / vMoving: ` + vMoving);
+                    // console.log(`::transformCanvas - TRI /  vScaling / vMoving: ` + vMoving);
                 break;
             default:
                 break;
