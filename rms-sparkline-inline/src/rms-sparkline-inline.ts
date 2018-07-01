@@ -20,12 +20,15 @@
 import { html, render, TemplateResult } from 'lit-html';
 import {DrawMethods} from '../../util/DrawMethods';
 import {Decoration} from '../dist/util/Decoration';
+import { CssColorString } from '../../util-lib/src/valid-colors';
 
 export class RmsSparklineInline extends HTMLElement {
+    private cssColorString: CssColorString = null;
 
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
+      this.cssColorString = new CssColorString();
   }
 
   static get observedAttributes(): string[] {
@@ -246,13 +249,15 @@ export class RmsSparklineInline extends HTMLElement {
       if (!this.linepoints) { return; }
       if (this.linepoints.length === 0) { return; }
       if (this.linewidth === 0 ) {return; }
-      if (this.linecolor === '') { return; }
+      if (!this.linecolor || !this.cssColorString.isValid(this.linecolor)) { return; }
       if (this.width === 0) { return; }
       if (this.height === 0) { return; }
+      if (this.shadecolor && !this.cssColorString.isValid(this.shadecolor)) { return; }
       if (this.decorationpoints && this.decorationpoints.length > 0) {
+          // logic to ensure linepoints is filled before we kick of the line construction
           for (let i = 0; i < this.decorationpoints.length; i++) {
-              // todo: a hack to solve a problem when running inside vaadin-grid
               if (this.decorationpoints[i].index > this.linepoints.length - 1) { return; }
+              if (!this.cssColorString.isValid(this.decorationpoints[i].color)) { return; }
           }
       }
       
