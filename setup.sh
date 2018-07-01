@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 declare -a webComponents=("rms-sparkline-inline" \
-"rms-sparkline-bar-chart"
+"rms-sparkline-bar-chart" \
+"util-lib"
 )
 
 for webComponent in "${webComponents[@]}"
