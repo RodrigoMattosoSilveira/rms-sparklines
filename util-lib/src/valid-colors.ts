@@ -25,6 +25,9 @@
  */
 export class CssColorString {
     
+    // See here: https://www.w3schools.com/cssref/css_colors_legal.asp, for a discussion on the CSS Legal Color Values
+    
+    // From here: https://gist.github.com/sethlopezme/d072b945969a3cc2cc11
     VALID_HEX_CSS_COLOR_EXPRESSION: any = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
     
     // From here: https://gist.github.com/sethlopezme/d072b945969a3cc2cc11
