@@ -18,8 +18,8 @@
   },
   "main": "index.js",
   "scripts": {
-    "setup": "./setup.sh",
-    "test": "./setup.sh"
+	"setup": "./setup.sh -iu",
+    "test": "./setup.sh -u"
   },
   "keywords": [
     "rms",
