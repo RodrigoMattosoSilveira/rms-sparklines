@@ -4,15 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.1.01] - 2018-06-29
+## [0.1.2] - 2018-06-30
+### Added
+* a color validation class, CssColorString, to be used by all sparkline validating colors
+
+### Changed
+* replaced color validations to use CssColorString
+
+## [0.1.1] - 2018-06-29
 ### Changed
 * Debugging a build problem with angular-cli
 * Removed a debug log statements
 
-## [0.1.00] - 2018-06-28
+## [0.1.0] - 2018-06-28
 ### Added
-
 * Refactored rms-sparlline-barchart to support positive, negative, dual, and tri charts. Replaced the drawing logic a separate class, providing us with the ability to write extensive unit tests.
+
 ### Changed
 * Removed default values from rms-sparlline-inline and rms-sparlline-barchart; now a messages is shown, and the web component does nothing.
 

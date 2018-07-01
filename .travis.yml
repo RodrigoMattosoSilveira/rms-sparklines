@@ -1,5 +1,5 @@
 language: node.js
-script: "./setup.sh"
+script: "./setup.sh -iu"
 sudo: required
 dist: trusty
 addons:
