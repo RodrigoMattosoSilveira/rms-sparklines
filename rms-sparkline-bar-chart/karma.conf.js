@@ -41,7 +41,7 @@ module.exports = function(config) {
 				info: '#',
 				warning: '!',
 				error: 'x'
-				}
+			}
 		}
 	});
 };
