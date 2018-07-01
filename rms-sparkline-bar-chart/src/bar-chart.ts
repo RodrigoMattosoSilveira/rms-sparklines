@@ -118,6 +118,7 @@
  *   TODO: Add validation for color names ... ValidColors.ts
  */
 import { Bar } from './bar';
+import { CssColorString } from '../../util-lib/src/valid-colors';
 
 export class BarChart {
 
@@ -143,10 +144,9 @@ export class BarChart {
     NEGATIVE = 1;
     DUAL = 2;
     TRI = 3;
-
-    // from here: https://gist.github.com/olmokramer/82ccce673f86db7cda5e
-    CSS_VALID_COLOR: any = /(#(?:[0-9a-f]{2}){2,4}|(#[0-9a-f]{3})|(rgb|hsl)a?\((-?\d+%?[,\s]+){2,3}\s*[\d\.]+%?\))/i;
-
+    
+    private cssColorString: CssColorString = null;
+    
     // Attributes setters and Getters
     setCanvasEl(value: HTMLCanvasElement) { this.canvasEl = value; }
     getCanvasEl(): HTMLCanvasElement { return this.canvasEl; }
@@ -196,6 +196,8 @@ export class BarChart {
                 fillColorMinus: string,
                 fillColorZero: string,
                 fillColorPlus: string) {
+    
+        this.cssColorString = new CssColorString();
 
         // Must have 8 arguments
         if (arguments.length !== 8) { throw new Error('barChart::constructor: invalid number of arguments: ' + arguments.length); }
@@ -232,15 +234,15 @@ export class BarChart {
         this.setBarGap(barGap);
 
         // fillColorPlus must be a valid CSS color
-        if (!this.CSS_VALID_COLOR.test(fillColorMinus)) { throw new Error('barChart::constructor: Invalid fillColorMinus: ' + fillColorMinus); }
+        if (!this.cssColorString.isValid(fillColorMinus)) { throw new Error('barChart::constructor: Invalid fillColorMinus: ' + fillColorMinus); }
         this.setFillColorMinus(fillColorMinus);
 
         // fillColorZero must be a valid CSS color
-        if (!this.CSS_VALID_COLOR.test(fillColorZero)) { throw new Error('barChart::constructor: Invalid fillColorZero: ' + fillColorZero); }
+        if (!this.cssColorString.isValid(fillColorZero)) { throw new Error('barChart::constructor: Invalid fillColorZero: ' + fillColorZero); }
         this.setFillColorZero(fillColorZero);
 
         // fillColorPlus must be a valid CSS color
-        if (!this.CSS_VALID_COLOR.test(fillColorPlus)) { throw new Error('barChart::constructor: Invalid fillColorPlus: ' + fillColorPlus); }
+        if (!this.cssColorString.isValid(fillColorPlus)) { throw new Error('barChart::constructor: Invalid fillColorPlus: ' + fillColorPlus); }
         this.setFillColorPlus(fillColorPlus);
     }
 

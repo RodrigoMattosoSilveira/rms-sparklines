@@ -19,18 +19,18 @@
 
 import { html, render, TemplateResult } from 'lit-html';
 import {BarChart} from './bar-chart';
+import { CssColorString } from '../../util-lib/src/valid-colors';
 
 export class RmsSparklineBarChart extends HTMLElement {
     public barHeights: number[] = [];
     VALID_CHART_TYPES: string[] = ['positive', 'negative', 'dual', 'tri'];
-    
-    // from here: https://gist.github.com/olmokramer/82ccce673f86db7cda5e
-    CSS_VALID_COLOR: any = /(#(?:[0-9a-f]{2}){2,4}|(#[0-9a-f]{3})|(rgb|hsl)a?\((-?\d+%?[,\s]+){2,3}\s*[\d\.]+%?\))/i;
+    private cssColorString: CssColorString = null;
     
     
     constructor() {
-    super();
+        super();
         this.attachShadow({ mode: 'open' });
+        this.cssColorString = new CssColorString();
     }
     
     static get observedAttributes(): string[] {
@@ -219,9 +219,9 @@ export class RmsSparklineBarChart extends HTMLElement {
         if (this.barHeights.length === 0) { return; }
         if (this.minimumBarWidth < 3) {return; }
         if (this.barGap < 1) { return; }
-        if (!this.CSS_VALID_COLOR.test(this.fillColorMinus)) { return; }
-        if (!this.CSS_VALID_COLOR.test(this.fillColorZero)) { return; }
-        if (!this.CSS_VALID_COLOR.test(this.fillColorPlus)) { return; }
+        if (!this.cssColorString.isValid(this.fillColorMinus)) { return; }
+        if (!this.cssColorString.isValid(this.fillColorZero)) { return; }
+        if (!this.cssColorString.isValid(this.fillColorPlus)) { return; }
         if (this.width === 0) { return; }
         if (this.height === 0) { return; }
         
