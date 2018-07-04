@@ -2,7 +2,8 @@
 
 declare -a webComponents=("rms-sparkline-inline" \
 "rms-sparkline-bar-chart" \
-"util-lib"
+"util-lib" \
+"rms-sparkline-boxplot"
 )
 
 # Usage
