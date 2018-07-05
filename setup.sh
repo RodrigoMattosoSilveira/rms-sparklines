@@ -27,7 +27,7 @@ do
   fi
 
 
-  if [ $flag = "" ];
+  if [ $flag = "u" ];
     then
       unitTests="yes"
   fi

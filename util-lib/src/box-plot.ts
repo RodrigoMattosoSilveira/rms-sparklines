@@ -1,4 +1,4 @@
-// Copyright2018 Rodrigo Silveira
+// Copyright 2018 Rodrigo Silveira
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of
 // this software and associated documentation files (the "Software"), to deal in
@@ -42,6 +42,7 @@ export class BoxPlot {
     quartile_1: number;
     minimum: number;
     x_axis_canvas_gap: number;   // canvas.width / 16
+    x_axis_translation: number;   // canvas.width / 16
     whiskerHeight: number;      // (canvas.height / 5)
     medianHeight: number;       // = 2 *  (canvas.height / 3)
     
@@ -107,6 +108,9 @@ export class BoxPlot {
     setX_axis_canvas_gap(value: number) { this.x_axis_canvas_gap = value; }
     getX_axis_canvas_gap(): number { return this.x_axis_canvas_gap; }
     
+    setX_axis_translation(value: number) { this.x_axis_translation = value; }
+    getX_axis_translation(): number { return this.x_axis_translation; }
+    
     setWhiskerHeight(value: number) { this.whiskerHeight = value; }
     getWhiskerHeight(): number { return this.whiskerHeight; }
     
@@ -148,6 +152,11 @@ export class BoxPlot {
         this.setMedian(this.calculateMedian(this.getPopulation()));
         this.setQuartile_1(this.calculateQuartile_1(this.getPopulation()));
         this.setQuartile_3(this.calculateQuartile_3(this.getPopulation()));
+        this.setX_axis_canvas_gap(this.calculateX_axis_canvas_gap(this.getCanvasEl()));
+        this.setWhiskerHeight(this.calculateWhiskerHeight(this.getCanvasEl()));
+        this.setMedianHeight(this.calculateMedianHeight(this.getCanvasEl()));
+        this.setX_axis_translation(this.calculateX_axis_translation(this.getCanvasEl()));
+        this._draw();
     }
     
     helloWorld(): string { return `hello world`; }
@@ -173,7 +182,7 @@ export class BoxPlot {
         let median = 0;
         const numsLen: number = sortedPopulation.length;
     
-        console.log(`::calculateMedian - population: ` + JSON.stringify(sortedPopulation));
+        // console.log(`::calculateMedian - population: ` + JSON.stringify(sortedPopulation));
         if (numsLen % 2 === 0 /* is even */) {
             // average of two middle numbers
             median = (sortedPopulation[numsLen / 2 - 1] + sortedPopulation[numsLen / 2]) / 2;
@@ -216,20 +225,77 @@ export class BoxPlot {
      */
     calculateQuartile_3 (population: number[]): number {
         const sortedPopulation = this.sortArray(population);
-        console.log(`::calculateQuartile_3 - quartile - sortedPopulation: ` + JSON.stringify(sortedPopulation));
+        // console.log(`::calculateQuartile_3 - quartile - sortedPopulation: ` + JSON.stringify(sortedPopulation));
         const length = sortedPopulation.length;
         let quartile: number[] = null;
     
         switch (length % 2) {
             case 0:
                 quartile = sortedPopulation.slice((length / 2));
-                console.log(`::calculateQuartile_3 - quartile - even: ` + JSON.stringify(quartile));
+                // console.log(`::calculateQuartile_3 - quartile - even: ` + JSON.stringify(quartile));
                 break;
             case 1:
                 quartile = sortedPopulation.slice(Math.ceil(length / 2));
-                console.log(`::calculateQuartile_3 - quartile - odd: ` + JSON.stringify(quartile));
+                // console.log(`::calculateQuartile_3 - quartile - odd: ` + JSON.stringify(quartile));
                 break;
         }
         return this.calculateMedian(quartile);
+    }
+    
+    /**
+     * Compute the amount of white space between the canvas vertical boundaries
+     * @param {HTMLCanvasElement} canvasEl
+     * @returns {number}
+     */
+    calculateX_axis_canvas_gap(canvasEl: HTMLCanvasElement): number {
+        let value: number;
+    
+        value = canvasEl.width / 16;
+    
+        return value;
+    }
+    
+    /**
+     * Computer the whisker height
+     * @param {HTMLCanvasElement} canvasEl
+     * @returns {number}
+     */
+    calculateWhiskerHeight(canvasEl: HTMLCanvasElement): number {
+        let value: number;
+    
+        value = canvasEl.height / 5;
+    
+        return value;
+    }
+    
+    
+    /**
+     * Computer the median height
+     * @param {HTMLCanvasElement} canvasEl
+     * @returns {number}
+     */
+    calculateMedianHeight(canvasEl: HTMLCanvasElement): number {
+        let value: number;
+        
+        value = (canvasEl.height / 3) * 3;
+        
+        return value;
+    }
+    
+    /**
+     * Compute the distance to move the x-axis
+     * @param {HTMLCanvasElement} canvasEl
+     * @returns {number}
+     */
+    calculateX_axis_translation(canvasEl: HTMLCanvasElement): number {
+        let value: number;
+    
+        value = (canvasEl.height / 2);
+    
+        return value;
+    }
+    
+    _draw() {
+    
     }
 }
