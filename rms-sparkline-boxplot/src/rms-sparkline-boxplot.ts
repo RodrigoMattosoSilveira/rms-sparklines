@@ -297,6 +297,18 @@ export class RmsSparklineBoxplot extends HTMLElement {
     private get styles(): TemplateResult {
         return html`
             <style>
+                :host {
+                    display: inline-block;
+                    verticalAlign: top;
+                }
+                
+                :host([hidden]) {
+                    display: none;
+                }
+                
+                .content {
+                }
+                
             </style>
         `;
     }
@@ -325,7 +337,10 @@ export class RmsSparklineBoxplot extends HTMLElement {
         const drawingElement: HTMLElement = boxChart.draw();
         return html`
             ${this.styles}
-            ${drawingElement}
+            <div class="content">
+                ${drawingElement}
+                <slot></slot>
+            </div>
         `;
     }
 

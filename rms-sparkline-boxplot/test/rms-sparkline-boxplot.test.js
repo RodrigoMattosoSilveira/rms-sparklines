@@ -32,16 +32,11 @@ describe('<rms-sparkline-boxplot>', () => {
 	let fixturePath = 'rms-sparkline-boxplot.fixture.html';
 	const FIXTURES = {
 		DEFAULT: 0,
-		ATTRIBUTES: 1,
+		CANVAS: 1,
+		SVG: 2
 	};
-	const DEFAULTS = {
-		BOOLEAN: true,
-		NUMBER: 42,
-		STRING: 'Pickle',
-		OBJECT: {
-			foo: 'bar',
-		},
-	};
+	let divEl;
+	let canvalEl;
 
 	before(() => {
 		fixture.setBase('test/fixture')
@@ -50,7 +45,6 @@ describe('<rms-sparkline-boxplot>', () => {
 	afterEach(() => {
 		fixture.cleanup()
 	});
-
 	describe('when configured', () => {
 		describe('without attributes', () => {
 			beforeEach(() => {
@@ -69,29 +63,58 @@ describe('<rms-sparkline-boxplot>', () => {
 
 		});
 		describe('with attributes', () => {
-			beforeEach(() => {
-				component = fixture.load(fixturePath)[FIXTURES.ATTRIBUTES];
+			describe('when using the canvas drawing method', () => {
+				beforeEach(() => {
+					component = fixture.load(fixturePath)[FIXTURES.CANVAS];
+				});
+				describe('has 2 children', () => {
+					it(' are 2', () => {
+						expect(component.shadowRoot.children.length).equal(2);
+					});
+
+					it(' first is style', () => {
+						expect(component.shadowRoot.children[0].tagName).equal('STYLE');
+					});
+
+					it(' second is canvas', () => {
+						expect(component.shadowRoot.children[1].tagName).equal('DIV');
+					});
+
+					describe(` the DIV element has`, () => {
+						beforeEach(() => {
+							divEl = component.shadowRoot.children[1]
+						});
+						it('  2 children', () => {
+							expect(divEl.children.length).equal(2);
+						});
+
+						describe(` the first is`, () => {
+							it(' a canvas', () => {
+								expect(divEl.children[0].tagName).equal('CANVAS');
+							});
+
+							it(' with width equal to 64', () => {
+								expect(divEl.children[0].width).equal(128);
+							});
+
+							it(' with height equal to 16', () => {
+								expect(divEl.children[0].height).equal(32);
+							});
+						});
+						describe(` the second is`, () => {
+							it(' is a SLOT', () => {
+								expect(divEl.children[1].tagName).equal('SLOT');
+							});
+						});
+					});
+				});
 			});
-
-			describe('has 2 children', () => {
+			describe('when using the svg drawing method', () => {
+				beforeEach(() => {
+					component = fixture.load(fixturePath)[FIXTURES.SVG];
+				});
 				it(' are 2', () => {
-					expect(component.shadowRoot.children.length).equal(2);
-				});
-
-				it(' first is style', () => {
-					expect(component.shadowRoot.children[0].tagName).equal('STYLE');
-				});
-
-				it(' second is canvas', () => {
-					expect(component.shadowRoot.children[1].tagName).equal('CANVAS');
-				});
-
-				it(' canvas width is 64', () => {
-					expect(component.shadowRoot.children[1].width).equal(128);
-				});
-
-				it(' canvas height is 16', () => {
-					expect(component.shadowRoot.children[1].height).equal(32);
+					expect(true).to.equal(true);
 				});
 			});
 		});
