@@ -4,6 +4,8 @@
 
 [![Build Status](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines.svg?branch=master)](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines)
 
+# New since 0.1.2
+* Added the [box plot](http://www.physics.csbsju.edu/stats/box2.html) sparkline.
 
 # Description
 This is a collection of web components to render [sparklines](https://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0001OR), conceived by [Edward Tufte](https://www.edwardtufte.com/tufte/). My motivation for this project is to use web component technology to implement sparklines. The project's overall concepts, but not source code, borrows extensively from [Gareth Watts](https://omnipotent.net/jquery.sparkline/#s-about) jQery project.
@@ -13,6 +15,7 @@ These webcomponents are built using the [@nutmeg/cli](https://github.com/abraham
 ### Sparkline portifolio
 * [rms-sparkline-inline](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/rms-sparkline-inline): A simple line. Please refer to its [README](https://github.com/RodrigoMattosoSilveira/rms-sparklines/blob/master/rms-sparkline-inline/README.md) for usage details.
 * [rms-sparkline-bar-chart](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/rms-sparkline-bar-chart): A bar chart sparkline. Please refer to its [README](https://github.com/RodrigoMattosoSilveira/rms-sparklines/blob/master/rms-sparkline-bar-chart/README.md) for usage details.
+* [rms-sparkline-boxplot](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/rms-sparkline-boxplot): A box plot sparkline. Please refer to its [README](https://github.com/RodrigoMattosoSilveira/rms-sparklines/blob/master/rms-sparkline-boxplot/README.md) for usage details.
 
 ### Source code
 Check [rms-sparklines](https://github.com/RodrigoMattosoSilveira/rms-sparklines) for the web components repository.
