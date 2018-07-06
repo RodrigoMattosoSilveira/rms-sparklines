@@ -28,6 +28,7 @@ export class BoxPlot {
     axisColor: string;
     lowWhiskerLineWidth: number;
     lowWhiskerColor: string;
+    interQuartileRangeFillColor: string;
     highWhiskerLineWidth: number;
     highWhiskerColor: string;
     interQuartileRangeLineWidth: number;
@@ -78,7 +79,10 @@ export class BoxPlot {
     getInterQuartileRangeLineWidth(): number { return this.interQuartileRangeLineWidth; }
     
     setInterQuartileRangeColor(value: string) { this.interQuartileRangeColor = value; }
-    hetInterQuartileRangeColor(): string { return this.interQuartileRangeColor; }
+    getInterQuartileRangeColor(): string { return this.interQuartileRangeColor; }
+    
+    setInterQuartileRangeFillColor(value: string) { this.interQuartileRangeFillColor = value; }
+    getInterQuartileRangeFillColor(): string { return this.interQuartileRangeFillColor; }
     
     setMedianLineWidth(value: number) { this.medianLineWidth = value; }
     getMedianLineWidth(): number { return this.medianLineWidth; }
@@ -117,33 +121,35 @@ export class BoxPlot {
     
     
     constructor(canvasEl: HTMLCanvasElement,
-                chartType: string,
-                population: number[],
-                axisLineWidth: number,
                 axisColor: string,
-                lowWhiskerLineWidth: number,
-                lowWhiskerColor: string,
-                highWhiskerLineWidth: number,
+                axisLineWidth: number,
+                chartType: string,
                 highWhiskerColor: string,
-                interQuartileRangeLineWidth: number,
+                highWhiskerLineWidth: number,
                 interQuartileRangeColor: string,
+                interQuartileRangeFillColor: string,
+                interQuartileRangeLineWidth: number,
+                lowWhiskerColor: string,
+                lowWhiskerLineWidth: number,
+                medianColor: string,
                 medianLineWidth: number,
-                medianColor: string) {
+                population: number[]) {
     
         // Save the attributes
         this.setCanvasEl(canvasEl);
-        this.setChartType(chartType);
-        this.setPopulation(population);
-        this.setAxisLineWidth(axisLineWidth);
         this.setAxisColor(axisColor);
-        this.setLowWhiskerLineWidth(lowWhiskerLineWidth);
-        this.setLowWhiskerColor(lowWhiskerColor);
+        this.setAxisLineWidth(axisLineWidth);
+        this.setChartType(chartType);
         this.setHighWhiskerLineWidth(highWhiskerLineWidth);
         this.setHighWhiskerColor(highWhiskerColor);
-        this.setInterQuartileRangeLineWidth(interQuartileRangeLineWidth);
         this.setInterQuartileRangeColor(interQuartileRangeColor);
-        this.setMedianLineWidth(medianLineWidth);
+        this.setInterQuartileRangeFillColor(interQuartileRangeFillColor);
+        this.setInterQuartileRangeLineWidth(interQuartileRangeLineWidth);
+        this.setLowWhiskerColor(lowWhiskerColor);
+        this.setLowWhiskerLineWidth(lowWhiskerLineWidth);
         this.setMedianColor(medianColor);
+        this.setMedianLineWidth(medianLineWidth);
+        this.setPopulation(population);
     }
     
     draw() {
@@ -296,6 +302,12 @@ export class BoxPlot {
     }
     
     _draw() {
-    
+        console.log(`Boxchar::_draw`)
+        const canvasEl = this.getCanvasEl();
+        const ctx = canvasEl.getContext('2d');
+        ctx.beginPath();
+        ctx.moveTo(0,0);
+        ctx.lineTo(canvasEl.width, canvasEl.height);
+        ctx.stroke();
     }
 }

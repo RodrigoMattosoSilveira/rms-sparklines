@@ -25,7 +25,8 @@ export class RmsSparklineBoxplot extends HTMLElement {
     public populationArray: number[] = [];
     VALID_CHART_TYPES: string[] = ['simple'];
     private cssColorString: CssColorString = new CssColorString();
-    private debugging = false;
+    private debugging = true;
+    private nothing = false;
 
   constructor() {
     super();
@@ -43,6 +44,7 @@ export class RmsSparklineBoxplot extends HTMLElement {
         'highWhiskerLineWidth',
         'interQuartileRangeColor',
         'interQuartileRangeLineWidth',
+        'interQuartileRangeFillColor',
         'lowWhiskerColor',
         'lowWhiskerLineWidth',
         'medianColor',
@@ -78,7 +80,6 @@ export class RmsSparklineBoxplot extends HTMLElement {
     get axisColor(): string {
         return this.getAttribute('axisColor');
     }
-    
     set axisColor(value: string) {
         if (value) {
             this.setAttribute('axisColor', value);
@@ -117,7 +118,6 @@ export class RmsSparklineBoxplot extends HTMLElement {
     get className(): string {
         return this.getAttribute('className');
     }
-    
     set className(value: string) {
         if (value) {
             this.setAttribute('className', value);
@@ -133,7 +133,6 @@ export class RmsSparklineBoxplot extends HTMLElement {
             return 0;
         }
     }
-    
     set height(value: number) {
         if (value) {
             this.setAttribute('height', String(value));
@@ -145,7 +144,6 @@ export class RmsSparklineBoxplot extends HTMLElement {
     get highWhiskerColor(): string {
         return this.getAttribute('highWhiskerColor');
     }
-    
     set highWhiskerColor(value: string) {
         if (value) {
             this.setAttribute('highWhiskerColor', value);
@@ -172,7 +170,6 @@ export class RmsSparklineBoxplot extends HTMLElement {
     get interQuartileRangeColor(): string {
         return this.getAttribute('interQuartileRangeColor');
     }
-    
     set interQuartileRangeColor(value: string) {
         if (value) {
             this.setAttribute('interQuartileRangeColor', value);
@@ -180,7 +177,6 @@ export class RmsSparklineBoxplot extends HTMLElement {
             this.removeAttribute('interQuartileRangeColor');
         }
     }
-    
     get interQuartileRangeLineWidth(): number {
         if (this.hasAttribute('interQuartileRangeLineWidth')) {
             return Number(this.getAttribute('interQuartileRangeLineWidth'));
@@ -196,10 +192,20 @@ export class RmsSparklineBoxplot extends HTMLElement {
         }
     }
     
+    get interQuartileRangeFillColor(): string {
+        return this.getAttribute('interQuartileRangeFillColor');
+    }
+    set interQuartileRangeFillColor(value: string) {
+        if (value) {
+            this.setAttribute('interQuartileRangeFillColor', value);
+        } else {
+            this.removeAttribute('interQuartileRangeFillColor');
+        }
+    }
+    
     get lowWhiskerColor(): string {
         return this.getAttribute('lowWhiskerColor');
     }
-    
     set lowWhiskerColor(value: string) {
         if (value) {
             this.setAttribute('lowWhiskerColor', value);
@@ -226,7 +232,6 @@ export class RmsSparklineBoxplot extends HTMLElement {
     get medianColor(): string {
         return this.getAttribute('medianColor');
     }
-    
     set medianColor(value: string) {
         if (value) {
             this.setAttribute('medianColor', value);
@@ -284,7 +289,7 @@ export class RmsSparklineBoxplot extends HTMLElement {
     }
     
     private get template(): TemplateResult {
-        
+        this.debugging ? console.log('RmsSparklineBoxplot::template ') : this.nothing = false;
         const canvasEl = document.createElement('canvas');
         canvasEl.width = this.width;
         canvasEl.height = this.height;
@@ -294,20 +299,20 @@ export class RmsSparklineBoxplot extends HTMLElement {
         
         const boxChart = new BoxPlot(
             canvasEl,
-            this.chartType,
-            this.populationArray,
-            this. axisLineWidth,
             this.axisColor,
-            this.lowWhiskerLineWidth,
-            this.lowWhiskerColor,
-            this.highWhiskerLineWidth,
+            this.axisLineWidth,
+            this.chartType,
             this.highWhiskerColor,
-            this.interQuartileRangeLineWidth,
+            this.highWhiskerLineWidth,
             this.interQuartileRangeColor,
+            this.interQuartileRangeFillColor,
+            this.interQuartileRangeLineWidth,
+            this.lowWhiskerColor,
+            this.lowWhiskerLineWidth,
+            this.medianColor,
             this.medianLineWidth,
-            this.medianColor);
+            this.populationArray);
         boxChart.draw();
-        
         return html`
             ${this.styles}
             ${canvasEl}
@@ -315,74 +320,79 @@ export class RmsSparklineBoxplot extends HTMLElement {
     }
 
     render() {
+        this.debugging ? console.log('RmsSparklineBoxplot::render ') : this.nothing = false;
         // ensure attribute coherence
         //
         const __this = this;
         if (!this.population) {
-            // console.log('no population');
+            this.debugging ? console.log('no population') : this.nothing = false;
             return;
         }
         this.populationArray = JSON.parse(this.population);
         if (this.populationArray.length === 0) {
-            // console.log('zero length population');
+            this.debugging ? console.log('zero length population') : this.nothing = false;
             return;
         }
         
         if (this.VALID_CHART_TYPES.findIndex(checkChartType) === -1) {
-            // console.log('invalid chart');
+            this.debugging ? console.log('invalid chart') : this.nothing = false;
             return;
         }
         function checkChartType(_charttype: string): boolean {
             return _charttype === __this.chartType;
         }
         if (this.axisLineWidth === 0) {
-            // console.log('invalid axisLineWidth');
+            this.debugging ? console.log('invalid axisLineWidth') : this.nothing = false;
             return;
         }
-        if (!this.cssColorString.isValid(this.axisColor)) {
-            // console.log('invalid axisColor');
+        if (!this.axisColor || !this.cssColorString.isValid(this.axisColor)) {
+            this.debugging ? console.log('invalid axisColor') : this.nothing = false;
             return;
         }
         
         if (this.highWhiskerLineWidth === 0) {
-            // console.log('invalid highWhiskerLineWidth');
+            this.debugging ? console.log('invalid highWhiskerLineWidth') : this.nothing = false;
             return;
         }
-        if (!this.cssColorString.isValid(this.highWhiskerColor)) {
-            // console.log('invalid highWhiskerColor');
+        if (!this.highWhiskerColor || !this.cssColorString.isValid(this.highWhiskerColor)) {
+            this.debugging ? console.log('invalid highWhiskerColor') : this.nothing = false;
             return;
         }
     
         if (this.lowWhiskerLineWidth === 0) {
-            // console.log('invalid lowWhiskerLineWidth');
+            this.debugging ? console.log('invalid lowWhiskerLineWidth') : this.nothing = false;
             return;
         }
-        if (!this.cssColorString.isValid(this.lowWhiskerColor)) {
-            // console.log('invalid lowWhiskerColor');
+        if (!this.lowWhiskerColor || !this.cssColorString.isValid(this.lowWhiskerColor)) {
+            this.debugging ? console.log('invalid lowWhiskerColor') : this.nothing = false;
+            return;
+        }
+        if (!this.interQuartileRangeFillColor || !this.cssColorString.isValid(this.interQuartileRangeFillColor)) {
+            this.debugging ? console.log('invalid interQuartileRangeFillColor') : this.nothing = false;
             return;
         }
     
         if (this.interQuartileRangeLineWidth === 0) { return; }
         if (!this.cssColorString.isValid(this.interQuartileRangeColor)) {
-            // console.log('invalid interQuartileRangeColor');
+            this.debugging ? console.log('invalid interQuartileRangeColor') : this.nothing = false;
             return;
         }
     
         if (this.medianLineWidth === 0) {
-            console.log('no medianLineWidth');
+            this.debugging ? console.log('invalid medianLineWidth') : this.nothing = false;
             return;
         }
-        if (!this.cssColorString.isValid(this.medianColor)) {
-            // console.log('invalid medianColor');
+        if (!this.medianColor || !this.cssColorString.isValid(this.medianColor)) {
+            this.debugging ? console.log('invalid invalid') : this.nothing = false;
             return;
         }
     
         if (this.width === 0) {
-            // console.log('invalid width');
+            this.debugging ? console.log('invalid width') : this.nothing = false;
             return;
         }
         if (this.height === 0) {
-            // console.log('invalid height');
+            this.debugging ? console.log('invalid height') : this.nothing = false;
             return;
         }
         
