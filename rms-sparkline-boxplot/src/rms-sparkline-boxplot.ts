@@ -320,17 +320,18 @@ export class RmsSparklineBoxplot extends HTMLElement {
     }
 
     render() {
+        const __this = this;
+        
         this.debugging ? console.log('RmsSparklineBoxplot::render ') : this.nothing = false;
+
         // ensure attribute coherence
         //
-        const __this = this;
-        if (!this.population) {
-            this.debugging ? console.log('no population') : this.nothing = false;
+        if (!this.axisColor || !this.cssColorString.isValid(this.axisColor)) {
+            this.debugging ? console.log('invalid axisColor') : this.nothing = false;
             return;
         }
-        this.populationArray = JSON.parse(this.population);
-        if (this.populationArray.length === 0) {
-            this.debugging ? console.log('zero length population') : this.nothing = false;
+        if (this.axisLineWidth === 0) {
+            this.debugging ? console.log('invalid axisLineWidth') : this.nothing = false;
             return;
         }
         
@@ -341,58 +342,64 @@ export class RmsSparklineBoxplot extends HTMLElement {
         function checkChartType(_charttype: string): boolean {
             return _charttype === __this.chartType;
         }
-        if (this.axisLineWidth === 0) {
-            this.debugging ? console.log('invalid axisLineWidth') : this.nothing = false;
+
+        if (this.height === 0) {
+            this.debugging ? console.log('invalid height') : this.nothing = false;
             return;
         }
-        if (!this.axisColor || !this.cssColorString.isValid(this.axisColor)) {
-            this.debugging ? console.log('invalid axisColor') : this.nothing = false;
-            return;
-        }
-        
-        if (this.highWhiskerLineWidth === 0) {
-            this.debugging ? console.log('invalid highWhiskerLineWidth') : this.nothing = false;
-            return;
-        }
+    
         if (!this.highWhiskerColor || !this.cssColorString.isValid(this.highWhiskerColor)) {
             this.debugging ? console.log('invalid highWhiskerColor') : this.nothing = false;
             return;
         }
-    
-        if (this.lowWhiskerLineWidth === 0) {
-            this.debugging ? console.log('invalid lowWhiskerLineWidth') : this.nothing = false;
+        if (this.highWhiskerLineWidth === 0) {
+            this.debugging ? console.log('invalid highWhiskerLineWidth') : this.nothing = false;
             return;
         }
-        if (!this.lowWhiskerColor || !this.cssColorString.isValid(this.lowWhiskerColor)) {
-            this.debugging ? console.log('invalid lowWhiskerColor') : this.nothing = false;
+    
+        if (!this.cssColorString.isValid(this.interQuartileRangeColor)) {
+            this.debugging ? console.log('invalid interQuartileRangeLineWidth') : this.nothing = false;
             return;
         }
         if (!this.interQuartileRangeFillColor || !this.cssColorString.isValid(this.interQuartileRangeFillColor)) {
             this.debugging ? console.log('invalid interQuartileRangeFillColor') : this.nothing = false;
             return;
         }
-    
-        if (this.interQuartileRangeLineWidth === 0) { return; }
-        if (!this.cssColorString.isValid(this.interQuartileRangeColor)) {
+        if (this.interQuartileRangeLineWidth === 0) {
             this.debugging ? console.log('invalid interQuartileRangeColor') : this.nothing = false;
             return;
         }
     
-        if (this.medianLineWidth === 0) {
-            this.debugging ? console.log('invalid medianLineWidth') : this.nothing = false;
+        if (!this.lowWhiskerColor || !this.cssColorString.isValid(this.lowWhiskerColor)) {
+            this.debugging ? console.log('invalid lowWhiskerColor') : this.nothing = false;
             return;
         }
+        if (this.lowWhiskerLineWidth === 0) {
+            this.debugging ? console.log('invalid lowWhiskerLineWidth') : this.nothing = false;
+            return;
+        }
+     
         if (!this.medianColor || !this.cssColorString.isValid(this.medianColor)) {
             this.debugging ? console.log('invalid invalid') : this.nothing = false;
             return;
         }
-    
-        if (this.width === 0) {
-            this.debugging ? console.log('invalid width') : this.nothing = false;
+        if (this.medianLineWidth === 0) {
+            this.debugging ? console.log('invalid medianLineWidth') : this.nothing = false;
             return;
         }
-        if (this.height === 0) {
-            this.debugging ? console.log('invalid height') : this.nothing = false;
+        
+        if (!this.population) {
+            this.debugging ? console.log('no population') : this.nothing = false;
+            return;
+        }
+        this.populationArray = JSON.parse(this.population);
+        if (this.populationArray.length === 0) {
+            this.debugging ? console.log('zero length population') : this.nothing = false;
+            return;
+        }
+        
+        if (this.width === 0) {
+            this.debugging ? console.log('invalid width') : this.nothing = false;
             return;
         }
         

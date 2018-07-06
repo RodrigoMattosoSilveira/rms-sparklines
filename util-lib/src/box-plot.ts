@@ -22,19 +22,20 @@ export class BoxPlot {
     
     // Attributes
     canvasEl: HTMLCanvasElement;
-    chartType: string;
-    population: number[];
-    axisLineWidth: number;
+    
     axisColor: string;
-    lowWhiskerLineWidth: number;
+    axisLineWidth: number;
+    chartType: string;
     lowWhiskerColor: string;
-    interQuartileRangeFillColor: string;
-    highWhiskerLineWidth: number;
-    highWhiskerColor: string;
-    interQuartileRangeLineWidth: number;
+    lowWhiskerLineWidth: number;
     interQuartileRangeColor: string;
-    medianLineWidth: number;
+    interQuartileRangeFillColor: string;
+    interQuartileRangeLineWidth: number;
+    highWhiskerColor: string;
+    highWhiskerLineWidth: number;
     medianColor: string;
+    medianLineWidth: number;
+    population: number[];
     
     // Calculated Attributes
     maximum: number;
@@ -54,29 +55,23 @@ export class BoxPlot {
     setChartType(value: string) { this.chartType = value; }
     getChartType(): string { return this.chartType; }
     
-    setPopulation(value: number[]) { this.population = value; }
-    getPopulation(): number[] { return this.population; }
+    setAxisColor(value: string) { this.axisColor = value; }
+    getAxisColor(): string { return this.axisColor; }
     
     setAxisLineWidth(value: number) { this.axisLineWidth = value; }
     getAxisLineWidth(): number { return this.axisLineWidth; }
     
-    setAxisColor(value: string) { this.axisColor = value; }
-    getAxisColor(): string { return this.axisColor; }
+    setLowWhiskerColor(value: string) { this.lowWhiskerColor = value; }
+    getLowWhiskerColor(): string { return this.lowWhiskerColor; }
     
     setLowWhiskerLineWidth(value: number) { this.lowWhiskerLineWidth = value; }
     getLowWhiskerLineWidth(): number { return this.lowWhiskerLineWidth; }
     
-    setLowWhiskerColor(value: string) { this.lowWhiskerColor = value; }
-    getLowWhiskerColor(): string { return this.lowWhiskerColor; }
-    
-    setHighWhiskerLineWidth(value: number) { this.highWhiskerLineWidth = value; }
-    getHighWhiskerLineWidth(): number { return this.highWhiskerLineWidth; }
-    
     setHighWhiskerColor(value: string) { this.highWhiskerColor = value; }
     hetHighWhiskerColor(): string { return this.highWhiskerColor; }
     
-    setInterQuartileRangeLineWidth(value: number) { this.interQuartileRangeLineWidth = value; }
-    getInterQuartileRangeLineWidth(): number { return this.interQuartileRangeLineWidth; }
+    setHighWhiskerLineWidth(value: number) { this.highWhiskerLineWidth = value; }
+    getHighWhiskerLineWidth(): number { return this.highWhiskerLineWidth; }
     
     setInterQuartileRangeColor(value: string) { this.interQuartileRangeColor = value; }
     getInterQuartileRangeColor(): string { return this.interQuartileRangeColor; }
@@ -84,13 +79,21 @@ export class BoxPlot {
     setInterQuartileRangeFillColor(value: string) { this.interQuartileRangeFillColor = value; }
     getInterQuartileRangeFillColor(): string { return this.interQuartileRangeFillColor; }
     
-    setMedianLineWidth(value: number) { this.medianLineWidth = value; }
-    getMedianLineWidth(): number { return this.medianLineWidth; }
+    setInterQuartileRangeLineWidth(value: number) { this.interQuartileRangeLineWidth = value; }
+    getInterQuartileRangeLineWidth(): number { return this.interQuartileRangeLineWidth; }
     
     setMedianColor(value: string) { this.medianColor = value; }
     getMedianColor(): string { return this.medianColor; }
+
+    setMedianLineWidth(value: number) { this.medianLineWidth = value; }
+    getMedianLineWidth(): number { return this.medianLineWidth; }
+    
+    setPopulation(value: number[]) { this.population = value; }
+    getPopulation(): number[] { return this.population; }
+
     
     // Calculated attributes getters and setters
+    //
     setMaximum(value: number) { this.maximum = value; }
     getMaximum(): number { return this.maximum; }
     
@@ -305,9 +308,60 @@ export class BoxPlot {
         console.log(`Boxchar::_draw`)
         const canvasEl = this.getCanvasEl();
         const ctx = canvasEl.getContext('2d');
+        
+        // the canonical drawing to demonstrate the pipeline is working
+        // ctx.beginPath();
+        // ctx.moveTo(0,0);
+        // ctx.lineTo(canvasEl.width, canvasEl.height);
+        // ctx.stroke();
+        
+        // Draw x-axis
         ctx.beginPath();
-        ctx.moveTo(0,0);
-        ctx.lineTo(canvasEl.width, canvasEl.height);
+        ctx.strokeStyle = this.getAxisColor()
+        ctx.lineWidth = this.getAxisLineWidth();
+        ctx.moveTo(this.getX_axis_canvas_gap(), this.getCanvasEl().height / 2);
+        ctx.lineTo(this.getCanvasEl().width - this.getX_axis_canvas_gap(),this.getCanvasEl().height / 2);
+        ctx.stroke();
+        
+        // Draw western (low) whisker
+        ctx.beginPath();
+        ctx.strokeStyle = this.getLowWhiskerColor()
+        ctx.lineWidth = this.getLowWhiskerLineWidth();
+        ctx.moveTo(this.getX_axis_canvas_gap(), this.getCanvasEl().height / 2 - this.getWhiskerHeight() / 2);
+        ctx.lineTo( this.getX_axis_canvas_gap(),this.getCanvasEl().height / 2 + this.getWhiskerHeight() / 2);
+        ctx.stroke();
+        
+        // Draw IQR range
+        const canvasPixels = this.getCanvasEl().width - 2 * this.getX_axis_canvas_gap();
+        let canvasX = this.getX_axis_canvas_gap() + this.getQuartile_1() * canvasPixels / this.getMaximum();
+        const canvasY = this.getCanvasEl().height / 2 - this.getMedianHeight() / 2;
+        const canvasW = ((this.getQuartile_3() - this.getQuartile_1()) * canvasPixels) / this.getMaximum();
+        const canvasH = this.getMedianHeight() * 2;
+        console.log(`BoxPlot::_draw::IQR canvasPixels: ` + canvasPixels);
+        console.log(`BoxPlot::_draw::IQR Q1: ` + this.getQuartile_1());
+        console.log(`BoxPlot::_draw::IQR Q3: ` + this.getQuartile_3());
+        console.log(`BoxPlot::_draw::IQR canvasX: ` + canvasX);
+        console.log(`BoxPlot::_draw::IQR canvasY: ` + canvasY);
+        console.log(`BoxPlot::_draw::IQR canvasW: ` + canvasW);
+        console.log(`BoxPlot::_draw::IQR canvasH: ` + canvasH);
+        ctx.fillStyle = this.getInterQuartileRangeFillColor()
+        ctx.fillRect(canvasX, canvasY, canvasW, canvasH);
+        
+        // Draw Median
+        canvasX = this.getX_axis_canvas_gap() + this.getMedian() * canvasPixels / this.getMaximum();
+        ctx.beginPath();
+        ctx.strokeStyle = this.getMedianColor();
+        ctx.lineWidth = this.getMedianLineWidth();
+        ctx.moveTo( canvasX, this.getCanvasEl().height / 2 - this.getMedianHeight() / 2);
+        ctx.lineTo( canvasX, this.getCanvasEl().height / 2 + this.getMedianHeight() / 2);
+        ctx.stroke();
+    
+        // Draw eastern (high) whisker
+        ctx.beginPath();
+        ctx.strokeStyle = this.getLowWhiskerColor()
+        ctx.lineWidth = this.getLowWhiskerLineWidth();
+        ctx.moveTo(this.getCanvasEl().width - this.getX_axis_canvas_gap(), this.getCanvasEl().height / 2 - this.getWhiskerHeight() / 2);
+        ctx.lineTo( this.getCanvasEl().width - this.getX_axis_canvas_gap(),this.getCanvasEl().height / 2 + this.getWhiskerHeight() / 2);
         ctx.stroke();
     }
 }
