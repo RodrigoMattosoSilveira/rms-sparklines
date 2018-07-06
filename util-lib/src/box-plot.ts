@@ -310,8 +310,31 @@ export class BoxPlot {
         return canvasEl;
     }
     _draw_svg(): HTMLElement {
-        const svgEl = document.createElement('svg');
+        // console.log(`Boxchart::_draw_svg`)
+        const divContainer = document.createElement('div');
+        divContainer.classList.add('content');
+        if (this.className && this.className !== ``) { divContainer.classList.add(this.className); }
         
-        return svgEl;
+        const svgEl = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    
+        svgEl.setAttributeNS(null, 'width', String(this.width));
+        svgEl.setAttributeNS(null, 'height', String(this.height));
+        if (this.className && this.className !== ``) { svgEl.classList.add(this.className); }
+    
+        // the canonical drawing to demonstrate the pipeline is working
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttributeNS(null, 'x1', String(0));
+        line.setAttributeNS(null, 'y1', String(0));
+        line.setAttributeNS(null, 'x2', String(this.width - 1));
+        line.setAttributeNS(null, 'y2', String(this.height - 1));
+        line.style.stroke = 'rgb(255,0,0)';
+        line.style.strokeWidth = '1px';
+        svgEl.appendChild(line);
+        
+        divContainer.appendChild(svgEl);
+        const slotEl = document.createElement('slot');
+        divContainer.appendChild(slotEl);
+    
+        return divContainer;
     }
 }

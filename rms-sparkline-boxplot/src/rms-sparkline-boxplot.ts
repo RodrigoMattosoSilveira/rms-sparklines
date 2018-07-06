@@ -337,10 +337,7 @@ export class RmsSparklineBoxplot extends HTMLElement {
         const drawingElement: HTMLElement = boxChart.draw();
         return html`
             ${this.styles}
-            <div class="content">
-                ${drawingElement}
-                <slot></slot>
-            </div>
+            ${drawingElement}
         `;
     }
 
