@@ -240,7 +240,7 @@ export class BoxPlot {
         }
         return drawingHtml;
     }
-   _draw_canvas(): HTMLCanvasElement {
+   _draw_canvas(): HTMLElement {
         // console.log(`Boxchart::_draw_canvas`)
     
         const canvasEl = document.createElement('canvas');
@@ -287,8 +287,8 @@ export class BoxPlot {
         // console.log(`BoxPlot::_draw::IQR canvasY: ` + canvasY);
         // console.log(`BoxPlot::_draw::IQR canvasW: ` + canvasW);
         // console.log(`BoxPlot::_draw::IQR canvasH: ` + canvasH);
-        ctx.fillStyle = this.interQuartileRangeFillColor;
-        ctx.fillRect(canvasX, canvasY, canvasW, canvasH);
+       ctx.fillStyle = this.interQuartileRangeFillColor;
+       ctx.fillRect(canvasX, canvasY, canvasW, canvasH);
         
         // Draw Median
         canvasX = this.x_axis_canvas_gap + this.median * canvasPixels / this.maximum;
@@ -306,15 +306,14 @@ export class BoxPlot {
         ctx.moveTo(this.width - this.x_axis_canvas_gap, this.height / 2 - this.whiskerHeight / 2);
         ctx.lineTo(this.width - this.x_axis_canvas_gap, this.height / 2 + this.whiskerHeight / 2);
         ctx.stroke();
-        
-        return canvasEl;
+    
+       return this.getDivContainer(canvasEl);
     }
     _draw_svg(): HTMLElement {
         // console.log(`Boxchart::_draw_svg`)
-        const divContainer = document.createElement('div');
-        divContainer.classList.add('content');
-        if (this.className && this.className !== ``) { divContainer.classList.add(this.className); }
-        
+        let canvasPixels;
+        let canvasX;
+
         const svgEl = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     
         svgEl.setAttributeNS(null, 'width', String(this.width));
@@ -322,19 +321,83 @@ export class BoxPlot {
         if (this.className && this.className !== ``) { svgEl.classList.add(this.className); }
     
         // the canonical drawing to demonstrate the pipeline is working
-        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-        line.setAttributeNS(null, 'x1', String(0));
-        line.setAttributeNS(null, 'y1', String(0));
-        line.setAttributeNS(null, 'x2', String(this.width - 1));
-        line.setAttributeNS(null, 'y2', String(this.height - 1));
-        line.style.stroke = 'rgb(255,0,0)';
-        line.style.strokeWidth = '1px';
-        svgEl.appendChild(line);
+        // const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        // line.setAttributeNS(null, 'x1', String(0));
+        // line.setAttributeNS(null, 'y1', String(0));
+        // line.setAttributeNS(null, 'x2', String(this.width - 1));
+        // line.setAttributeNS(null, 'y2', String(this.height - 1));
+        // line.style.stroke = 'rgb(255,0,0)';
+        // line.style.strokeWidth = '1px';
+        // svgEl.appendChild(line);
+    
+        // Draw x-axis
+        const xAxisLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        xAxisLine.setAttributeNS(null, 'x1', String(this.x_axis_canvas_gap));
+        xAxisLine.setAttributeNS(null, 'y1', String(this.height / 2));
+        xAxisLine.setAttributeNS(null, 'x2', String(this.width - this.x_axis_canvas_gap));
+        xAxisLine.setAttributeNS(null, 'y2', String(this.height / 2));
+        xAxisLine.style.stroke = this.axisColor;
+        xAxisLine.style.strokeWidth = this.axisLineWidth + 'px';
+        svgEl.appendChild(xAxisLine);
+    
+        // Draw western (low) whisker
+        const lowWhisker = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        lowWhisker.setAttributeNS(null, 'x1', String(this.x_axis_canvas_gap));
+        lowWhisker.setAttributeNS(null, 'y1', String(this.height / 2 - this.whiskerHeight / 2));
+        lowWhisker.setAttributeNS(null, 'x2', String(this.x_axis_canvas_gap));
+        lowWhisker.setAttributeNS(null, 'y2', String(this.height / 2 + this.whiskerHeight / 2));
+        lowWhisker.style.stroke = this.lowWhiskerColor;
+        lowWhisker.style.strokeWidth = this.lowWhiskerLineWidth + 'px';
+        svgEl.appendChild(lowWhisker);
+    
+        // Draw IQR range
+        canvasPixels = this.width - 2 * this.x_axis_canvas_gap;
+        canvasX = this.x_axis_canvas_gap + this.quartile_1 * canvasPixels / this.maximum;
+        const canvasY = this.height / 2 - this.medianHeight / 2;
+        const canvasW = ((this.quartile_3 - this.quartile_1) * canvasPixels) / this.maximum;
+        const canvasH = this.medianHeight * 2;
+        const iqrRange = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        iqrRange.setAttributeNS(null, 'x', String(canvasX));
+        iqrRange.setAttributeNS(null, 'y', String(canvasY));
+        iqrRange.setAttributeNS(null, 'width', String(canvasW));
+        iqrRange.setAttributeNS(null, 'height', String(canvasH));
+        iqrRange.style.fill = this.interQuartileRangeFillColor;
+        iqrRange.style.strokeWidth =this.interQuartileRangeLineWidth + 'px';
+        iqrRange.style.stroke = this.interQuartileRangeColor;
+        svgEl.appendChild(iqrRange);
+
+        // Draw Median
+        canvasX = this.x_axis_canvas_gap + this.median * canvasPixels / this.maximum;
+        const median = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        median.setAttributeNS(null, 'x1', String(canvasX));
+        median.setAttributeNS(null, 'y1', String(this.height / 2 - this.medianHeight / 2));
+        median.setAttributeNS(null, 'x2', String(canvasX));
+        median.setAttributeNS(null, 'y2', String(this.height / 2 + this.medianHeight / 2));
+        median.style.stroke = this.medianColor;
+        median.style.strokeWidth = this.medianLineWidth + 'px';
+        svgEl.appendChild(median);
+    
+        // Draw eastern (high) whisker
+        const highWhisker = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        highWhisker.setAttributeNS(null, 'x1', String(this.width - this.x_axis_canvas_gap));
+        highWhisker.setAttributeNS(null, 'y1', String(this.height / 2 - this.whiskerHeight / 2));
+        highWhisker.setAttributeNS(null, 'x2', String(this.width - this.x_axis_canvas_gap));
+        highWhisker.setAttributeNS(null, 'y2', String(this.height / 2 + this.whiskerHeight / 2));
+        highWhisker.style.stroke = this.highWhiskerColor;
+        highWhisker.style.strokeWidth = this.highWhiskerColor + 'px';
+        svgEl.appendChild(highWhisker);
         
-        divContainer.appendChild(svgEl);
+        return this.getDivContainer(svgEl);
+    }
+    getDivContainer(insertMe: any): HTMLElement {
+        const divContainer = document.createElement('div');
+        divContainer.classList.add('content');
+        if (this.className && this.className !== ``) { divContainer.classList.add(this.className); }
+        
+        divContainer.appendChild(insertMe);
         const slotEl = document.createElement('slot');
         divContainer.appendChild(slotEl);
-    
+        
         return divContainer;
     }
 }
