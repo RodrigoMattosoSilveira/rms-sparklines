@@ -24,6 +24,7 @@ import { BoxPlot } from '../../util-lib/src/box-plot';
 export class RmsSparklineBoxplot extends HTMLElement {
     public populationArray: number[] = [];
     VALID_CHART_TYPES: string[] = ['simple'];
+    VALID_DRAWING_METHODS: string[] = ['canvas', 'svg'];
     private cssColorString: CssColorString = new CssColorString();
     private debugging = false;
     private nothing = false;
@@ -39,6 +40,7 @@ export class RmsSparklineBoxplot extends HTMLElement {
         'axisLineWidth',
         'chartType',
         'className',
+        'drawingMethod',
         'height',
         'highWhiskerColor',
         'highWhiskerLineWidth',
@@ -123,6 +125,17 @@ export class RmsSparklineBoxplot extends HTMLElement {
             this.setAttribute('className', value);
         } else {
             this.removeAttribute('className');
+        }
+    }
+    
+    get drawingMethod(): string {
+        return this.getAttribute('drawingMethod');
+    }
+    set drawingMethod(value: string) {
+        if (value) {
+            this.setAttribute('drawingMethod', value);
+        } else {
+            this.removeAttribute('drawingMethod');
         }
     }
     
@@ -290,18 +303,14 @@ export class RmsSparklineBoxplot extends HTMLElement {
     
     private get template(): TemplateResult {
         this.debugging ? console.log('RmsSparklineBoxplot::template ') : this.nothing = false;
-        const canvasEl = document.createElement('canvas');
-        canvasEl.width = this.width;
-        canvasEl.height = this.height;
-        canvasEl.style.display = 'inline-block';
-        canvasEl.style.verticalAlign = 'top';
-        if (this.className && this.className !== ``) { canvasEl.classList.add(this.className); }
         
         const boxChart = new BoxPlot(
-            canvasEl,
             this.axisColor,
             this.axisLineWidth,
             this.chartType,
+            this.className,
+            this.drawingMethod,
+            this.height,
             this.highWhiskerColor,
             this.highWhiskerLineWidth,
             this.interQuartileRangeColor,
@@ -311,11 +320,12 @@ export class RmsSparklineBoxplot extends HTMLElement {
             this.lowWhiskerLineWidth,
             this.medianColor,
             this.medianLineWidth,
-            this.populationArray);
-        boxChart.draw();
+            this.populationArray,
+            this.width);
+        const drawingElement: HTMLElement = boxChart.draw();
         return html`
             ${this.styles}
-            ${canvasEl}
+            ${drawingElement}
         `;
     }
 
@@ -335,12 +345,28 @@ export class RmsSparklineBoxplot extends HTMLElement {
             return;
         }
         
+        if (!this.chartType) {
+            this.debugging ? console.log('invalid chartType') : this.nothing = false;
+            return;
+        }
         if (this.VALID_CHART_TYPES.findIndex(checkChartType) === -1) {
             this.debugging ? console.log('invalid chart') : this.nothing = false;
             return;
         }
         function checkChartType(_charttype: string): boolean {
             return _charttype === __this.chartType;
+        }
+        
+        if (!this.drawingMethod) {
+            this.debugging ? console.log('invalid drawingMethod') : this.nothing = false;
+            return;
+        }
+        if (this.VALID_DRAWING_METHODS.findIndex(checkDrawingMethod) === -1) {
+            this.debugging ? console.log('invalid drawingMethod') : this.nothing = false;
+            return;
+        }
+        function checkDrawingMethod(_drawingMethod: string): boolean {
+            return _drawingMethod === __this.drawingMethod;
         }
 
         if (this.height === 0) {
@@ -406,5 +432,4 @@ export class RmsSparklineBoxplot extends HTMLElement {
         render(this.template, this.shadowRoot);
     }
 }
-
 window.customElements.define('rms-sparkline-boxplot', RmsSparklineBoxplot);

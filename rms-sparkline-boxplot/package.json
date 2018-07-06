@@ -1,6 +1,6 @@
 {
   "name": "rms-sparkline-boxplot",
-  "version": "0.1.0",
+  "version": "0.0.0-see-parent-for-version",
   "description": "Generated Nutmeg Web Component",
   "main": "dist/rms-sparkline-boxplot.js",
   "types": "dist/rms-sparkline-boxplot.d.ts",
