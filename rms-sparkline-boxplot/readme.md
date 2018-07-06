@@ -1,36 +1,78 @@
 &lt;rms-sparkline-boxplot&gt;
 ====
 
-Install
+Description
 ----
+The `rms-sparkline-boxplot` web component renders distinct box plot chart types, as per the `chartType` attribute:
+1. `simple`: The [box plot](http://www.physics.csbsju.edu/stats/box2.html) (a.k.a. box and whisker diagram) is a standardized way of displaying the distribution of data based on the five number summary: minimum, first quartile, median, third quartile, and maximum. The IQR, inter quartile range, is the set of population individuals between the first and third quartile.
 
-Polyfill tags if you need them.
+#### Properties
+* `axisColor: string`: The color to render the x-axis.
+* `axisLineWidth: number`: The width to render the x-axis.
+* `chartType: string`: The chart type, one of ['simple']
+* `className: string`: A classe names to be added to the canvas element. Default is no classes.
+* `height: number`: The height of the sparkline box in pixels.
+* `highWhiskerColor: string`: The color to render the eastern whisker.
+* `highWhiskerLineWidth: number`: The width to render the eastern whisker.
+* `interQuartileRangeColor: string`: The color to render the IQR.
+* `interQuartileRangeLineWidth: number`: The width to render the IQR.
+* `interQuartileRangeFillColor: string`: The color to fill the IQR.
+* `lowWhiskerColor: string`: The color to render the western whisker.
+* `lowWhiskerLineWidth: number`: The width to render the western whisker.
+* `medianWhiskerColor: string`: The color to render the median.
+* `medianWhiskerLineWidth: number`: The width to render the median.
+* `population: string`: The population for whih the boxplot is being built.
+* `width: number`: The width of the sparkline box in pixels. 
 
-```
-<script src="https://unpkg.com/@webcomponents/webcomponentsjs@latest/webcomponents-sd-ce.js"></script>
-<script nomodule src="https://unpkg.com/browser-es-module-loader@latest/dist/babel-browser-build.js"></script>
-<script nomodule src="https://unpkg.com/browser-es-module-loader@latest/dist/browser-es-module-loader.js"></script>
-```
+#### barHeights
+A simple sequence of values representing the population for which to render the box plot:
+````typescript
+    population: string = JSON.stringify([4, 3, 7, 8, 1, 4, 9, 2, 5, 3, 5, 5, 8 , 9, 7, 1]);
+````
 
-Loading this component.
+#### Methods
+Properties are the public API of a Web Component and external code can set/get them
 
-```
-<script type="module" src="https://unpkg.com/rms-sparkline-boxplot@latest/dist/rms-sparkline-boxplot.js"></script>
+#### Events Received
+none
 
-```
+#### Events Emitted
+none
 
-Usage
-----
+### Development
 
-```
-  <rms-sparkline-boxplot chartType="Some value"></rms-sparkline-boxplot>
+### Usage
+Below is example of a barchar sparkline. In this example, sparkline is being declared as a child of an Angular component, with its attribute values being set at the Angular's component controller.
 
-  <rms-sparkline-boxplot>Slot content</rms-sparkline-boxplot>
-```
+````html
+     <rms-sparkline-boxplot
+         [axisColor] = 'axisColor'
+         [axisLineWidth] = 'axisLineWidth'
+         [chartType] = 'chartType'
+         [className] = 'className'
+         [height] = 'height'
+         [highWhiskerColor]  = 'highWhiskerColor'
+         [highWhiskerLineWidth] = 'highWhiskerLineWidth'
+         [interQuartileRangeColor] = 'interQuartileRangeColor'
+         [interQuartileRangeLineWidth] = 'interQuartileRangeLineWidth'
+         [interQuartileRangeFillColor] = 'interQuartileRangeFillColor'
+         [lowWhiskerColor] = 'lowWhiskerColor'
+         [lowWhiskerLineWidth] = 'lowWhiskerLineWidth'
+         [medianColor] = 'medianColor'
+         [medianLineWidth] = 'medianLineWidth'
+         [population] = 'population'
+         [width] = 'width'
+     >
+     </rms-sparkline-boxplot>
+````
 
-License
-----
+See the style guide application source code, [rms-sparklines-styleguide](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide) for usage details.
 
-RmsSparklineBoxplot is released under an MIT license.
-
-Built, tested, and published with [Nutmeg](https://nutmeg.tools).
+# Last but not least
+````html
+ _   _                   _____            
+| | | | __ ___   _____  |  ___|   _ _ __  
+| |_| |/ _` \ \ / / _ \ | |_ | | | | '_ \ 
+|  _  | (_| |\ V /  __/ |  _|| |_| | | | |
+|_| |_|\__,_| \_/ \___| |_|   \__,_|_| |_|                                      
+````

@@ -13,8 +13,7 @@ The `rrms-sparkline-inline` web component renders the folloing  line sparlines t
 1. `decorated`:  A simple line, all points positive, with decoration points alongside the line.
 1. `shade`: Dual charts' bars heights are negative, zero, or positive, with a positive height bars drawn northward and negative ones southward.
 
-
-### Attributes
+### Properties
 * `linepoints: number[]`: An array of numbers representing the sparkline data source. Default is empty array. See below for formating details.
 * `className: string`: The classe names to be added to the canvas element. Default is no classes.
 * `width: number`: The width of the sparkline box in pixels.
@@ -41,7 +40,7 @@ An array of objects descring the decorations to be added to the line. Presently 
 There are two decorations this example, one red dot indexed to be drawn over the line point of inxdex 0 and one black dot indexed to be drawn over the line point of inxdex 15. Considering the linepoints example above, these decorations would represent the sparkline's start and end points. 
 
 ### Methods
-The web element does not offer an API. It interactions are controlled by changing its attributes.
+Properties are the public API of a Web Component and external code can set/get them
 
 ### Events Received
 none

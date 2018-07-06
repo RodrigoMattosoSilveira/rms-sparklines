@@ -9,7 +9,7 @@ The `rms-sparkline-bar-chart` web component renders four distinct bar chart type
 1. `dual`: Dual charts' bars heights are negative, zero, or positive, with a positive height bars drawn northward and negative ones southward.
 1. `tri`: Tri charts have negative, zero, and positive bars. The positive and negative bars are half of the box height, whereas the aero bar is one fouth of it. Negative bara are drawn sothward, zeros stradding the x-axis, and positives northward.
 
-#### Attributes
+#### Properties
 * `chartType: string`: The chart type, one of ['positive', 'negative', 'dual', 'tri']
 * `barHeights: number[]`: The sparkline data source.
 * `className: string`: A classe names to be added to the canvas element. Default is no classes.
@@ -28,7 +28,7 @@ A simple sequence of values representing f(x), with x being equally spaced units
 ````
 
 #### Methods
-The web element does not offer an API. It interactions are controlled by changing its attributes.
+Properties are the public API of a Web Component and external code can set/get them
 
 #### Events Received
 none
