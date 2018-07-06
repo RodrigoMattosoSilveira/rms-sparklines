@@ -87,11 +87,11 @@ describe('<rms-sparkline-boxplot>', () => {
 				});
 
 				it(' canvas width is 64', () => {
-					expect(component.shadowRoot.children[1].width).equal(64);
+					expect(component.shadowRoot.children[1].width).equal(128);
 				});
 
 				it(' canvas height is 16', () => {
-					expect(component.shadowRoot.children[1].height).equal(16);
+					expect(component.shadowRoot.children[1].height).equal(32);
 				});
 			});
 		});

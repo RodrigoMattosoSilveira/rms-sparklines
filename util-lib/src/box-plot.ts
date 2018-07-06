@@ -305,7 +305,7 @@ export class BoxPlot {
     }
     
     _draw() {
-        console.log(`Boxchar::_draw`)
+        // console.log(`Boxchar::_draw`)
         const canvasEl = this.getCanvasEl();
         const ctx = canvasEl.getContext('2d');
         
@@ -337,13 +337,13 @@ export class BoxPlot {
         const canvasY = this.getCanvasEl().height / 2 - this.getMedianHeight() / 2;
         const canvasW = ((this.getQuartile_3() - this.getQuartile_1()) * canvasPixels) / this.getMaximum();
         const canvasH = this.getMedianHeight() * 2;
-        console.log(`BoxPlot::_draw::IQR canvasPixels: ` + canvasPixels);
-        console.log(`BoxPlot::_draw::IQR Q1: ` + this.getQuartile_1());
-        console.log(`BoxPlot::_draw::IQR Q3: ` + this.getQuartile_3());
-        console.log(`BoxPlot::_draw::IQR canvasX: ` + canvasX);
-        console.log(`BoxPlot::_draw::IQR canvasY: ` + canvasY);
-        console.log(`BoxPlot::_draw::IQR canvasW: ` + canvasW);
-        console.log(`BoxPlot::_draw::IQR canvasH: ` + canvasH);
+        // console.log(`BoxPlot::_draw::IQR canvasPixels: ` + canvasPixels);
+        // console.log(`BoxPlot::_draw::IQR Q1: ` + this.getQuartile_1());
+        // console.log(`BoxPlot::_draw::IQR Q3: ` + this.getQuartile_3());
+        // console.log(`BoxPlot::_draw::IQR canvasX: ` + canvasX);
+        // console.log(`BoxPlot::_draw::IQR canvasY: ` + canvasY);
+        // console.log(`BoxPlot::_draw::IQR canvasW: ` + canvasW);
+        // console.log(`BoxPlot::_draw::IQR canvasH: ` + canvasH);
         ctx.fillStyle = this.getInterQuartileRangeFillColor()
         ctx.fillRect(canvasX, canvasY, canvasW, canvasH);
         

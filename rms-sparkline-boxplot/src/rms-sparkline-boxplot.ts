@@ -25,7 +25,7 @@ export class RmsSparklineBoxplot extends HTMLElement {
     public populationArray: number[] = [];
     VALID_CHART_TYPES: string[] = ['simple'];
     private cssColorString: CssColorString = new CssColorString();
-    private debugging = true;
+    private debugging = false;
     private nothing = false;
 
   constructor() {
