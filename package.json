@@ -1,7 +1,7 @@
 {
   "name": "rms-sparklines",
   "author": "Rodrigo Silveira",
-  "version": "0.1.3.1",
+  "version": "0.1.4",
   "description": "A sparkline collection, written as web components",
   "homepage": "hhttps://github.com/RodrigoMattosoSilveira/rms-sparklines#README",
   "license": "MIT",
