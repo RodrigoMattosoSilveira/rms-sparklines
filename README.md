@@ -4,8 +4,8 @@
 
 [![Build Status](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines.svg?branch=master)](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines)
 
-# New since 0.1.2
-* Added the [box plot](http://www.physics.csbsju.edu/stats/box2.html) sparkline.
+# New in version 0.2.0-alpha.1
+* Added support for SVG (only for box plot for now)
 
 # Description
 This is a collection of web components to render [sparklines](https://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0001OR), conceived by [Edward Tufte](https://www.edwardtufte.com/tufte/). My motivation for this project is to use web component technology to implement sparklines. The project's overall concepts, but not source code, borrows extensively from [Gareth Watts](https://omnipotent.net/jquery.sparkline/#s-about) jQery project.
