@@ -18,7 +18,7 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import { html, render, TemplateResult } from 'lit-html';
-import {DrawMethods} from '../../util/DrawMethods';
+import {DrawMethods} from '../../util-lib/src/DrawMethods';
 import {Decoration} from '../dist/util/Decoration';
 import { CssColorString } from '../../util-lib/src/valid-colors';
 

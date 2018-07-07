@@ -18,7 +18,7 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import { html, render, TemplateResult } from 'lit-html';
-import {BarChart} from './bar-chart';
+import { BarChart } from '../../util-lib/src/bar-chart';
 import { CssColorString } from '../../util-lib/src/valid-colors';
 
 export class RmsSparklineBarChart extends HTMLElement {
