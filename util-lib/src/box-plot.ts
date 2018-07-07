@@ -30,7 +30,7 @@ export class BoxPlot {
     lowWhiskerColor: string;
     lowWhiskerLineWidth: number;
     height: number;
-    interQuartileRangeColor: string;
+    interQuartileRangeLineColor: string;
     interQuartileRangeFillColor: string;
     interQuartileRangeLineWidth: number;
     highWhiskerColor: string;
@@ -60,7 +60,7 @@ export class BoxPlot {
         height: number,
         highWhiskerColor: string,
         highWhiskerLineWidth: number,
-        interQuartileRangeColor: string,
+        interQuartileRangeLineColor: string,
         interQuartileRangeFillColor: string,
         interQuartileRangeLineWidth: number,
         lowWhiskerColor: string,
@@ -79,7 +79,7 @@ export class BoxPlot {
         this.height = height;
         this.highWhiskerLineWidth = highWhiskerLineWidth;
         this.highWhiskerColor = highWhiskerColor;
-        this.interQuartileRangeColor = interQuartileRangeColor;
+        this.interQuartileRangeLineColor = interQuartileRangeLineColor;
         this.interQuartileRangeFillColor = interQuartileRangeFillColor;
         this.interQuartileRangeLineWidth = interQuartileRangeLineWidth;
         this.lowWhiskerColor = lowWhiskerColor;
@@ -119,7 +119,7 @@ export class BoxPlot {
      * @returns {number}
      */
     static calculateMedianHeight(height: number): number {
-        return (height / 3) * 3;
+        return (height / 3) * 2;
     }
     
     /**
@@ -218,15 +218,15 @@ export class BoxPlot {
     
     draw() {
         let drawingHtml: HTMLElement;
-        this.maximum = Math.max(...this.population);
-        this.minimum = Math.min(...this.population);
-        this.median = BoxPlot.calculateMedian(this.population);
-        this.quartile_1 = BoxPlot.calculateQuartile_1(this.population);
-        this.quartile_3 = BoxPlot.calculateQuartile_3(this.population);
-        this.x_axis_canvas_gap = BoxPlot.calculateX_axis_canvas_gap(this.width);
-        this.whiskerHeight = BoxPlot.calculateWhiskerHeight(this.height);
-        this.medianHeight = BoxPlot.calculateMedianHeight(this.height);
-        this.x_axis_translation = BoxPlot.calculateX_axis_translation(this.height);
+        this.maximum = Math.floor(Math.max(...this.population));
+        this.minimum = Math.floor(Math.min(...this.population));
+        this.median = Math.floor(BoxPlot.calculateMedian(this.population));
+        this.quartile_1 = Math.floor(BoxPlot.calculateQuartile_1(this.population));
+        this.quartile_3 = Math.floor(BoxPlot.calculateQuartile_3(this.population));
+        this.x_axis_canvas_gap = Math.floor(BoxPlot.calculateX_axis_canvas_gap(this.width));
+        this.whiskerHeight = Math.floor(BoxPlot.calculateWhiskerHeight(this.height));
+        this.medianHeight = Math.floor(BoxPlot.calculateMedianHeight(this.height));
+        this.x_axis_translation = Math.floor(BoxPlot.calculateX_axis_translation(this.height));
         switch (this.drawingMethod) {
             case 'canvas':
                 drawingHtml = this._draw_canvas();
@@ -246,6 +246,10 @@ export class BoxPlot {
         const canvasEl = document.createElement('canvas');
         const ctx = canvasEl.getContext('2d');
         
+        // See https://stackoverflow.com/questions/7530593/html5-canvas-and-line-width/7531540#7531540
+        // for rationale
+        let canvasAdjustment = 0;
+        
         canvasEl.width = this.width;
         canvasEl.height = this.height;
         canvasEl.style.display = 'inline-block';
@@ -259,19 +263,21 @@ export class BoxPlot {
         // ctx.stroke();
         
         // Draw x-axis
+        canvasAdjustment = this.axisLineWidth % 2 === 0 ? 0 : 0.5;
         ctx.beginPath();
         ctx.strokeStyle = this.axisColor;
         ctx.lineWidth = this.axisLineWidth;
-        ctx.moveTo(this.x_axis_canvas_gap, this.height / 2);
-        ctx.lineTo(this.width - this.x_axis_canvas_gap, this.height / 2);
+        ctx.moveTo(this.x_axis_canvas_gap, Math.floor(this.height / 2) + canvasAdjustment);
+        ctx.lineTo(this.width - this.x_axis_canvas_gap, Math.floor(this.height / 2) + canvasAdjustment);
         ctx.stroke();
         
         // Draw western (low) whisker
+       canvasAdjustment = this.lowWhiskerLineWidth % 2 === 0 ? 0 : 0.5;
         ctx.beginPath();
         ctx.strokeStyle = this.lowWhiskerColor;
         ctx.lineWidth = this.lowWhiskerLineWidth;
-        ctx.moveTo(this.x_axis_canvas_gap, this.height / 2 - this.whiskerHeight / 2);
-        ctx.lineTo(this.x_axis_canvas_gap, this.height / 2 + this.whiskerHeight / 2);
+        ctx.moveTo(this.x_axis_canvas_gap  + canvasAdjustment, this.height / 2 - this.whiskerHeight / 2);
+        ctx.lineTo(this.x_axis_canvas_gap + canvasAdjustment, this.height / 2 + this.whiskerHeight / 2);
         ctx.stroke();
         
         // Draw IQR range
@@ -279,32 +285,32 @@ export class BoxPlot {
         let canvasX = this.x_axis_canvas_gap + this.quartile_1 * canvasPixels / this.maximum;
         const canvasY = this.height / 2 - this.medianHeight / 2;
         const canvasW = ((this.quartile_3 - this.quartile_1) * canvasPixels) / this.maximum;
-        const canvasH = this.medianHeight * 2;
-        // console.log(`BoxPlot::_draw::IQR canvasPixels: ` + canvasPixels);
-        // console.log(`BoxPlot::_draw::IQR Q1: ` + this.getQuartile_1());
-        // console.log(`BoxPlot::_draw::IQR Q3: ` + this.getQuartile_3());
-        // console.log(`BoxPlot::_draw::IQR canvasX: ` + canvasX);
-        // console.log(`BoxPlot::_draw::IQR canvasY: ` + canvasY);
-        // console.log(`BoxPlot::_draw::IQR canvasW: ` + canvasW);
-        // console.log(`BoxPlot::_draw::IQR canvasH: ` + canvasH);
-       ctx.fillStyle = this.interQuartileRangeFillColor;
-       ctx.fillRect(canvasX, canvasY, canvasW, canvasH);
+        const canvasH = this.medianHeight;
+       // Draw filled rectangle
+        ctx.fillStyle = this.interQuartileRangeFillColor;
+        ctx.fillRect(canvasX, canvasY, canvasW, canvasH);
+        // Draw rectangle's border
+        ctx.strokeStyle = this.interQuartileRangeLineColor;
+        ctx.lineWidth = this.interQuartileRangeLineWidth;
+        ctx.strokeRect(canvasX, canvasY, canvasW, canvasH);
         
         // Draw Median
-        canvasX = this.x_axis_canvas_gap + this.median * canvasPixels / this.maximum;
+        canvasAdjustment = this.medianLineWidth % 2 === 0 ? 0 : 0.5;
+        canvasX = Math.floor(this.x_axis_canvas_gap + this.median * canvasPixels / this.maximum);
         ctx.beginPath();
         ctx.strokeStyle = this.medianColor;
         ctx.lineWidth = this.medianLineWidth;
-        ctx.moveTo( canvasX, this.height / 2 - this.medianHeight / 2);
-        ctx.lineTo( canvasX, this.height / 2 + this.medianHeight / 2);
+        ctx.moveTo( canvasX + canvasAdjustment, this.height / 2 - this.medianHeight / 2);
+        ctx.lineTo( canvasX + canvasAdjustment, this.height / 2 + this.medianHeight / 2);
         ctx.stroke();
     
         // Draw eastern (high) whisker
+        canvasAdjustment = this.highWhiskerLineWidth % 2 === 0 ? 0 : 0.5;
         ctx.beginPath();
-        ctx.strokeStyle = this.lowWhiskerColor;
-        ctx.lineWidth = this.lowWhiskerLineWidth;
-        ctx.moveTo(this.width - this.x_axis_canvas_gap, this.height / 2 - this.whiskerHeight / 2);
-        ctx.lineTo(this.width - this.x_axis_canvas_gap, this.height / 2 + this.whiskerHeight / 2);
+        ctx.strokeStyle = this.highWhiskerColor;
+        ctx.lineWidth = this.highWhiskerLineWidth;
+        ctx.moveTo(Math.floor(this.width - this.x_axis_canvas_gap) + canvasAdjustment, this.height / 2 - this.whiskerHeight / 2);
+        ctx.lineTo(Math.floor(this.width - this.x_axis_canvas_gap) + canvasAdjustment, this.height / 2 + this.whiskerHeight / 2);
         ctx.stroke();
     
        return this.getDivContainer(canvasEl);
@@ -355,15 +361,15 @@ export class BoxPlot {
         canvasX = this.x_axis_canvas_gap + this.quartile_1 * canvasPixels / this.maximum;
         const canvasY = this.height / 2 - this.medianHeight / 2;
         const canvasW = ((this.quartile_3 - this.quartile_1) * canvasPixels) / this.maximum;
-        const canvasH = this.medianHeight * 2;
+        const canvasH = this.medianHeight;
         const iqrRange = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
         iqrRange.setAttributeNS(null, 'x', String(canvasX));
         iqrRange.setAttributeNS(null, 'y', String(canvasY));
         iqrRange.setAttributeNS(null, 'width', String(canvasW));
         iqrRange.setAttributeNS(null, 'height', String(canvasH));
         iqrRange.style.fill = this.interQuartileRangeFillColor;
-        iqrRange.style.strokeWidth =this.interQuartileRangeLineWidth + 'px';
-        iqrRange.style.stroke = this.interQuartileRangeColor;
+        iqrRange.style.strokeWidth = this.interQuartileRangeLineWidth + 'px';
+        iqrRange.style.stroke = this.interQuartileRangeLineColor;
         svgEl.appendChild(iqrRange);
 
         // Draw Median

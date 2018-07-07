@@ -44,7 +44,7 @@ export class RmsSparklineBoxplot extends HTMLElement {
         'height',
         'highWhiskerColor',
         'highWhiskerLineWidth',
-        'interQuartileRangeColor',
+        'interQuartileRangeLineColor',
         'interQuartileRangeLineWidth',
         'interQuartileRangeFillColor',
         'lowWhiskerColor',
@@ -180,14 +180,14 @@ export class RmsSparklineBoxplot extends HTMLElement {
         }
     }
     
-    get interQuartileRangeColor(): string {
-        return this.getAttribute('interQuartileRangeColor');
+    get interQuartileRangeLineColor(): string {
+        return this.getAttribute('interQuartileRangeLineColor');
     }
-    set interQuartileRangeColor(value: string) {
+    set interQuartileRangeLineColor(value: string) {
         if (value) {
-            this.setAttribute('interQuartileRangeColor', value);
+            this.setAttribute('interQuartileRangeLineColor', value);
         } else {
-            this.removeAttribute('interQuartileRangeColor');
+            this.removeAttribute('interQuartileRangeLineColor');
         }
     }
     get interQuartileRangeLineWidth(): number {
@@ -325,7 +325,7 @@ export class RmsSparklineBoxplot extends HTMLElement {
             this.height,
             this.highWhiskerColor,
             this.highWhiskerLineWidth,
-            this.interQuartileRangeColor,
+            this.interQuartileRangeLineColor,
             this.interQuartileRangeFillColor,
             this.interQuartileRangeLineWidth,
             this.lowWhiskerColor,
@@ -395,7 +395,7 @@ export class RmsSparklineBoxplot extends HTMLElement {
             return;
         }
     
-        if (!this.cssColorString.isValid(this.interQuartileRangeColor)) {
+        if (!this.cssColorString.isValid(this.interQuartileRangeLineColor)) {
             this.debugging ? console.log('invalid interQuartileRangeLineWidth') : this.nothing = false;
             return;
         }
@@ -404,7 +404,7 @@ export class RmsSparklineBoxplot extends HTMLElement {
             return;
         }
         if (this.interQuartileRangeLineWidth === 0) {
-            this.debugging ? console.log('invalid interQuartileRangeColor') : this.nothing = false;
+            this.debugging ? console.log('invalid interQuartileRangeLineColor') : this.nothing = false;
             return;
         }
     
