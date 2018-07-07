@@ -235,7 +235,7 @@ export class BoxPlot {
                 drawingHtml = this._draw_svg();
                 break;
             default:
-                drawingHtml = null;
+                drawingHtml = this._draw_invalid();
                 break;
         }
         return drawingHtml;
@@ -394,6 +394,12 @@ export class BoxPlot {
         svgEl.appendChild(highWhisker);
         
         return this.getDivContainer(svgEl);
+    }
+    _draw_invalid(): HTMLElement {
+        const invalidHtml = document.createElement('p');
+        invalidHtml.innerText = `Invalid drawing method`;
+        
+        return this.getDivContainer(invalidHtml);
     }
     getDivContainer(insertMe: any): HTMLElement {
         const divContainer = document.createElement('div');

@@ -29,7 +29,7 @@ describe('box-plot', () => {
 		boxPlot = new BoxPlot();
 	});
 	it(`is here`, () => {
-		expect(boxPlot.helloWorld()).to.equal(`hello world`);
+		expect(BoxPlot.helloWorld()).to.equal(`hello world`);
 	});
 
 	describe('calculates the median', () => {
@@ -38,11 +38,11 @@ describe('box-plot', () => {
 		});
 		it(`for an even number of population members`, () => {
 			let population = [15, 10, 1, 4, 11, 12, 3, 14, 8, 4, 9, 13];
-			expect(boxPlot.calculateMedian(population)).to.equal(9.5);
+			expect(BoxPlot.calculateMedian(population)).to.equal(9.5);
 		});
 		it(`for an odd number of population members`, () => {
 			let population = [15, 10, 1, 4, 11, 12, 3, 14, 8, 4, 9, 13, 2];
-			expect(boxPlot.calculateMedian(population)).to.equal(9);
+			expect(BoxPlot.calculateMedian(population)).to.equal(9);
 		});
 	});
 
@@ -52,11 +52,11 @@ describe('box-plot', () => {
 		});
 		it(`for an even number of population members`, () => {
 			let population = [15, 10, 1, 4, 11, 12, 3, 14, 8, 4, 9, 13, 2, 17];
-			expect(boxPlot.calculateQuartile_1(population)).to.equal(4);
+			expect(BoxPlot.calculateQuartile_1(population)).to.equal(4);
 		});
 		it(`for an odd number of population members`, () => {
 			let population = [15, 10, 1, 4, 11, 12, 3, 14, 8, 4, 9, 13, 2, 17, 16];
-			expect(boxPlot.calculateQuartile_1(population)).to.equal(4);
+			expect(BoxPlot.calculateQuartile_1(population)).to.equal(4);
 		});
 
 		describe('calculates the third quartile', () => {
@@ -65,11 +65,11 @@ describe('box-plot', () => {
 			});
 			it(`for an even number of population members`, () => {
 				let population = [15, 10, 1, 4, 11, 12, 3, 14, 8, 4, 9, 13, 2, 17];
-				expect(boxPlot.calculateQuartile_3(population)).to.equal(13);
+				expect(BoxPlot.calculateQuartile_3(population)).to.equal(13);
 			});
 			it(`for an odd number of population members`, () => {
 				let population = [15, 10, 1, 4, 11, 12, 3, 14, 8, 4, 9, 13, 2, 17, 16];
-				expect(boxPlot.calculateQuartile_3(population)).to.equal(14);
+				expect(BoxPlot.calculateQuartile_3(population)).to.equal(14);
 			});
 		});
 	});
