@@ -11,6 +11,7 @@ The `rms-sparkline-boxplot` web component renders distinct box plot chart types,
 * `axisLineWidth: number`: The width to render the x-axis.
 * `chartType: string`: The chart type, one of ['simple']
 * `className: string`: A classe names to be added to the canvas element. Default is no classes.
+* `drawingMethod`: the drawing method, one of ['canvas', 'svg']
 * `height: number`: The height of the sparkline box in pixels.
 * `highWhiskerColor: string`: The color to render the eastern whisker.
 * `highWhiskerLineWidth: number`: The width to render the eastern whisker.
@@ -50,6 +51,7 @@ Below is example of a barchar sparkline. In this example, sparkline is being dec
          [axisLineWidth] = 'axisLineWidth'
          [chartType] = 'chartType'
          [className] = 'className'
+         [drawingMethod] = 'drawingMethod'
          [height] = 'height'
          [highWhiskerColor]  = 'highWhiskerColor'
          [highWhiskerLineWidth] = 'highWhiskerLineWidth'
