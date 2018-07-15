@@ -232,6 +232,18 @@ export class RmsSparklineInline extends HTMLElement {
     private get styles(): TemplateResult {
         return html`
             <style>
+                :host {
+                    display: inline-block;
+                    verticalAlign: top;
+                }
+                
+                :host([hidden]) {
+                    display: none;
+                }
+                
+                .content {
+                }
+                
             </style>
         `;
     }
@@ -240,7 +252,10 @@ export class RmsSparklineInline extends HTMLElement {
         const sparkline: HTMLCanvasElement = this.draw();
         return html`
             ${this.styles}
-            ${sparkline}
+            <div class="content">
+                ${sparkline}
+                <slot></slot>
+            </div>
         `;
     }
 
