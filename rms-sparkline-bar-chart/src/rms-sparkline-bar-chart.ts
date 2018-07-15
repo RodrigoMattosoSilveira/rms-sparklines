@@ -185,6 +185,18 @@ export class RmsSparklineBarChart extends HTMLElement {
     private get styles(): TemplateResult {
         return html`
             <style>
+                :host {
+                    display: inline-block;
+                    verticalAlign: top;
+                }
+                
+                :host([hidden]) {
+                    display: none;
+                }
+                
+                .content {
+                }
+                
             </style>
         `;
     }
@@ -194,8 +206,6 @@ export class RmsSparklineBarChart extends HTMLElement {
         const canvasEl = document.createElement('canvas');
         canvasEl.width = this.width;
         canvasEl.height = this.height;
-        canvasEl.style.display = 'inline-block';
-        canvasEl.style.verticalAlign = 'top';
         if (this.className && this.className !== ``) { canvasEl.classList.add(this.className); }
     
         const barChart = new BarChart(canvasEl, this.chartType, this.barHeights, this.minimumBarWidth, this.barGap, this.fillColorMinus, this.fillColorZero, this.fillColorPlus);
@@ -203,7 +213,10 @@ export class RmsSparklineBarChart extends HTMLElement {
         
         return html`
             ${this.styles}
-            ${canvasEl}
+            <div class="content">
+                ${canvasEl}
+                <slot></slot>
+            </div>
         `;
     }
     
