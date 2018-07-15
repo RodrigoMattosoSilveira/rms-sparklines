@@ -23,7 +23,7 @@ import { CssColorString } from '../../util-lib/src/valid-colors';
 
 export class RmsSparklineBarChart extends HTMLElement {
     public barHeights: number[] = [];
-    VALID_CHART_TYPES: string[] = ['positive', 'negative', 'dual', 'tri'];
+    VALID_CHART_TYPES: string = ['positive', 'negative', 'dual', 'tri'].join();
     private cssColorString: CssColorString = null;
     
     
@@ -223,11 +223,7 @@ export class RmsSparklineBarChart extends HTMLElement {
     renderMe() {
         // ensure attribute coherence
         //
-        const __this = this;
-        if (this.VALID_CHART_TYPES.findIndex(checkChartType) === -1) { return; }
-        function checkChartType(_charttype: string): boolean {
-            return _charttype === __this.chartType;
-        }
+        if (this.VALID_CHART_TYPES.indexOf(this.chartType) === -1) { return; }
         if (!this.barHeights) { return; }
         if (this.barHeights.length === 0) { return; }
         if (this.minimumBarWidth < 3) {return; }
