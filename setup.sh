@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
-declare -a webComponents=("rms-sparkline-inline" \
+set -e
+
+declare -a webComponents=("util-lib" \
+"rms-sparkline-inline" \
 "rms-sparkline-bar-chart" \
-"util-lib" \
 "rms-sparkline-boxplot"
 )
 
