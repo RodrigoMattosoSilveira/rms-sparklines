@@ -39,14 +39,14 @@ export class RmsSparklineBarChart extends HTMLElement {
     
     connectedCallback() {
     this.upgradeProperties();
-        this.render();
+        this.renderMe();
     }
     
     disconnectedCallback() {
     }
     
     attributeChangedCallback(_name: string, _oldValue: any, _newValue: any) {
-    this.render();
+        this.renderMe();
     }
     
     private upgradeProperties() {
@@ -207,7 +207,7 @@ export class RmsSparklineBarChart extends HTMLElement {
         `;
     }
     
-    render() {
+    renderMe() {
         // ensure attribute coherence
         //
         const __this = this;
