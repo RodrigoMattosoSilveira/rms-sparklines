@@ -1,137 +1,122 @@
-/*
- * Copyright © Markodojo Inc., 2013 - ${YEAR}
- * All Rights Reserved. No part of this website may be reproduced without Markodojo express consent.
- */
+// Copyright 2018 Rodrigo Silveira
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of
+// this software and associated documentation files (the "Software"), to deal in
+// the Software without restriction, including without limitation the rights to
+// use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+// the Software, and to permit persons to whom the Software is furnished to do so,
+// subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+// FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+// COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+// IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+// CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 // TODO: Move test file to TypeScript.
 // import 'mocha';
 // import { expect } from 'chai';
 // import 'karma-fixture';
+
 import '@webcomponents/webcomponentsjs/webcomponents-lite';
+import { RmsSparklineBarChart } from '../src/rms-sparkline-bar-chart'; // it must be here
 
-// todo these tests do not make sense, the relevant tests are in bar-chart-test
-xdescribe('<rms-sparkline-bar-chart>', () => {
-  let component;
-  let fixturePath = 'rms-sparkline-bar-chart.fixture.html';
-  const FIXTURES = {
-	  DEFAULT: 0,
-	  ATTRIBUTES: 1,
-  };
-  const DEFAULTS = {
-    BOOLEAN: true,
-    NUMBER: 42,
-    STRING: 'Pickle',
-    OBJECT: {
-      foo: 'bar',
-    },
-  };
-  const defaultInline = `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAQCAYAAACm53kpAAAAmklEQVRYR+2XzQ7AIAiDx/s/tDvs5MLSasFpgmd+ykc10S7ptNanm0nlwpOxPlEwbhA+01BBrG8AgFcMNxjSGx6M9RUAHno5wHnwsMV4wBmRWN8BVwAP8aCbc2gB8Ml5dpwj/L0d1vLpDshtcCgAdtt/wYvTZ/zjwTZdcX1YLXhBmwFQBmNzX7+XvRzADqHEpQNQxK3ILQAdgRuAXtQRdbJtQgAAAABJRU5ErkJggg==
-`;
 
-  before(() => {
-    fixture.setBase('test/fixture')
-  });
+describe('<rms-sparkline-barchartt>', () => {
+    let component;
+    let fixturePath = 'rms-sparkline-bar-chart.fixture.html';
+    const FIXTURES = {
+        DEFAULT: 0,
+        CANVAS: 1,
+        SVG: 2
+    };
+    let divEl;
 
-  afterEach(() => {
-    fixture.cleanup()
-  });
+    before(() => {
+        fixture.setBase('test/fixture')
+    });
 
-	describe('the rms-sparkline-barchart', () => {
-		describe('when declared without any attributes, its ', () => {
-			beforeEach(() => {
-				component = fixture.load(fixturePath)[FIXTURES.DEFAULT];
-				component.barPoints = [4, 3, 7, 8, 1, 4, 9, 2, 5, 3, 5, 5];
-			});
-			it('tag name is correct', () => {
-				expect(component.tagName).to.equal('RMS-SPARKLINE-BAR-CHART');
-			});
-			it('barPoints array is empty', () => {
-				expect(component.barPoints.length).to.equal(12);
-			});
-			it('className attribute is set to none', () => {
-				expect(component.className).to.equal('');
-			});
-			it('width attribute is set to 64', () => {
-				expect(component.width).to.equal(0);
-			});
-			it('height attribute is set to 16', () => {
-				expect(component.height).to.equal(0);
-			});
-			it(`linecolor attribute is set to ""`, () => {
-				expect(component.lineColor).to.equal('');
-			});
-			it(`lineWidth attribute is set to 1`, () => {
-				expect(component.lineWidth).to.equal(0);
-			});
-			it(`fillcolor attribute is set to ""`, () => {
-				expect(component.fillColor).to.equal('');
-			});
-			it(' children size is 1', () => {
-				expect(component.shadowRoot.children.length).equal(2);
-			});
-			it(`generates the correct canvas image`, () => {
-				setTimeout(function(){
-					let canvas = component.shadowRoot.children[1];
-					expect(canvas.toDataURL()).to.equal(defaultInline);
-				}, 5000);
-			});
-			it(`generates a different image when attribute changed`, () => {
-				component.setAttribute('fillcolor', 'red');
-				setTimeout(function(){
-					let canvas = component.shadowRoot.children[1];
-					expect(canvas.toDataURL()).to.not.equal(defaultInline);
-				}, 5000);
-			});
-		});
-		describe('when declared without any attributes, its ', () => {
-			beforeEach(() => {
-				component = fixture.load(fixturePath)[FIXTURES.ATTRIBUTES];
-				component.barPoints = [4, 3, 7, 8, 1, 4, 9, 2, 5, 3, 5, 5];
-			});
-			it('tag name is correct', () => {
-				expect(component.tagName).to.equal('RMS-SPARKLINE-BAR-CHART');
-			});
-			it('barPoints array is empty', () => {
-				expect(component.barPoints.length).to.equal(12);
-			});
-			it(`classname attribute is set to"class_1 class_2 class_3"`, () => {
-				expect(component.className).to.equal('class_1 class_2 class_3');
-			});
-			it('width attribute is set to 65', () => {
-				expect(component.width).to.equal(65);
-			});
-			it('height attribute is set to 17', () => {
-				expect(component.height).to.equal(17);
-			});
-			it(`lineColor attribute is set to "linecolor"`, () => {
-				expect(component.lineColor).to.equal('linecolor');
-			});
-			it(`lineWidth attribute is set to 5.7`, () => {
-				expect(component.lineWidth).to.equal(5.7);
-			});
-			it(`toolTip attribute is set to true`, () => {
-				expect(component.toolTip).to.equal(true);
-			});
-			it(`fillcolor attribute is set to "fillcolor"`, () => {
-				expect(component.fillColor).to.equal('fillcolor');
-			});
-			it(' children size is 1', () => {
-				expect(component.shadowRoot.children.length).equal(2);
-			});
-			it(`generates the correct canvas image`, () => {
-				setTimeout(function(){
-					let canvas = component.shadowRoot.children[1];
-					expect(canvas.toDataURL()).to.equal(defaultInline);
-				}, 5000);
-			});
-			it(`generates a different image when attribute changed`, () => {
-				component.setAttribute('fillcolor', 'red');
-				setTimeout(function(){
-					let canvas = component.shadowRoot.children[1];
-					expect(canvas.toDataURL()).to.not.equal(defaultInline);
-				}, 5000);
-			});
-		});
-	});
+    afterEach(() => {
+        fixture.cleanup()
+    });
+    describe('when configuredd', () => {
+        describe('without attributes', () => {
+            beforeEach(() => {
+                component = fixture.load(fixturePath)[FIXTURES.DEFAULT];
+            });
+            describe('it is rendered', () => {
+
+                it('with correct tag name', () => {
+                    expect(component.tagName).to.equal('RMS-SPARKLINE-BAR-CHART');
+                });
+
+                it('without a shadow root', () => {
+                    expect(component.shadowRoot).to.not.equal(null);
+                });
+            });
+
+        });
+        describe('with attributes', () => {
+            describe('when using the canvas drawing method ', () => {
+                beforeEach(() => {
+                    component = fixture.load(fixturePath)[FIXTURES.CANVAS];
+                    component.barHeights = [1, 2, 3, 4, 5, 6, 7, 8]
+                });
+                describe('it is rendered', () => {
+                    it(' with correct tag name ', () => {
+                        expect(component.tagName).to.equal('RMS-SPARKLINE-BAR-CHART');
+                    });
+
+                    it('with a shadow root', () => {
+                        expect(component.shadowRoot).to.not.equal(null);
+                    });
+
+                    it('shadow root has 2 children', () => {
+                        expect(component.shadowRoot.children.length).equal(2);
+                    });
+
+                    it('first shadow root child is style', () => {
+                        expect(component.shadowRoot.children[0].tagName).equal('STYLE');
+                    });
+
+                    it('second shadow root child is DIV', () => {
+                        expect(component.shadowRoot.children[1].tagName).equal('DIV');
+                    });
+
+                    describe(`the DIV child has`, () => {
+                        beforeEach(() => {
+                            divEl = component.shadowRoot.children[1]
+                        });
+                        it(' 2 children', () => {
+                            expect(divEl.children.length).equal(2);
+                        });
+
+                        describe(`the first DIV child is`, () => {
+                            it('a canvas', () => {
+                                expect(divEl.children[0].tagName).equal('CANVAS');
+                            });
+
+                            it('with width equal to 64', () => {
+                                expect(divEl.children[0].width).equal(64);
+                            });
+
+                            it('with height equal to 16', () => {
+                                expect(divEl.children[0].height).equal(16);
+                            });
+                        });
+                        describe(`the second div child is a SLOT`, () => {
+                            it(' is a SLOT', () => {
+                                expect(divEl.children[1].tagName).equal('SLOT');
+                            });
+                        });
+                    });
+                });
+            });
+            // TODO Add SVG validation after adding SVG support
+        });
+    });
 });
-

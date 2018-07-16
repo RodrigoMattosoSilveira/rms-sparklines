@@ -34,19 +34,19 @@ export class RmsSparklineBarChart extends HTMLElement {
     }
     
     static get observedAttributes(): string[] {
-        return ['chartType', 'barHeights', 'minimumBarWidth', 'barGap', 'fillColorPlus', 'fillColorZero', 'fillColorMinus', 'className', 'width', 'height'];
+        return ['barGap', 'barHeights', 'chartType', 'className', 'fillColorMinus', 'fillColorPlus', 'height', 'fillColorZero', 'minimumBarWidth', 'width'];
     }
     
     connectedCallback() {
-    this.upgradeProperties();
-        this.renderMe();
+        this.upgradeProperties();
+        this.render();
     }
     
     disconnectedCallback() {
     }
     
     attributeChangedCallback(_name: string, _oldValue: any, _newValue: any) {
-        this.renderMe();
+        this.render();
     }
     
     private upgradeProperties() {
@@ -59,7 +59,23 @@ export class RmsSparklineBarChart extends HTMLElement {
             }
         });
     }
-    
+
+    get barGap(): number {
+        if (this.hasAttribute('barGap')) {
+            return Number(this.getAttribute('barGap'));
+        } else {
+            return 0;
+        }
+    }
+
+    set barGap(value: number) {
+        if (value) {
+            this.setAttribute('barGap', String(value));
+        } else {
+            this.removeAttribute('barGap');
+        }
+    }
+
     get chartType(): string {
         return this.getAttribute('chartType');
     }
@@ -83,7 +99,59 @@ export class RmsSparklineBarChart extends HTMLElement {
             this.removeAttribute('className');
         }
     }
-    
+
+    get fillColorMinus(): string {
+        return this.getAttribute('fillColorMinus');
+    }
+
+    set fillColorMinus(value: string) {
+        if (value) {
+            this.setAttribute('fillColorMinus', value);
+        } else {
+            this.removeAttribute('fillColorMinus');
+        }
+    }
+
+    get fillColorPlus(): string {
+        return this.getAttribute('fillColorPlus');
+    }
+
+    set fillColorPlus(value: string) {
+        if (value) {
+            this.setAttribute('fillColorPlus', value);
+        } else {
+            this.removeAttribute('fillColorPlus');
+        }
+    }
+
+    get fillColorZero(): string {
+        return this.getAttribute('fillColorZero');
+    }
+
+    set fillColorZero(value: string) {
+        if (value) {
+            this.setAttribute('fillColorZero', value);
+        } else {
+            this.removeAttribute('fillColorZero');
+        }
+    }
+
+    get height(): number {
+        if (this.hasAttribute('height')) {
+            return Number(this.getAttribute('height'));
+        } else {
+            return 0;
+        }
+    }
+
+    set height(value: number) {
+        if (value) {
+            this.setAttribute('height', String(value));
+        } else {
+            this.removeAttribute('height');
+        }
+    }
+
     get minimumBarWidth(): number {
         if (this.hasAttribute('minimumBarWidth')) {
             return Number(this.getAttribute('minimumBarWidth'));
@@ -97,58 +165,6 @@ export class RmsSparklineBarChart extends HTMLElement {
             this.setAttribute('minimumBarWidth', String(value));
         } else {
             this.removeAttribute('minimumBarWidth');
-        }
-    }
-    
-    get barGap(): number {
-        if (this.hasAttribute('barGap')) {
-            return Number(this.getAttribute('barGap'));
-        } else {
-            return 0;
-        }
-    }
-    
-    set barGap(value: number) {
-        if (value) {
-            this.setAttribute('barGap', String(value));
-        } else {
-            this.removeAttribute('barGap');
-        }
-    }
-    
-    get fillColorMinus(): string {
-        return this.getAttribute('fillColorMinus');
-    }
-    
-    set fillColorMinus(value: string) {
-        if (value) {
-            this.setAttribute('fillColorMinus', value);
-        } else {
-            this.removeAttribute('fillColorMinus');
-        }
-    }
-    
-    get fillColorZero(): string {
-        return this.getAttribute('fillColorZero');
-    }
-    
-    set fillColorZero(value: string) {
-        if (value) {
-            this.setAttribute('fillColorZero', value);
-        } else {
-            this.removeAttribute('fillColorZero');
-        }
-    }
-    
-    get fillColorPlus(): string {
-        return this.getAttribute('fillColorPlus');
-    }
-    
-    set fillColorPlus(value: string) {
-        if (value) {
-            this.setAttribute('fillColorPlus', value);
-        } else {
-            this.removeAttribute('fillColorPlus');
         }
     }
 
@@ -166,22 +182,7 @@ export class RmsSparklineBarChart extends HTMLElement {
             this.removeAttribute('width');
         }
     }
-    
-    get height(): number {
-        if (this.hasAttribute('height')) {
-            return Number(this.getAttribute('height'));
-        } else {
-            return 0;
-        }
-    }
 
-    set height(value: number) {
-        if (value) {
-            this.setAttribute('height', String(value));
-        } else {
-            this.removeAttribute('height');
-        }
-    }
     private get styles(): TemplateResult {
         return html`
             <style>
@@ -207,7 +208,7 @@ export class RmsSparklineBarChart extends HTMLElement {
         canvasEl.width = this.width;
         canvasEl.height = this.height;
         if (this.className && this.className !== ``) { canvasEl.classList.add(this.className); }
-    
+
         const barChart = new BarChart(canvasEl, this.chartType, this.barHeights, this.minimumBarWidth, this.barGap, this.fillColorMinus, this.fillColorZero, this.fillColorPlus);
         barChart.draw();
         
@@ -220,7 +221,20 @@ export class RmsSparklineBarChart extends HTMLElement {
         `;
     }
     
-    renderMe() {
+    render() {
+
+        // Little debugging
+        //
+        // console.log('::render - chartType: ' + this.chartType);
+        // console.log('::render - barHeights: ' + JSON.stringify(this.barHeights));
+        // console.log('::render - minimumBarWidth: ' + this.minimumBarWidth);
+        // console.log('::render - barGap: ' + this.barGap);
+        // console.log('::render - fillColorMinus: ' + this.fillColorMinus);
+        // console.log('::render - fillColorZero: ' + this.fillColorZero);
+        // console.log('::render - fillColorPlus: ' + this.fillColorPlus);
+        // console.log('::render - width: ' + this.width);
+        // console.log('::render - height: ' + this.height);
+
         // ensure attribute coherence
         //
         if (this.VALID_CHART_TYPES.indexOf(this.chartType) === -1) { return; }
@@ -233,19 +247,7 @@ export class RmsSparklineBarChart extends HTMLElement {
         if (!this.cssColorString.isValid(this.fillColorPlus)) { return; }
         if (this.width === 0) { return; }
         if (this.height === 0) { return; }
-        
-        // Little debugging
-        //
-        // console.log('::render - chartType: ' + this.chartType);
-        // console.log('::render - barHeights: ' + JSON.stringify(this.barHeights));
-        // console.log('::render - minimumBarWidth: ' + this.minimumBarWidth);
-        // console.log('::render - barGap: ' + this.barGap);
-        // console.log('::render - fillColorMinus: ' + this.fillColorMinus);
-        // console.log('::render - fillColorZero: ' + this.fillColorZero);
-        // console.log('::render - fillColorPlus: ' + this.fillColorPlus);
-        // console.log('::render - width: ' + this.width);
-        // console.log('::render - height: ' + this.height);
-        
+
         render(this.template, this.shadowRoot);
     }
 }
