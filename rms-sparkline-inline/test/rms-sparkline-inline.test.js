@@ -1,94 +1,123 @@
-/*
- * Copyright 2018 Rodrigo Silveira
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
+// Copyright 2018 Rodrigo Silveira
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of
+// this software and associated documentation files (the "Software"), to deal in
+// the Software without restriction, including without limitation the rights to
+// use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+// the Software, and to permit persons to whom the Software is furnished to do so,
+// subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+// FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+// COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+// IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+// CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 // TODO: Move test file to TypeScript.
 // import 'mocha';
 // import { expect } from 'chai';
 // import 'karma-fixture';
+
 import '@webcomponents/webcomponentsjs/webcomponents-lite';
-import { RmsSparklineInline } from '../src/rms-sparkline-inline';
+import { RmsSparklineInline } from '../src/rms-sparkline-inline'; // it must be here
+
 
 describe('<rms-sparkline-inline>', () => {
-	let component;
-	let fixturePath = 'rms-sparkline-inline.fixture.html';
-	const FIXTURES = {
-		DEFAULT: 0,
-		ATTRIBUTES: 1,
-	};
-	const DEFAULTS = {
-		BOOLEAN: true,
-		NUMBER: 42,
-		STRING: 'Pickle',
-		OBJECT: {
-			foo: 'bar',
-		},
-	};
+    let component;
+    let fixturePath = 'rms-sparkline-inline.fixture.html';
+    const FIXTURES = {
+        DEFAULT: 0,
+        CANVAS: 1,
+        SVG: 2
+    };
+    let divEl;
 
-	let canvas;
+    before(() => {
+        fixture.setBase('test/fixture')
+    });
 
-	before(() => {
-		fixture.setBase('test/fixture')
-	});
+    afterEach(() => {
+        fixture.cleanup()
+    });
+    describe('when configured', () => {
+        describe('without attributes', () => {
+            beforeEach(() => {
+                component = fixture.load(fixturePath)[FIXTURES.DEFAULT];
+            });
+            describe('it is rendered', () => {
 
-	afterEach(() => {
-		fixture.cleanup()
-	});
+                it('with correct tag name', () => {
+                    expect(component.tagName).to.equal('RMS-SPARKLINE-INLINE');
+                });
 
-	/**
-	 * Validate the the component internal arguments used for computation are valid
-	 */
-	describe('the rms-sparkline-inline', () => {
-		describe(' when declared with all attributes (see fixture for values)', () => {
-			beforeEach(() => {
-				component = fixture.load(fixturePath)[FIXTURES.ATTRIBUTES];
-				component.linePoints = [1,2,3,4,5,6,7,8,9,1,2,3];
-			});
-			it('tag name is correct', () => {
-				expect(component.tagName).to.equal('RMS-SPARKLINE-INLINE');
-			});
-			it('linePoints attarray has 12 elements', () => {
-				expect(component.linePoints.length).to.equal(12);
-			});
-			it(`classname attribute is set to "class_1 class_2 class_3`, () => {
-				expect(component.classname).to.equal('class_1 class_2 class_3');
-			});
-			it('width attribute is set to 65', () => {
-				expect(component.width).to.equal(65);
-			});
-			it('height attribute is set to 17', () => {
-				expect(component.height).to.equal(17);
-			});
-			it(`linecolor attribute is set to "linecolor"`, () => {
-				expect(component.linecolor).to.equal('linecolor');
-			});
-			it(`linewidth attribute is set to 5.7`, () => {
-				expect(component.linewidth).to.equal(5.7);
-			});
-			it(`dotradius attribute is set to 1.7`, () => {
-				expect(component.dotradius).to.equal(1.7);
-			});
-			it(`shadecolor attribute is set to "lightblue"`, () => {
-				expect(component.shadecolor).to.equal('shadecolor');
-			});
-		});
+                it('without a shadow root', () => {
+                    expect(component.shadowRoot).to.not.equal(null);
+                });
+            });
 
-	});
+        });
+        describe('with attributes', () => {
+            describe('when using the canvas drawing method', () => {
+                beforeEach(() => {
+                    component = fixture.load(fixturePath)[FIXTURES.CANVAS];
+                });
+                describe('it is rendered', () => {
+                    it(' with correct tag name ', () => {
+                        expect(component.tagName).to.equal('RMS-SPARKLINE-INLINE');
+                    });
+
+                    it('with a shadow root', () => {
+                        expect(component.shadowRoot).to.not.equal(null);
+                    });
+
+                    it('shadow root has 2 children', () => {
+                        expect(component.shadowRoot.children.length).equal(2);
+                    });
+
+                    it('first shadow root child is style', () => {
+                        expect(component.shadowRoot.children[0].tagName).equal('STYLE');
+                    });
+
+                    it('second shadow root child is DIV', () => {
+                        expect(component.shadowRoot.children[1].tagName).equal('DIV');
+                    });
+
+                    describe(`the DIV child has`, () => {
+                        beforeEach(() => {
+                            divEl = component.shadowRoot.children[1]
+                        });
+                        it(' 2 children', () => {
+                            expect(divEl.children.length).equal(2);
+                        });
+
+                        describe(`the first DIV child is`, () => {
+                            it('a canvas', () => {
+                                expect(divEl.children[0].tagName).equal('CANVAS');
+                            });
+
+                            it('with width equal to 64', () => {
+                                expect(divEl.children[0].width).equal(64);
+                            });
+
+                            it('with height equal to 16', () => {
+                                expect(divEl.children[0].height).equal(16);
+                            });
+                        });
+                        describe(`the second div child is a SLOT`, () => {
+                            it(' is a SLOT', () => {
+                                expect(divEl.children[1].tagName).equal('SLOT');
+                            });
+                        });
+                    });
+                });
+            });
+            // TODO Add SVG validation for shaded, with decorations, etc
+            // TODO Add SVG validation after adding SVG support
+        });
+    });
 });
+

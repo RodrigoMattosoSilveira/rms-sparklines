@@ -24,6 +24,9 @@ import { CssColorString } from '../../util-lib/src/valid-colors';
 
 export class RmsSparklineInline extends HTMLElement {
     private cssColorString: CssColorString = null;
+    private linePointsArray: number[];
+    private decorationPointsArray: Decoration[];
+    private debug = false;
 
   constructor() {
     super();
@@ -33,15 +36,15 @@ export class RmsSparklineInline extends HTMLElement {
 
   static get observedAttributes(): string[] {
     return [
-        'linepoints',
         'classname',
-        'width',
-        'height',
-        'linecolor',
-        'linewidth',
+        'decorationpoints',
         'dotradius',
+        'linecolor',
+        'linepoints',
+        'linewidth',
+        'height',
         'shadecolor',
-        'decorationpoints'
+        'width'
     ];
   }
 
@@ -69,18 +72,6 @@ export class RmsSparklineInline extends HTMLElement {
             }
         });
     }
-    
-    get linepoints(): number[] {
-        return  JSON.parse(this.getAttribute('linepoints')) || JSON.stringify([]);
-    }
-    
-    set linepoints(value: number[]) {
-        if (value) {
-            this.setAttribute('linepoints', JSON.stringify(value));
-        } else {
-            this.removeAttribute('linepoints');
-        }
-    }
 
     get classname(): string {
         return this.getAttribute('classname') || '';
@@ -93,22 +84,33 @@ export class RmsSparklineInline extends HTMLElement {
             this.removeAttribute('classname');
         }
     }
+    get decorationpoints(): string {
+        return this.getAttribute('decorationpoints') || '';
+    }
 
-    get width(): number {
-        if (this.hasAttribute('width')) {
-            return Number(this.getAttribute('width')) === 0 ? 64 : Number(this.getAttribute('width'));
+    set decorationpoints(value: string) {
+        if (value) {
+            this.setAttribute('decorationpoints', value);
+        } else {
+            this.removeAttribute('decorationpoints');
+        }
+    }
+
+    get dotradius(): number {
+        if (this.hasAttribute('dotradius')) {
+            return Number(this.getAttribute('dotradius'));
         } else {
             return 0;
         }
     }
 
-  set width(value: number) {
-    if (value) {
-      this.setAttribute('width', String(value));
-    } else {
-      this.removeAttribute('width');
+    set dotradius(value: number) {
+        if (value) {
+            this.setAttribute('dotradius', String(value));
+        } else {
+            this.removeAttribute('dotradius');
+        }
     }
-  }
 
     get height(): number {
         if (this.hasAttribute('height')) {
@@ -138,6 +140,18 @@ export class RmsSparklineInline extends HTMLElement {
         }
     }
 
+    get linepoints(): string {
+        return this.getAttribute('linepoints') || '';
+    }
+
+    set linepoints(value: string) {
+        if (value) {
+            this.setAttribute('linepoints', value);
+        } else {
+            this.removeAttribute('linepoints');
+        }
+    }
+
     get linewidth(): number {
         if (this.hasAttribute('linewidth')) {
             return Number(this.getAttribute('linewidth')) === 0 ? 1 : Number(this.getAttribute('linewidth'));
@@ -154,19 +168,11 @@ export class RmsSparklineInline extends HTMLElement {
         }
     }
 
-    get dotradius(): number {
-        if (this.hasAttribute('dotradius')) {
-            return Number(this.getAttribute('dotradius'));
+    get width(): number {
+        if (this.hasAttribute('width')) {
+            return Number(this.getAttribute('width')) === 0 ? 64 : Number(this.getAttribute('width'));
         } else {
             return 0;
-        }
-    }
-
-    set dotradius(value: number) {
-        if (value) {
-            this.setAttribute('dotradius', String(value));
-        } else {
-            this.removeAttribute('dotradius');
         }
     }
 
@@ -178,21 +184,18 @@ export class RmsSparklineInline extends HTMLElement {
         if (value) {
             this.setAttribute('shadecolor', value);
         } else {
-         this.removeAttribute('shadecolor');
+            this.removeAttribute('shadecolor');
         }
     }
-    get decorationpoints(): Decoration [] {
-        return  JSON.parse(this.getAttribute('decorationpoints')) || JSON.parse(JSON.stringify([]));
+
+  set width(value: number) {
+    if (value) {
+      this.setAttribute('width', String(value));
+    } else {
+      this.removeAttribute('width');
     }
-    
-    set decorationpoints(value: Decoration []) {
-        if (value) {
-            this.setAttribute('decorationpoints', JSON.stringify(value));
-        } else {
-            this.removeAttribute('decorationpoints');
-        }
-    }
- 
+  }
+
     /**
     * Draw an inline sparkline
     */
@@ -209,14 +212,14 @@ export class RmsSparklineInline extends HTMLElement {
         
         // Draw the line
         DrawMethods.line(ctx,
-        this.linepoints,
+        this.linePointsArray,
         this.width,
         this.linewidth,
         this.linecolor,
         this.height,
         this.shadecolor,
         this.dotradius,
-        this.decorationpoints);
+        this.decorationPointsArray);
         
         /**
         * used to aid in unit testing; the results published to the console are compared with the results produced by
@@ -260,25 +263,47 @@ export class RmsSparklineInline extends HTMLElement {
     }
 
   render() {
-    // console.log("RmsSparklineInlineNew::render");
-      if (!this.linepoints) { return; }
-      if (this.linepoints.length === 0) { return; }
-      if (this.linewidth === 0 ) {return; }
-      if (!this.linecolor || !this.cssColorString.isValid(this.linecolor)) { return; }
-      if (this.width === 0) { return; }
-      if (this.height === 0) { return; }
-      if (this.shadecolor && !this.cssColorString.isValid(this.shadecolor)) { return; }
-      if (this.decorationpoints && this.decorationpoints.length > 0) {
+
+      // debuging
+      // console.log(`RmsSparklineInline::render - decorationpoints: ` + this.decorationpoints);
+      // console.log(`RmsSparklineInline::render - linepoints: ` + this.linepoints);
+      // console.log(`RmsSparklineInline::render - linecolor: ` + this.linecolor);
+      // console.log(`RmsSparklineInline::render - linewidth: ` + this.linewidth);
+      // console.log(`RmsSparklineInline::render - height: ` + this.height);
+      // console.log(`RmsSparklineInline::render - shadecolor: ` + this.shadecolor);
+      // console.log(`RmsSparklineInline::render - width: ` + this.width);
+      // console.log(`RmsSparklineInline::render\n`);
+
+      // console.log("RmsSparklineInlineNew::render");
+      if (!this.decorationpoints) { this.debug ? console.log(`RmsSparklineInline::render - No decorationpoints: `) : this.debug = false; return; }
+      this.decorationPointsArray = JSON.parse(this.decorationpoints);
+      if (this.decorationpoints && this.decorationPointsArray.length > 0) {
           // logic to ensure linepoints is filled before we kick of the line construction
-          for (let i = 0; i < this.decorationpoints.length; i++) {
-              if (this.decorationpoints[i].index > this.linepoints.length - 1) { return; }
-              if (!this.cssColorString.isValid(this.decorationpoints[i].color)) { return; }
+          for (let i = 0; i < this.decorationPointsArray.length; i++) {
+              if (this.decorationPointsArray[i].index > this.linepoints.length - 1) { return; }
+              if (!this.cssColorString.isValid(this.decorationPointsArray[i].color)) { return; }
           }
       }
-      
+      if (!this.linepoints) {  this.debug ? console.log(`RmsSparklineInline::render - No linepoints: `) : this.debug = false; return; }
+      this.linePointsArray = JSON.parse(this.linepoints);
+      if (this.linePointsArray.length === 0) { this.debug ? console.log(`RmsSparklineInline::render - Empty linePointsArray: `) : this.debug = false; return; }
+      if (!this.linecolor || !this.cssColorString.isValid(this.linecolor)) {  this.debug ? console.log(`RmsSparklineInline::render - Bad linecolor: `) : this.debug = false; return; }
+      if (this.linewidth === 0 ) {  this.debug ? console.log(`RmsSparklineInline::render - Bad linewidth: `) : this.debug = false; return; }
+      if (this.height === 0) {  this.debug ? console.log(`RmsSparklineInline::render - Bad height: `) : this.debug = false; return; }
+      if (this.shadecolor && !this.cssColorString.isValid(this.shadecolor)) {  this.debug ? console.log(`RmsSparklineInline::render - Bad shadecolor: `) : this.debug = false; return; }
+      if (this.width === 0) {  this.debug ? console.log(`RmsSparklineInline::render - Bad width: `) : this.debug = false; return; }
+
+      // debuging
+      // console.log(`RmsSparklineInline::render - decorationpoints` + this.decorationpoints);
+      // console.log(`RmsSparklineInline::render - linepoints` + this.linepoints);
+      // console.log(`RmsSparklineInline::render - linecolor` + this.linecolor);
+      // console.log(`RmsSparklineInline::render - linewidth` + this.linewidth);
+      // console.log(`RmsSparklineInline::render - height` + this.height);
+      // console.log(`RmsSparklineInline::render - shadecolor` + this.shadecolor);
+      // console.log(`RmsSparklineInline::render - width` + this.width);
+
     render(this.template, this.shadowRoot);
   }
 }
 
 window.customElements.define('rms-sparkline-inline', RmsSparklineInline);
-
