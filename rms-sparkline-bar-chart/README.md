@@ -11,7 +11,7 @@ The `rms-sparkline-bar-chart` web component renders four distinct bar chart type
 
 #### Properties
 * `chartType: string`: The chart type, one of ['positive', 'negative', 'dual', 'tri']
-* `barHeights: number[]`: The sparkline data source.
+* `barHeights: string`: The heights of the bars to be built.
 * `className: string`: A classe names to be added to the canvas element. Default is no classes.
 * `width: number`: The width of the sparkline box in pixels. See the source for comments on how to fit bars into the provided box.
 * `height: number`: The height of the sparkline box in pixels.
@@ -22,9 +22,9 @@ The `rms-sparkline-bar-chart` web component renders four distinct bar chart type
 * `fillColorPlus: string`: The color to render positive bars.
 
 #### barHeights
-A simple sequence of values representing f(x), with x being equally spaced units accross the horizontal axis, as for instance:
+The heights of the bars to be built.
 ````typescript
-    barHeights: number[] = [4, 3, 7, 8, 1, 4, 9, 2, 5, 3, 5, 5, 8 , 9, 7, 1];
+    barHeights: string = JSON.stringify([4, 3, 7, 8, 1, 4, 9, 2, 5, 3, 5, 5, 8 , 9, 7, 1]);
 ````
 
 #### Methods

@@ -8,13 +8,13 @@ The `rms-sparkline-inline` web component renders a simple sparkline including th
 * optional decorating points, drawn along the line, e.g. min / max / start / end / alert. etc.
 * an optional dropdown shade
 
-The `rrms-sparkline-inline` web component renders the folloing  line sparlines types:
+The `rrms-sparkline-inline` web component renders the following  line sparklines types:
 1. `simple`: A simple line, all points positive
 1. `decorated`:  A simple line, all points positive, with decoration points alongside the line.
 1. `shade`: Dual charts' bars heights are negative, zero, or positive, with a positive height bars drawn northward and negative ones southward.
 
 ### Properties
-* `linepoints: number[]`: An array of numbers representing the sparkline data source. Default is empty array. See below for formating details.
+* `linepoints: string`: An array of numbers representing the sparkline data source. Default is empty array. See below for formating details.
 * `className: string`: The classe names to be added to the canvas element. Default is no classes.
 * `width: number`: The width of the sparkline box in pixels.
 * `height: number`: The height of the sparkline box in pixels.
@@ -22,19 +22,19 @@ The `rrms-sparkline-inline` web component renders the folloing  line sparlines t
 * `linewidth: number`: A number giving the stroke of the line in pixels. Default is 1.
 * `shadecolor: string`: The color of to shade the area underneath the sparkline.
 * `dotradius: Number`: The size of the decoration dots.
-* `decorationpoints` An array of objects describing decoration points,  e.g. min / max / start / end / alert. etc. See below for formating details.
+* `decorationpoints: string` An array of objects describing decoration points,  e.g. min / max / start / end / alert. etc. See below for formating details.
 
 #### linepoints
 A simple sequence of values representing f(x), with x being equally spaced units accross the horizontal axis, as for instance:
 ````typescript
-    linePoints: number[] = [4, 3, 7, 8, 1, 4, 9, 2, 5, 3, 5, 5, 8 , 9, 7, 1];
+    linePoints: string = JSON.stringify([4, 3, 7, 8, 1, 4, 9, 2, 5, 3, 5, 5, 8 , 9, 7, 1]);
 ````
 Assuming the default width, 64 pixels, fifteen segments would will be drawn, four pixels wide.
 
 #### decoratingtoints
-An array of objects descring the decorations to be added to the line. Presently only circles are supported, with the object describing a decorating point being formated as follows:
+An array of objects describing the decorations to be added to the line. Presently only circles are supported, with the object describing a decorating point being formated as follows:
 ````typescript
-    decorationpoints = [{linepointsIndex: 0, color: 'red'}, {linepointsIndex: 15, color: 'black'}];
+    decorationpoints = JSON.stringify([{linepointsIndex: 0, color: 'red'}, {linepointsIndex: 15, color: 'black'}]);
 ````
 
 There are two decorations this example, one red dot indexed to be drawn over the line point of inxdex 0 and one black dot indexed to be drawn over the line point of inxdex 15. Considering the linepoints example above, these decorations would represent the sparkline's start and end points. 

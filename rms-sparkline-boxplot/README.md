@@ -22,7 +22,7 @@ The `rms-sparkline-boxplot` web component renders distinct box plot chart types,
 * `lowWhiskerLineWidth: number`: The width to render the western whisker.
 * `medianWhiskerColor: string`: The color to render the median.
 * `medianWhiskerLineWidth: number`: The width to render the median.
-* `population: string`: The population for whih the boxplot is being built.
+* `population: string`: The population for which the boxplot is being built.
 * `width: number`: The width of the sparkline box in pixels. 
 
 #### barHeights
