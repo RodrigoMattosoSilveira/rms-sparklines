@@ -22,7 +22,7 @@ import { BarChart } from '../../util-lib/src/bar-chart';
 import { CssColorString } from '../../util-lib/src/valid-colors';
 
 export class RmsSparklineBarChart extends HTMLElement {
-    public barHeights: number[] = [];
+    public barHeightsArray: number[] = [];
     VALID_CHART_TYPES: string = ['positive', 'negative', 'dual', 'tri'].join();
     private cssColorString: CssColorString = null;
     
@@ -73,6 +73,18 @@ export class RmsSparklineBarChart extends HTMLElement {
             this.setAttribute('barGap', String(value));
         } else {
             this.removeAttribute('barGap');
+        }
+    }
+    
+    get barHeights(): string {
+        return this.getAttribute('barHeights');
+    }
+    
+    set barHeights(value: string) {
+        if (value) {
+            this.setAttribute('barHeights', value);
+        } else {
+            this.removeAttribute('barHeights');
         }
     }
 
@@ -203,13 +215,14 @@ export class RmsSparklineBarChart extends HTMLElement {
     }
     
     private get template(): TemplateResult {
+        // console.log('RmsSparklineBarChart::template');
      
         const canvasEl = document.createElement('canvas');
         canvasEl.width = this.width;
         canvasEl.height = this.height;
         if (this.className && this.className !== ``) { canvasEl.classList.add(this.className); }
 
-        const barChart = new BarChart(canvasEl, this.chartType, this.barHeights, this.minimumBarWidth, this.barGap, this.fillColorMinus, this.fillColorZero, this.fillColorPlus);
+        const barChart = new BarChart(canvasEl, this.chartType, this.barHeightsArray, this.minimumBarWidth, this.barGap, this.fillColorMinus, this.fillColorZero, this.fillColorPlus);
         barChart.draw();
         
         return html`
@@ -222,6 +235,7 @@ export class RmsSparklineBarChart extends HTMLElement {
     }
     
     render() {
+        // console.log('RmsSparklineBarChart::render');
 
         // Little debugging
         //
@@ -239,7 +253,8 @@ export class RmsSparklineBarChart extends HTMLElement {
         //
         if (this.VALID_CHART_TYPES.indexOf(this.chartType) === -1) { return; }
         if (!this.barHeights) { return; }
-        if (this.barHeights.length === 0) { return; }
+        this.barHeightsArray = JSON.parse(this.barHeights);
+        if (this.barHeightsArray.length === 0) { return; }
         if (this.minimumBarWidth < 3) {return; }
         if (this.barGap < 1) { return; }
         if (!this.cssColorString.isValid(this.fillColorMinus)) { return; }

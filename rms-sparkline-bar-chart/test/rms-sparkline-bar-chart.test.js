@@ -43,7 +43,7 @@ describe('<rms-sparkline-barchartt>', () => {
     afterEach(() => {
         fixture.cleanup()
     });
-    describe('when configuredd', () => {
+    describe('when configured', () => {
         describe('without attributes', () => {
             beforeEach(() => {
                 component = fixture.load(fixturePath)[FIXTURES.DEFAULT];
@@ -61,7 +61,7 @@ describe('<rms-sparkline-barchartt>', () => {
 
         });
         describe('with attributes', () => {
-            describe('when using the canvas drawing method ', () => {
+            describe('when using the canvas drawing method', () => {
                 beforeEach(() => {
                     component = fixture.load(fixturePath)[FIXTURES.CANVAS];
                     component.barHeights = [1, 2, 3, 4, 5, 6, 7, 8]

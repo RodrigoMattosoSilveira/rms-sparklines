@@ -23,7 +23,7 @@ webpackConfig.entry = undefined;
 module.exports = function(config) {
 	config.set({
 		frameworks: ['mocha', 'chai', 'fixture'],
-		browsers: ['Chrome'],
+		browsers: ['ChromeHeadless'],
 		files: [
 			{
 				pattern: 'test/*.test.js',
@@ -33,19 +33,12 @@ module.exports = function(config) {
 				pattern: 'test/fixture/**/*',
 			},
 		],
-        browserConsoleLogOptions: {
-            level: 'log',
-            terminal: true
-        },
-        client: {
-            captureConsole: true,
-        },
- 		reporters: ['mocha'],
-		singleRun: false,
+		reporters: ['mocha'],
+		singleRun: true,
 		port: 9876,
 		colors: true,
-		logLevel: config.LOG_LOG,
-		autoWatch: true,
+		logLevel: config.LOG_INFO,
+		autoWatch: false,
 		concurrency: Infinity,
 		preprocessors: {
 			'test/**/*.test.js': ['webpack'],
@@ -68,6 +61,7 @@ module.exports = function(config) {
 				warning: '!',
 				error: 'x'
 			}
-		}
+		},
 	});
 };
+

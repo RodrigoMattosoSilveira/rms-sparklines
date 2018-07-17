@@ -24,7 +24,7 @@
 // import { expect } from 'chai';
 // import 'karma-fixture';
 import '@webcomponents/webcomponentsjs/webcomponents-lite';
-import { RmsSparklineInlines } from '../src/rms-sparkline-inline';
+import { RmsSparklineInline } from '../src/rms-sparkline-inline';
 
 describe('<rms-sparkline-inline>', () => {
 	let component;
