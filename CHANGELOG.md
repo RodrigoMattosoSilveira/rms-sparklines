@@ -6,7 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.2.0-alpha.3] - 2018-07-15
 ## Changed
-* Refactored inline and bar chart sparklines to have the recomended structure
+* Refactored to generate all components according to Web Component best practices for structures; more work required to comply with all recommendations.
+
 
 ## [0.2.0-alpha.2] - 2018-07-07
 ## Changed

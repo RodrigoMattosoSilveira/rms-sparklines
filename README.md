@@ -5,7 +5,7 @@
 [![Build Status](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines.svg?branch=master)](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines)
 
 # New in version 0.2.0-alpha.3
-* Refactored inline and bar chart sparklines to have the recomended structure
+* Refactored to generate all components according to Web Component best practices for structures; more work required to comply with all recommendations.
 
 # Description
 This is a collection of web components to render [sparklines](https://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0001OR), conceived by [Edward Tufte](https://www.edwardtufte.com/tufte/). My motivation for this project is to use web component technology to implement sparklines. The project's overall concepts, but not source code, borrows extensively from [Gareth Watts](https://omnipotent.net/jquery.sparkline/#s-about) jQery project.
