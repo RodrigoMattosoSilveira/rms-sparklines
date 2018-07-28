@@ -35,12 +35,12 @@ export class SparklineLine {
     canvasTip: any;
     matshjs: any;
     
-    static offset(el: HTMLElement) {
-        const rect: any = el.getBoundingClientRect(),
-            scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
-            scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        return { top: rect.top + scrollTop, left: rect.left + scrollLeft };
-    }
+    // static offset(el: HTMLElement) {
+    //     const rect: any = el.getBoundingClientRect(),
+    //         scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+    //         scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    //     return { top: rect.top + scrollTop, left: rect.left + scrollLeft };
+    // }
     
     constructor() {}
     
@@ -177,9 +177,11 @@ export class SparklineLine {
          * Add tooltip support.
          * Build coordinateScreen
          */
-        const canvasOffset = SparklineLine.offset(this.attributes.canvasEl);
-        this.canvasScreenOffsetX = canvasOffset.left;
-        this.canvasScreenOffsetY = canvasOffset.top;
+        // const rect: any = this.attributes.canvasEl.getBoundingClientRect();
+        // console.log(`SparklineLine::canvasEl rect.left: ` + rect.left + `, rect.top: ` + rect.top);
+        //
+        // this.canvasScreenOffsetX = rect.left + window.pageXOffset || document.documentElement.scrollLeft;
+        // this.canvasScreenOffsetY = rect.top + window.pageYOffset || document.documentElement.scrollTop;
         // console.log(`canvasScreenOffsetX: ` + this.canvasScreenOffsetX);
         // console.log(`canvasScreenOffsetY: ` + this.canvasScreenOffsetY);
         this.coordinatesTips = [];
@@ -196,9 +198,9 @@ export class SparklineLine {
         }
     }
     
-    handleMouseMove($event: MouseEvent) {
-        const mouseX = $event.clientX - this.canvasScreenOffsetX;
-        const mouseY = $event.clientY - this.canvasScreenOffsetY;
+    handleMouseMove($event: MouseEvent, rect: any) {
+        const mouseX = $event.clientX - rect.left + window.pageXOffset || document.documentElement.scrollLeft;;
+        const mouseY = $event.clientY - rect.top + window.pageYOffset || document.documentElement.scrollTop;
         // console.log(`SparklineLine::handleMouseMove mouseX: ` + mouseX + `, mouseY: ` + mouseY);
         
         const tooltip = document.getElementById('rms-sparkline-inline-tooltip');
@@ -211,25 +213,33 @@ export class SparklineLine {
             const dot = this.coordinatesTips[i];
             const dx = mouseX - dot.x;
             const dy = mouseY - dot.y;
-            console.log(`SparklineLine::handleMouseMove dx: ` + dx + `, dy: ` + dy + `, dot.rXr: ` + dot.rXr);
+            // console.log(`SparklineLine::handleMouseMove dx: ` + Math.floor(dx) + `, dy: ` + Math.floor(dy) + `, dot.rXr: ` + dot.rXr);
             if (dx * dx + dy * dy < dot.rXr) {
                 // console.log(`SparklineLine::handleMouseMove found a match`);
+    
+                // The width is proportional to the length of the text
+                const textToShow = '' + this.measurementsArray[i];
+                const textToShowL = textToShow.length;
+                const width = 12 * textToShowL;
+                const height = 13;
                 
                 this.canvasTip = document.createElement('CANVAS');
                 this.canvasTip.id = 'rms-sparkline-inline-tooltip';
-                this.canvasTip.width = 12;
-                this.canvasTip.height = 12;
+                this.canvasTip.width = width;
+                this.canvasTip.height = height;
                 this.canvasTip.style.position = 'absolute';
-                this.canvasTip.style.left = (dot.x + 15) + 'px';
-                this.canvasTip.style.top = (dot.y + 15) + 'px';
+                this.canvasTip.style.left = (rect.left + dot.x + 5) + 'px';
+                this.canvasTip.style.top = (rect.top + dot.y + 7) + 'px';
                 this.canvasTip.style.border = '1px solid';
+                this.canvasTip.style.zIndex = '20';
+                this.canvasTip.style.textAlign = 'center';
                 const ctx = (this.canvasTip as HTMLCanvasElement).getContext('2d');
                 ctx.fillStyle = 'white';
-                ctx.fillRect(0, 0, 11, 11);
+                ctx.fillRect(0, 0, width, height);
                 ctx.fill();
                 ctx.fillStyle = 'red';
                 ctx.font = '12px FUTURA';
-                ctx.fillText('' + this.measurementsArray[i], 3, 10);
+                ctx.fillText('' + this.measurementsArray[i], 2, height - 2);
                 
                 const body = document.getElementsByTagName('body')[0];
                 body.appendChild(this.canvasTip);
