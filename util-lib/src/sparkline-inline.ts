@@ -199,6 +199,12 @@ export class SparklineLine {
     }
     
     handleMouseMove($event: MouseEvent, rect: any) {
+        let body: any;
+        let mySpan: any;
+        let fontDefinition: string = '12px FUTURA';
+        let width: number;
+        let height: number;
+        
         const mouseX = $event.clientX - rect.left + window.pageXOffset || document.documentElement.scrollLeft;;
         const mouseY = $event.clientY - rect.top + window.pageYOffset || document.documentElement.scrollTop;
         // console.log(`SparklineLine::handleMouseMove mouseX: ` + mouseX + `, mouseY: ` + mouseY);
@@ -217,11 +223,20 @@ export class SparklineLine {
             if (dx * dx + dy * dy < dot.rXr) {
                 // console.log(`SparklineLine::handleMouseMove found a match`);
     
-                // The width is proportional to the length of the text
-                const textToShow = '' + this.measurementsArray[i];
-                const textToShowL = textToShow.length;
-                const width = 12 * textToShowL;
-                const height = 13;
+                // A trick to find the width of the canvas to host the tooltip
+                mySpan = document.createElement('span');
+                mySpan.id = 'mySpanId';
+                mySpan.style.font = fontDefinition;
+                mySpan.style.textAlign = 'center';
+                mySpan.innerHTML = '' + this.measurementsArray[i];
+                body = document.getElementsByTagName('body')[0];
+                body.appendChild(mySpan);
+                mySpan = document.getElementById('mySpanId');
+                width = mySpan.getBoundingClientRect().width + 2;
+                mySpan.parentElement.removeChild(mySpan);
+                // console.log(`mySpan: ` + width);
+    
+                height = 13;
                 
                 this.canvasTip = document.createElement('CANVAS');
                 this.canvasTip.id = 'rms-sparkline-inline-tooltip';
@@ -238,10 +253,10 @@ export class SparklineLine {
                 ctx.fillRect(0, 0, width, height);
                 ctx.fill();
                 ctx.fillStyle = 'red';
-                ctx.font = '12px FUTURA';
-                ctx.fillText('' + this.measurementsArray[i], 2, height - 2);
+                ctx.font = fontDefinition;
+                ctx.fillText('' + this.measurementsArray[i], 1, height - 2);
                 
-                const body = document.getElementsByTagName('body')[0];
+                body = document.getElementsByTagName('body')[0];
                 body.appendChild(this.canvasTip);
             }
         }
