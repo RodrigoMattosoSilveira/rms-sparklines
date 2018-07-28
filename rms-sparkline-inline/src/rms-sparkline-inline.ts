@@ -353,9 +353,9 @@ export class RmsSparklineInline extends HTMLElement {
             __this.sparklineLine.handleMouseMove(event, rect);
         });
     
-        this.addEventListener('mouseout', function(event: any) {
+        this.addEventListener('mouseout', function() {
             // console.log(`RmsSparklineInlineNew::addEventListener`);
-            __this.sparklineLine.handleMouseOut(event, rect);
+           SparklineLine.handleMouseOut();
         });
     }
 }

@@ -33,7 +33,6 @@ export class SparklineLine {
     canvasScreenOffsetY: number;
     decorationPointsArray: any = [];
     canvasTip: any;
-    matshjs: any;
     
     // static offset(el: HTMLElement) {
     //     const rect: any = el.getBoundingClientRect(),
@@ -43,6 +42,15 @@ export class SparklineLine {
     // }
     
     constructor() {}
+    
+    static handleMouseOut() {
+        const tooltip = document.getElementById('rms-sparkline-inline-tooltip');
+        if (tooltip) {
+            // console.log(`SparklineLine::handleMouseMove deleting tooltip`);
+            tooltip.parentElement.removeChild(tooltip);
+        }
+    }
+    
     
     draw(attributes: SparklineLineInterface) {
         
@@ -201,11 +209,11 @@ export class SparklineLine {
     handleMouseMove($event: MouseEvent, rect: any) {
         let body: any;
         let mySpan: any;
-        let fontDefinition: string = '12px FUTURA';
+        const fontDefinition = '12px FUTURA';
         let width: number;
         let height: number;
         
-        const mouseX = $event.clientX - rect.left + window.pageXOffset || document.documentElement.scrollLeft;;
+        const mouseX = $event.clientX - rect.left + window.pageXOffset || document.documentElement.scrollLeft;
         const mouseY = $event.clientY - rect.top + window.pageYOffset || document.documentElement.scrollTop;
         // console.log(`SparklineLine::handleMouseMove mouseX: ` + mouseX + `, mouseY: ` + mouseY);
         
@@ -259,13 +267,6 @@ export class SparklineLine {
                 body = document.getElementsByTagName('body')[0];
                 body.appendChild(this.canvasTip);
             }
-        }
-    }
-    handleMouseOut($event: MouseEvent) {
-        const tooltip = document.getElementById('rms-sparkline-inline-tooltip');
-        if (tooltip) {
-            // console.log(`SparklineLine::handleMouseMove deleting tooltip`);
-            tooltip.parentElement.removeChild(tooltip);
         }
     }
 }

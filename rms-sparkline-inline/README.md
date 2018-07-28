@@ -14,30 +14,30 @@ The `rrms-sparkline-inline` web component renders the following  line sparklines
 1. `shade`: Dual charts' bars heights are negative, zero, or positive, with a positive height bars drawn northward and negative ones southward.
 
 ### Properties
-* `linepoints: string`: An array of numbers representing the sparkline data source. Default is empty array. See below for formating details.
 * `className: string`: The classe names to be added to the canvas element. Default is no classes.
-* `width: number`: The width of the sparkline box in pixels.
-* `height: number`: The height of the sparkline box in pixels.
-* `linecolor: string`: The color of the sparkline; any valid CSS color. 
-* `linewidth: number`: A number giving the stroke of the line in pixels. Default is 1.
-* `shadecolor: string`: The color of to shade the area underneath the sparkline.
-* `dotradius: Number`: The size of the decoration dots.
 * `decorationpoints: string` An array of objects describing decoration points,  e.g. min / max / start / end / alert. etc. See below for formating details.
+* `dotradius: Number`: The size of the decoration dots.
+* `linecolor: string`: The color of the sparkline; any valid CSS color. 
+* `linepoints: string`: An array of numbers representing the sparkline data source. Default is empty array. See below for formating details.
+* `linewidth: number`: A number giving the stroke of the line in pixels. Default is 1.
+* `width: number`: The width of the sparkline box in pixels.
+* `shadecolor: string`: The color of to shade the area underneath the sparkline.
+* `height: number`: The height of the sparkline box in pixels.
 
 #### linepoints
-A simple sequence of values representing f(x), with x being equally spaced units accross the horizontal axis, as for instance:
+An a JOSN.stringfy'd string of a simple sequence of values representing f(x), with x being equally spaced units across the horizontal axis, as for instance:
 ````typescript
     linePoints: string = JSON.stringify([4, 3, 7, 8, 1, 4, 9, 2, 5, 3, 5, 5, 8 , 9, 7, 1]);
 ````
 Assuming the default width, 64 pixels, fifteen segments would will be drawn, four pixels wide.
 
 #### decoratingtoints
-An array of objects describing the decorations to be added to the line. Presently only circles are supported, with the object describing a decorating point being formated as follows:
+An a JOSN.stringfy'd string of an array of objects describing the decorations to be added to the line. Presently only circles are supported, with the object describing a decorating point being formatted as follows:
 ````typescript
-    decorationpoints = JSON.stringify([{linepointsIndex: 0, color: 'red'}, {linepointsIndex: 15, color: 'black'}]);
+    decorationpoints = JSON.stringify([{index: 0, color: 'red'}, {index: 15, color: 'black'}]);
 ````
 
-There are two decorations this example, one red dot indexed to be drawn over the line point of inxdex 0 and one black dot indexed to be drawn over the line point of inxdex 15. Considering the linepoints example above, these decorations would represent the sparkline's start and end points. 
+There are two decorations this example, one red dot indexed to be drawn over the line point of index 0 and one black dot indexed to be drawn over the line point of index 15. Considering the linepoints example above, these decorations would represent the sparkline's start and end points. 
 
 ### Methods
 Properties are the public API of a Web Component and external code can set/get them
@@ -53,14 +53,15 @@ Below is example of a sparkline inline drawn without a shade and with decoration
 
 ````html
     <rms-sparkline-inline
-      [linepoints]="linePoints"
-      [classname]="className"
-      [width]="width"
-      [height]="height"
-      [linecolor]="lineColor"
-      [linewidth]="lineWidth"
-      [dotradius]="dotRadius"
-      [decorationpoints]="decorationpoints"
+        [className]="className"
+        [decorationpoints]="decorationPoints"
+        [dotradius]="dotRadius"
+        [linecolor]="lineColor"
+        [linepoints]="linePoints"
+        [linewidth]="lineWidth"
+        [height]="height"
+        [shadecolor]="shadeColor"
+        [width]="width"
     >
     </rms-sparkline-inline>
 ````
@@ -94,7 +95,7 @@ If this is true, it represents an insidious condition likely to happen in many s
         _linePoint.push(value);
         ...
     end loop;
-    // See https://jsperf.com/cloning-arrays/3 for benchmarks indiciting this is the fastest mechanism
+    // See https://jsperf.com/cloning-arrays/3 for benchmarks indicating this is the fastest mechanism
     linePoint = _linePoint.slice(0);
 ````
 # Last but not least
