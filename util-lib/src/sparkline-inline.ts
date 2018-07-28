@@ -261,5 +261,12 @@ export class SparklineLine {
             }
         }
     }
+    handleMouseOut($event: MouseEvent) {
+        const tooltip = document.getElementById('rms-sparkline-inline-tooltip');
+        if (tooltip) {
+            // console.log(`SparklineLine::handleMouseMove deleting tooltip`);
+            tooltip.parentElement.removeChild(tooltip);
+        }
+    }
 }
 

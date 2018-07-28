@@ -352,6 +352,11 @@ export class RmsSparklineInline extends HTMLElement {
             // console.log(`RmsSparklineInlineNew::addEventListener`);
             __this.sparklineLine.handleMouseMove(event, rect);
         });
+    
+        this.addEventListener('mouseout', function(event: any) {
+            // console.log(`RmsSparklineInlineNew::addEventListener`);
+            __this.sparklineLine.handleMouseOut(event, rect);
+        });
     }
 }
 
