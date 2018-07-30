@@ -28,6 +28,7 @@ export class RmsSparklineBoxplot extends HTMLElement {
     private cssColorString: CssColorString = new CssColorString();
     private debugging = false;
     private nothing = false;
+    private boxPlot: BoxPlot;
 
   constructor() {
     super();
@@ -316,7 +317,7 @@ export class RmsSparklineBoxplot extends HTMLElement {
     private get template(): TemplateResult {
         this.debugging ? console.log('RmsSparklineBoxplot::template ') : this.nothing = false;
         
-        const boxChart = new BoxPlot(
+        this.boxPlot = new BoxPlot(
             this.axisColor,
             this.axisLineWidth,
             this.chartType,
@@ -334,7 +335,7 @@ export class RmsSparklineBoxplot extends HTMLElement {
             this.medianLineWidth,
             this.populationArray,
             this.width);
-        const drawingElement: HTMLElement = boxChart.draw();
+        const drawingElement: HTMLElement = this.boxPlot.draw();
         return html`
             ${this.styles}
             ${drawingElement}
@@ -442,6 +443,22 @@ export class RmsSparklineBoxplot extends HTMLElement {
         }
         
         render(this.template, this.shadowRoot);
+    
+    
+        const myCanvasEl: any =  this.shadowRoot.children[1].children[0];
+        const rect = myCanvasEl.getBoundingClientRect();
+        // console.log(`RmsSparklineInline::myCanvasEl rect.left: ` + rect.left + `, rect.top: ` + rect.top);
+    
+        this.addEventListener('mousemove', function(event: any) {
+            // console.log(`RmsSparklineInlineNew::addEventListener`);
+            __this.boxPlot.handleMouseMove(event, rect);
+        });
+    
+        this.addEventListener('mouseout', function() {
+            // console.log(`RmsSparklineInlineNew::addEventListener`);
+            __this.boxPlot.handleMouseOut();
+        });
+    
     }
 }
 window.customElements.define('rms-sparkline-boxplot', RmsSparklineBoxplot);

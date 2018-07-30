@@ -17,6 +17,8 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+import { Rectangle } from './rectangle';
+
 export class BoxPlot {
     
     // Attributes
@@ -50,6 +52,9 @@ export class BoxPlot {
     x_axis_translation: number;   // canvas.width / 16
     whiskerHeight: number;      // (canvas.height / 5)
     medianHeight: number;       // = 2 *  (canvas.height / 3)
+    coordinatesTips: any = [];
+    
+    tooltipId = 'rms-sparkline-boxplot-tooltip';
     
     constructor(
         axisColor: string,
@@ -227,6 +232,105 @@ export class BoxPlot {
         this.whiskerHeight = Math.floor(BoxPlot.calculateWhiskerHeight(this.height));
         this.medianHeight = Math.floor(BoxPlot.calculateMedianHeight(this.height));
         this.x_axis_translation = Math.floor(BoxPlot.calculateX_axis_translation(this.height));
+    
+        /**
+         * Build tooltips
+         * There are four tooltips: minimum, q1 - q3 quartile, medium, maximum
+         * - Imagine a rectangle around the minimum whisker; if the mouse moves
+         *   within it, its tooltip is shown
+         * - Imagine a rectangle around the IQR rectangle whisker; if the mouse
+         *   moves within it, its tooltip is shown
+         * - Imagine a rectangle around the medium line; if the mouse moves
+         *   within it, its tooltip is shown; it has priority over the IQR
+         *   rectangle
+         * - Imagine a rectangle around the maxmum whisker; if the mouse moves
+         *   within it, its tooltip is shown
+         */
+        this.coordinatesTips = [];
+        const canvasPixels = this.width - 2 * this.x_axis_canvas_gap;
+        const canvasX = this.x_axis_canvas_gap + this.quartile_1 * canvasPixels / this.maximum - this.x_axis_canvas_gap;
+        const canvasY = this.height / 2 - this.medianHeight / 2 - this.x_axis_canvas_gap;
+        const canvasW = ((this.quartile_3 - this.quartile_1) * canvasPixels) / this.maximum + 2 * this.x_axis_canvas_gap;
+        const canvasH = this.medianHeight + 2 * this.x_axis_canvas_gap;
+        const canvasAdjustment = this.axisLineWidth % 2 === 0 ? 0 : 0.5;
+        this.coordinatesTips.push({
+            rect: new Rectangle(
+                0,
+                this.height / 2 - this.whiskerHeight / 2 - this.x_axis_canvas_gap,
+                2 * this.x_axis_canvas_gap,
+                this.whiskerHeight + 2 * this.x_axis_canvas_gap
+            ),
+            color: 'red',
+            tip: 'Min: ' + this.minimum
+        });
+        this.coordinatesTips.push({
+            rect: new Rectangle(
+                Math.floor(this.x_axis_canvas_gap + this.median * canvasPixels / this.maximum - this.x_axis_canvas_gap),
+                this.height / 2 - this.medianHeight / 2 - this.x_axis_canvas_gap,
+                2 * this.x_axis_canvas_gap,
+                this.medianHeight + 2 * this.x_axis_canvas_gap
+            ),
+            color: 'red',
+            tip: 'Median: ' + this.median
+        });
+        this.coordinatesTips.push({
+            rect: new Rectangle(
+                canvasX,
+                canvasY,
+                canvasW,
+                canvasH
+            ),
+            color: 'red',
+            tip: 'Q1 : Q3: ' + this.quartile_1 + ` : ` + this.quartile_3
+        });
+        this.coordinatesTips.push({
+            rect: new Rectangle(
+                Math.floor(this.width - 2 * this.x_axis_canvas_gap),
+                this.height / 2 - this.whiskerHeight / 2 - this.x_axis_canvas_gap,
+                2 * this.x_axis_canvas_gap,
+                this.whiskerHeight + 2 * this.x_axis_canvas_gap
+            ),
+            color: 'red',
+            tip: 'Max: ' + this.maximum
+        });
+        // const canvasPixels = this.width - 2 * this.x_axis_canvas_gap;
+        // const canvasX = this.x_axis_canvas_gap + this.quartile_1 * canvasPixels / this.maximum - this.x_axis_canvas_gap;
+        // const canvasY = this.height / 2 - this.medianHeight / 2 - this.x_axis_canvas_gap;
+        // const canvasW = ((this.quartile_3 - this.quartile_1) * canvasPixels) / this.maximum + 2 * this.x_axis_canvas_gap;
+        // const canvasH = this.medianHeight + 2 * this.x_axis_canvas_gap;
+        // this.coordinatesTips.push({
+        //     rect: new Rectangle(
+        //         canvasX,
+        //         canvasY,
+        //         canvasW,
+        //         canvasH
+        //     ),
+        //     color: 'red',
+        //     tip: 'Q1 : Q3: ' + this.maximum
+        // });
+        // this.coordinatesTips.push({
+        //     rect: new Rectangle(
+        //         Math.floor(this.x_axis_canvas_gap + this.median * canvasPixels / this.maximum - this.x_axis_canvas_gap),
+        //         this.height / 2 - this.medianHeight / 2 - this.x_axis_canvas_gap,
+        //         2 * this.x_axis_canvas_gap,
+        //         this.medianHeight + 2 * this.x_axis_canvas_gap
+        //     ),
+        //     color: 'red',
+        //     tip: 'Median: ' + this.median
+        // });
+        // this.coordinatesTips.push({
+        //     rect: new Rectangle(
+        //         Math.floor(this.width - 2 * this.x_axis_canvas_gap) + canvasAdjustment,
+        //         this.height / 2 - this.whiskerHeight / 2 - this.x_axis_canvas_gap,
+        //         2 * this.x_axis_canvas_gap,
+        //         this.whiskerHeight + 2 * this.x_axis_canvas_gap
+        //     ),
+        //     color: 'red',
+        //     tip: 'Max: ' + this.maximum
+        // });
+        //
+    
+        // Dispatch the drawing
         switch (this.drawingMethod) {
             case 'canvas':
                 drawingHtml = this._draw_canvas();
@@ -243,12 +347,12 @@ export class BoxPlot {
    _draw_canvas(): HTMLElement {
         // console.log(`Boxchart::_draw_canvas`)
     
-        const canvasEl = document.createElement('canvas');
+        const canvasEl: HTMLCanvasElement = document.createElement('canvas') as HTMLCanvasElement;
         const ctx = canvasEl.getContext('2d');
         
         // See https://stackoverflow.com/questions/7530593/html5-canvas-and-line-width/7531540#7531540
         // for rationale
-        let canvasAdjustment = 0;
+        let canvasAdjustment;
         
         canvasEl.width = this.width;
         canvasEl.height = this.height;
@@ -411,5 +515,94 @@ export class BoxPlot {
         divContainer.appendChild(slotEl);
         
         return divContainer;
+    }
+    
+    handleMouseMove($event: MouseEvent, rect: any) {
+        let tooltip;
+        let mySpan: HTMLSpanElement;
+        const fontDefinition = '12px FUTURA';
+        let body: any;
+        let width: number;
+        let height: number;
+        
+        // Remove the existing tooltip, if present
+        tooltip = document.getElementById(this.tooltipId);
+        if (tooltip) {
+            console.log(`SparklineLine::handleMouseMove deleting tooltip`);
+            tooltip.parentElement.removeChild(tooltip);
+        }
+    
+        const mouseX = $event.clientX - rect.left + window.pageXOffset || document.documentElement.scrollLeft;
+        const mouseY = $event.clientY - rect.top + window.pageYOffset || document.documentElement.scrollTop;
+        console.log(`SparklineLine::handleMouseMove mouseX: ` + mouseX + `, mouseY: ` + mouseY);
+    
+        for (let i = 0; i < this.coordinatesTips.length; i++) {
+            const tipRect: Rectangle = this.coordinatesTips[i].rect;
+            const tipX = this.coordinatesTips[i].rect.getX();
+            const tipWidth = this.coordinatesTips[i].rect.getWidth();
+            const tipHeight = this.coordinatesTips[i].rect.getHeight();
+            const tipY = this.coordinatesTips[i].rect.getY();
+    
+            // console.log(`mouseX: ` + mouseX + `, mouseY: ` + mouseY);
+            // console.log(`tipX: ` + tipX + `, tipY: ` + tipY + `, tipWidth: ` + tipWidth + `, tipHeight: ` + tipHeight);
+    
+            if (tipX <=  mouseX && mouseX <= tipX + tipWidth &&
+                tipY <=  mouseY && mouseY <= tipY + tipHeight) {
+    
+                console.log(`We have a match`);
+    
+                // A trick to find the width / height of the canvas to host the tooltip
+                mySpan = document.createElement('span') as HTMLSpanElement;
+                mySpan.id = 'mySpanId';
+                mySpan.style.font = fontDefinition;
+                mySpan.style.textAlign = 'center';
+                mySpan.innerHTML = '' +  this.coordinatesTips[i].tip;
+                body = document.getElementsByTagName('body')[0];
+                body.appendChild(mySpan);
+                mySpan = document.getElementById('mySpanId');
+                width = mySpan.getBoundingClientRect().width + 2;
+                height = mySpan.getBoundingClientRect().height + 2;
+                mySpan.parentElement.removeChild(mySpan);
+                // console.log(`mySpanWidth: ` + width + `, mySpanHeight: ` + height);
+                
+                tooltip = document.createElement('CANVAS') as HTMLCanvasElement;
+                tooltip.id = this.tooltipId;
+                tooltip.width = width;
+                tooltip.height = height;
+                tooltip.style.position = 'absolute';
+                tooltip.style.left = ($event.clientX + 5) + 'px';
+                tooltip.style.top = ($event.clientY + 7) + 'px';
+                // tooltip.style.left = '' + 100 + 'px';
+                // tooltip.style.top = '' + 100 + 'px';
+                tooltip.style.border = '1px solid';
+                tooltip.style.zIndex = '20';
+                tooltip.style.textAlign = 'center';
+                
+                const ctx = (tooltip as HTMLCanvasElement).getContext('2d');
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, width, height);
+                ctx.fill();
+                ctx.fillStyle = 'red';
+                ctx.font = fontDefinition;
+                ctx.fillText('' + this.coordinatesTips[i].tip, 1, height - 2);
+    
+                body = document.getElementsByTagName('body')[0];
+                body.appendChild(tooltip);
+                
+                break; /// required to prevent Q1 : Q3 tooltip from showing
+            }
+            else {
+                // console.log(`this is not a match`);
+            }
+        }
+    }
+    
+    handleMouseOut() {
+        // Remove the existing tooltip, if present
+        const tooltip = document.getElementById(this.tooltipId);
+        if (tooltip) {
+            // console.log(`SparklineLine::handleMouseOut deleting tooltip`);
+            tooltip.parentElement.removeChild(tooltip);
+        }
     }
 }
