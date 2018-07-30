@@ -26,7 +26,7 @@ The `rms-sparkline-boxplot` web component renders distinct box plot chart types,
 * `width: number`: The width of the sparkline box in pixels. 
 
 #### barHeights
-A simple sequence of values representing the population for which to render the box plot:
+A JSON.stringfy'd string of a simple sequence of values representing the population for which to render the box plot:
 ````typescript
     population: string = JSON.stringify([4, 3, 7, 8, 1, 4, 9, 2, 5, 3, 5, 5, 8 , 9, 7, 1]);
 ````
