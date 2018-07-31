@@ -217,7 +217,7 @@ export class RmsSparklineBarChart extends HTMLElement {
     private get template(): TemplateResult {
         // console.log('RmsSparklineBarChart::template');
      
-        const canvasEl = document.createElement('canvas');
+        const canvasEl = document.createElement('canvas') as HTMLCanvasElement;
         canvasEl.width = this.width;
         canvasEl.height = this.height;
         if (this.className && this.className !== ``) { canvasEl.classList.add(this.className); }
