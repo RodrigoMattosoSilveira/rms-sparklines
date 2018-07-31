@@ -53,6 +53,7 @@ export class BoxPlot {
     whiskerHeight: number;      // (canvas.height / 5)
     medianHeight: number;       // = 2 *  (canvas.height / 3)
     coordinatesTips: any = [];
+    tootipBoxMargin = 2;
     
     tooltipId = 'rms-sparkline-boxplot-tooltip';
     
@@ -248,27 +249,27 @@ export class BoxPlot {
          */
         this.coordinatesTips = [];
         const canvasPixels = this.width - 2 * this.x_axis_canvas_gap;
-        const canvasX = this.x_axis_canvas_gap + this.quartile_1 * canvasPixels / this.maximum - this.x_axis_canvas_gap;
-        const canvasY = this.height / 2 - this.medianHeight / 2 - this.x_axis_canvas_gap;
-        const canvasW = ((this.quartile_3 - this.quartile_1) * canvasPixels) / this.maximum + 2 * this.x_axis_canvas_gap;
-        const canvasH = this.medianHeight + 2 * this.x_axis_canvas_gap;
+        const canvasX = this.x_axis_canvas_gap + this.quartile_1 * canvasPixels / this.maximum - this.tootipBoxMargin;
+        const canvasY = this.height / 2 - this.medianHeight / 2 - this.tootipBoxMargin;
+        const canvasW = ((this.quartile_3 - this.quartile_1) * canvasPixels) / this.maximum + 2 * this.tootipBoxMargin;
+        const canvasH = this.medianHeight + 2 * this.tootipBoxMargin;
         const canvasAdjustment = this.axisLineWidth % 2 === 0 ? 0 : 0.5;
         this.coordinatesTips.push({
             rect: new Rectangle(
-                0,
-                this.height / 2 - this.whiskerHeight / 2 - this.x_axis_canvas_gap,
-                2 * this.x_axis_canvas_gap,
-                this.whiskerHeight + 2 * this.x_axis_canvas_gap
+                this.x_axis_canvas_gap,
+                this.height / 2 - this.whiskerHeight / 2 - this.tootipBoxMargin,
+                2 * this.tootipBoxMargin,
+                this.whiskerHeight + 2 * this.tootipBoxMargin
             ),
             color: 'red',
             tip: 'Min: ' + this.minimum
         });
         this.coordinatesTips.push({
             rect: new Rectangle(
-                Math.floor(this.x_axis_canvas_gap + this.median * canvasPixels / this.maximum - this.x_axis_canvas_gap),
-                this.height / 2 - this.medianHeight / 2 - this.x_axis_canvas_gap,
-                2 * this.x_axis_canvas_gap,
-                this.medianHeight + 2 * this.x_axis_canvas_gap
+                Math.floor(this.x_axis_canvas_gap + this.median * canvasPixels / this.maximum - this.tootipBoxMargin),
+                this.height / 2 - this.medianHeight / 2 - this.tootipBoxMargin,
+                2 * this.tootipBoxMargin,
+                this.medianHeight + 2 * this.tootipBoxMargin
             ),
             color: 'red',
             tip: 'Median: ' + this.median
@@ -285,50 +286,14 @@ export class BoxPlot {
         });
         this.coordinatesTips.push({
             rect: new Rectangle(
-                Math.floor(this.width - 2 * this.x_axis_canvas_gap),
-                this.height / 2 - this.whiskerHeight / 2 - this.x_axis_canvas_gap,
-                2 * this.x_axis_canvas_gap,
-                this.whiskerHeight + 2 * this.x_axis_canvas_gap
+                Math.floor(this.width  - this.x_axis_canvas_gap) - this.tootipBoxMargin,
+                this.height / 2 - this.whiskerHeight / 2 - this.tootipBoxMargin,
+                2 * this.tootipBoxMargin,
+                this.whiskerHeight + 2 * this.tootipBoxMargin
             ),
             color: 'red',
             tip: 'Max: ' + this.maximum
         });
-        // const canvasPixels = this.width - 2 * this.x_axis_canvas_gap;
-        // const canvasX = this.x_axis_canvas_gap + this.quartile_1 * canvasPixels / this.maximum - this.x_axis_canvas_gap;
-        // const canvasY = this.height / 2 - this.medianHeight / 2 - this.x_axis_canvas_gap;
-        // const canvasW = ((this.quartile_3 - this.quartile_1) * canvasPixels) / this.maximum + 2 * this.x_axis_canvas_gap;
-        // const canvasH = this.medianHeight + 2 * this.x_axis_canvas_gap;
-        // this.coordinatesTips.push({
-        //     rect: new Rectangle(
-        //         canvasX,
-        //         canvasY,
-        //         canvasW,
-        //         canvasH
-        //     ),
-        //     color: 'red',
-        //     tip: 'Q1 : Q3: ' + this.maximum
-        // });
-        // this.coordinatesTips.push({
-        //     rect: new Rectangle(
-        //         Math.floor(this.x_axis_canvas_gap + this.median * canvasPixels / this.maximum - this.x_axis_canvas_gap),
-        //         this.height / 2 - this.medianHeight / 2 - this.x_axis_canvas_gap,
-        //         2 * this.x_axis_canvas_gap,
-        //         this.medianHeight + 2 * this.x_axis_canvas_gap
-        //     ),
-        //     color: 'red',
-        //     tip: 'Median: ' + this.median
-        // });
-        // this.coordinatesTips.push({
-        //     rect: new Rectangle(
-        //         Math.floor(this.width - 2 * this.x_axis_canvas_gap) + canvasAdjustment,
-        //         this.height / 2 - this.whiskerHeight / 2 - this.x_axis_canvas_gap,
-        //         2 * this.x_axis_canvas_gap,
-        //         this.whiskerHeight + 2 * this.x_axis_canvas_gap
-        //     ),
-        //     color: 'red',
-        //     tip: 'Max: ' + this.maximum
-        // });
-        //
     
         // Dispatch the drawing
         switch (this.drawingMethod) {
@@ -528,13 +493,13 @@ export class BoxPlot {
         // Remove the existing tooltip, if present
         tooltip = document.getElementById(this.tooltipId);
         if (tooltip) {
-            console.log(`SparklineLine::handleMouseMove deleting tooltip`);
+            // console.log(`SparklineLine::handleMouseMove deleting tooltip`);
             tooltip.parentElement.removeChild(tooltip);
         }
     
         const mouseX = $event.clientX - rect.left + window.pageXOffset || document.documentElement.scrollLeft;
         const mouseY = $event.clientY - rect.top + window.pageYOffset || document.documentElement.scrollTop;
-        console.log(`SparklineLine::handleMouseMove mouseX: ` + mouseX + `, mouseY: ` + mouseY);
+        // console.log(`SparklineLine::handleMouseMove mouseX: ` + mouseX + `, mouseY: ` + mouseY);
     
         for (let i = 0; i < this.coordinatesTips.length; i++) {
             const tipRect: Rectangle = this.coordinatesTips[i].rect;
@@ -549,7 +514,7 @@ export class BoxPlot {
             if (tipX <=  mouseX && mouseX <= tipX + tipWidth &&
                 tipY <=  mouseY && mouseY <= tipY + tipHeight) {
     
-                console.log(`We have a match`);
+                // console.log(`We have a match`);
     
                 // A trick to find the width / height of the canvas to host the tooltip
                 mySpan = document.createElement('span') as HTMLSpanElement;
@@ -590,8 +555,7 @@ export class BoxPlot {
                 body.appendChild(tooltip);
                 
                 break; /// required to prevent Q1 : Q3 tooltip from showing
-            }
-            else {
+            }  else {
                 // console.log(`this is not a match`);
             }
         }
