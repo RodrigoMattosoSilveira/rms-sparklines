@@ -206,22 +206,58 @@ export class SparklineLine {
         }
     }
     
-    handleMouseMove($event: MouseEvent, rect: any) {
+    /**
+     *
+     * @param $event
+     * @param canvasEl
+     */
+    handleMouseMove($event: MouseEvent, canvasEl: HTMLElement) {
         let body: any;
         let mySpan: any;
         const fontDefinition = '12px FUTURA';
         let width: number;
         let height: number;
-        
-        const mouseX = $event.clientX - rect.left + window.pageXOffset || document.documentElement.scrollLeft;
-        const mouseY = $event.clientY - rect.top + window.pageYOffset || document.documentElement.scrollTop;
-        // console.log(`SparklineLine::handleMouseMove mouseX: ` + mouseX + `, mouseY: ` + mouseY);
-        
-        const tooltip = document.getElementById('rms-sparkline-inline-tooltip');
-        if (tooltip) {
-            // console.log(`SparklineLine::handleMouseMove deleting tooltip`);
-            tooltip.parentElement.removeChild(tooltip);
-        }
+        let scrollLeft;
+        let scrollTop;
+        let rect;
+        let  mouseX: number;
+        let mouseY: number;
+        let tooltip;
+
+        console.log(`\n`);
+    
+        // Get the position of the canvas element relative to the document
+        // https://plainjs.com/javascript/styles/get-the-position-of-an-element-relative-to-the-document-24/
+        rect = canvasEl.getBoundingClientRect();
+        scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+        scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        rect = { left: rect.left + scrollLeft, top: rect.top + scrollTop  };
+    
+        // Get the mouse coordinates relative to the canvas
+        mouseX = $event.clientX - rect.left;
+        mouseY = $event.clientY - rect.top;
+    
+        // Debug code
+        // let msg: string;
+        // msg = '';
+        // msg += `rect.left: ` + rect.left.toFixed(2);
+        // msg += `, rect.top: ` + rect.top.toFixed(2);
+        // msg += `, rect.width: ` + rect.width.toFixed(2);
+        // msg += `, rect.height: ` + rect.height.toFixed(2);
+        // console.log(msg);
+     
+        // msg = '';
+        // msg += `$event.clientX: ` + $event.clientX.toFixed(2);
+        // msg += `, $event.clientY: ` + $event.clientY.toFixed(2);
+        // console.log(msg);
+        // msg = '';
+        // msg += `dot.x: ` + this.coordinatesTips[0].x.toFixed(2);
+        // msg += `, dot.y: ` + this.coordinatesTips[0].y.toFixed(2);
+        // console.log(msg);
+        // msg = '';
+        // msg += `mouseX: ` + mouseX.toFixed(2);
+        // msg += `, mouseY: ` + mouseY.toFixed(2);
+        // console.log(msg);
         
         for (let i = 0; i < this.measurementsArray.length; i++) {
             const dot = this.coordinatesTips[i];
@@ -241,18 +277,26 @@ export class SparklineLine {
                 body.appendChild(mySpan);
                 mySpan = document.getElementById('mySpanId');
                 width = mySpan.getBoundingClientRect().width + 2;
+                height = mySpan.getBoundingClientRect().height + 2;
                 mySpan.parentElement.removeChild(mySpan);
                 // console.log(`mySpan: ` + width);
     
-                height = 13;
+                // Remove tooltip if already there
+                tooltip = document.getElementById('rms-sparkline-inline-tooltip');
+                if (tooltip) {
+                    // console.log(`SparklineLine::handleMouseMove deleting tooltip`);
+                    tooltip.parentElement.removeChild(tooltip);
+                }
                 
+                // Add a new tooltip
                 this.canvasTip = document.createElement('CANVAS');
                 this.canvasTip.id = 'rms-sparkline-inline-tooltip';
                 this.canvasTip.width = width;
                 this.canvasTip.height = height;
                 this.canvasTip.style.position = 'absolute';
-                this.canvasTip.style.left = (rect.left + dot.x + 5) + 'px';
-                this.canvasTip.style.top = (rect.top + dot.y + 7) + 'px';
+                this.canvasTip.style.left = ($event.clientX + 5) + 'px';
+                this.canvasTip.style.top = ($event.clientY + 7) + 'px';
+                this.canvasTip.style.border = '1px solid';
                 this.canvasTip.style.border = '1px solid';
                 this.canvasTip.style.zIndex = '20';
                 this.canvasTip.style.textAlign = 'center';
@@ -266,6 +310,8 @@ export class SparklineLine {
                 
                 body = document.getElementsByTagName('body')[0];
                 body.appendChild(this.canvasTip);
+                
+                break; // the first match gets the tooltip
             }
         }
     }

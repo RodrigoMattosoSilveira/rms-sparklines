@@ -224,6 +224,9 @@ export class RmsSparklineInline extends HTMLElement {
         sparkline.height = this.height;
         sparkline.style.display = 'inline-block';
         sparkline.style.verticalAlign = 'top';
+        // sparkline.style.borderColor = 'black'; // Debug logic, keep it around
+        // sparkline.style.borderWidth = '1px';
+        // sparkline.style.borderStyle = 'solid';
         if (this.className && this.className !== ``) { sparkline.classList.add(this.className); }
         
         const ctx: CanvasRenderingContext2D = sparkline.getContext('2d');
@@ -299,7 +302,7 @@ export class RmsSparklineInline extends HTMLElement {
     }
 
     render() {
-        let rect: any;
+        let myCanvasEl: any;
         const __this = this;
         
         // debuging
@@ -344,16 +347,16 @@ export class RmsSparklineInline extends HTMLElement {
         
         render(this.template, this.shadowRoot);
         
-        const myCanvasEl: any =  this.shadowRoot.children[1].children[0];
-        rect = myCanvasEl.getBoundingClientRect();
-        // console.log(`RmsSparklineInline::myCanvasEl rect.left: ` + rect.left + `, rect.top: ` + rect.top);
-    
-        this.addEventListener('mousemove', function(event: any) {
+        // Add mousemove / mouseout listeners
+        myCanvasEl =  this.shadowRoot.children[1].children[0];
+        myCanvasEl.addEventListener('mousemove', function(event: any) {
             // console.log(`RmsSparklineInlineNew::addEventListener`);
-            __this.sparklineLine.handleMouseMove(event, rect);
+            
+            // Note that when this function is called, this points to the target element!
+            __this.sparklineLine.handleMouseMove(event, this);
         });
     
-        this.addEventListener('mouseout', function() {
+        myCanvasEl.addEventListener('mouseout', function() {
             // console.log(`RmsSparklineInlineNew::addEventListener`);
            SparklineLine.handleMouseOut();
         });
