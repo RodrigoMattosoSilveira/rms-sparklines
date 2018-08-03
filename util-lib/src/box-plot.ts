@@ -253,7 +253,6 @@ export class BoxPlot {
         const canvasY = this.height / 2 - this.medianHeight / 2 - this.tootipBoxMargin;
         const canvasW = ((this.quartile_3 - this.quartile_1) * canvasPixels) / this.maximum + 2 * this.tootipBoxMargin;
         const canvasH = this.medianHeight + 2 * this.tootipBoxMargin;
-        const canvasAdjustment = this.axisLineWidth % 2 === 0 ? 0 : 0.5;
         this.coordinatesTips.push({
             rect: new Rectangle(
                 this.x_axis_canvas_gap,
@@ -482,27 +481,29 @@ export class BoxPlot {
         return divContainer;
     }
     
-    handleMouseMove($event: MouseEvent, rect: any) {
+    handleMouseMove($event: MouseEvent, canvasEl: HTMLElement) {
         let tooltip;
         let mySpan: HTMLSpanElement;
         const fontDefinition = '12px FUTURA';
         let body: any;
         let width: number;
         let height: number;
-        
-        // Remove the existing tooltip, if present
-        tooltip = document.getElementById(this.tooltipId);
-        if (tooltip) {
-            // console.log(`SparklineLine::handleMouseMove deleting tooltip`);
-            tooltip.parentElement.removeChild(tooltip);
-        }
+        let rect: any;
+        let scrollLeft: number;
+        let scrollTop: number;
+    
+        // Get the position of the canvas element relative to the document
+        // https://plainjs.com/javascript/styles/get-the-position-of-an-element-relative-to-the-document-24/
+        rect = canvasEl.getBoundingClientRect();
+        scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+        scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        rect = { left: rect.left + scrollLeft, top: rect.top + scrollTop  };
     
         const mouseX = $event.clientX - rect.left + window.pageXOffset || document.documentElement.scrollLeft;
         const mouseY = $event.clientY - rect.top + window.pageYOffset || document.documentElement.scrollTop;
         // console.log(`SparklineLine::handleMouseMove mouseX: ` + mouseX + `, mouseY: ` + mouseY);
     
         for (let i = 0; i < this.coordinatesTips.length; i++) {
-            const tipRect: Rectangle = this.coordinatesTips[i].rect;
             const tipX = this.coordinatesTips[i].rect.getX();
             const tipWidth = this.coordinatesTips[i].rect.getWidth();
             const tipHeight = this.coordinatesTips[i].rect.getHeight();
@@ -529,7 +530,14 @@ export class BoxPlot {
                 height = mySpan.getBoundingClientRect().height + 2;
                 mySpan.parentElement.removeChild(mySpan);
                 // console.log(`mySpanWidth: ` + width + `, mySpanHeight: ` + height);
-                
+    
+                // Remove the existing tooltip, if present
+                tooltip = document.getElementById(this.tooltipId);
+                if (tooltip) {
+                    // console.log(`SparklineLine::handleMouseMove deleting tooltip`);
+                    tooltip.parentElement.removeChild(tooltip);
+                }
+    
                 tooltip = document.createElement('CANVAS') as HTMLCanvasElement;
                 tooltip.id = this.tooltipId;
                 tooltip.width = width;

@@ -451,7 +451,9 @@ export class RmsSparklineBoxplot extends HTMLElement {
     
         this.addEventListener('mousemove', function(event: any) {
             // console.log(`RmsSparklineInlineNew::addEventListener`);
-            __this.boxPlot.handleMouseMove(event, rect);
+    
+            // Note that when this function is called, this points to the target element!
+            __this.boxPlot.handleMouseMove(event, this);
         });
     
         this.addEventListener('mouseout', function() {
