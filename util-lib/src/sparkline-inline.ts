@@ -312,6 +312,15 @@ export class SparklineLine {
                 body.appendChild(this.canvasTip);
                 
                 break; // the first match gets the tooltip
+            } else {
+    
+                // Remove tooltip if still there
+                tooltip = document.getElementById('rms-sparkline-inline-tooltip');
+                if (tooltip) {
+                    // console.log(`SparklineLine::handleMouseMove deleting tooltip`);
+                    tooltip.parentElement.removeChild(tooltip);
+                }
+    
             }
         }
     }

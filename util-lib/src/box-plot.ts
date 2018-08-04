@@ -565,6 +565,13 @@ export class BoxPlot {
                 break; /// required to prevent Q1 : Q3 tooltip from showing
             }  else {
                 // console.log(`this is not a match`);
+    
+                // Remove the existing tooltip, if present
+                tooltip = document.getElementById(this.tooltipId);
+                if (tooltip) {
+                    // console.log(`SparklineLine::handleMouseMove deleting tooltip`);
+                    tooltip.parentElement.removeChild(tooltip);
+                }
             }
         }
     }
