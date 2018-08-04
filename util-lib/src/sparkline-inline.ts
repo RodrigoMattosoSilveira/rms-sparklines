@@ -224,7 +224,7 @@ export class SparklineLine {
         let mouseY: number;
         let tooltip;
 
-        console.log(`\n`);
+        // console.log(`\n`);
     
         // Get the position of the canvas element relative to the document
         // https://plainjs.com/javascript/styles/get-the-position-of-an-element-relative-to-the-document-24/

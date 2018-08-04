@@ -1,34 +1,35 @@
 {
-  "name": "rms-sparklines",
-  "author": "Rodrigo Silveira",
-  "version": "0.2.0-alpha.8",
-  "description": "A sparkline collection, written as web components",
-  "homepage": "hhttps://github.com/RodrigoMattosoSilveira/rms-sparklines#README",
-  "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  },
-  "bugs": {
-    "url": "hhttps://github.com/RodrigoMattosoSilveira/rms-sparklines/issues",
-    "email": "rodrigomattososilveira@gmail.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "hhttps://github.com/RodrigoMattosoSilveira/rms-sparklines.git"
-  },
-  "main": "index.js",
-  "scripts": {
-    "setup": "./setup.sh -iu",
-    "test": "./setup.sh -u"
-  },
-  "keywords": [
-    "rms",
-    "sparkline",
-    "nutemeg",
-    "webcompnent"
-  ],
-  "dependencies": {
-    "codelyzer": "^4.3.0",
-    "tslint": "^5.9.1"
-  }
+	"name": "rms-sparklines",
+	"author": "Rodrigo Silveira",
+	"version": "0.2.0-alpha.9",
+	"description": "A sparkline collection, written as web components",
+	"homepage": "hhttps://github.com/RodrigoMattosoSilveira/rms-sparklines#README",
+	"license": "MIT",
+	"publishConfig": {
+		"access": "public"
+	},
+	"bugs": {
+		"url": "hhttps://github.com/RodrigoMattosoSilveira/rms-sparklines/issues",
+		"email": "r3850365@gmail.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "hhttps://github.com/RodrigoMattosoSilveira/rms-sparklines.git"
+	},
+	"main": "index.js",
+	"scripts": {
+		"install": "./setup.sh -i",
+		"setup": "./setup.sh -iu",
+		"test": "./setup.sh -u"
+	},
+	"keywords": [
+		"rms",
+		"sparkline",
+		"nutemeg",
+		"webcompnent"
+	],
+	"dependencies": {
+		"codelyzer": "^4.3.0",
+		"tslint": "^5.9.1"
+	}
 }
