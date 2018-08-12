@@ -117,7 +117,11 @@
  *   TODO: Add validation for color names ... ValidColors.ts
  */
 import { Bar } from './bar';
+import { Bar3d} from './bar-3d';
 import { CssColorString } from './valid-colors';
+import * as  mathjs from 'mathjs';
+import { Coordinates3DEnum } from './coordinates-3D-enum';
+import { ChartTypeEnum } from './chart-type-enum';
 
 export class BarChart {
 
@@ -127,9 +131,9 @@ export class BarChart {
     barHeights: number[];           // the bar heights world coordinates
     minimumBarWidth: number;        // the minimum width for a bar
     barGap: number;                 // the width of the gap between two bars, likely to be always 1
-    fillColorMinus: string;          // the color to fill up the negative bars
+    fillColorMinus: string;         // the color to fill up the negative bars
     fillColorZero: string;          // the color to fill up the zero bars
-    fillColorPlus: string;         // the color to fill up the positive bars
+    fillColorPlus: string;          // the color to fill up the positive bars
     
     // Calculated
     ctx: CanvasRenderingContext2D;  // canvas context
@@ -137,6 +141,7 @@ export class BarChart {
     canvasHeight: number;           // the canvas height
     barWidth: number;               // the bars' width
     bars: Bar[];                    // bar bars to be drawn
+    bars_3d: Bar3d[];               // bar bars to be drawn
     
     VALID_TYPES: string[] = ['positive', 'negative', 'dual', 'tri'];
     POSITIVE = 0;
@@ -186,6 +191,9 @@ export class BarChart {
 
     setBars(value: Bar[]) { this.bars = value.slice(0); }
     getBars(): Bar[] { return this.bars; }
+    
+    setBars3D(value: Bar3d[]) { this.bars_3d = value.slice(0); }
+    getBars3D(): Bar3d[] { return this.bars_3d; }
 
     constructor(canvasEl: HTMLCanvasElement,
                 chartType: string,
@@ -291,7 +299,19 @@ export class BarChart {
             this.getChartType(),
             this.getFillColorMinus(),
             this.getFillColorZero(),
-            this.getFillColorPlus()).slice(0));
+            this.getFillColorPlus()));
+        // console.log('BarChart::draw - buildBars: ' +  JSON.stringify(this.getBars()));
+    
+        // Set the bars to be drawn
+        this.setBars3D(this.buildBars_1(
+            /* this.getCanvasHeight(), */
+            this.getBarGap(),
+            _barHeights,
+            this.getBarWidth(),
+            this.getChartType(),
+            this.getFillColorMinus(),
+            this.getFillColorZero(),
+            this.getFillColorPlus()));
         // console.log('BarChart::draw - buildBars: ' +  JSON.stringify(this.getBars()));
 
         // Transform the canvas
@@ -410,7 +430,7 @@ export class BarChart {
 
         return barHeights.slice(-desiredLength);
     }
-
+    
     buildBars(
         canvasHeight: number,
         barHeights: number[],
@@ -419,13 +439,13 @@ export class BarChart {
         fillColorMinus: string,
         fillColorZero: string,
         fillColorPlus: string): Bar[] {
-
+        
         const bars: Bar[] = [];
         let fillColor: string;
         let xOrigin: number;
         let yOrigin: number;
         let height: number;
-
+        
         for (const barHeight of barHeights) {
             switch (chartType) {
                 case this.VALID_TYPES[this.POSITIVE]:
@@ -452,7 +472,7 @@ export class BarChart {
                     yOrigin = barHeight === 0 ? -height / 2 : 0;
                     fillColor = barHeight < 0 ? fillColorMinus : barHeight === 0 ? fillColorZero : fillColorPlus;
                     // console.log(`::buildBars - tri /  barHeight: ` + barHeight + `    height: ` + height);
-                     break;
+                    break;
                 default:
                     break;
             }
@@ -460,6 +480,97 @@ export class BarChart {
             bars.push(bar);
         }
         return bars;
+    }
+
+    buildBars_1(
+        /* canvasHeight: number, */
+        barGap: number,
+        barHeights: number[],
+        barWidth: number,
+        chartType: string,
+        fillColorMinus: string,
+        fillColorZero: string,
+        fillColorPlus: string): Bar3d[] {
+        
+        let bar_3d: Bar3d[];
+
+        // create a collection of bars based on world (lower left) coordinates.
+        bar_3d = this.buildWorldCoordateBars(barGap, barHeights.slice(0), barWidth, chartType, fillColorMinus, fillColorPlus, fillColorZero);
+        
+        return bar_3d;
+    }
+    
+    buildWorldCoordateBars(
+        barGap: number,
+        barHeights: number[],
+        barWidth: number,
+        chartType: string,
+        fillColorMinus: string,
+        fillColorPlus: string,
+        fillColorZero: string): Bar3d[] {
+    
+        const bar_3d: Bar3d[] = [];
+        const lowerLeft: number[] = [];
+        const upperRight: number[] = [];
+        let fillColor: string;
+    
+        // create a collection of bars based on world (lower left) coordinates.
+        switch (chartType.toUpperCase()) {
+            
+            case ChartTypeEnum.POSITIVE:
+                 // https://palantir.github.io/tslint/rules/no-switch-case-fall-through/
+                /* falls through */
+            case ChartTypeEnum.NEGATIVE:
+                /* falls through */
+            case ChartTypeEnum.DUAL:
+                for (let i = 0; i < barHeights.length; i++) {
+                    const barHeight = barHeights[i];
+                    fillColor = barHeight < 0 ? fillColorMinus : barHeight === 0 ? fillColorZero : fillColorPlus;
+                    lowerLeft[Coordinates3DEnum.X] = i * (barWidth + barGap);
+                    lowerLeft[Coordinates3DEnum.Y] = 0;
+                    lowerLeft[Coordinates3DEnum.Z] = 1;
+                
+                    upperRight[Coordinates3DEnum.X] = i * (barWidth + barGap) + barWidth;
+                    upperRight[Coordinates3DEnum.Y] = barHeight;
+                    upperRight[Coordinates3DEnum.Z] = 1;
+                
+                    bar_3d.push(new Bar3d(lowerLeft, upperRight, fillColor));
+                }
+                break;
+            case ChartTypeEnum.TRI:
+                barHeights = barHeights.map(function(height: number) { return height < 0 ? -2 : height === 0 ? 1 : 2; });
+                console.log(`barHeights TRI: ` + JSON.stringify(barHeights));
+                for (let i = 0; i < barHeights.length; i++) {
+                    const barHeight = barHeights[i];
+                    fillColor = barHeight === -2 ? fillColorMinus : barHeight === 1 ? fillColorZero : fillColorPlus;
+            
+                    if (barHeight === -2 || barHeight === 2) {
+                        lowerLeft[Coordinates3DEnum.X] = i * (barWidth + barGap);
+                        lowerLeft[Coordinates3DEnum.Y] = 0;
+                        lowerLeft[Coordinates3DEnum.Z] = 1;
+                
+                        upperRight[Coordinates3DEnum.X] = i * (barWidth + barGap) + barWidth;
+                        upperRight[Coordinates3DEnum.Y] = barHeight;
+                        upperRight[Coordinates3DEnum.Z] = 1;
+                        console.log(`barHeights TRI - lowerLeft: ` + JSON.stringify(lowerLeft) + `, upperRight: ` + JSON.stringify(upperRight));
+                    } else {
+                        lowerLeft[Coordinates3DEnum.X] = i * (barWidth + barGap);
+                        lowerLeft[Coordinates3DEnum.Y] = -barHeight / 2;
+                        lowerLeft[Coordinates3DEnum.Z] = 1;
+                
+                        upperRight[Coordinates3DEnum.X] = i * (barWidth + barGap) + barWidth;
+                        upperRight[Coordinates3DEnum.Y] = barHeight / 2;
+                        upperRight[Coordinates3DEnum.Z] = 1;
+                        console.log(`barHeights TRI - lowerLeft: ` + JSON.stringify(lowerLeft) + `, upperRight: ` + JSON.stringify(upperRight));
+                    }
+            
+                    bar_3d.push(new Bar3d(lowerLeft, upperRight, fillColor));
+                }
+                break;
+            default:
+                break;
+        }
+        return bar_3d;
     }
 
     //
