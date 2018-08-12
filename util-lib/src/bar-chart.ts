@@ -493,13 +493,27 @@ export class BarChart {
         fillColorPlus: string): Bar3d[] {
         
         let bar_3d: Bar3d[];
+        let sToCanvasHeightMatrix: number[][];
 
         // create a collection of bars based on world (lower left) coordinates.
         bar_3d = this.buildWorldCoordateBars(barGap, barHeights.slice(0), barWidth, chartType, fillColorMinus, fillColorPlus, fillColorZero);
         
+        // Scale coordinates to fit the canvas height
+        sToCanvasHeightMatrix = this.scaleToCanvasHeight(barHeights, chartType, this.getCanvasHeight());
+        
         return bar_3d;
     }
     
+    /**
+     * Builds a collection of Bar3D bars, one for each barHeight
+     * @param barGap
+     * @param barHeights
+     * @param barWidth
+     * @param chartType
+     * @param fillColorMinus
+     * @param fillColorPlus
+     * @param fillColorZero
+     */
     buildWorldCoordateBars(
         barGap: number,
         barHeights: number[],
@@ -539,7 +553,7 @@ export class BarChart {
                 break;
             case ChartTypeEnum.TRI:
                 barHeights = barHeights.map(function(height: number) { return height < 0 ? -2 : height === 0 ? 1 : 2; });
-                console.log(`barHeights TRI: ` + JSON.stringify(barHeights));
+                // console.log(`barHeights TRI: ` + JSON.stringify(barHeights));
                 for (let i = 0; i < barHeights.length; i++) {
                     const barHeight = barHeights[i];
                     fillColor = barHeight === -2 ? fillColorMinus : barHeight === 1 ? fillColorZero : fillColorPlus;
@@ -552,7 +566,7 @@ export class BarChart {
                         upperRight[Coordinates3DEnum.X] = i * (barWidth + barGap) + barWidth;
                         upperRight[Coordinates3DEnum.Y] = barHeight;
                         upperRight[Coordinates3DEnum.Z] = 1;
-                        console.log(`barHeights TRI - lowerLeft: ` + JSON.stringify(lowerLeft) + `, upperRight: ` + JSON.stringify(upperRight));
+                        // console.log(`barHeights TRI - lowerLeft: ` + JSON.stringify(lowerLeft) + `, upperRight: ` + JSON.stringify(upperRight));
                     } else {
                         lowerLeft[Coordinates3DEnum.X] = i * (barWidth + barGap);
                         lowerLeft[Coordinates3DEnum.Y] = -barHeight / 2;
@@ -561,7 +575,7 @@ export class BarChart {
                         upperRight[Coordinates3DEnum.X] = i * (barWidth + barGap) + barWidth;
                         upperRight[Coordinates3DEnum.Y] = barHeight / 2;
                         upperRight[Coordinates3DEnum.Z] = 1;
-                        console.log(`barHeights TRI - lowerLeft: ` + JSON.stringify(lowerLeft) + `, upperRight: ` + JSON.stringify(upperRight));
+                        // console.log(`barHeights TRI - lowerLeft: ` + JSON.stringify(lowerLeft) + `, upperRight: ` + JSON.stringify(upperRight));
                     }
             
                     bar_3d.push(new Bar3d(lowerLeft, upperRight, fillColor));
@@ -571,6 +585,33 @@ export class BarChart {
                 break;
         }
         return bar_3d;
+    }
+    
+    scaleToCanvasHeight(barHeights: number[], chartType: string, canvasHeight: number): number[][] {
+        let sToCanvasHeightMatrix: number[][];
+        
+        const sX = 1;
+        let sY: number;
+        
+        switch (chartType.toUpperCase()) {
+            case ChartTypeEnum.POSITIVE:
+                sY = canvasHeight / Math.abs(Math.max(...barHeights));
+                break;
+            case ChartTypeEnum.NEGATIVE:
+                sY = canvasHeight / Math.abs(Math.min(...barHeights));
+                break;
+            case ChartTypeEnum.DUAL:
+                sY = (canvasHeight / 2 ) / Math.max(Math.abs(Math.max(...barHeights)), Math.abs(Math.min(...barHeights))) ;
+                break;
+            case ChartTypeEnum.TRI:
+                sY = (canvasHeight / 2 ) / canvasHeight / 2;
+                break;
+            default:
+                break;
+        }
+        sToCanvasHeightMatrix =  [ [sX, 0, 0], [0, sY, 0], [0, 0, 1] ];
+        
+        return sToCanvasHeightMatrix;
     }
 
     //
