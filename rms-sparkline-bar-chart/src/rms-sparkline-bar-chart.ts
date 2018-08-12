@@ -25,7 +25,12 @@ export class RmsSparklineBarChart extends HTMLElement {
     public barHeightsArray: number[] = [];
     VALID_CHART_TYPES: string = ['positive', 'negative', 'dual', 'tri'].join();
     private cssColorString: CssColorString = null;
-    
+    private barChart: BarChart;
+    VALID_TYPES: string[] = ['positive', 'negative', 'dual', 'tri'];
+    POSITIVE = 0;
+    NEGATIVE = 1;
+    DUAL = 2;
+    TRI = 3;
     
     constructor() {
         super();
@@ -222,8 +227,8 @@ export class RmsSparklineBarChart extends HTMLElement {
         canvasEl.height = this.height;
         if (this.className && this.className !== ``) { canvasEl.classList.add(this.className); }
 
-        const barChart = new BarChart(canvasEl, this.chartType, this.barHeightsArray, this.minimumBarWidth, this.barGap, this.fillColorMinus, this.fillColorZero, this.fillColorPlus);
-        barChart.draw();
+        this.barChart = new BarChart(canvasEl, this.chartType, this.barHeightsArray, this.minimumBarWidth, this.barGap, this.fillColorMinus, this.fillColorZero, this.fillColorPlus);
+        this.barChart.draw();
         
         return html`
             ${this.styles}
@@ -235,6 +240,9 @@ export class RmsSparklineBarChart extends HTMLElement {
     }
     
     render() {
+        const __this: any = this;
+        let myCanvasEl: HTMLElement;
+        
         // console.log('RmsSparklineBarChart::render');
 
         // Little debugging
@@ -252,6 +260,18 @@ export class RmsSparklineBarChart extends HTMLElement {
         // ensure attribute coherence
         //
         if (this.VALID_CHART_TYPES.indexOf(this.chartType) === -1) { return; }
+        switch (this.chartType) {
+            case this.VALID_TYPES[this.POSITIVE]:
+                break;
+            case this.VALID_TYPES[this.NEGATIVE]:
+                break;
+            case this.VALID_TYPES[this.DUAL]:
+                break;
+            case this.VALID_TYPES[this.TRI]:
+                break;
+            default:
+                break;
+        }
         if (!this.barHeights) { return; }
         this.barHeightsArray = JSON.parse(this.barHeights);
         if (this.barHeightsArray.length === 0) { return; }
@@ -264,6 +284,22 @@ export class RmsSparklineBarChart extends HTMLElement {
         if (this.height === 0) { return; }
 
         render(this.template, this.shadowRoot);
+    
+    
+        // Add mousemove / mouseout listeners
+        myCanvasEl =  this.shadowRoot.children[1].children[0] as HTMLElement;
+        myCanvasEl.addEventListener('mousemove', function(event: any) {
+            // console.log(`RmsSparklineInlineNew::addEventListener`);
+        
+            // Note that when this function is called, this points to the target element!
+            __this.barChart.handleMouseMove(event, this);
+        });
+    
+        myCanvasEl.addEventListener('mouseout', function() {
+            // console.log(`RmsSparklineInlineNew::addEventListener`);
+            __this.barChart.handleMouseOut();
+        });
+    
     }
 }
 window.customElements.define('rms-sparkline-bar-chart', RmsSparklineBarChart);

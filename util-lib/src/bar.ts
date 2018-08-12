@@ -10,7 +10,7 @@ export class Bar {
     height: number;
     fillColor: string;
 
-    constructor(x:number, y:number, width: number, height: number, fillColor: string) {
+    constructor(x: number, y: number, width: number, height: number, fillColor: string) {
         this.setX (x);
         this.setY (y);
         this.setWidth (width);
@@ -18,7 +18,7 @@ export class Bar {
         this.setFillColor(fillColor);
     }
 
-    getX(): number { return this.x;}
+    getX(): number { return this.x; }
     setX(value: number) { this.x = value; }
 
     getY(): number { return this.y; }
