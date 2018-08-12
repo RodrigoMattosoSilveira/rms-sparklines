@@ -22,6 +22,9 @@
 import '@webcomponents/webcomponentsjs/webcomponents-lite';
 import { BarChart } from "../src/bar-chart";
 import { Bar } from "../src/bar";
+import { ChartTypeEnum } from "../src/chart-type-enum";
+import {Bar3d} from "../src/bar-3d";
+import {Coordinates3DEnum} from "../src/coordinates-3D-enum";
 
 // Warn if overriding existing method
 if(Array.prototype.equals)
@@ -67,6 +70,7 @@ describe(`bar-chart`, () => {
     let fillColorPlus;
     let barWidth;
     let  bars = null;
+	let bar_3d = null;
 
     before(() => {
         canvasEl = document.createElement('canvas');
@@ -315,6 +319,364 @@ describe(`bar-chart`, () => {
 				    }
 			    }
 		    });
+	    });
+	    describe(`build world coordinate bar`, () => {
+		    describe(`for chart type POSITIVE`, () => {
+		    	let bar;
+		    	before(() => {
+				    barGap = 2;
+				    barHeights = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+				    barWidth = 4;
+				    chartType = ChartTypeEnum.POSITIVE;
+				    fillColorMinus = 'red';
+					fillColorPlus = 'blue';
+					fillColorZero = 'green';
+				    bar_3d = barChart.buildWorldCoordateBars(barGap, barHeights.slice(0), barWidth, chartType, fillColorMinus, fillColorPlus, fillColorZero);
+		        });
+
+			    it(`with a valid  bar_3d object`, () => {
+				    expect(bar_3d).to.not.equal(null);
+			    });
+			    describe(`with a valid first bar`, () => {
+				    before(() => {
+					    bar = bar_3d[0]
+				    });
+				    describe(`lower left`, () => {
+					    it(`x coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.X]).to.equal(0);
+					    });
+					    it(`y coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.Y]).to.equal(0);
+					    });
+					    it(`z coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.Z]).to.equal(1);
+					    });
+				    });
+				    describe(` upper right`, () => {
+					    it(`x coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.X]).to.equal(4);
+					    });
+					    it(`y coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.Y]).to.equal(12);
+					    });
+					    it(`z coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.Z]).to.equal(1);
+					    });
+				    });
+				    describe(`color`, () => {
+					    it(`is fillColorPlus`, () => {
+						    expect(bar.fillColor).to.equal(fillColorPlus);
+					    });
+				    });
+			    });
+			    describe(`with a valid last bar `, () => {
+				    before(() => {
+					    bar = bar_3d[12]
+				    });
+				    describe(`lower left`, () => {
+					    it(`x coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.X]).to.equal(72);
+					    });
+					    it(`y coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.Y]).to.equal(0);
+					    });
+					    it(`z coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.Z]).to.equal(1);
+					    });
+				    });
+				    describe(`upper right`, () => {
+					    it(`x coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.X]).to.equal(76);
+					    });
+					    it(`y coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.Y]).to.equal(24);
+					    });
+					    it(`z coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.Z]).to.equal(1);
+					    });
+				    });
+				    describe(`color`, () => {
+					    it(`is fillColorPlus`, () => {
+						    expect(bar.fillColor).to.equal(fillColorPlus);
+					    });
+				    });
+			    });
+		    });
+		    describe(`for chart type NEGATIVE`, () => {
+			    let bar;
+			    before(() => {
+				    barGap = 2;
+				    barHeights = [-12, -13, -14, -15, -16, -17, -18, -19, -20, -21, -22, -23, -24];
+				    barWidth = 4;
+				    chartType = ChartTypeEnum.NEGATIVE;
+				    fillColorMinus = 'red';
+				    fillColorPlus = 'blue';
+				    fillColorZero = 'green';
+				    bar_3d = barChart.buildWorldCoordateBars(barGap, barHeights.slice(0), barWidth, chartType, fillColorMinus, fillColorPlus, fillColorZero);
+			    });
+
+			    it(`with a valid  bar_3d object`, () => {
+				    expect(bar_3d).to.not.equal(null);
+			    });
+			    describe(`with a valid first bar`, () => {
+				    before(() => {
+					    bar = bar_3d[0]
+				    });
+				    describe(`lower left`, () => {
+					    it(`x coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.X]).to.equal(0);
+					    });
+					    it(`y coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.Y]).to.equal(0);
+					    });
+					    it(`z coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.Z]).to.equal(1);
+					    });
+				    });
+				    describe(`upper right`, () => {
+					    it(`x coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.X]).to.equal(4);
+					    });
+					    it(`y coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.Y]).to.equal(-12);
+					    });
+					    it(`z coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.Z]).to.equal(1);
+					    });
+				    });
+				    describe(`color`, () => {
+					    it(`is fillColorMinus`, () => {
+						    expect(bar.fillColor).to.equal(fillColorMinus);
+					    });
+				    });
+
+			    });
+			    describe(`with a valid last bar `, () => {
+				    before(() => {
+					    bar = bar_3d[12]
+				    });
+				    describe(`lower left`, () => {
+					    it(`x coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.X]).to.equal(72);
+					    });
+					    it(`y coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.Y]).to.equal(0);
+					    });
+					    it(`z coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.Z]).to.equal(1);
+					    });
+				    });
+				    describe(` upper right`, () => {
+					    it(`x coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.X]).to.equal(76);
+					    });
+					    it(`y coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.Y]).to.equal(-24);
+					    });
+					    it(`z coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.Z]).to.equal(1);
+					    });
+				    });
+				    describe(`color`, () => {
+					    it(`is fillColorMinus`, () => {
+						    expect(bar.fillColor).to.equal(fillColorMinus);
+					    });
+				    });
+			    });
+		    });
+		    describe(`for chart type DUAL`, () => {
+			    let bar;
+			    before(() => {
+				    barGap = 2;
+				    barHeights = [12, 0, -14, 0, 16, 17, 0, 19, 20, -21, 0, 0, -24];
+				    barWidth = 4;
+				    chartType = ChartTypeEnum.DUAL;
+				    fillColorMinus = 'red';
+				    fillColorPlus = 'blue';
+				    fillColorZero = 'green';
+				    bar_3d = barChart.buildWorldCoordateBars(barGap, barHeights.slice(0), barWidth, chartType, fillColorMinus, fillColorPlus, fillColorZero);
+			    });
+			    it(`with a valid  bar_3d object`, () => {
+				    expect(bar_3d).to.not.equal(null);
+			    });
+			    describe(`with a valid first bar`, () => {
+				    before(() => {
+					    bar = bar_3d[0]
+				    });
+				    describe(`lower left`, () => {
+					    it(`x coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.X]).to.equal(0);
+					    });
+					    it(`y coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.Y]).to.equal(0);
+					    });
+					    it(`z coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.Z]).to.equal(1);
+					    });
+				    });
+				    describe(`upper right`, () => {
+					    it(`x coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.X]).to.equal(4);
+					    });
+					    it(`y coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.Y]).to.equal(12);
+					    });
+					    it(`z coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.Z]).to.equal(1);
+					    });
+				    });
+				    describe(`color`, () => {
+					    it(`is fillColorPlus`, () => {
+						    expect(bar.fillColor).to.equal(fillColorPlus);
+					    });
+				    });
+			    });
+			    describe(`with a valid last bar`, () => {
+				    before(() => {
+					    bar = bar_3d[12]
+				    });
+				    describe(`lower left`, () => {
+					    it(`x coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.X]).to.equal(72);
+					    });
+					    it(`y coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.Y]).to.equal(0);
+					    });
+					    it(`z coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.Z]).to.equal(1);
+					    });
+				    });
+				    describe(`upper right`, () => {
+					    it(`x coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.X]).to.equal(76);
+					    });
+					    it(`y coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.Y]).to.equal(-24);
+					    });
+					    it(`z coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.Z]).to.equal(1);
+					    });
+				    });
+				    describe(`color`, () => {
+					    it(`is fillColorMinus`, () => {
+						    expect(bar.fillColor).to.equal(fillColorMinus);
+					    });
+				    });
+			    });
+		    });
+		    describe(`for chart type TRI`, () => {
+			    let bar;
+			    before(() => {
+				    barGap = 2;
+				    barHeights = [12, 0, -14, 0, 16, 17, 0, 19, 20, -21, 0, 0, -24];
+				    barWidth = 4;
+				    chartType = ChartTypeEnum.TRI;
+				    fillColorMinus = 'red';
+				    fillColorPlus = 'blue';
+				    fillColorZero = 'green';
+				    bar_3d = barChart.buildWorldCoordateBars(barGap, barHeights.slice(0), barWidth, chartType, fillColorMinus, fillColorPlus, fillColorZero);
+			    });
+			    it(`with a valid  bar_3d object`, () => {
+				    expect(bar_3d).to.not.equal(null);
+			    });
+			    describe(`with a valid first bar`, () => {
+				    before(() => {
+					    bar = bar_3d[0]
+				    });
+				    describe(`lower left`, () => {
+					    it(`x coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.X]).to.equal(0);
+					    });
+					    it(`y coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.Y]).to.equal(0);
+					    });
+					    it(`z coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.Z]).to.equal(1);
+					    });
+				    });
+				    describe(`upper right`, () => {
+					    it(`x coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.X]).to.equal(4);
+					    });
+					    it(`y coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.Y]).to.equal(2);
+					    });
+					    it(`z coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.Z]).to.equal(1);
+					    });
+				    });
+				    describe(`color`, () => {
+					    it(`is fillColorPlus`, () => {
+						    expect(bar.fillColor).to.equal(fillColorPlus);
+					    });
+				    });
+			    });
+			    describe(`with a valid second bar`, () => {
+				    before(() => {
+					    bar = bar_3d[1]
+				    });
+				    describe(`lower left`, () => {
+					    it(`x coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.X]).to.equal(6);
+					    });
+					    it(`y coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.Y]).to.equal(-1/2);
+					    });
+					    it(`z coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.Z]).to.equal(1);
+					    });
+				    });
+				    describe(`upper right`, () => {
+					    it(`x coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.X]).to.equal(10);
+					    });
+					    it(`y coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.Y]).to.equal(1/2);
+					    });
+					    it(`z coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.Z]).to.equal(1);
+					    });
+				    });
+				    describe(`color`, () => {
+					    it(`is fillColorZero`, () => {
+						    expect(bar.fillColor).to.equal(fillColorZero);
+					    });
+				    });
+			    });
+			    describe(`with a valid last bar`, () => {
+				    before(() => {
+					    bar = bar_3d[12]
+				    });
+				    describe(`lower left`, () => {
+					    it(`x coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.X]).to.equal(72);
+					    });
+					    it(`y coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.Y]).to.equal(0);
+					    });
+					    it(`z coordinate`, () => {
+						    expect(bar.lowerLeft[Coordinates3DEnum.Z]).to.equal(1);
+					    });
+				    });
+				    describe(`upper right`, () => {
+					    it(`x coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.X]).to.equal(76);
+					    });
+					    it(`y coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.Y]).to.equal(-2);
+					    });
+					    it(`z coordinate`, () => {
+						    expect(bar.upperRight[Coordinates3DEnum.Z]).to.equal(1);
+					    });
+				    });
+				    describe(`color`, () => {
+					    it(`is fillColorMinus`, () => {
+						    expect(bar.fillColor).to.equal(fillColorMinus);
+					    });
+				    });
+			    });
+		    });
+
 	    });
     });
 });
