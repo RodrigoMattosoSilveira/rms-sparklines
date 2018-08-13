@@ -604,7 +604,7 @@ export class BarChart {
                 sY = (canvasHeight / 2 ) / Math.max(Math.abs(Math.max(...barHeights)), Math.abs(Math.min(...barHeights))) ;
                 break;
             case ChartTypeEnum.TRI:
-                sY = (canvasHeight / 2 ) / canvasHeight / 2;
+                sY = (canvasHeight / 2 ) / Math.max(Math.abs(Math.max(...barHeights)), Math.abs(Math.min(...barHeights))) ;
                 break;
             default:
                 break;
