@@ -7,7 +7,7 @@ module.exports = function(config) {
 		browsers: ['ChromeHeadless'],
 		files: [
 			{
-				pattern: 'test/bar-chart*.test.js',
+				pattern: 'test/bar-chart.test.js',
 				watched: false,
 			},
 			{

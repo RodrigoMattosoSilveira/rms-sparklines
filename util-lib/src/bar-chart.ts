@@ -494,12 +494,16 @@ export class BarChart {
         
         let bar_3d: Bar3d[];
         let sToCanvasHeightMatrix: number[][];
+        let sFlipCanvasMatrix: number[][];
 
         // create a collection of bars based on world (lower left) coordinates.
         bar_3d = this.buildWorldCoordateBars(barGap, barHeights.slice(0), barWidth, chartType, fillColorMinus, fillColorPlus, fillColorZero);
         
         // Scale coordinates to fit the canvas height
         sToCanvasHeightMatrix = this.scaleToCanvasHeight(barHeights, chartType, this.getCanvasHeight());
+        
+        // Scale the coordinates to swtch from world to canvas coordinates
+        sFlipCanvasMatrix = this.scaleToCanvasCoordinates();
         
         return bar_3d;
     }
@@ -587,6 +591,12 @@ export class BarChart {
         return bar_3d;
     }
     
+    /**
+     * Scale the Y coordinates; note that the X coordinates were scaled during the calculations to establish the width and gap.
+     * @param barHeights
+     * @param chartType
+     * @param canvasHeight
+     */
     scaleToCanvasHeight(barHeights: number[], chartType: string, canvasHeight: number): number[][] {
         let sToCanvasHeightMatrix: number[][];
         
@@ -612,6 +622,17 @@ export class BarChart {
         sToCanvasHeightMatrix =  [ [sX, 0, 0], [0, sY, 0], [0, 0, 1] ];
         
         return sToCanvasHeightMatrix;
+    }
+    
+    /**
+     * Calculate the 
+     */
+    scaleToCanvasCoordinates(): number[][] {
+        let sFlipCanvasMatrix: number[][];
+    
+        sFlipCanvasMatrix = [ [1, 0, 0], [0, -1, 0], [0, 0, 1] ];
+        
+        return sFlipCanvasMatrix
     }
 
     //
