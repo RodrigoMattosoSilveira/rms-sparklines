@@ -17,25 +17,45 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+import * as  mathjs from 'mathjs';
+import { Matrix } from 'mathjs';
 import {Coordinates3DEnum} from './coordinates-3D-enum';
 
 export class Bar3d {
-    lowerLeft: number[];
-    upperRight: number[];
-    width: number;
-    height: number;
+    lowerLeft: Matrix;
+    upperRight: Matrix;
     fillColor: string;
     
-    constructor(lowerLeft: number[], upperRight: number[], fillColor: string) {
-        this.lowerLeft = lowerLeft.slice(0);
-        this.upperRight = upperRight.slice(0);
-        this.width = this.upperRight[Coordinates3DEnum.X]  - this.lowerLeft[Coordinates3DEnum.X];
-        this.height = this.lowerLeft[Coordinates3DEnum.Y]  - this.upperRight[Coordinates3DEnum.Y];
+    constructor(lowerLeft: Matrix, upperRight: Matrix, fillColor: string) {
+        this.lowerLeft = lowerLeft;
+        this.upperRight = upperRight;
         this.fillColor = fillColor;
     }
-    
+
+    getWidth(): number {
+        const ll: any = this.lowerLeft.toArray();
+        const ur: any = this.upperRight.toArray();
+        let width: any;
+
+        width = ur[Coordinates3DEnum.X] - ll[Coordinates3DEnum.X];
+        return width;
+    }
+
+    getHeight(): number {
+        const ll: any = this.lowerLeft.toArray();
+        const ur: any = this.upperRight.toArray();
+        let height: any;
+
+        height = ur[Coordinates3DEnum.Y] - ll[Coordinates3DEnum.Y];
+        return height;
+    }
+
     draw(ctx: CanvasRenderingContext2D) {
+        const ll: any = this.lowerLeft.toArray();
+        const width: any = this.getWidth();
+        const height: any = this.getHeight();
+
         ctx.fillStyle = this.fillColor;
-        ctx.fillRect(this.lowerLeft[Coordinates3DEnum.X], this.lowerLeft[Coordinates3DEnum.Y], this.width, this.height);
+        ctx.fillRect(ll[Coordinates3DEnum.X], ll[Coordinates3DEnum.Y], width, height);
     }
 }
