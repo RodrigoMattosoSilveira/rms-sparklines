@@ -120,6 +120,7 @@ import { Bar } from './bar';
 import { Bar3d} from './bar-3d';
 import { CssColorString } from './valid-colors';
 import * as  mathjs from 'mathjs';
+import { Matrix } from 'mathjs';
 import { Coordinates3DEnum } from './coordinates-3D-enum';
 import { ChartTypeEnum } from './chart-type-enum';
 
@@ -493,17 +494,30 @@ export class BarChart {
         fillColorPlus: string): Bar3d[] {
         
         let bar_3d: Bar3d[];
-        let sToCanvasHeightMatrix: number[][];
-        let sFlipCanvasMatrix: number[][];
+        let sToCanvasHeightMatrix: Matrix;
+        let sFlipCanvasMatrix: Matrix;
+        let dMoveCanvasMatrix: Matrix;
+        let tMatrix: Matrix;
 
         // create a collection of bars based on world (lower left) coordinates.
-        bar_3d = this.buildWorldCoordateBars(barGap, barHeights.slice(0), barWidth, chartType, fillColorMinus, fillColorPlus, fillColorZero);
+        bar_3d = this.buildWorldCoordinateBars(barGap, barHeights.slice(0), barWidth, chartType, fillColorMinus, fillColorPlus, fillColorZero);
         
         // Scale coordinates to fit the canvas height
-        sToCanvasHeightMatrix = this.scaleToCanvasHeight(barHeights, chartType, this.getCanvasHeight());
+        sToCanvasHeightMatrix =  this.scaleToCanvasHeight(barHeights, chartType, this.getCanvasHeight());
         
         // Scale the coordinates to swtch from world to canvas coordinates
         sFlipCanvasMatrix = this.scaleToCanvasCoordinates();
+
+        // Move the bars to fit the new coordinate system’s aesthetics
+        dMoveCanvasMatrix = this.moveWithinCanvas(this.getCanvasHeight(), chartType);
+
+        // compute the full transformation matrix
+        tMatrix =  mathjs.matrix(mathjs.multiply(mathjs.multiply(sFlipCanvasMatrix, sToCanvasHeightMatrix), dMoveCanvasMatrix));
+
+        for (const bar of bar_3d) {
+            bar.lowerLeft =  mathjs.matrix(mathjs.multiply( bar.lowerLeft, tMatrix));
+            bar.upperRight =  mathjs.matrix(mathjs.multiply( bar.upperRight, tMatrix));
+        }
         
         return bar_3d;
     }
@@ -518,7 +532,7 @@ export class BarChart {
      * @param fillColorPlus
      * @param fillColorZero
      */
-    buildWorldCoordateBars(
+    buildWorldCoordinateBars(
         barGap: number,
         barHeights: number[],
         barWidth: number,
@@ -528,8 +542,8 @@ export class BarChart {
         fillColorZero: string): Bar3d[] {
     
         const bar_3d: Bar3d[] = [];
-        const lowerLeft: number[] = [];
-        const upperRight: number[] = [];
+        let lowerLeft: Matrix;
+        let upperRight: Matrix;
         let fillColor: string;
     
         // create a collection of bars based on world (lower left) coordinates.
@@ -544,14 +558,8 @@ export class BarChart {
                 for (let i = 0; i < barHeights.length; i++) {
                     const barHeight = barHeights[i];
                     fillColor = barHeight < 0 ? fillColorMinus : barHeight === 0 ? fillColorZero : fillColorPlus;
-                    lowerLeft[Coordinates3DEnum.X] = i * (barWidth + barGap);
-                    lowerLeft[Coordinates3DEnum.Y] = 0;
-                    lowerLeft[Coordinates3DEnum.Z] = 1;
-                
-                    upperRight[Coordinates3DEnum.X] = i * (barWidth + barGap) + barWidth;
-                    upperRight[Coordinates3DEnum.Y] = barHeight;
-                    upperRight[Coordinates3DEnum.Z] = 1;
-                
+                    lowerLeft = mathjs.matrix([i * (barWidth + barGap), 0, 1]);
+                    upperRight = mathjs.matrix([i * (barWidth + barGap) + barWidth, barHeight, 1]);
                     bar_3d.push(new Bar3d(lowerLeft, upperRight, fillColor));
                 }
                 break;
@@ -563,23 +571,13 @@ export class BarChart {
                     fillColor = barHeight === -2 ? fillColorMinus : barHeight === 1 ? fillColorZero : fillColorPlus;
             
                     if (barHeight === -2 || barHeight === 2) {
-                        lowerLeft[Coordinates3DEnum.X] = i * (barWidth + barGap);
-                        lowerLeft[Coordinates3DEnum.Y] = 0;
-                        lowerLeft[Coordinates3DEnum.Z] = 1;
-                
-                        upperRight[Coordinates3DEnum.X] = i * (barWidth + barGap) + barWidth;
-                        upperRight[Coordinates3DEnum.Y] = barHeight;
-                        upperRight[Coordinates3DEnum.Z] = 1;
-                        // console.log(`barHeights TRI - lowerLeft: ` + JSON.stringify(lowerLeft) + `, upperRight: ` + JSON.stringify(upperRight));
+                        lowerLeft = mathjs.matrix([i * (barWidth + barGap), 0, 1]);
+                        upperRight = mathjs.matrix([i * (barWidth + barGap) + barWidth, barHeight, 1]);
+                        // console.log(`barHeights TRI - lowerLeft: ` + JSON.stringify(lowerLeft) + `, upperRight: ` + JSON.stringify(upperRight.toArray()));
                     } else {
-                        lowerLeft[Coordinates3DEnum.X] = i * (barWidth + barGap);
-                        lowerLeft[Coordinates3DEnum.Y] = -barHeight / 2;
-                        lowerLeft[Coordinates3DEnum.Z] = 1;
-                
-                        upperRight[Coordinates3DEnum.X] = i * (barWidth + barGap) + barWidth;
-                        upperRight[Coordinates3DEnum.Y] = barHeight / 2;
-                        upperRight[Coordinates3DEnum.Z] = 1;
-                        // console.log(`barHeights TRI - lowerLeft: ` + JSON.stringify(lowerLeft) + `, upperRight: ` + JSON.stringify(upperRight));
+                        lowerLeft = mathjs.matrix([i * (barWidth + barGap), -barHeight / 2, 1]);
+                        upperRight = mathjs.matrix([i * (barWidth + barGap) + barWidth, barHeight / 2, 1]);
+                        // console.log(`barHeights TRI - lowerLeft: ` + JSON.stringify(lowerLeft) + `, upperRight: ` + JSON.stringify(upperRight.toArray()));
                     }
             
                     bar_3d.push(new Bar3d(lowerLeft, upperRight, fillColor));
@@ -593,11 +591,12 @@ export class BarChart {
     
     /**
      * Scale the Y coordinates; note that the X coordinates were scaled during the calculations to establish the width and gap.
+     * TODO: examine the possibility to switch all calculation to be done AFTER all transformations are done.
      * @param barHeights
      * @param chartType
      * @param canvasHeight
      */
-    scaleToCanvasHeight(barHeights: number[], chartType: string, canvasHeight: number): number[][] {
+    scaleToCanvasHeight(barHeights: number[], chartType: string, canvasHeight: number): Matrix {
         let sToCanvasHeightMatrix: number[][];
         
         const sX = 1;
@@ -621,18 +620,45 @@ export class BarChart {
         }
         sToCanvasHeightMatrix =  [ [sX, 0, 0], [0, sY, 0], [0, 0, 1] ];
         
-        return sToCanvasHeightMatrix;
+        return mathjs.matrix(sToCanvasHeightMatrix);
     }
     
     /**
-     * Calculate the 
+     * Calculate sFlipCanvasMatrix, to switch from world coordinates to canvas coordinates
      */
-    scaleToCanvasCoordinates(): number[][] {
+    scaleToCanvasCoordinates(): Matrix {
         let sFlipCanvasMatrix: number[][];
     
         sFlipCanvasMatrix = [ [1, 0, 0], [0, -1, 0], [0, 0, 1] ];
         
-        return sFlipCanvasMatrix
+        return mathjs.matrix(sFlipCanvasMatrix);
+    }
+
+    moveWithinCanvas(canvasHeight: number, chartType: string): Matrix {
+        let dMoveCanvasMatrix: number[][];
+
+        const dX = 0;
+        let dY: number;
+
+        switch (chartType.toUpperCase()) {
+            case ChartTypeEnum.POSITIVE:
+                dY = canvasHeight;
+                break;
+            case ChartTypeEnum.NEGATIVE:
+                dY = 0;
+                break;
+            case ChartTypeEnum.DUAL:
+                dY = canvasHeight / 2;
+                break;
+            case ChartTypeEnum.TRI:
+                dY = canvasHeight / 2;
+                break;
+            default:
+                break;
+        }
+        dMoveCanvasMatrix = [ [1, 0, 0], [0, 1, 0], [dX, dY, 1] ];
+
+        return  mathjs.matrix(dMoveCanvasMatrix);
     }
 
     //

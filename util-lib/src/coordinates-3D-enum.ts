@@ -18,7 +18,7 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 export enum Coordinates3DEnum {
-    X,
-    Y,
-    Z
+    X = 0,
+    Y = 1,
+    Z = 2
 }
