@@ -444,11 +444,6 @@ export class RmsSparklineBoxplot extends HTMLElement {
         
         render(this.template, this.shadowRoot);
     
-    
-        const myCanvasEl: any =  this.shadowRoot.children[1].children[0];
-        const rect = myCanvasEl.getBoundingClientRect();
-        // console.log(`RmsSparklineInline::myCanvasEl rect.left: ` + rect.left + `, rect.top: ` + rect.top);
-    
         this.addEventListener('mousemove', function(event: any) {
             // console.log(`RmsSparklineInlineNew::addEventListener`);
     
@@ -460,7 +455,6 @@ export class RmsSparklineBoxplot extends HTMLElement {
             // console.log(`RmsSparklineInlineNew::addEventListener`);
             __this.boxPlot.handleMouseOut();
         });
-    
     }
 }
 window.customElements.define('rms-sparkline-boxplot', RmsSparklineBoxplot);
