@@ -63,7 +63,7 @@ describe(`bar-3d`, () => {
 	let upperRight_x;
 	let upperRight_y;
 	let upperRight_z;
-	let barFillColor
+	let barFillColor;
 	let z;
 	let width;
 	let height;

@@ -17,7 +17,6 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-import * as  mathjs from 'mathjs';
 import { Matrix } from 'mathjs';
 import {Coordinates3DEnum} from './coordinates-3D-enum';
 
@@ -25,11 +24,13 @@ export class Bar3d {
     lowerLeft: Matrix;
     upperRight: Matrix;
     fillColor: string;
+    originalHeight: number;
     
-    constructor(lowerLeft: Matrix, upperRight: Matrix, fillColor: string) {
+    constructor(lowerLeft: Matrix, upperRight: Matrix, fillColor: string,  originalHeight: number) {
         this.lowerLeft = lowerLeft;
         this.upperRight = upperRight;
         this.fillColor = fillColor;
+        this.originalHeight =  originalHeight;
     }
 
     getWidth(): number {
@@ -39,6 +40,16 @@ export class Bar3d {
 
         width = ur[Coordinates3DEnum.X] - ll[Coordinates3DEnum.X];
         return width;
+    }
+
+    getLowerLeftX(): number {
+        const ll: any = this.lowerLeft.toArray();
+        return ll[Coordinates3DEnum.X];
+    }
+
+    getLowerLeftY(): number {
+        const ll: any = this.lowerLeft.toArray();
+        return ll[Coordinates3DEnum.Y];
     }
 
     getHeight(): number {

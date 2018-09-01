@@ -606,7 +606,7 @@ describe(`bar-chart`, () => {
 						    expect(bar.upperRight.toArray()[Coordinates3DEnum.X]).to.equal(4);
 					    });
 					    it(`y coordinate`, () => {
-						    expect(bar.upperRight.toArray()[Coordinates3DEnum.Y]).to.equal(2);
+						    expect(bar.upperRight.toArray()[Coordinates3DEnum.Y]).to.equal(8);
 					    });
 					    it(`z coordinate`, () => {
 						    expect(bar.upperRight.toArray()[Coordinates3DEnum.Z]).to.equal(1);
@@ -627,7 +627,7 @@ describe(`bar-chart`, () => {
 						    expect(bar.lowerLeft.toArray()[Coordinates3DEnum.X]).to.equal(6);
 					    });
 					    it(`y coordinate`, () => {
-						    expect(bar.lowerLeft.toArray()[Coordinates3DEnum.Y]).to.equal(-1/2);
+						    expect(bar.lowerLeft.toArray()[Coordinates3DEnum.Y]).to.equal(-2);
 					    });
 					    it(`z coordinate`, () => {
 						    expect(bar.lowerLeft.toArray()[Coordinates3DEnum.Z]).to.equal(1);
@@ -638,7 +638,7 @@ describe(`bar-chart`, () => {
 						    expect(bar.upperRight.toArray()[Coordinates3DEnum.X]).to.equal(10);
 					    });
 					    it(`y coordinate`, () => {
-						    expect(bar.upperRight.toArray()[Coordinates3DEnum.Y]).to.equal(1/2);
+						    expect(bar.upperRight.toArray()[Coordinates3DEnum.Y]).to.equal(2);
 					    });
 					    it(`z coordinate`, () => {
 						    expect(bar.upperRight.toArray()[Coordinates3DEnum.Z]).to.equal(1);
@@ -670,7 +670,7 @@ describe(`bar-chart`, () => {
 						    expect(bar.upperRight.toArray()[Coordinates3DEnum.X]).to.equal(76);
 					    });
 					    it(`y coordinate`, () => {
-						    expect(bar.upperRight.toArray()[Coordinates3DEnum.Y]).to.equal(-2);
+						    expect(bar.upperRight.toArray()[Coordinates3DEnum.Y]).to.equal(-8);
 					    });
 					    it(`z coordinate`, () => {
 						    expect(bar.upperRight.toArray()[Coordinates3DEnum.Z]).to.equal(1);

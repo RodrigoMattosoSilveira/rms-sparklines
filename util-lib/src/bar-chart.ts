@@ -121,8 +121,8 @@ import { Bar3d} from './bar-3d';
 import { CssColorString } from './valid-colors';
 import * as  mathjs from 'mathjs';
 import { Matrix } from 'mathjs';
-import { Coordinates3DEnum } from './coordinates-3D-enum';
 import { ChartTypeEnum } from './chart-type-enum';
+import {Rectangle} from './rectangle';
 
 export class BarChart {
 
@@ -143,13 +143,16 @@ export class BarChart {
     barWidth: number;               // the bars' width
     bars: Bar[];                    // bar bars to be drawn
     bars_3d: Bar3d[];               // bar bars to be drawn
+    coordinatesTips: any = [];
     
     VALID_TYPES: string[] = ['positive', 'negative', 'dual', 'tri'];
     POSITIVE = 0;
     NEGATIVE = 1;
     DUAL = 2;
     TRI = 3;
-    
+
+    tooltipId = 'rms-sparkline-barchart-tooltip';
+
     private cssColorString: CssColorString = null;
     
     // Attributes setters and Getters
@@ -190,11 +193,13 @@ export class BarChart {
     setBarWidth(value: number) { this.barWidth = value; }
     getBarWidth(): number { return this.barWidth; }
 
-    setBars(value: Bar[]) { this.bars = value.slice(0); }
     getBars(): Bar[] { return this.bars; }
     
     setBars3D(value: Bar3d[]) { this.bars_3d = value.slice(0); }
     getBars3D(): Bar3d[] { return this.bars_3d; }
+
+    setCoordinatesTips(value: Rectangle[]) { this.coordinatesTips = value.slice(0); }
+    getCoordinatesTips(): Rectangle[] { return this.coordinatesTips; }
 
     constructor(canvasEl: HTMLCanvasElement,
                 chartType: string,
@@ -293,14 +298,14 @@ export class BarChart {
         // console.log('BarChart::draw - insertGapsUsingBarHeights: ' + JSON.stringify(this.getBarHeights()));
 
         // Set the bars to be drawn
-        this.setBars(this.buildBars(
-            this.getCanvasHeight(),
-            _barHeights,
-            this.getBarWidth(),
-            this.getChartType(),
-            this.getFillColorMinus(),
-            this.getFillColorZero(),
-            this.getFillColorPlus()));
+        // this.setBars(this.buildBars(
+        //     this.getCanvasHeight(),
+        //     _barHeights,
+        //     this.getBarWidth(),
+        //     this.getChartType(),
+        //     this.getFillColorMinus(),
+        //     this.getFillColorZero(),
+        //     this.getFillColorPlus()));
         // console.log('BarChart::draw - buildBars: ' +  JSON.stringify(this.getBars()));
     
         // Set the bars to be drawn
@@ -315,15 +320,17 @@ export class BarChart {
             this.getFillColorPlus()));
         // console.log('BarChart::draw - buildBars: ' +  JSON.stringify(this.getBars()));
 
+        this.setCoordinatesTips(this.buildCoordinateTips(this.getBars3D()));
+
         // Transform the canvas
-        this.transformCanvas(
-            this.getCtx(),
-            this.getChartType(),
-            this.getCanvasHeight(),
-            this.getBarHeights());
+        // this.transformCanvas(
+        //     this.getCtx(),
+        //     this.getChartType(),
+        //     this.getCanvasHeight(),
+        //     this.getBarHeights());
 
         // Draw the sparkline
-        this._draw(this.getCtx(), this.getBars(), this.getBarGap());
+        this._draw_1(this.getCtx(), this.getBars3D());
     }
 
     /**
@@ -385,7 +392,6 @@ export class BarChart {
      *
      * @param {number} canvasWidth
      * @param {number[]} barHeights
-     * @param {number} barWidth
      * @param {number} barGap
      * @param {number} minimumBarWidth
      * @returns {number}
@@ -518,7 +524,6 @@ export class BarChart {
             bar.lowerLeft =  mathjs.matrix(mathjs.multiply( bar.lowerLeft, tMatrix));
             bar.upperRight =  mathjs.matrix(mathjs.multiply( bar.upperRight, tMatrix));
         }
-        
         return bar_3d;
     }
     
@@ -560,17 +565,20 @@ export class BarChart {
                     fillColor = barHeight < 0 ? fillColorMinus : barHeight === 0 ? fillColorZero : fillColorPlus;
                     lowerLeft = mathjs.matrix([i * (barWidth + barGap), 0, 1]);
                     upperRight = mathjs.matrix([i * (barWidth + barGap) + barWidth, barHeight, 1]);
-                    bar_3d.push(new Bar3d(lowerLeft, upperRight, fillColor));
+                    bar_3d.push(new Bar3d(lowerLeft, upperRight, fillColor, barHeight));
                 }
                 break;
             case ChartTypeEnum.TRI:
-                barHeights = barHeights.map(function(height: number) { return height < 0 ? -2 : height === 0 ? 1 : 2; });
+                const negativeHeight = -8;
+                const zeroHeight = 4;
+                const positiveHeight = 8;
+                barHeights = barHeights.map(function(height: number) { return height < 0 ? negativeHeight : height === 0 ? zeroHeight : positiveHeight; });
                 // console.log(`barHeights TRI: ` + JSON.stringify(barHeights));
                 for (let i = 0; i < barHeights.length; i++) {
                     const barHeight = barHeights[i];
-                    fillColor = barHeight === -2 ? fillColorMinus : barHeight === 1 ? fillColorZero : fillColorPlus;
+                    fillColor = barHeight === negativeHeight ? fillColorMinus : barHeight === zeroHeight ? fillColorZero : fillColorPlus;
             
-                    if (barHeight === -2 || barHeight === 2) {
+                    if (barHeight === negativeHeight || barHeight === positiveHeight) {
                         lowerLeft = mathjs.matrix([i * (barWidth + barGap), 0, 1]);
                         upperRight = mathjs.matrix([i * (barWidth + barGap) + barWidth, barHeight, 1]);
                         // console.log(`barHeights TRI - lowerLeft: ` + JSON.stringify(lowerLeft) + `, upperRight: ` + JSON.stringify(upperRight.toArray()));
@@ -580,7 +588,7 @@ export class BarChart {
                         // console.log(`barHeights TRI - lowerLeft: ` + JSON.stringify(lowerLeft) + `, upperRight: ` + JSON.stringify(upperRight.toArray()));
                     }
             
-                    bar_3d.push(new Bar3d(lowerLeft, upperRight, fillColor));
+                    bar_3d.push(new Bar3d(lowerLeft, upperRight, fillColor, barHeight < 0 ? -1 : barHeight === 0 ? 0 : 1));
                 }
                 break;
             default:
@@ -661,68 +669,203 @@ export class BarChart {
         return  mathjs.matrix(dMoveCanvasMatrix);
     }
 
-    //
-    transformCanvas(
-        ctx: CanvasRenderingContext2D,
-        chartType: string,
-        canvasHeight: number,
-        barHeights: number[]) {
+    buildCoordinateTips(bard3D: Bar3d[]): Rectangle[] {
+        const coordinateTips: any = [];
 
-        let hScaling = 1;
-        const hSkewing = 0;
-        const vSkewing = 0;
-        let vScaling = 1;
-        let hMoving = 0;
-        let vMoving = 0;
-        switch (chartType) {
-            case this.VALID_TYPES[this.POSITIVE]:
-                hScaling = 1;
-                vScaling = -1 * canvasHeight / Math.max(...barHeights);
-                hMoving  = 0;
-                vMoving  = canvasHeight;
-                break;
-            case this.VALID_TYPES[this.NEGATIVE]:
-                hScaling = 1;
-                vScaling = -1 * canvasHeight / Math.abs(Math.min(...barHeights));
-                hMoving  = 0;
-                vMoving  = 0;
-                break;
-            case this.VALID_TYPES[this.DUAL]:
-                hScaling = 1;
-                    // console.log(`::transformCanvas - DUAL /  vScaling / Math.min(...barHeights: ` + Math.min(...barHeights));
-                    // console.log(`::transformCanvas - DUAL /  vScaling / Math.max(...barHeights: ` + Math.max(...barHeights));
-                vScaling = -1 * canvasHeight / (Math.max(Math.abs(Math.min(...barHeights)), Math.max(...barHeights)) * 2);
-                hMoving  = 0;
-                vMoving  = canvasHeight / 2;
-                    // console.log(`::transformCanvas - DUAL /  vScaling / vMoving: ` + vMoving);
-                break;
-            case this.VALID_TYPES[this.TRI]:
-                hScaling = 1;
-                    // console.log(`::transformCanvas - TRI /  vScaling / Math.min(...barHeights: ` + Math.min(...barHeights));
-                    // console.log(`::transformCanvas - TRI /  vScaling / Math.max(...barHeights: ` + Math.max(...barHeights));
-                // vScaling = -1 * canvasHeight / (Math.max(Math.abs(Math.min(...barHeights)), Math.max(...barHeights)) * 2);
-                vScaling = -1;
-                hMoving  = 0;
-                vMoving  = canvasHeight / 2;
-                    // console.log(`::transformCanvas - TRI /  vScaling / vMoving: ` + vMoving);
-                break;
-            default:
-                break;
+        for (const bar of bard3D) {
+            coordinateTips.push({
+                'rect': new Rectangle(bar.getLowerLeftX(), bar.getLowerLeftY(), bar.getWidth(),  bar.getHeight()),
+                'color': 'red',
+                'tip': bar.originalHeight
+            });
         }
-        ctx.setTransform(hScaling, hSkewing, vSkewing, vScaling, hMoving, vMoving);
+
+        return coordinateTips;
     }
 
+    //
+    // transformCanvas(
+    //     ctx: CanvasRenderingContext2D,
+    //     chartType: string,
+    //     canvasHeight: number,
+    //     barHeights: number[]) {
+    //
+    //     let hScaling = 1;
+    //     const hSkewing = 0;
+    //     const vSkewing = 0;
+    //     let vScaling = 1;
+    //     let hMoving = 0;
+    //     let vMoving = 0;
+    //     switch (chartType) {
+    //         case this.VALID_TYPES[this.POSITIVE]:
+    //             hScaling = 1;
+    //             vScaling = -1 * canvasHeight / Math.max(...barHeights);
+    //             hMoving  = 0;
+    //             vMoving  = canvasHeight;
+    //             break;
+    //         case this.VALID_TYPES[this.NEGATIVE]:
+    //             hScaling = 1;
+    //             vScaling = -1 * canvasHeight / Math.abs(Math.min(...barHeights));
+    //             hMoving  = 0;
+    //             vMoving  = 0;
+    //             break;
+    //         case this.VALID_TYPES[this.DUAL]:
+    //             hScaling = 1;
+    //                 // console.log(`::transformCanvas - DUAL /  vScaling / Math.min(...barHeights: ` + Math.min(...barHeights));
+    //                 // console.log(`::transformCanvas - DUAL /  vScaling / Math.max(...barHeights: ` + Math.max(...barHeights));
+    //             vScaling = -1 * canvasHeight / (Math.max(Math.abs(Math.min(...barHeights)), Math.max(...barHeights)) * 2);
+    //             hMoving  = 0;
+    //             vMoving  = canvasHeight / 2;
+    //                 // console.log(`::transformCanvas - DUAL /  vScaling / vMoving: ` + vMoving);
+    //             break;
+    //         case this.VALID_TYPES[this.TRI]:
+    //             hScaling = 1;
+    //                 // console.log(`::transformCanvas - TRI /  vScaling / Math.min(...barHeights: ` + Math.min(...barHeights));
+    //                 // console.log(`::transformCanvas - TRI /  vScaling / Math.max(...barHeights: ` + Math.max(...barHeights));
+    //             // vScaling = -1 * canvasHeight / (Math.max(Math.abs(Math.min(...barHeights)), Math.max(...barHeights)) * 2);
+    //             vScaling = -1;
+    //             hMoving  = 0;
+    //             vMoving  = canvasHeight / 2;
+    //                 // console.log(`::transformCanvas - TRI /  vScaling / vMoving: ` + vMoving);
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    //     ctx.setTransform(hScaling, hSkewing, vSkewing, vScaling, hMoving, vMoving);
+    // }
+
     // Draw the bars!
-    _draw(ctx: CanvasRenderingContext2D, bars: Bar[], barGap: number): void {
+    // _draw(ctx: CanvasRenderingContext2D, bars: Bar[], barGap: number): void {
+    //     for (const bar of bars) {
+    //         // set the bar fill color
+    //         ctx.fillStyle = bar.getFillColor();
+    //
+    //         // draw the bar
+    //         ctx.fillRect(bar.getX(), bar.getY(), bar.getWidth(), bar.getHeight());
+    //
+    //         // Insert barGap by translating x-orign
+    //         ctx.translate(barGap, 0);
+    //     }
+    // }
+
+    // Draw the bars!
+    _draw_1(ctx: CanvasRenderingContext2D, bars: Bar3d[]): void {
+        console.log('drawing');
         for (const bar of bars) {
-            // set the bar fill color
-            ctx.fillStyle = bar.getFillColor();
+            bar.draw(ctx);
+        }
+    }
 
-            // draw the bar
-            ctx.fillRect(bar.getX(), bar.getY(), bar.getWidth(), bar.getHeight());
+    /**
+     * Sparkline Barchart Mouse Move Handler
+     * @param $event
+     * @param canvasEl
+     */
+    handleMouseMove($event: MouseEvent, canvasEl: HTMLElement) {
+        let tooltip;
+        let mySpan: HTMLSpanElement;
+        const fontDefinition = '12px FUTURA';
+        let body: any;
+        let width: number;
+        let height: number;
+        let rect: any;
+        let scrollLeft: number;
+        let scrollTop: number;
 
-            // Inser barGap by translating x-orign
-            ctx.translate(barGap, 0);
+        // Get the position of the canvas element relative to the document
+        // https://plainjs.com/javascript/styles/get-the-position-of-an-element-relative-to-the-document-24/
+        rect = canvasEl.getBoundingClientRect();
+        scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+        scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        rect = { left: rect.left + scrollLeft, top: rect.top + scrollTop  };
+
+        const mouseX = $event.clientX - rect.left + window.pageXOffset || document.documentElement.scrollLeft;
+        const mouseY = $event.clientY - rect.top + window.pageYOffset || document.documentElement.scrollTop;
+        // console.log(`BarChart::handleMouseMove mouseX: ` + mouseX + `, mouseY: ` + mouseY);
+
+        for (let i = 0; i < this.coordinatesTips.length; i++) {
+            const tipX = this.coordinatesTips[i].rect.getX();
+            const tipWidth = this.coordinatesTips[i].rect.getWidth();
+            let tipHeight = this.coordinatesTips[i].rect.getHeight();
+            let tipY = this.coordinatesTips[i].rect.getY();
+            if (tipHeight < 0) {
+                tipY += tipHeight;
+                tipHeight *= -1;
+            }
+
+            // console.log(`mouseX: ` + mouseX + `, mouseY: ` + mouseY);
+            // console.log(`tipX: ` + tipX + `, tipY: ` + tipY + `, tipWidth: ` + tipWidth + `, tipHeight: ` + tipHeight);
+
+            if (tipX <=  mouseX && mouseX <= tipX + tipWidth &&
+                tipY <=  mouseY && mouseY <= tipY + tipHeight) {
+
+                // console.log(`We have a match`);
+
+                // A trick to find the width / height of the canvas to host the tooltip
+                mySpan = document.createElement('span') as HTMLSpanElement;
+                mySpan.id = 'mySpanId';
+                mySpan.style.font = fontDefinition;
+                mySpan.style.textAlign = 'center';
+                mySpan.innerHTML = '' +  this.coordinatesTips[i].tip;
+                body = document.getElementsByTagName('body')[0];
+                body.appendChild(mySpan);
+                mySpan = document.getElementById('mySpanId');
+                width = mySpan.getBoundingClientRect().width + 4;
+                height = mySpan.getBoundingClientRect().height + 2;
+                mySpan.parentElement.removeChild(mySpan);
+                // console.log(`mySpanWidth: ` + width + `, mySpanHeight: ` + height);
+
+                // Remove the existing tooltip, if present
+                tooltip = document.getElementById(this.tooltipId);
+                if (tooltip) {
+                    // console.log(`BarChart::handleMouseMove deleting tooltip`);
+                    tooltip.parentElement.removeChild(tooltip);
+                }
+
+                tooltip = document.createElement('CANVAS') as HTMLCanvasElement;
+                tooltip.id = this.tooltipId;
+                tooltip.width = width;
+                tooltip.height = height;
+                tooltip.style.position = 'absolute';
+                tooltip.style.left = ($event.clientX + 5) + 'px';
+                tooltip.style.top = ($event.clientY + 7) + 'px';
+                // tooltip.style.left = '' + 100 + 'px';
+                // tooltip.style.top = '' + 100 + 'px';
+                tooltip.style.border = '1px solid';
+                tooltip.style.zIndex = '20';
+                tooltip.style.textAlign = 'center';
+
+                const ctx = (tooltip as HTMLCanvasElement).getContext('2d');
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, width, height);
+                ctx.fill();
+                ctx.fillStyle = 'red';
+                ctx.font = fontDefinition;
+                ctx.fillText('' + this.coordinatesTips[i].tip, 1, height - 2);
+
+                body = document.getElementsByTagName('body')[0];
+                body.appendChild(tooltip);
+
+                break; /// required to prevent Q1 : Q3 tooltip from showing
+            }  else {
+                // console.log(`this is not a match`);
+
+                // Remove the existing tooltip, if present
+                tooltip = document.getElementById(this.tooltipId);
+                if (tooltip) {
+                    // console.log(`BarChart::handleMouseMove deleting tooltip`);
+                    tooltip.parentElement.removeChild(tooltip);
+                }
+            }
+        }
+    }
+
+    handleMouseOut() {
+        // Remove the existing tooltip, if present
+        const tooltip = document.getElementById(this.tooltipId);
+        if (tooltip) {
+            // console.log(`BarChart::handleMouseOut deleting tooltip`);
+            tooltip.parentElement.removeChild(tooltip);
         }
     }
 }
