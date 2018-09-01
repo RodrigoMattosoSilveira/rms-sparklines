@@ -207,7 +207,7 @@ export class SparklineLine {
     }
     
     /**
-     *
+     * Sparkline Inline Mouse Move Handler
      * @param $event
      * @param canvasEl
      */

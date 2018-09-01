@@ -480,7 +480,12 @@ export class BoxPlot {
         
         return divContainer;
     }
-    
+
+    /**
+     * Sparkline Boxplot Mouse Move Handler
+     * @param $event
+     * @param canvasEl
+     */
     handleMouseMove($event: MouseEvent, canvasEl: HTMLElement) {
         let tooltip;
         let mySpan: HTMLSpanElement;
