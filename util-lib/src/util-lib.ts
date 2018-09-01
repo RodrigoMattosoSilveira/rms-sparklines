@@ -7,9 +7,9 @@ export class UtilLib extends HTMLElement {
     this.attachShadow({ mode: 'open' });
   }
 
-  static get observedAttributes(): string[] {
-    return ['name'];
-  }
+    static get observedAttributes(): string[] {
+        return ['name'];
+    }
 
   connectedCallback() {
     this.upgradeProperties();
