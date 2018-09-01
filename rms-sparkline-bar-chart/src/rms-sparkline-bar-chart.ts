@@ -241,8 +241,7 @@ export class RmsSparklineBarChart extends HTMLElement {
     
     render() {
         const __this: any = this;
-        let myCanvasEl: HTMLElement;
-        
+
         // console.log('RmsSparklineBarChart::render');
 
         // Little debugging
@@ -284,22 +283,18 @@ export class RmsSparklineBarChart extends HTMLElement {
         if (this.height === 0) { return; }
 
         render(this.template, this.shadowRoot);
-    
-    
-        // Add mousemove / mouseout listeners
-        myCanvasEl =  this.shadowRoot.children[1].children[0] as HTMLElement;
-        myCanvasEl.addEventListener('mousemove', function(event: any) {
+
+        this.addEventListener('mousemove', function(event: any) {
             // console.log(`RmsSparklineInlineNew::addEventListener`);
-        
+
             // Note that when this function is called, this points to the target element!
             __this.barChart.handleMouseMove(event, this);
         });
-    
-        myCanvasEl.addEventListener('mouseout', function() {
+
+        this.addEventListener('mouseout', function() {
             // console.log(`RmsSparklineInlineNew::addEventListener`);
             __this.barChart.handleMouseOut();
         });
-    
     }
 }
 window.customElements.define('rms-sparkline-bar-chart', RmsSparklineBarChart);
