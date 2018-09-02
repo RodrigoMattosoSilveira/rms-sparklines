@@ -5,6 +5,8 @@
 [![Build Status](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines.svg?branch=master)](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines)
 
 ### New in version
+####  [0.2.3] - 2018-09-01
+* Trying to fix a hard to understand bug in TRAVIS
 ####  [0.2.2] - 2018-09-01
 * Trying to fix a hard to understand bug in TRAVIS
 ####  [0.2.1] - 2018-09-01
