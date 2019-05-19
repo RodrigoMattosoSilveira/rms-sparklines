@@ -9,7 +9,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 const appRoutes: Routes = [
 	{ path: 'home',        component: LandingPageComponent },
 
-	{ path: 'barcharts',   component: BarchartComponent },
+	{ path: 'barchart',    component: BarchartComponent },
 	{ path: 'boxplot',     component: BoxplotComponent },
   { path: 'inline',      component: InlineComponent },
 
