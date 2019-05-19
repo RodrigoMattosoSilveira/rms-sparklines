@@ -1,15 +1,15 @@
-<div>Landing page</div>
 <markdown ngPreserveWhitespaces>
 # Description
-This is a collection of web components to render [sparklines](https://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0001OR), conceived by [Edward Tufte](https://www.edwardtufte.com/tufte/). My motivation for this project is to use web component technology to implement sparklines. The project's overall concepts, but not source code, borrows extensively from [Gareth Watts](https://omnipotent.net/jquery.sparkline/#s-about) jQery project.
+This is a collection of Angular components to render [sparklines](https://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0001OR), conceived by [Edward Tufte](https://www.edwardtufte.com/tufte/). My motivation for this project is to use web component technology to implement sparklines. The project's overall concepts, but not source code, borrows extensively from [Gareth Watts](https://omnipotent.net/jquery.sparkline/#s-about) jQery project.
 
-These webcomponents are built using the [@nutmeg/cli](https://github.com/abraham/nutmeg-cli); this document assumes you are familiar with it and the ancillary technologies required by [@nutmeg/cli](https://github.com/abraham/nutmeg-cli).
+Originally this was an experiment to build sparklines using Web Components in order to me to learn the underlining Web Component architecture and how to integrate them in to Web Applications. This worked, although the architecture I used to collect my components into a library was incompatible with the framework I used to build and test them, [@nutmeg/cli](https://github.com/abraham/nutmeg-cli). The main challenge was to isolate common drawing logic from component and test logic.
+
+I decided that life should not be that hard and decided to wait for the new [Angular Workspace](https://angular.io/guide/workspace-config) architecture to estabilize. Now that it is stable, I decided to migrate the legacy project to Angular Workspace.
 
 ### Source code
-Check [rms-sparklines](https://github.com/RodrigoMattosoSilveira/rms-sparklines) for the web components repository.
-
-Check [rms-sparklines-styleguide](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide) for this application's repository, an Angular web application illustrating their usage.
-
+One of the nice aspects of Angular Workspace is that it supports hosting the library components and the living style guide (Angaular's test application) in the same [repository](https://github.com/RodrigoMattosoSilveira/rms-sparklines):
+- See the library folder for the Angular Components to draw sparklines;
+- See living-style-guid folder for this application, showing how to use the Angular Components;
 ````html
 _    _                   _____
 | | | | __ ___   _____  |  ___|   _ _ __
@@ -20,4 +20,3 @@ _    _                   _____
 </markdown>
 
 <img mat-card-image src="./../../assets/images/sparklines.png" alt="Sparkline illustration">
-<mat-card-content>
