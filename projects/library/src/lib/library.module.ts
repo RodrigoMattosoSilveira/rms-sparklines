@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
 import { LibraryComponent } from './library.component';
+import { InlineComponent } from './inline/inline.component';
 
 @NgModule({
-  declarations: [LibraryComponent],
+  declarations: [
+    LibraryComponent,
+    InlineComponent
+  ],
   imports: [
   ],
   exports: [LibraryComponent]
