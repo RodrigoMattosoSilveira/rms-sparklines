@@ -34,7 +34,7 @@ Check [rms-sparklines-styleguide](https://github.com/RodrigoMattosoSilveira/rms-
 You can navigate to [rms-sparklines-styleguide](https://rms-sparklines-styleguide.herokuapp.com/) to see a live version of the Angular web application illustrating their usage.
 
 # Installation
-Cloning this repository: 
+Cloning this repository:
 * **$** `cd ~`
 * **$** `git clone https://github.com/RodrigoMattosoSilveira/rms-sparklines`
 
@@ -47,9 +47,9 @@ This will take a few minutes, and does the following
     * Installs the packages required by each sparkline package
     * Builds the sparkline package
     * Tests the sparkline
-    
+
 Note that this same script is used to tell the continuous development framwework to build and test all sparklines.
-    
+
 ### Write a new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component
 The following steps are required:
 * Web Component Development
@@ -58,9 +58,9 @@ The following steps are required:
     * Develop unit tests for the new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component.
     * Publish the new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component.
 * Show case the new web component in the style guide
-    * 
+    *
 
-#### Install `rms-sparklines` 
+#### Install `rms-sparklines`
 If not already installed, install according to the instructions above.
 
 #### Create a [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component
@@ -71,7 +71,7 @@ I use the [nutmeg-cli](https://github.com/abraham/nutmeg-cli) to generate web co
 This will create a new folder, `rms-sparklines-awesome`, including a scaffold for the new web component
 
 
-#### Develop and publish the new component 
+#### Develop and publish the new component
 I reflect the patterns in the existing [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web components to set up the new web component:
 * create a `draw (): HTMLCanvasElement` function.
 * empty the ` private get styles(): TemplateResult` function, return only `<style></style>` for now.
@@ -93,7 +93,7 @@ declare -a webComponents=("rms-sparkline-inline" \
 "rms-sparkline-bar-awesome"
 )
 
-. . . 
+. . .
 ````
 
 #### Develop unit tests for the new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component.
@@ -113,7 +113,7 @@ This is done in the root directory:
 
 See the [rms-sparklines-styleguide](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide). README for instructions on how and when to use the web component's published and under development versions.
 
-Note that the publishing is done in the library's not the web component's root folder. 
+Note that the publishing is done in the library's not the web component's root folder.
 
 ## Update an existing [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component
 Similar as when creating a new component, except that you will skip the create component steps.
@@ -122,7 +122,7 @@ Similar as when creating a new component, except that you will skip the create c
 ````html
  _   _                   _____            
 | | | | __ ___   _____  |  ___|   _ _ __  
-| |_| |/ _` \ \ / / _ \ | |_ | | | | '_ \ 
+| |_| |/ _` \ \ / / _ \ | |_ | | | | '_ \
 |  _  | (_| |\ V /  __/ |  _|| |_| | | | |
 |_| |_|\__,_| \_/ \___| |_|   \__,_|_| |_|                                      
 ````
