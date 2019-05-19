@@ -37,6 +37,134 @@
           }
         }
       }
+    },
+    "living-style-guide": {
+      "root": "projects/living-style-guide/",
+      "sourceRoot": "projects/living-style-guide/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/living-style-guide",
+            "index": "projects/living-style-guide/src/index.html",
+            "main": "projects/living-style-guide/src/main.ts",
+            "polyfills": "projects/living-style-guide/src/polyfills.ts",
+            "tsConfig": "projects/living-style-guide/tsconfig.app.json",
+            "assets": [
+              "projects/living-style-guide/src/favicon.ico",
+              "projects/living-style-guide/src/assets"
+            ],
+            "styles": [
+              "projects/living-style-guide/src/styles.css"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/living-style-guide/src/environments/environment.ts",
+                  "with": "projects/living-style-guide/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "living-style-guide:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "living-style-guide:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "living-style-guide:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/living-style-guide/src/test.ts",
+            "polyfills": "projects/living-style-guide/src/polyfills.ts",
+            "tsConfig": "projects/living-style-guide/tsconfig.spec.json",
+            "karmaConfig": "projects/living-style-guide/karma.conf.js",
+            "styles": [
+              "projects/living-style-guide/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/living-style-guide/src/favicon.ico",
+              "projects/living-style-guide/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/living-style-guide/tsconfig.app.json",
+              "projects/living-style-guide/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "living-style-guide-e2e": {
+      "root": "projects/living-style-guide-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/living-style-guide-e2e/protractor.conf.js",
+            "devServerTarget": "living-style-guide:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "living-style-guide:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/living-style-guide-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "library"
