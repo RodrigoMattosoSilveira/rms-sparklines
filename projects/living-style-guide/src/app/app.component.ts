@@ -20,7 +20,7 @@ export class AppComponent {
       routeLink: 'barchart'
     },
     {
-      name: 'Box plot Chart',
+      name: 'Boxplot Chart',
       icon: '',
       routeLink: 'boxplot'
     }
