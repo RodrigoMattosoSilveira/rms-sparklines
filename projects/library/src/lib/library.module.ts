@@ -9,6 +9,9 @@ import { InlineComponent } from './inline/inline.component';
   ],
   imports: [
   ],
-  exports: [LibraryComponent]
+  exports: [
+    LibraryComponent,
+    InlineComponent
+  ]
 })
 export class LibraryModule { }
