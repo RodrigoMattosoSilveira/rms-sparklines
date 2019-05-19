@@ -17,14 +17,18 @@
   </mat-toolbar-row>
 </mat-toolbar>
 <mat-drawer-container class="example-container">
-  <mat-drawer mode="side" opened>Sparklines</mat-drawer>
-  <mat-drawer-content>
-  <mat-list>
-    <mat-list-item *ngFor="let sparkline of sparklines">
-        <h4 mat-line>
-          <a mat-button [routerLink]="sparkline.routeLink">{{sparkline.name}}</a>
-        </h4>
-    </mat-list-item>
-  </mat-list>
+  <mat-drawer mode="side" opened> Sparklines
+    <!--
+    <h4>Sparklines</h4>
+    <mat-list>
+      <mat-list-item *ngFor="let sparkline of sparklines">
+          <h4 mat-line>
+            <a mat-button [routerLink]="sparkline.routeLink">{{sparkline.name}}</a>
+          </h4>
+      </mat-list-item>
+    </mat-list>
+    -->
+  </mat-drawer>
+  <mat-drawer-content>main content
   </mat-drawer-content>
 </mat-drawer-container>
