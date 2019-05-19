@@ -4,10 +4,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 
 const appRoutes: Routes = [
-	{ path: 'home',                   component: AppComponent },
-	{ path: 'inline-sparklines',      component: InlineSparklinesComponent },
-	{ path: 'barchart-sparklines',      component: BarchartSparklinesComponent },
-	{ path: 'boxplot-sparklines',      component: BoxplotSparklinesComponent },
+	{ path: 'home',        component: AppComponent },
+	{ path: 'inline',      component: InlineComponent },
+	{ path: 'barcharts',   component: BarchartComponent },
+	{ path: 'boxplot',     component: BoxplotComponent },
 	{ path: '',   redirectTo: 'home', pathMatch: 'full' },
 	{ path: '**', redirectTo: 'home', pathMatch: 'full'  }
 ];
