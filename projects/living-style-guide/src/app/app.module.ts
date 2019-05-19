@@ -7,13 +7,15 @@ import { LibraryModule } from 'library';
 import { BarchartComponent } from './barchart/barchart.component';
 import { BoxplotComponent } from './boxplot/boxplot.component';
 import { InlineComponent } from './inline/inline.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BarchartComponent,
     BoxplotComponent,
-    InlineComponent
+    InlineComponent,
+    LandingPageComponent
   ],
   imports: [
     BrowserModule,
