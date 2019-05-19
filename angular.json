@@ -38,6 +38,41 @@
         }
       }
     },
+    "inline": {
+      "root": "projects/library/inline",
+      "sourceRoot": "projects/library/inline/src",
+      "projectType": "library",
+      "prefix": "rms",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/library/tsconfig.lib.json",
+            "project": "projects/library/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/library/src/test.ts",
+            "tsConfig": "projects/library/tsconfig.spec.json",
+            "karmaConfig": "projects/library/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/library/tsconfig.lib.json",
+              "projects/library/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
     "living-style-guide": {
       "root": "projects/living-style-guide/",
       "sourceRoot": "projects/living-style-guide/src",
