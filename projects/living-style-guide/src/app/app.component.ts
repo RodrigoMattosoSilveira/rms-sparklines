@@ -7,4 +7,22 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'living-style-guide';
+  version =  `0.2.3`;
+  sparklines = [
+    {
+      name: 'Inline',
+      icon: '',
+      routeLink: 'inline'
+    },
+    {
+      name: 'Bar Chart',
+      icon: '',
+      routeLink: 'barchart'
+    },
+    {
+      name: 'Box plot Chart',
+      icon: '',
+      routeLink: 'boxplot'
+    }
+  ];
 }
