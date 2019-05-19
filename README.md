@@ -4,6 +4,12 @@
 
 [![Build Status](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines.svg?branch=master)](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines)
 
+:construction: This is work in progress:
+- Migrating to Angular Workspace;
+- Must convert all components to Angular;
+- Must re-write this to reflect the new paradigm to create Components
+- Replace Heroku with Github Pages
+
 ### New in version
 ####  [0.2.3] - 2018-09-01
 * Trying to fix a hard to understand bug in TRAVIS
