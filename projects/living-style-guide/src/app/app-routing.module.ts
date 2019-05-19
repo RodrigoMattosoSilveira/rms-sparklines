@@ -3,11 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { BarchartComponent } from './barchart/barchart.component';
 import { BoxplotComponent } from './boxplot/boxplot.component';
-import { InlineComponent } from './inline/linline.component';
-import { LandingPage } from './landing-page/landing-page.component';
+import { InlineComponent } from './inline/inline.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 const appRoutes: Routes = [
-	{ path: 'home',        component: LandingPage },
+	{ path: 'home',        component: LandingPageComponent },
 
 	{ path: 'barcharts',   component: BarchartComponent },
 	{ path: 'boxplot',     component: BoxplotComponent },
