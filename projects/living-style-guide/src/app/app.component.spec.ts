@@ -1,12 +1,32 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
+import { AngularMaterialModuleModule } from './utils/angular-material-module/angular-material-module.module';
+import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
+// import { RouterTestingModule } from "@angular/router/testing"
+import { HttpModule } from '@angular/http';
+
+import { BarchartComponent } from './barchart/barchart.component';
+import { BoxplotComponent } from './boxplot/boxplot.component';
+import { InlineComponent } from './inline/inline.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+
+
 describe('AppComponent', () => {
+  const appRoutes: Routes = [];
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent
       ],
+      imports: [
+        AngularMaterialModuleModule,
+        BrowserAnimationsModule,
+        HttpModule,
+        RouterModule.forRoot(appRoutes), // https://stackoverflow.com/questions/46108581/no-provider-for-childrenoutletcontexts-injectionerror
+      ]
     }).compileComponents();
   }));
 
@@ -26,6 +46,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to living-style-guide!');
+    expect(compiled.querySelector('#myTitle').textContent).toContain('SPARKLINES');
   });
 });
