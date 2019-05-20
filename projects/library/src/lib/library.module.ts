@@ -6,16 +6,18 @@ import { BoxplotComponent } from './boxplot/boxplot.component';
 
 @NgModule({
   declarations: [
-    LibraryComponent,
-    InlineComponent,
     BarchartComponent,
-    BoxplotComponent
+    BoxplotComponent,
+    InlineComponent,
+    LibraryComponent,
   ],
   imports: [
   ],
   exports: [
+    BarchartComponent,
+    BoxplotComponent,
+    InlineComponent,
     LibraryComponent,
-    InlineComponent
   ]
 })
 export class LibraryModule { }
