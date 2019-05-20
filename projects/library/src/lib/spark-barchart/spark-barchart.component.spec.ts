@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InlineComponent } from './inline.component';
+import { SparkBarchartComponent } from './spark-barchart.component';
 
-describe('InlineComponent', () => {
-  let component: InlineComponent;
-  let fixture: ComponentFixture<InlineComponent>;
+describe('SparkBarchartComponent', () => {
+  let component: SparkBarchartComponent;
+  let fixture: ComponentFixture<SparkBarchartComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InlineComponent ]
+      declarations: [ SparkBarchartComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InlineComponent);
+    fixture = TestBed.createComponent(SparkBarchartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

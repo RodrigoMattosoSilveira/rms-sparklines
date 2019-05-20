@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BoxplotComponent } from './boxplot.component';
+import { SparkBoxplotComponent } from './spark-boxplot.component';
 
-describe('BoxplotComponent', () => {
-  let component: BoxplotComponent;
-  let fixture: ComponentFixture<BoxplotComponent>;
+describe('SparkBoxplotComponent', () => {
+  let component: SparkBoxplotComponent;
+  let fixture: ComponentFixture<SparkBoxplotComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BoxplotComponent ]
+      declarations: [ SparkBoxplotComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BoxplotComponent);
+    fixture = TestBed.createComponent(SparkBoxplotComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

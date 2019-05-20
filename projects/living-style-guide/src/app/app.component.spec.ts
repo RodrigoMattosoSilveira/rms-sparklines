@@ -4,14 +4,7 @@ import { AppComponent } from './app.component';
 import { AngularMaterialModuleModule } from './utils/angular-material-module/angular-material-module.module';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-// import { RouterTestingModule } from "@angular/router/testing"
 import { HttpModule } from '@angular/http';
-
-import { BarchartComponent } from './barchart/barchart.component';
-import { BoxplotComponent } from './boxplot/boxplot.component';
-import { InlineComponent } from './inline/inline.component';
-import { LandingPageComponent } from './landing-page/landing-page.component';
-
 
 describe('AppComponent', () => {
   const appRoutes: Routes = [];

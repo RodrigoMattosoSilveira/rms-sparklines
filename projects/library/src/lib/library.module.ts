@@ -1,23 +1,20 @@
 import { NgModule } from '@angular/core';
-import { LibraryComponent } from './library.component';
-import { InlineComponent } from './inline/inline.component';
-import { BarchartComponent } from './barchart/barchart.component';
-import { BoxplotComponent } from './boxplot/boxplot.component';
+import { SparkBarchartComponent } from './spark-barchart/spark-barchart.component';
+import { SparkBoxplotComponent } from './spark-boxplot/spark-boxplot.component';
+import { SparkLineComponent } from './spark-line/spark-line.component';
 
 @NgModule({
   declarations: [
-    BarchartComponent,
-    BoxplotComponent,
-    InlineComponent,
-    LibraryComponent,
+    SparkBarchartComponent,
+    SparkBoxplotComponent,
+    SparkLineComponent,
   ],
   imports: [
   ],
   exports: [
-    BarchartComponent,
-    BoxplotComponent,
-    InlineComponent,
-    LibraryComponent,
+    SparkBarchartComponent,
+    SparkBoxplotComponent,
+    SparkLineComponent,
   ]
 })
 export class LibraryModule { }
