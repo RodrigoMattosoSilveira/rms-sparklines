@@ -26,6 +26,7 @@ before_install:
 - echo "before_install has no steps"
 - # start your web application and listen on `localhost`
 - google-chrome-stable --headless --disable-gpu --disable-translate --disable-extensions --disable-dev-shm-usage --no-sandbox --remote-debugging-port=9222 http://localhost &
+- sudo ln -s /var/lib/dbus/machine-id /etc/machine-id
 - #https://mxlinux.org/forum/viewtopic.php?t=47482
 - #sudo ln -s /var/lib/dbus/machine-id /etc/machine-id
 - #https://github.com/travis-ci/travis-ci/issues/9024
