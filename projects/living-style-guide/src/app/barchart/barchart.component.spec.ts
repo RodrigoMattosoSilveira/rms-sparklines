@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BarchartComponent } from './barchart.component';
+import { LibraryModule } from 'library';
 
 describe('BarchartComponent', () => {
   let component: BarchartComponent;
@@ -8,7 +9,10 @@ describe('BarchartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BarchartComponent ]
+      declarations: [ BarchartComponent ],
+      imports: [
+        LibraryModule,
+      ]
     })
     .compileComponents();
   }));

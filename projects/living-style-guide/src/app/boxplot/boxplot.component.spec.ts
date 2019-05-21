@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BoxplotComponent } from './boxplot.component';
+import { LibraryModule } from 'library';
 
 describe('BoxplotComponent', () => {
   let component: BoxplotComponent;
@@ -8,7 +9,10 @@ describe('BoxplotComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BoxplotComponent ]
+      declarations: [ BoxplotComponent ],
+      imports: [
+        LibraryModule,
+      ]
     })
     .compileComponents();
   }));

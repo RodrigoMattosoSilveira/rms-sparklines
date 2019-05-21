@@ -3,7 +3,7 @@ import { AppComponent } from './app.component';
 
 import { AngularMaterialModuleModule } from './utils/angular-material-module/angular-material-module.module';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 
 describe('AppComponent', () => {

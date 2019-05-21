@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InlineComponent } from './inline.component';
+import { LibraryModule } from 'library';
 
 describe('InlineComponent', () => {
   let component: InlineComponent;
@@ -8,7 +9,10 @@ describe('InlineComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InlineComponent ]
+      declarations: [ InlineComponent ],
+      imports: [
+        LibraryModule,
+      ]
     })
     .compileComponents();
   }));
