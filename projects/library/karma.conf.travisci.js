@@ -34,6 +34,7 @@ module.exports = function (config) {
           '--disable-gpu',
           '--disable-translate',
           '--disable-extensions',
+          '--disable-dev-shm-usage',
           '--no-sandbox',  // Added to fix an issue where of Failed to connect to chrome browser
          '--remote-debugging-port=9222',
         ],
