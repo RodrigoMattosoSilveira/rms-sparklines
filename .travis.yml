@@ -2,6 +2,9 @@
 language: node_js
 node_js:
   - "10.15.3"
+dist: trusty
+addons:
+  chrome: stable
 git:
   quiet: true
   submodules: false
@@ -20,7 +23,9 @@ branches:
 # OPTIONAL Install apt addons --> not used
 # OPTIONAL Install cache components --> not used
 before_install:
-- echo "before_install has no steps"
+- echo "before_install execution"
+- # start your web application and listen on `localhost`
+- google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 
 install:
 - echo "install execution"
@@ -34,8 +39,8 @@ script:
 - echo "script execution"
 - ng build library
 - ng build living-style-guide
-- ng test library
-- ng test living-style-guide
+- ng test library --watch=false
+- ng test living-style-guide --watch=false
 - ng e2e
 
 before_cache:
