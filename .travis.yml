@@ -13,7 +13,7 @@ branches:
 # OPTIONAL Install cache components --> not used
 before_install: echo "before_install has no steps"
 install: yarn bootstrap
-before_script: "before_script nas no steps"
+before_script: echo "before_script nas no steps"
 script:
 - yarn build
 - ng test library
