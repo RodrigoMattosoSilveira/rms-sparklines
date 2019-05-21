@@ -25,14 +25,19 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: false,
-    browsers: ['Chrome', 'ChromeHeadless', 'ChromeHeadlessNoSandbox'],
-
-    // you can define custom flags
+    browsers: ['TravisCI_ChromeHeadlessNoSandbox'],
     customLaunchers: {
-      ChromeHeadlessNoSandbox: {
-        base: 'ChromeHeadless',
-        flags: ['--no-sandbox']
-      }
+      TravisCI_ChromeHeadlessNoSandbox: {
+        base: 'Chrome',
+        flags: [
+          '--headless',
+          '--disable-gpu',
+          '--disable-translate',
+          '--disable-extensions',
+          '--no-sandbox',  // Added to fix an issue where of Failed to connect to chrome browser
+         '--remote-debugging-port=9222',
+        ],
+      },
     },
     singleRun: true,
     restartOnFileChange: true
