@@ -24,7 +24,7 @@ before_install:
 
 install:
 - echo "install execution"
-- npm install -g --silent @angular/cl
+- npm install -g @angular/cl
 
 before_script:
 - echo "before_script has no steps"
