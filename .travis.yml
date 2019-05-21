@@ -5,7 +5,7 @@ git:
   submodules: false
 branches:
   only:
-  - issue-44-ng7-test
+  - issue-44-ng7-travis
 
 
 #Job Lifecyle
@@ -30,6 +30,6 @@ deploy:
   github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
   keep_history: true
   on:
-    branch: issue-44-ng7
+    branch: issue-44-ng7-travis
 after_deploy: echo "after_deploy nas no steps"
 after_script: echo "after_script nas no steps"
