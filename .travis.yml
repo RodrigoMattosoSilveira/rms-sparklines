@@ -23,14 +23,14 @@ branches:
 # OPTIONAL Install apt addons --> not used
 # OPTIONAL Install cache components --> not used
 before_install:
-- echo "before_install execution"
+- echo "before_install has no steps"
 - # start your web application and listen on `localhost`
-- google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
+- #google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 - #https://mxlinux.org/forum/viewtopic.php?t=47482
-- sudo ln -s /var/lib/dbus/machine-id /etc/machine-id
+- #sudo ln -s /var/lib/dbus/machine-id /etc/machine-id
 - #https://github.com/travis-ci/travis-ci/issues/9024
-- sudo chown root /opt/google/chrome/chrome-sandbox
-- sudo chmod 4755 /opt/google/chrome/chrome-sandbox
+- #sudo chown root /opt/google/chrome/chrome-sandbox
+- #sudo chmod 4755 /opt/google/chrome/chrome-sandbox
 
 install:
 - echo "install execution"
@@ -44,8 +44,8 @@ script:
 - echo "script execution"
 - ng build library
 - ng build living-style-guide
-- ng test library --watch=false
-- ng test living-style-guide --watch=false
+- ng test library --watch=false --karmaConfig=karma.conf.travisci.js
+- ng test living-style-guide --watch=false --karmaConfig=karma.conf.travisci.js
 - ng e2e
 
 before_cache:
@@ -65,5 +65,5 @@ deploy:
   keep_history: true
   on:
     branch: issue-44-ng7-travis
-after_deploy: echo "after_deploy nas no steps"
-after_script: echo "after_script nas no steps"
+after_deploy: echo "after_deploy has no steps"
+after_script: echo "after_script has no steps"
