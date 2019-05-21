@@ -30,14 +30,14 @@ module.exports = function (config) {
         error: 'x'
       }
     },
-    reporters: ['progress', 'kjhtml'],
+    reporters: ['mocha'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: false,
-    browsers: ['CircleCI_ChromeHeadless'],
+    browsers: ['TravisCI_ChromeHeadless'],
     customLaunchers: {
-      CircleCI_ChromeHeadless: {
+      TravisCI_ChromeHeadless: {
         base: 'ChromeHeadless',
         flags: [
           '--no-sandbox',  // Added to fix an issue where of Failed to connect to chrome browser
