@@ -35,7 +35,15 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: false,
-    browsers: ['ChromeHeadless'],
+    browsers: ['CircleCI_ChromeHeadless'],
+    customLaunchers: {
+      CircleCI_ChromeHeadless: {
+        base: 'ChromeHeadless',
+        flags: [
+          '--no-sandbox',  // Added to fix an issue where of Failed to connect to chrome browser
+        ],
+      }
+    },
     concurrency: Infinity
   });
 };

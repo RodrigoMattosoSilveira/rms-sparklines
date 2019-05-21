@@ -48,8 +48,8 @@ script:
 - ng build library
 - ng build living-style-guide
 
-- ng test living-style-guide --karmaConfig=./projects/library/karma.conf.travisci.js
 - ng test library --karmaConfig=./projects/living-style-guide/karma.conf.travisci.js
+- ng test living-style-guide --karmaConfig=./projects/library/karma.conf.travisci.js
 
 - ng e2e
 
