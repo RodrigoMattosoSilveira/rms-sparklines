@@ -27,7 +27,8 @@ before_install:
 - # start your web application and listen on `localhost`
 - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 - #https://mxlinux.org/forum/viewtopic.php?t=47482
-- #sudo ln -s /var/lib/dbus/machine-id /etc/machine-id
+- sudo ln -s /var/lib/dbus/machine-id /etc/machine-id
+- #https://github.com/travis-ci/travis-ci/issues/9024
 - sudo chown root /opt/google/chrome/chrome-sandbox
 - sudo chmod 4755 /opt/google/chrome/chrome-sandbox
 
