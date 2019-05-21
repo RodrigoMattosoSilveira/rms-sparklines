@@ -6,23 +6,44 @@ git:
 branches:
   only:
   - issue-44-ng7-travis
-
+  env:
+    - DEPLOY_BRANCH: issue-44-ng7-travis
+    - MASTER_BRANCH: master
+    - GITHUB_PAGES_BRANCH: gh-pages
+    - GH_EMAIL: r3850365@gmail.com
+    - GH_NAME: RodrigoMattosoSilveira
+    - CHROME_BIN: /usr/lib/chromium/chrome
 
 #Job Lifecyle
 # OPTIONAL Install apt addons --> not used
 # OPTIONAL Install cache components --> not used
-before_install: echo "before_install has no steps"
-install: yarn bootstrap
-before_script: echo "before_script nas no steps"
+before_install:
+- echo "before_install has no steps"
+
+install:
+- echo "install execution"
+- npm install -g --silent @angular/cl
+
+before_script:
+- echo "before_script has no steps"
+
 script:
-- yarn build
+- echo "script execution"
+- ng build library
+- ng build living-style-guide
 - ng test library
 - ng test living-style-guide
 - ng e2e
-before_cache: echo "before_cache nas no steps"
-cache: npm
+
+before_cache:
+- echo "before_cache nas no steps"
+
+cache:
+- npm
+
 #after_success or after_failure
 before_deploy: ./scripts/tag.sh
+
 deploy:
   skip_cleanup: true
   local_dir: ./dist/living-styleguide
