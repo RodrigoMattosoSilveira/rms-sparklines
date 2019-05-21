@@ -24,10 +24,11 @@ before_install:
 
 install:
 - echo "install execution"
-- npm install -g @angular/cli
+- npm install -g @angular/cli@7.3.9
 
 before_script:
-- echo "before_script has no steps"
+- echo "before_script execution"
+- npm install
 
 script:
 - echo "script execution"
