@@ -44,8 +44,8 @@ script:
 - echo "script execution"
 - ng build library
 - ng build living-style-guide
-- ng test library --watch=false --karmaConfig=./living-style-guide/karma.conf.travisci.js
-- ng test living-style-guide --watch=false --karmaConfig=./library/karma.conf.travisci.js
+- ng test library --watch=false --karmaConfig=./projects/living-style-guide/karma.conf.travisci.js
+- ng test living-style-guide --watch=false --karmaConfig=./projects/library/karma.conf.travisci.js
 - ng e2e
 
 before_cache:
