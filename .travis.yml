@@ -49,7 +49,7 @@ script:
 - ng e2e
 
 before_cache:
-- echo "before_cache nas no steps"
+- echo "before_cache has no steps"
 
 cache:
 - npm
@@ -66,6 +66,10 @@ deploy:
   github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
   keep_history: true
   on:
-    branch: issue-44-ng7-travis
-after_deploy: echo "after_deploy has no steps"
-after_script: echo "after_script has no steps"
+    branch: $DEPLOY_BRANCH
+
+after_deploy:
+- echo "after_deploy has no steps"
+
+after_script:
+- echo "after_script has no steps"
