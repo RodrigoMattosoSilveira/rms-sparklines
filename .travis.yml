@@ -10,13 +10,14 @@ git:
   quiet: true
   submodules: false
 
+env:
+  - MASTER_BRANCH=master
+  - DEPLOY_BRANCH=issue-44-ng7-travis
+
 branches:
   only:
-  - issue-44-ng7-travis
-  
-env:
-  - MASTER_BRANCH="master"
-  - DEPLOY_BRANCH="issue-44-ng7-travis"
+  - $DEPLOY_BRANCH
+
 #Job Lifecyle bbb
 # OPTIONAL Install apt addons --> not used
 # OPTIONAL Install cache components --> not used
@@ -63,7 +64,7 @@ deploy:
   github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
   keep_history: true
   on:
-    branch: issue-44-ng7-travis
+    branch: $DEPLOY_BRANCH
 
 after_deploy:
 - echo "after_deploy has no steps"
