@@ -4,6 +4,7 @@
 # TBD
 #
 set -ev
+echo Taging $TRAVIS_BRANCH
 if [ $TRAVIS_BRANCH == $DEPLOY_BRANCH ]; then
   git config --global user.email $GH_EMAIL
   git config --global user.name $GH_NAME
@@ -13,8 +14,7 @@ if [ $TRAVIS_BRANCH == $DEPLOY_BRANCH ]; then
   # provent build failures.
   GITTAG=v$(npx -c 'echo "$npm_package_version"')
   if [ $DEPLOY_BRANCH != $MASTER_BRANCH ]; then
-  	SECONDS_SINCE_EPOCH=$(date +%s)
-  	GITTAG=$(echo $GITTAG-$SECONDS_SINCE_EPOCH)
+    GITTAG=$(echo $GITTAG.$TRAVIS_BUILD_NUMBER)
   fi
   echo Taging $TRAVIS_BRANCH: $GITTAG
 
