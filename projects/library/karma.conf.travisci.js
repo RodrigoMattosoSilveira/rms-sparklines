@@ -49,6 +49,7 @@ module.exports = function (config) {
         ],
       }
     },
-    concurrency: Infinity
+    concurrency: Infinity,
+    singleRun: true
   });
 };
