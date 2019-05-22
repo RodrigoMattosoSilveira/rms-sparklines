@@ -55,7 +55,9 @@ cache:
 - npm
 
 #after_success or after_failure
-before_deploy: ./scripts/tag.sh
+before_deploy:
+- echo "before_deploy steps"
+- ./scripts/tag.sh
 
 deploy:
   skip_cleanup: true
