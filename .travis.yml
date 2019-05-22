@@ -10,14 +10,12 @@ git:
   quiet: true
   submodules: false
 
-env:
-  - MASTER_BRANCH="master"
-  - DEPLOY_BRANCH="issue-44-ng7-travis"
-
 branches:
   only:
   - issue-44-ng7-travis
-
+env:
+  - MASTER_BRANCH="master"
+  - DEPLOY_BRANCH="issue-44-ng7-travis"
 #Job Lifecyle bbb
 # OPTIONAL Install apt addons --> not used
 # OPTIONAL Install cache components --> not used
