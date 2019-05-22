@@ -4,20 +4,22 @@
 # TBD
 #
 set -ev
-echo Taging $TRAVIS_BRANCH
-  git config --global user.email "r3850365@gmail.com"
-  git config --global user.name "RodrigoMattosoSilveira"
+echo Taging: $TRAVIS_BRANCH
+# git config --global user.email "r3850365@gmail.com"
+#
+# git config --global user.name "RodrigoMattosoSilveira"
+curl -H 'Authorization: token $GITHUB_TOKEN' https://github.com/RodrigoMattosoSilveira/rms-sparklines.git
 
-  # Set the tag to be the package.json version
-  # For branches other than master, append an unique value to
-  # provent build failures.
-  GITTAG=v$(npx -c 'echo "$npm_package_version"')
-  if [ $TRAVIS_BRANCH != "master" ]; then
-    GITTAG=$(echo $GITTAG.$TRAVIS_BUILD_NUMBER)
-  fi
-  echo Taging $TRAVIS_BRANCH: $GITTAG
+# Set the tag to be the package.json version
+# For branches other than master, append an unique value to
+# provent build failures.
+GITTAG=v$(npx -c 'echo "$npm_package_version"')
+if [ $TRAVIS_BRANCH != "master" ]; then
+  GITTAG=$(echo $GITTAG.$TRAVIS_BUILD_NUMBER)
+fi
+echo Taging: $TRAVIS_BRANCH: $GITTAG
 
-  # Using annotated tags; required to include tag to prevent build from running
-  # when checking in the tag [https://circleci.com/docs/2.0/skip-build/]
-  git tag -a $GITTAG -m "Pull Request Tag [skip build]"
-  git push origin $GITTAG
+# Using annotated tags; required to include tag to prevent build from running
+# when checking in the tag [https://circleci.com/docs/2.0/skip-build/]
+git tag -a $GITTAG -m "Pull Request Tag [skip build]"
+git push origin $GITTAG
