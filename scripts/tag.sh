@@ -6,8 +6,8 @@
 set -ev
 echo Taging $TRAVIS_BRANCH
 if [ $TRAVIS_BRANCH == $DEPLOY_BRANCH ]; then
-  git config --global user.email $GH_EMAIL
-  git config --global user.name $GH_NAME
+  git config --global user.email "r3850365@gmail.com"
+  git config --global user.name "RodrigoMattosoSilveira"
 
   # Set the tag to be the package.json version
   # For branches other than master, append an unique value to
