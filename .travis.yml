@@ -9,9 +9,6 @@ addons:
 git:
   quiet: true
   submodules: false
-branches:
-  only:
-  - issue-44-ng7-travis
   env:
     - DEPLOY_BRANCH: issue-44-ng7-travis
     - MASTER_BRANCH: master
@@ -19,6 +16,10 @@ branches:
     - GH_EMAIL: r3850365@gmail.com
     - GH_NAME: RodrigoMattosoSilveira
     - CHROME_BIN: /usr/lib/chromium/chrome
+
+branches:
+  only:
+  - issue-44-ng7-travis
 
 #Job Lifecyle
 # OPTIONAL Install apt addons --> not used
@@ -66,7 +67,7 @@ deploy:
   github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
   keep_history: true
   on:
-    branch: $DEPLOY_BRANCH
+    branch: issue-44-ng7-travis
 
 after_deploy:
 - echo "after_deploy has no steps"
