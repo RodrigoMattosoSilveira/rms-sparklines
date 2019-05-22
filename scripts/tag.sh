@@ -13,7 +13,7 @@ if [ $TRAVIS_BRANCH == $DEPLOY_BRANCH ]; then
   # For branches other than master, append an unique value to
   # provent build failures.
   GITTAG=v$(npx -c 'echo "$npm_package_version"')
-  if [ $DEPLOY_BRANCH != $MASTER_BRANCH ]; then
+  if [ $DEPLOY_BRANCH != "master" ]; then
     GITTAG=$(echo $GITTAG.$TRAVIS_BUILD_NUMBER)
   fi
   echo Taging $TRAVIS_BRANCH: $GITTAG
