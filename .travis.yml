@@ -13,6 +13,7 @@ git:
 branches:
   only:
   - issue-44-ng7-travis
+  
 env:
   - MASTER_BRANCH="master"
   - DEPLOY_BRANCH="issue-44-ng7-travis"
