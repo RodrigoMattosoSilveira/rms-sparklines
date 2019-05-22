@@ -9,14 +9,10 @@ addons:
 git:
   quiet: true
   submodules: false
-  
+
 env:
-  - DEPLOY_BRANCH: issue-44-ng7-travis
-  - MASTER_BRANCH: master
-  - GITHUB_PAGES_BRANCH: gh-pages
-  - GH_EMAIL: r3850365@gmail.com
-  - GH_NAME: RodrigoMattosoSilveira
-  - CHROME_BIN: /usr/lib/chromium/chrome
+  - MASTER_BRANCH="master"
+  - DEPLOY_BRANCH="issue-44-ng7-travis"
 
 branches:
   only:
