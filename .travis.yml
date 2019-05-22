@@ -10,13 +10,9 @@ git:
   quiet: true
   submodules: false
 
-env:
-  - MASTER_BRANCH="master"
-  - DEPLOY_BRANCH="issue-44-ng7"
-
 branches:
   only:
-  - $DEPLOY_BRANCH
+  - issue-44-ng7
 
 #Job Lifecyle
 # OPTIONAL Install apt addons --> not used
@@ -64,7 +60,7 @@ deploy:
   github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
   keep_history: true
   on:
-    branch: $DEPLOY_BRANCH
+    branch: issue-44-ng7
 
 after_deploy:
 - echo "after_deploy has no steps"
