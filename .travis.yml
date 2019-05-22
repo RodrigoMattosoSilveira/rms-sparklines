@@ -24,17 +24,10 @@ branches:
 # OPTIONAL Install apt addons --> not used
 # OPTIONAL Install cache components --> not used
 before_install:
-- echo "before_install has no steps"
+  # https://github.com/kendaleiv/angular-testing/blob/master/.travis.yml
+- echo "before_install steps"
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
-- # start your web application and listen on `localhost`
-# - google-chrome-stable --headless --disable-gpu --disable-translate --disable-extensions --disable-dev-shm-usage --no-sandbox --remote-debugging-port=9222 http://localhost &
-# - sudo ln -s /var/lib/dbus/machine-id /etc/machine-id
-- #https://mxlinux.org/forum/viewtopic.php?t=47482
-- #sudo ln -s /var/lib/dbus/machine-id /etc/machine-id
-- #https://github.com/travis-ci/travis-ci/issues/9024
-- #sudo chown root /opt/google/chrome/chrome-sandbox
-- #sudo chmod 4755 /opt/google/chrome/chrome-sandbox
 
 install:
 - echo "install execution"

@@ -3,6 +3,7 @@
 # Usage
 # TBD
 #
+set -ev
 if [ $TRAVIS_BRANCH == $DEPLOY_BRANCH ]; then
   git config --global user.email $GH_EMAIL
   git config --global user.name $GH_NAME
