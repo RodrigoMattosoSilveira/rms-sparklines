@@ -11,8 +11,8 @@ git:
   submodules: false
 
 env:
-  - MASTER_BRANCH=master
-  - DEPLOY_BRANCH=issue-44-ng7
+  - MASTER_BRANCH="master"
+  - DEPLOY_BRANCH="issue-44-ng7"
 
 branches:
   only:
