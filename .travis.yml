@@ -18,7 +18,7 @@ branches:
   only:
   - issue-44-ng7-travis
 
-#Job Lifecyle
+#Job Lifecyle bbb
 # OPTIONAL Install apt addons --> not used
 # OPTIONAL Install cache components --> not used
 before_install:
