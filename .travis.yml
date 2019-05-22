@@ -18,7 +18,7 @@ branches:
   only:
   - $DEPLOY_BRANCH
 
-#Job Lifecyle bbb
+#Job Lifecyle
 # OPTIONAL Install apt addons --> not used
 # OPTIONAL Install cache components --> not used
 before_install:
