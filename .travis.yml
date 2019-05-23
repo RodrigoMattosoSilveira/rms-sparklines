@@ -41,7 +41,7 @@ before_deploy:
 - "./scripts/tag.sh"
 deploy:
   skip_cleanup: true
-  local_dir: "./dist/living-styleguide"
+  local_dir: "./dist/living-style-guide"
   provider: pages
   github_token: "$GITHUB_TOKEN"
   keep_history: true
