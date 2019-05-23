@@ -1,7 +1,6 @@
-
 language: node_js
 node_js:
-  - "10.15.3"
+- 10.15.3
 dist: trusty
 sudo: required
 addons:
@@ -9,61 +8,45 @@ addons:
 git:
   quiet: true
   submodules: false
-
 branches:
   only:
   - issue-44-ng7-tag
-
-#Job Lifecyle
-# OPTIONAL Install apt addons --> not used
-# OPTIONAL Install cache components --> not used
 before_install:
-  # https://github.com/kendaleiv/angular-testing/blob/master/.travis.yml
 - echo "before_install steps"
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
-
 install:
 - echo "install execution"
 - npm install -g @angular/cli@7.3.9
-
 before_script:
 - echo "before_script execution"
 - npm install
-
 script:
 - echo "script execution"
-
 - ng build library
 - ng build living-style-guide
-
 - ng test library --karmaConfig=./projects/living-style-guide/karma.conf.travisci.js
 - ng test living-style-guide --karmaConfig=./projects/library/karma.conf.travisci.js
-
 - ng e2e
-
 before_cache:
 - echo "before_cache has no steps"
-
 cache:
 - npm
-
-#after_success or after_failure
 before_deploy:
 - echo "before_deploy steps"
-- ./scripts/tag.sh
-
+- "./scripts/tag.sh"
 deploy:
   skip_cleanup: true
-  local_dir: ./dist/living-styleguide
+  local_dir: "./dist/living-styleguide"
   provider: pages
-  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  github_token: "$GITHUB_TOKEN"
   keep_history: true
   on:
     branch: issue-44-ng7-tag
-
 after_deploy:
 - echo "after_deploy has no steps"
-
 after_script:
 - echo "after_script has no steps"
+env:
+  global:
+    secure: BYQ74MbikJUhsfecfU51PFgoBenk007vtMGJKmMIh07jN6yIZviTV/yAEwfPIz4cccGBf9+AMEAxa4A4/AhdsVY+yEVMgyJOJ0LyYy9TGf1oiVHJaN+5ikJnGHYfy9xmyQpUpgFJsDkk6EIB9Oc147dzMH8tWMBxCBO4pud1QkSJzBzH7ar3lQt+ID8oLq/LcR5+IhL7pLFplHqTr1QAlYlr+drNhovpv6d9CXasuE3ZtmpHxM7GsZBV9HIne80B7aRj7uPTbhdYCWgcVJxb63dy/jjrHNYIVrBOYFLGP5pArsi1N/Q9RnFYb2CxaxaiPE9YrjOD4uzm0qHzSCeltKeiTJdwuoYu+q2ma/WRr4A7XbrIczVJWiVDJYog4jvNSjHWFg0GmGFooGZ9wB2GI8DwsZnKeTMfpxGTLkog87NWRyquDSrmDOIJQBUzj2BL84itqLRM7mahlmiFbR11xUI/9TwN5cEE2+N6Nry1TXTVnKOgmiLgTVS8muLp1bgCfUZuvvMYUT+48EsOHJ2qnJ/z0uX7BaQh7+5oJO9UhWsXEljOKVYIn70apmPHw/3E6yfpJi4n0F1dINMiANzgQDiyG42ovDwjOhi8iTtgFz6tKNULsrKYxscI/05et6EUbv5x2YsTXxaQ2lClkK23+/QiVrrfhs2+N8NpRNvQ4no=
