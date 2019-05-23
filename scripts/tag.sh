@@ -5,11 +5,6 @@
 #
 set -ev
 echo Taging: $TRAVIS_BRANCH
-# git config --global user.email "r3850365@gmail.com"
-#
-# git config --global user.name "RodrigoMattosoSilveira"
-curl -H 'Authorization: token 78eb257599e51bd8f3621f54c68b8704093dfe70' https://github.com/RodrigoMattosoSilveira/rms-sparklines.git
-
 # Set the tag to be the package.json version
 # For branches other than master, append an unique value to
 # provent build failures.
