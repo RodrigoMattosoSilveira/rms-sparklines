@@ -11,6 +11,10 @@ git:
 branches:
   only:
   - issue-44-ng7-tag
+addons:
+  ssh_known_hosts:
+  - 192.30.253.112
+  - 192.30.253.113
 before_install:
 - echo "before_install steps"
 - export DISPLAY=:99.0
