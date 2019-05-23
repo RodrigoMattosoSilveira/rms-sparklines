@@ -21,6 +21,6 @@ echo "Host github.com" > ~/.ssh/config
 echo "  IdentityFile  $(pwd)/rms-sparkline-travis-key" >> ~/.ssh/config
 chmod 400 rms-sparkline-travis-key
 git remote set-url origin git@github.com:RodrigoMattosoSilveira/rms-sparklines.git
-echo "github.com ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCXI/iVlo/AHlhMtbRe03lpC+WB+pfC/7YBJSgX0r0ffFXQDrSHkHTmDs+Pr/4ASGg67lorzSS4LBlg2FLNyJhD9tcRfHVzOGvBNDXnpEKLhXpMJbvEMqAotvImFE2pjXfvWyhdeMbiDGSgCuNK74XJUgZXb7HT+bsu78MWIpSONhYkiILe5y2/lfc+T0Q4Jo08F5yqldIHKKEc1SXpAvu/XZIyS1d5CqoSuRCkIoqvoK2PE1LjkvQZIDx/XZGu83lcV3nTNN5HHyQUcoyDPegZhSzPSXCL6G1OrBdsNpogCJyTUGxB1+SaGGdo1KJA2uui4qtns09Jcb1z1hSiI3b1eh65aGKnvqLQalZ4Z+Qt5NXNg+bt9C4vIba7A0X89QDS8sO7kNQVHFYv3kuPWOVrs7XMJzJwX/jwBbdudW/VETuEG7DzmyWsjBmK3bbcb0Hfm9y5rC/4qkp+xWa/vT8JH4mGosjNr2Va780raw9X9a/SZjmOnXCREIuWdHE/YNlUSLPcfF9C7kHIIjNwEAQTpwOexZZZcHpi71ggeiWaMcrR/muHC2iJ31s3v224mVtTOiBBV42bby4de8BKyatTVupKzEIWHmqmReWIfahqibulqLaOy6oy1RV2Q2/SDz29rQv/lBYLPXO3faq7Vs55b66FqC12JoKHNGNOhBcsYQ==" > ~/.ssh/known_hosts
+echo "github.com ssh-rsa ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==" > ~/.ssh/known_hosts
 git tag -a $GITTAG -m "Pull Request Tag [skip build]"
 git push origin $GITTAG
