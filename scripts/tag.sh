@@ -6,7 +6,7 @@
 set -ev
 echo Taging: $TRAVIS_BRANCH
 # Set the tag to be the package.json version
-# For branches other than master, append an unique value to
+# For branches other than master, append an unique value to ...
 # provent build failures.
 GITTAG=v$(npx -c 'echo "$npm_package_version"')
 if [ $TRAVIS_BRANCH != "master" ]; then
