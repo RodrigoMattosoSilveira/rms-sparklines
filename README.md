@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines.svg?branch=master)](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines)
 
-[Live deployment](https://rodrigomattososilveira.github.io/rms-sparklines/home)
+[Live deployment](https://rodrigomattososilveira.github.io/rms-sparklines)
 
 :construction: This is work in progress:
 - Migrating to Angular Workspace;
