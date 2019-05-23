@@ -18,7 +18,7 @@ echo Taging: $TRAVIS_BRANCH: $GITTAG
 # when checking in the tag [https://circleci.com/docs/2.0/skip-build/]
 openssl aes-256-cbc -k "$travis_key_password" -d -md sha256 -a -in rms-sparkline-travis.enc -out rms-sparkline-travis-key
 echo "Host github.com" > ~/.ssh/config
-echo "  IdentityFile  $(pwd)/rms-sparkline-travis-key" >> ~/.ssh/config
+echo "  IdentityFile rms-sparkline-travis-key" >> ~/.ssh/config
 echo "  CheckHostIP no" >> ~/.ssh/config
 chmod 400 rms-sparkline-travis-key
 git remote set-url origin git@github.com:RodrigoMattosoSilveira/rms-sparklines.git
