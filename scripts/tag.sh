@@ -17,14 +17,15 @@ echo Taging: $TRAVIS_BRANCH: $GITTAG
 # Using annotated tags; required to include tag to prevent build from running
 # when checking in the tag [https://circleci.com/docs/2.0/skip-build/]
 openssl aes-256-cbc -k "$travis_key_password" -d -md sha256 -a -in rms-sparkline-travis.enc -out rms-sparkline-travis-key
-echo "Host github.com" > ~/.ssh/config
+mkdir  $HOME/.ssh
+echo "Host github.com" > $HOME/.ssh/config
 echo "  IdentityFile rms-sparkline-travis-key" >> $HOME/.ssh/config
-echo "  CheckHostIP no" >> ~/.ssh/config
-cat ~/.ssh/config
+echo "  CheckHostIP no" >> $HOME/.ssh/config
+cat $HOME/.ssh/config
 chmod 400 rms-sparkline-travis-key
 git remote set-url origin git@github.com:RodrigoMattosoSilveira/rms-sparklines.git
 echo "192.30.253.112 ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==" >  $HOME/.ssh/known_hosts
 echo "192.30.253.113 ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==" >>  $HOME~/.ssh/known_hosts
-cat ~/.ssh/known_hosts
+cat $HOME/.ssh/known_hosts
 git tag -a $GITTAG -m "Pull Request Tag [skip build]"
 git push origin $GITTAG
