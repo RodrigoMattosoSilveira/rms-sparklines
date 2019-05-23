@@ -396,7 +396,7 @@ __webpack_require__.r(__webpack_exports__);
 var AppComponent = /** @class */ (function () {
     function AppComponent() {
         this.title = 'living-style-guide';
-        this.version = "0.2.3";
+        this.version = "0.3.0";
         this.sparklines = [
             {
                 name: 'Inline',
