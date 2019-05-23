@@ -17,7 +17,6 @@ echo Taging: $TRAVIS_BRANCH: $GITTAG
 # Using annotated tags; required to include tag to prevent build from running
 # when checking in the tag [https://circleci.com/docs/2.0/skip-build/]
 openssl aes-256-cbc -k "$travis_key_password" -d -md sha256 -a -in rms-sparkline-travis.enc -out rms-sparkline-travis-key
-mkdir  $HOME/.ssh
 echo "Host github.com" > $HOME/.ssh/config
 echo "  IdentityFile rms-sparkline-travis-key" >> $HOME/.ssh/config
 echo "  CheckHostIP no" >> $HOME/.ssh/config
