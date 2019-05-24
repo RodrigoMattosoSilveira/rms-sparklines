@@ -42,23 +42,39 @@ var LibraryService = /** @class */ (function () {
 var SparkBarchartComponent = /** @class */ (function () {
     function SparkBarchartComponent() {
     }
+    // see https://blog.angular-university.io/angular-viewchild/
+    // for recommendation to use ngAfterViewInit instead of ngOnInit
+    // see https://blog.angular-university.io/angular-viewchild/
+    // for recommendation to use ngAfterViewInit instead of ngOnInit
     /**
      * @return {?}
      */
-    SparkBarchartComponent.prototype.ngOnInit = /**
+    SparkBarchartComponent.prototype.ngAfterViewInit = 
+    // see https://blog.angular-university.io/angular-viewchild/
+    // for recommendation to use ngAfterViewInit instead of ngOnInit
+    /**
      * @return {?}
      */
     function () {
+        /** @type {?} */
+        var ctx = this.sparklineCanvas.nativeElement.getContext('2d');
+        // Draw
+        ctx.fillStyle = this.color;
+        ctx.fillRect(20, 20, 150, 100);
     };
     SparkBarchartComponent.decorators = [
         { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
                     selector: 'rms-spark-barchart',
-                    template: "<p>\n  spark-barchart works!\n</p>\n",
+                    template: "<canvas #sparklineCanvas width=\"300\" height=\"300\"></canvas>\n",
                     styles: [""]
                 }] }
     ];
     /** @nocollapse */
     SparkBarchartComponent.ctorParameters = function () { return []; };
+    SparkBarchartComponent.propDecorators = {
+        color: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['spark_color',] }],
+        sparklineCanvas: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"], args: ['sparklineCanvas',] }]
+    };
     return SparkBarchartComponent;
 }());
 
@@ -194,9 +210,9 @@ var LibraryModuleNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵcmf"]
 var styles_SparkBarchartComponent = [""];
 var RenderType_SparkBarchartComponent = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵcrt"]({ encapsulation: 0, styles: styles_SparkBarchartComponent, data: {} });
 
-function View_SparkBarchartComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "p", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵted"](-1, null, [" spark-barchart works!\n"]))], null, null); }
-function View_SparkBarchartComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "rms-spark-barchart", [], null, null, null, View_SparkBarchartComponent_0, RenderType_SparkBarchartComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵdid"](1, 114688, null, 0, library__WEBPACK_IMPORTED_MODULE_1__["SparkBarchartComponent"], [], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
-var SparkBarchartComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵccf"]("rms-spark-barchart", library__WEBPACK_IMPORTED_MODULE_1__["SparkBarchartComponent"], View_SparkBarchartComponent_Host_0, {}, {}, []);
+function View_SparkBarchartComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵqud"](402653184, 1, { sparklineCanvas: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](1, 0, [[1, 0], ["sparklineCanvas", 1]], null, 0, "canvas", [["height", "300"], ["width", "300"]], null, null, null, null, null))], null, null); }
+function View_SparkBarchartComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "rms-spark-barchart", [], null, null, null, View_SparkBarchartComponent_0, RenderType_SparkBarchartComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵdid"](1, 4243456, null, 0, library__WEBPACK_IMPORTED_MODULE_1__["SparkBarchartComponent"], [], null, null)], null, null); }
+var SparkBarchartComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵccf"]("rms-spark-barchart", library__WEBPACK_IMPORTED_MODULE_1__["SparkBarchartComponent"], View_SparkBarchartComponent_Host_0, { color: "spark_color" }, {}, []);
 
 var styles_SparkBoxplotComponent = [""];
 var RenderType_SparkBoxplotComponent = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵcrt"]({ encapsulation: 0, styles: styles_SparkBoxplotComponent, data: {} });
@@ -399,11 +415,6 @@ var AppComponent = /** @class */ (function () {
         this.version = "0.3.0";
         this.sparklines = [
             {
-                name: 'Inline',
-                icon: '',
-                routeLink: 'inline'
-            },
-            {
                 name: 'Bar Chart',
                 icon: '',
                 routeLink: 'barchart'
@@ -412,7 +423,12 @@ var AppComponent = /** @class */ (function () {
                 name: 'Boxplot Chart',
                 icon: '',
                 routeLink: 'boxplot'
-            }
+            },
+            {
+                name: 'Inline',
+                icon: '',
+                routeLink: 'inline'
+            },
         ];
     }
     return AppComponent;
@@ -677,7 +693,7 @@ __webpack_require__.r(__webpack_exports__);
 var styles_BarchartComponent = [_barchart_component_css_shim_ngstyle__WEBPACK_IMPORTED_MODULE_0__["styles"]];
 var RenderType_BarchartComponent = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵcrt"]({ encapsulation: 0, styles: styles_BarchartComponent, data: {} });
 
-function View_BarchartComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "rms-spark-barchart", [], null, null, null, _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_2__["View_SparkBarchartComponent_0"], _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_2__["RenderType_SparkBarchartComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 114688, null, 0, library__WEBPACK_IMPORTED_MODULE_3__["SparkBarchartComponent"], [], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
+function View_BarchartComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "rms-spark-barchart", [], null, null, null, _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_2__["View_SparkBarchartComponent_0"], _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_2__["RenderType_SparkBarchartComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4243456, null, 0, library__WEBPACK_IMPORTED_MODULE_3__["SparkBarchartComponent"], [], { color: [0, "color"] }, null)], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.app_color; _ck(_v, 1, 0, currVal_0); }, null); }
 function View_BarchartComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-barchart", [], null, null, null, View_BarchartComponent_0, RenderType_BarchartComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 114688, null, 0, _barchart_component__WEBPACK_IMPORTED_MODULE_4__["BarchartComponent"], [], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
 var BarchartComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-barchart", _barchart_component__WEBPACK_IMPORTED_MODULE_4__["BarchartComponent"], View_BarchartComponent_Host_0, {}, {}, []);
 
@@ -699,6 +715,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var BarchartComponent = /** @class */ (function () {
     function BarchartComponent() {
+        this.app_color = 'red';
     }
     BarchartComponent.prototype.ngOnInit = function () {
     };
