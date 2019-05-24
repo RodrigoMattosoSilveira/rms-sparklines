@@ -10,7 +10,7 @@ git:
   submodules: false
 branches:
   only:
-  - issue-44-ng7
+  - issue-44-ng7-canvas
 # addons:
 #   ssh_known_hosts:
 #   - 192.30.253.112
@@ -46,7 +46,7 @@ deploy:
   github_token: "$GITHUB_TOKEN"
   keep_history: true
   on:
-    branch: issue-44-ng7
+    branch: issue-44-ng7-canvas
 after_deploy:
 - echo "after_deploy has no steps"
 after_script:
