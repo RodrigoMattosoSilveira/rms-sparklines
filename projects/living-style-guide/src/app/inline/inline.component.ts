@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./inline.component.css']
 })
 export class InlineComponent implements OnInit {
+  app_color: string = 'yellow';
 
   constructor() { }
 
