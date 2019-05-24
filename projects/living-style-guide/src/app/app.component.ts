@@ -10,11 +10,6 @@ export class AppComponent {
   version =  `0.3.0`;
   sparklines = [
     {
-      name: 'Inline',
-      icon: '',
-      routeLink: 'inline'
-    },
-    {
       name: 'Bar Chart',
       icon: '',
       routeLink: 'barchart'
@@ -23,6 +18,11 @@ export class AppComponent {
       name: 'Boxplot Chart',
       icon: '',
       routeLink: 'boxplot'
-    }
+    },
+    {
+      name: 'Inline',
+      icon: '',
+      routeLink: 'inline'
+    },
   ];
 }
