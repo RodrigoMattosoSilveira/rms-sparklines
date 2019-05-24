@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./boxplot.component.css']
 })
 export class BoxplotComponent implements OnInit {
+  app_color: string = 'blue';
 
   constructor() { }
 
