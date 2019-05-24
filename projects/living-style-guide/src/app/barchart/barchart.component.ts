@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./barchart.component.css']
 })
 export class BarchartComponent implements OnInit {
-
+  app_color: string = 'red';
+  
   constructor() { }
 
   ngOnInit() {
