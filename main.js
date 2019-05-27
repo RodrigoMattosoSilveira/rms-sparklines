@@ -4,7 +4,7 @@
 /*!**********************************************************************************************!*\
   !*** /home/travis/build/RodrigoMattosoSilveira/rms-sparklines/dist/library/fesm5/library.js ***!
   \**********************************************************************************************/
-/*! exports provided: LibraryService, LibraryModule, SparkBarchartComponent, SparkBoxplotComponent, SparkLineComponent */
+/*! exports provided: LibraryService, LibraryModule, SparkBarchartComponent, SparkBoxplotComponent, SparkLineComponent, ɵa, ɵb, ɵc */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14,6 +14,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SparkBarchartComponent", function() { return SparkBarchartComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SparkBoxplotComponent", function() { return SparkBoxplotComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SparkLineComponent", function() { return SparkLineComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵa", function() { return BarchartService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵb", function() { return BoxplotService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵc", function() { return LineService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 
 
@@ -39,8 +42,44 @@ var LibraryService = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+var BarchartService = /** @class */ (function () {
+    function BarchartService() {
+    }
+    /**
+     * @param {?} sparklineCanvas
+     * @param {?} lineColor
+     * @return {?}
+     */
+    BarchartService.prototype.draw = /**
+     * @param {?} sparklineCanvas
+     * @param {?} lineColor
+     * @return {?}
+     */
+    function (sparklineCanvas, lineColor) {
+        /** @type {?} */
+        var ctx = sparklineCanvas.nativeElement.getContext('2d');
+        // Draw
+        ctx.fillStyle = lineColor;
+        ctx.fillRect(20, 20, 150, 100);
+    };
+    BarchartService.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{
+                    providedIn: 'root'
+                },] }
+    ];
+    /** @nocollapse */
+    BarchartService.ctorParameters = function () { return []; };
+    /** @nocollapse */ BarchartService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["defineInjectable"])({ factory: function BarchartService_Factory() { return new BarchartService(); }, token: BarchartService, providedIn: "root" });
+    return BarchartService;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 var SparkBarchartComponent = /** @class */ (function () {
-    function SparkBarchartComponent() {
+    function SparkBarchartComponent(barchartService) {
+        this.barchartService = barchartService;
     }
     // see https://blog.angular-university.io/angular-viewchild/
     // for recommendation to use ngAfterViewInit instead of ngOnInit
@@ -56,11 +95,7 @@ var SparkBarchartComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        /** @type {?} */
-        var ctx = this.sparklineCanvas.nativeElement.getContext('2d');
-        // Draw
-        ctx.fillStyle = this.color;
-        ctx.fillRect(20, 20, 150, 100);
+        this.barchartService.draw(this.sparklineCanvas, this.lineColor);
     };
     SparkBarchartComponent.decorators = [
         { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
@@ -70,9 +105,11 @@ var SparkBarchartComponent = /** @class */ (function () {
                 }] }
     ];
     /** @nocollapse */
-    SparkBarchartComponent.ctorParameters = function () { return []; };
+    SparkBarchartComponent.ctorParameters = function () { return [
+        { type: BarchartService }
+    ]; };
     SparkBarchartComponent.propDecorators = {
-        color: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['spark_color',] }],
+        lineColor: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['spark_color',] }],
         sparklineCanvas: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"], args: ['sparklineCanvas',] }]
     };
     return SparkBarchartComponent;
@@ -82,8 +119,44 @@ var SparkBarchartComponent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+var BoxplotService = /** @class */ (function () {
+    function BoxplotService() {
+    }
+    /**
+     * @param {?} sparklineCanvas
+     * @param {?} lineColor
+     * @return {?}
+     */
+    BoxplotService.prototype.draw = /**
+     * @param {?} sparklineCanvas
+     * @param {?} lineColor
+     * @return {?}
+     */
+    function (sparklineCanvas, lineColor) {
+        /** @type {?} */
+        var ctx = sparklineCanvas.nativeElement.getContext('2d');
+        // Draw
+        ctx.fillStyle = lineColor;
+        ctx.fillRect(20, 20, 150, 100);
+    };
+    BoxplotService.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{
+                    providedIn: 'root'
+                },] }
+    ];
+    /** @nocollapse */
+    BoxplotService.ctorParameters = function () { return []; };
+    /** @nocollapse */ BoxplotService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["defineInjectable"])({ factory: function BoxplotService_Factory() { return new BoxplotService(); }, token: BoxplotService, providedIn: "root" });
+    return BoxplotService;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 var SparkBoxplotComponent = /** @class */ (function () {
-    function SparkBoxplotComponent() {
+    function SparkBoxplotComponent(boxplotService) {
+        this.boxplotService = boxplotService;
     }
     // see https://blog.angular-university.io/angular-viewchild/
     // for recommendation to use ngAfterViewInit instead of ngOnInit
@@ -99,11 +172,7 @@ var SparkBoxplotComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        /** @type {?} */
-        var ctx = this.sparklineCanvas.nativeElement.getContext('2d');
-        // Draw
-        ctx.fillStyle = this.color;
-        ctx.fillRect(20, 20, 150, 100);
+        this.boxplotService.draw(this.sparklineCanvas, this.lineColor);
     };
     SparkBoxplotComponent.decorators = [
         { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
@@ -113,9 +182,11 @@ var SparkBoxplotComponent = /** @class */ (function () {
                 }] }
     ];
     /** @nocollapse */
-    SparkBoxplotComponent.ctorParameters = function () { return []; };
+    SparkBoxplotComponent.ctorParameters = function () { return [
+        { type: BoxplotService }
+    ]; };
     SparkBoxplotComponent.propDecorators = {
-        color: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['spark_color',] }],
+        lineColor: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['spark_color',] }],
         sparklineCanvas: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"], args: ['sparklineCanvas',] }]
     };
     return SparkBoxplotComponent;
@@ -125,8 +196,44 @@ var SparkBoxplotComponent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+var LineService = /** @class */ (function () {
+    function LineService() {
+    }
+    /**
+     * @param {?} sparklineCanvas
+     * @param {?} lineColor
+     * @return {?}
+     */
+    LineService.prototype.draw = /**
+     * @param {?} sparklineCanvas
+     * @param {?} lineColor
+     * @return {?}
+     */
+    function (sparklineCanvas, lineColor) {
+        /** @type {?} */
+        var ctx = sparklineCanvas.nativeElement.getContext('2d');
+        // Draw
+        ctx.fillStyle = lineColor;
+        ctx.fillRect(20, 20, 150, 100);
+    };
+    LineService.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{
+                    providedIn: 'root'
+                },] }
+    ];
+    /** @nocollapse */
+    LineService.ctorParameters = function () { return []; };
+    /** @nocollapse */ LineService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["defineInjectable"])({ factory: function LineService_Factory() { return new LineService(); }, token: LineService, providedIn: "root" });
+    return LineService;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 var SparkLineComponent = /** @class */ (function () {
-    function SparkLineComponent() {
+    function SparkLineComponent(lineService) {
+        this.lineService = lineService;
     }
     // see https://blog.angular-university.io/angular-viewchild/
     // for recommendation to use ngAfterViewInit instead of ngOnInit
@@ -142,11 +249,7 @@ var SparkLineComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        /** @type {?} */
-        var ctx = this.sparklineCanvas.nativeElement.getContext('2d');
-        // Draw
-        ctx.fillStyle = this.color;
-        ctx.fillRect(20, 20, 150, 100);
+        this.lineService.draw(this.sparklineCanvas, this.lineColor);
     };
     SparkLineComponent.decorators = [
         { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
@@ -156,9 +259,11 @@ var SparkLineComponent = /** @class */ (function () {
                 }] }
     ];
     /** @nocollapse */
-    SparkLineComponent.ctorParameters = function () { return []; };
+    SparkLineComponent.ctorParameters = function () { return [
+        { type: LineService }
+    ]; };
     SparkLineComponent.propDecorators = {
-        color: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['spark_color',] }],
+        lineColor: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['spark_color',] }],
         sparklineCanvas: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"], args: ['sparklineCanvas',] }]
     };
     return SparkLineComponent;
@@ -243,22 +348,22 @@ var styles_SparkBarchartComponent = [""];
 var RenderType_SparkBarchartComponent = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵcrt"]({ encapsulation: 0, styles: styles_SparkBarchartComponent, data: {} });
 
 function View_SparkBarchartComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵqud"](402653184, 1, { sparklineCanvas: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](1, 0, [[1, 0], ["sparklineCanvas", 1]], null, 0, "canvas", [["height", "300"], ["width", "300"]], null, null, null, null, null))], null, null); }
-function View_SparkBarchartComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "rms-spark-barchart", [], null, null, null, View_SparkBarchartComponent_0, RenderType_SparkBarchartComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵdid"](1, 4243456, null, 0, library__WEBPACK_IMPORTED_MODULE_1__["SparkBarchartComponent"], [], null, null)], null, null); }
-var SparkBarchartComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵccf"]("rms-spark-barchart", library__WEBPACK_IMPORTED_MODULE_1__["SparkBarchartComponent"], View_SparkBarchartComponent_Host_0, { color: "spark_color" }, {}, []);
+function View_SparkBarchartComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "rms-spark-barchart", [], null, null, null, View_SparkBarchartComponent_0, RenderType_SparkBarchartComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵdid"](1, 4243456, null, 0, library__WEBPACK_IMPORTED_MODULE_1__["SparkBarchartComponent"], [library__WEBPACK_IMPORTED_MODULE_1__["ɵa"]], null, null)], null, null); }
+var SparkBarchartComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵccf"]("rms-spark-barchart", library__WEBPACK_IMPORTED_MODULE_1__["SparkBarchartComponent"], View_SparkBarchartComponent_Host_0, { lineColor: "spark_color" }, {}, []);
 
 var styles_SparkBoxplotComponent = [""];
 var RenderType_SparkBoxplotComponent = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵcrt"]({ encapsulation: 0, styles: styles_SparkBoxplotComponent, data: {} });
 
 function View_SparkBoxplotComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵqud"](402653184, 1, { sparklineCanvas: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](1, 0, [[1, 0], ["sparklineCanvas", 1]], null, 0, "canvas", [["height", "300"], ["width", "300"]], null, null, null, null, null))], null, null); }
-function View_SparkBoxplotComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "rms-spark-boxplot", [], null, null, null, View_SparkBoxplotComponent_0, RenderType_SparkBoxplotComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵdid"](1, 4243456, null, 0, library__WEBPACK_IMPORTED_MODULE_1__["SparkBoxplotComponent"], [], null, null)], null, null); }
-var SparkBoxplotComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵccf"]("rms-spark-boxplot", library__WEBPACK_IMPORTED_MODULE_1__["SparkBoxplotComponent"], View_SparkBoxplotComponent_Host_0, { color: "spark_color" }, {}, []);
+function View_SparkBoxplotComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "rms-spark-boxplot", [], null, null, null, View_SparkBoxplotComponent_0, RenderType_SparkBoxplotComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵdid"](1, 4243456, null, 0, library__WEBPACK_IMPORTED_MODULE_1__["SparkBoxplotComponent"], [library__WEBPACK_IMPORTED_MODULE_1__["ɵb"]], null, null)], null, null); }
+var SparkBoxplotComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵccf"]("rms-spark-boxplot", library__WEBPACK_IMPORTED_MODULE_1__["SparkBoxplotComponent"], View_SparkBoxplotComponent_Host_0, { lineColor: "spark_color" }, {}, []);
 
 var styles_SparkLineComponent = [""];
 var RenderType_SparkLineComponent = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵcrt"]({ encapsulation: 0, styles: styles_SparkLineComponent, data: {} });
 
 function View_SparkLineComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵqud"](402653184, 1, { sparklineCanvas: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](1, 0, [[1, 0], ["sparklineCanvas", 1]], null, 0, "canvas", [["height", "300"], ["width", "300"]], null, null, null, null, null))], null, null); }
-function View_SparkLineComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "rms-spark-line", [], null, null, null, View_SparkLineComponent_0, RenderType_SparkLineComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵdid"](1, 4243456, null, 0, library__WEBPACK_IMPORTED_MODULE_1__["SparkLineComponent"], [], null, null)], null, null); }
-var SparkLineComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵccf"]("rms-spark-line", library__WEBPACK_IMPORTED_MODULE_1__["SparkLineComponent"], View_SparkLineComponent_Host_0, { color: "spark_color" }, {}, []);
+function View_SparkLineComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "rms-spark-line", [], null, null, null, View_SparkLineComponent_0, RenderType_SparkLineComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵdid"](1, 4243456, null, 0, library__WEBPACK_IMPORTED_MODULE_1__["SparkLineComponent"], [library__WEBPACK_IMPORTED_MODULE_1__["ɵc"]], null, null)], null, null); }
+var SparkLineComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵccf"]("rms-spark-line", library__WEBPACK_IMPORTED_MODULE_1__["SparkLineComponent"], View_SparkLineComponent_Host_0, { lineColor: "spark_color" }, {}, []);
 
 
 
@@ -725,7 +830,7 @@ __webpack_require__.r(__webpack_exports__);
 var styles_BarchartComponent = [_barchart_component_css_shim_ngstyle__WEBPACK_IMPORTED_MODULE_0__["styles"]];
 var RenderType_BarchartComponent = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵcrt"]({ encapsulation: 0, styles: styles_BarchartComponent, data: {} });
 
-function View_BarchartComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "rms-spark-barchart", [], null, null, null, _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_2__["View_SparkBarchartComponent_0"], _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_2__["RenderType_SparkBarchartComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4243456, null, 0, library__WEBPACK_IMPORTED_MODULE_3__["SparkBarchartComponent"], [], { color: [0, "color"] }, null)], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.app_color; _ck(_v, 1, 0, currVal_0); }, null); }
+function View_BarchartComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "rms-spark-barchart", [], null, null, null, _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_2__["View_SparkBarchartComponent_0"], _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_2__["RenderType_SparkBarchartComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4243456, null, 0, library__WEBPACK_IMPORTED_MODULE_3__["SparkBarchartComponent"], [library__WEBPACK_IMPORTED_MODULE_3__["ɵa"]], { lineColor: [0, "lineColor"] }, null)], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.app_color; _ck(_v, 1, 0, currVal_0); }, null); }
 function View_BarchartComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-barchart", [], null, null, null, View_BarchartComponent_0, RenderType_BarchartComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 114688, null, 0, _barchart_component__WEBPACK_IMPORTED_MODULE_4__["BarchartComponent"], [], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
 var BarchartComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-barchart", _barchart_component__WEBPACK_IMPORTED_MODULE_4__["BarchartComponent"], View_BarchartComponent_Host_0, {}, {}, []);
 
@@ -812,7 +917,7 @@ __webpack_require__.r(__webpack_exports__);
 var styles_BoxplotComponent = [_boxplot_component_css_shim_ngstyle__WEBPACK_IMPORTED_MODULE_0__["styles"]];
 var RenderType_BoxplotComponent = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵcrt"]({ encapsulation: 0, styles: styles_BoxplotComponent, data: {} });
 
-function View_BoxplotComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "rms-spark-barchart", [], null, null, null, _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_2__["View_SparkBarchartComponent_0"], _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_2__["RenderType_SparkBarchartComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4243456, null, 0, library__WEBPACK_IMPORTED_MODULE_3__["SparkBarchartComponent"], [], { color: [0, "color"] }, null)], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.app_color; _ck(_v, 1, 0, currVal_0); }, null); }
+function View_BoxplotComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "rms-spark-barchart", [], null, null, null, _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_2__["View_SparkBarchartComponent_0"], _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_2__["RenderType_SparkBarchartComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4243456, null, 0, library__WEBPACK_IMPORTED_MODULE_3__["SparkBarchartComponent"], [library__WEBPACK_IMPORTED_MODULE_3__["ɵa"]], { lineColor: [0, "lineColor"] }, null)], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.app_color; _ck(_v, 1, 0, currVal_0); }, null); }
 function View_BoxplotComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-boxplot", [], null, null, null, View_BoxplotComponent_0, RenderType_BoxplotComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 114688, null, 0, _boxplot_component__WEBPACK_IMPORTED_MODULE_4__["BoxplotComponent"], [], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
 var BoxplotComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-boxplot", _boxplot_component__WEBPACK_IMPORTED_MODULE_4__["BoxplotComponent"], View_BoxplotComponent_Host_0, {}, {}, []);
 
@@ -899,7 +1004,7 @@ __webpack_require__.r(__webpack_exports__);
 var styles_InlineComponent = [_inline_component_css_shim_ngstyle__WEBPACK_IMPORTED_MODULE_0__["styles"]];
 var RenderType_InlineComponent = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵcrt"]({ encapsulation: 0, styles: styles_InlineComponent, data: {} });
 
-function View_InlineComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "rms-spark-barchart", [], null, null, null, _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_2__["View_SparkBarchartComponent_0"], _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_2__["RenderType_SparkBarchartComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4243456, null, 0, library__WEBPACK_IMPORTED_MODULE_3__["SparkBarchartComponent"], [], { color: [0, "color"] }, null)], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.app_color; _ck(_v, 1, 0, currVal_0); }, null); }
+function View_InlineComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "rms-spark-barchart", [], null, null, null, _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_2__["View_SparkBarchartComponent_0"], _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_2__["RenderType_SparkBarchartComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4243456, null, 0, library__WEBPACK_IMPORTED_MODULE_3__["SparkBarchartComponent"], [library__WEBPACK_IMPORTED_MODULE_3__["ɵa"]], { lineColor: [0, "lineColor"] }, null)], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.app_color; _ck(_v, 1, 0, currVal_0); }, null); }
 function View_InlineComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-inline", [], null, null, null, View_InlineComponent_0, RenderType_InlineComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 114688, null, 0, _inline_component__WEBPACK_IMPORTED_MODULE_4__["InlineComponent"], [], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
 var InlineComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-inline", _inline_component__WEBPACK_IMPORTED_MODULE_4__["InlineComponent"], View_InlineComponent_Host_0, {}, {}, []);
 
