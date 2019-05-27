@@ -5,7 +5,7 @@ import {  AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angula
   templateUrl: './spark-line.component.html',
   styleUrls: ['./spark-line.component.css']
 })
-export class SparkLineComponent implements OAfterViewInitnInit {
+export class SparkLineComponent implements AfterViewInit {
   @Input('spark_color') color: string;
 
   // see https://blog.angular-university.io/angular-viewchild/
