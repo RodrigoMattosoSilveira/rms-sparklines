@@ -5,7 +5,12 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:lib": "ng build library",
+    "build:lsg": "ng build living-style-guide",
+    "serve": "ng serve living-style-guide",
     "test": "ng test",
+    "test:lib": "ng test library",
+    "test:lsg": "ng test living-style-guide",
     "lint": "ng lint",
     "e2e": "ng e2e --port 4201"
   },
