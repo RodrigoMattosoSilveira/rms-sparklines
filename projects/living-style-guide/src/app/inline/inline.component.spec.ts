@@ -6,6 +6,8 @@ import { InlineComponent } from './inline.component';
 import { HttpModule } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { SparkLineSimpleComponent } from './spark-line-simple/spark-line-simple.component'
+import { SparkLineDecorationComponent } from './spark-line-decoration/spark-line-decoration.component'
+import { SparkLineShadeComponent } from './spark-line-shade/spark-line-shade.component'
 import { LibraryModule } from 'library';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 
@@ -18,6 +20,8 @@ describe('InlineComponent', () => {
         declarations: [
             InlineComponent,
             SparkLineSimpleComponent,
+            SparkLineDecorationComponent,
+            SparkLineShadeComponent,
         ],
         imports: [
             AngularMaterialModuleModule,
