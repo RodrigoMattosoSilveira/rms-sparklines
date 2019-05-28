@@ -33,23 +33,23 @@ import { SparkLineSimpleComponent } from './inline/spark-line-simple/spark-line-
     BrowserAnimationsModule,
     FormsModule,
     LibraryModule,
-		HttpModule,
-		HttpClientModule,
+	HttpModule,
+	HttpClientModule,
     MarkdownModule.forRoot({
-			loader: HttpClient, // optional, only if you use [src] attribute
-			markedOptions: {
-				provide: MarkedOptions,
-				useValue: {
-					gfm: true,
-					tables: true,
-					breaks: false,
-					pedantic: false,
-					sanitize: false,
-					smartLists: true,
-					smartypants: false,
-				},
+		loader: HttpClient, // optional, only if you use [src] attribute
+		markedOptions: {
+			provide: MarkedOptions,
+			useValue: {
+				gfm: true,
+				tables: true,
+				breaks: false,
+				pedantic: false,
+				sanitize: false,
+				smartLists: true,
+				smartypants: false,
 			},
-		}),
+		},
+	}),
     ReactiveFormsModule,
   ],
   providers: [],
