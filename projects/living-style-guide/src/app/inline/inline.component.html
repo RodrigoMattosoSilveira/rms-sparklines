@@ -17,12 +17,12 @@
         <markdown ngPreserveWhitespaces>
         Description
         ----
-        The `&ltrms-spark-line&gt` Angular custom component renders a simple sparkline including the following elements:
+        The `&lt;rms-spark-line&gt;` Angular custom component renders a simple sparkline including the following elements:
         * a line
         * optional decorating points, drawn along the line, e.g. min / max / start / end / alert. etc.
         * an optional dropdown shade
 
-        The `&ltrms-spark-line&gt` Angular custom component renders the following  sparkline variations:
+        The `&lt;rms-spark-line&gt;` Angular custom component renders the following  sparkline variations:
         1. `simple`: A simple line, all points positive
         1. `decorated`:  A simple line, all points positive, with decoration points alongside the line.
         1. `shade`: Dual charts' bars heights are negative, zero, or positive, with a positive height bars drawn northward and negative ones southward.
@@ -65,15 +65,14 @@
         Assuming the default width, 64 pixels, fifteen segments would will be drawn, four pixels wide. There are two decorations this example, one red dot indexed to be drawn over the line point of index 0 and one black dot indexed to be drawn over the line point of index 15. Considering the linepoints example above, these decorations would represent the sparkline's start and end points.
 
         #### decorationPoints
-        A JOSN.stringfy'd string of an array of objectss describing the decoration points, one as the first point of the line and the other as the last point of the line:
+        A JOSN.stringfy'd string array of objectss describing the decoration points, as for instance the first point of the line and the last point of the line:
         ````typescript
         	decorationPoints: string = decorationPoints = JSON.stringify(
             [
-                index: 0, color: 'red' ,
-                index: 11, color: 'black'
+                &#123;index: 0, color: 'red'&#125;,
+                &#123;index: 11, color: 'black&#125;'
             ]);
         ````
-
 
         ### Methods
         none
