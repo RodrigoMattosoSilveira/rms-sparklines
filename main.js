@@ -17,7 +17,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵa", function() { return BarchartService; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵb", function() { return BoxplotService; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵc", function() { return LineService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var mathjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! mathjs */ "../../node_modules/mathjs/index.js");
+/* harmony import */ var mathjs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(mathjs__WEBPACK_IMPORTED_MODULE_2__);
+
+
 
 
 /**
@@ -28,13 +33,13 @@ var LibraryService = /** @class */ (function () {
     function LibraryService() {
     }
     LibraryService.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"], args: [{
                     providedIn: 'root'
                 },] }
     ];
     /** @nocollapse */
     LibraryService.ctorParameters = function () { return []; };
-    /** @nocollapse */ LibraryService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["defineInjectable"])({ factory: function LibraryService_Factory() { return new LibraryService(); }, token: LibraryService, providedIn: "root" });
+    /** @nocollapse */ LibraryService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["defineInjectable"])({ factory: function LibraryService_Factory() { return new LibraryService(); }, token: LibraryService, providedIn: "root" });
     return LibraryService;
 }());
 
@@ -63,13 +68,13 @@ var BarchartService = /** @class */ (function () {
         ctx.fillRect(20, 20, 150, 100);
     };
     BarchartService.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"], args: [{
                     providedIn: 'root'
                 },] }
     ];
     /** @nocollapse */
     BarchartService.ctorParameters = function () { return []; };
-    /** @nocollapse */ BarchartService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["defineInjectable"])({ factory: function BarchartService_Factory() { return new BarchartService(); }, token: BarchartService, providedIn: "root" });
+    /** @nocollapse */ BarchartService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["defineInjectable"])({ factory: function BarchartService_Factory() { return new BarchartService(); }, token: BarchartService, providedIn: "root" });
     return BarchartService;
 }());
 
@@ -98,9 +103,9 @@ var SparkBarchartComponent = /** @class */ (function () {
         this.barchartService.draw(this.sparklineCanvas, this.lineColor);
     };
     SparkBarchartComponent.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"], args: [{
                     selector: 'rms-spark-barchart',
-                    template: "<canvas #sparklineCanvas width=\"300\" height=\"300\"></canvas>\n",
+                    template: "<canvas #sparklineCanvas width=\"128\" height=\"64\"></canvas>\n",
                     styles: [""]
                 }] }
     ];
@@ -109,8 +114,8 @@ var SparkBarchartComponent = /** @class */ (function () {
         { type: BarchartService }
     ]; };
     SparkBarchartComponent.propDecorators = {
-        lineColor: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['spark_color',] }],
-        sparklineCanvas: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"], args: ['sparklineCanvas',] }]
+        lineColor: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"], args: ['spark_color',] }],
+        sparklineCanvas: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"], args: ['sparklineCanvas',] }]
     };
     return SparkBarchartComponent;
 }());
@@ -140,13 +145,13 @@ var BoxplotService = /** @class */ (function () {
         ctx.fillRect(20, 20, 150, 100);
     };
     BoxplotService.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"], args: [{
                     providedIn: 'root'
                 },] }
     ];
     /** @nocollapse */
     BoxplotService.ctorParameters = function () { return []; };
-    /** @nocollapse */ BoxplotService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["defineInjectable"])({ factory: function BoxplotService_Factory() { return new BoxplotService(); }, token: BoxplotService, providedIn: "root" });
+    /** @nocollapse */ BoxplotService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["defineInjectable"])({ factory: function BoxplotService_Factory() { return new BoxplotService(); }, token: BoxplotService, providedIn: "root" });
     return BoxplotService;
 }());
 
@@ -175,9 +180,9 @@ var SparkBoxplotComponent = /** @class */ (function () {
         this.boxplotService.draw(this.sparklineCanvas, this.lineColor);
     };
     SparkBoxplotComponent.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"], args: [{
                     selector: 'rms-spark-boxplot',
-                    template: "<canvas #sparklineCanvas width=\"300\" height=\"300\"></canvas>\n",
+                    template: "<canvas #sparklineCanvas width=\"128\" height=\"64\"></canvas>\n",
                     styles: [""]
                 }] }
     ];
@@ -186,8 +191,8 @@ var SparkBoxplotComponent = /** @class */ (function () {
         { type: BoxplotService }
     ]; };
     SparkBoxplotComponent.propDecorators = {
-        lineColor: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['spark_color',] }],
-        sparklineCanvas: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"], args: ['sparklineCanvas',] }]
+        lineColor: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"], args: ['spark_color',] }],
+        sparklineCanvas: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"], args: ['sparklineCanvas',] }]
     };
     return SparkBoxplotComponent;
 }());
@@ -198,6 +203,12 @@ var SparkBoxplotComponent = /** @class */ (function () {
  */
 var LineService = /** @class */ (function () {
     function LineService() {
+        // Local attributes
+        this.attributes = {};
+        this.coordinatesViewport = [];
+        this.coordinatesCanvas = [];
+        this.coordinatesTips = [];
+        this.decorationPointsArray = [];
     }
     /**
      * @param {?} sparklineCanvas
@@ -216,14 +227,347 @@ var LineService = /** @class */ (function () {
         ctx.fillStyle = lineColor;
         ctx.fillRect(20, 20, 150, 100);
     };
+    /**
+     * @return {?}
+     */
+    LineService.handleMouseOut = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var tooltip = document.getElementById('rms-sparkline-inline-tooltip');
+        if (tooltip) {
+            // console.log(`SparklineLine::handleMouseMove deleting tooltip`);
+            tooltip.parentElement.removeChild(tooltip);
+        }
+    };
+    /**
+     * @param {?} className
+     * @param {?} decorationPoints
+     * @param {?} dotRadius
+     * @param {?} height
+     * @param {?} lineColor
+     * @param {?} linePoints
+     * @param {?} lineWidth
+     * @param {?} shadeColor
+     * @param {?} sparklineCanvas
+     * @param {?} width
+     * @return {?}
+     */
+    LineService.prototype.draw1 = /**
+     * @param {?} className
+     * @param {?} decorationPoints
+     * @param {?} dotRadius
+     * @param {?} height
+     * @param {?} lineColor
+     * @param {?} linePoints
+     * @param {?} lineWidth
+     * @param {?} shadeColor
+     * @param {?} sparklineCanvas
+     * @param {?} width
+     * @return {?}
+     */
+    function (className, decorationPoints, dotRadius, height, lineColor, linePoints, lineWidth, shadeColor, sparklineCanvas, width) {
+        // Save attributes
+        this.attributes['className'] = className;
+        this.attributes['decorationPoints'] = decorationPoints;
+        this.attributes['dotRadius'] = dotRadius;
+        this.attributes['height'] = height;
+        this.attributes['lineColor'] = lineColor;
+        this.attributes['linePoints'] = linePoints;
+        this.attributes['lineWidth'] = lineWidth;
+        this.attributes['shadeColor'] = shadeColor;
+        this.attributes['sparklineCanvas'] = sparklineCanvas;
+        this.attributes['width'] = width;
+        console.log("LineService::draw ctx: " + this.attributes.ctx);
+        console.log("LineService::draw className: " + this.attributes.className);
+        console.log("LineService::draw decorationPoints: " + JSON.stringify(this.attributes.decorationPoints));
+        console.log("LineService::draw dotRadius: " + this.attributes.dotRadius);
+        console.log("LineService::draw height: " + this.attributes.height);
+        console.log("LineService::draw lineColor: " + this.attributes.lineColor);
+        console.log("LineService::draw linePoints: " + JSON.stringify(this.attributes.linePoints));
+        console.log("LineService::draw lineWidth: " + this.attributes.lineWidth);
+        console.log("LineService::draw shadeColor: " + this.attributes.shadeColor);
+        console.log("LineService::draw toolTip: " + this.attributes.toolTip);
+        console.log("LineService::draw width: " + this.attributes.width);
+        /** @type {?} */
+        var ctx = sparklineCanvas.nativeElement.getContext('2d');
+        /**
+         * Build coordinatesWorld
+         *
+         * Note thatwe add the 0 point the start, and the zero point at the end.
+         * This is required for the proper drawing of the shade if necessary. These point
+         * are removed before the actual line is drawn
+         */
+        this.measurementsArray = this.attributes.linePoints.slice(0);
+        this.coordinatesWorld = [];
+        for (var i = 0; i < this.measurementsArray.length; i++) {
+            this.coordinatesWorld.push([i, this.measurementsArray[i], 1]);
+            // console.log(`coordinatesWorld(` + i +`): ` + JSON.stringify(this.coordinatesWorld[i]));
+        }
+        // console.log(`coordinatesWorld: ` + JSON.stringify(this.coordinatesWorld));
+        /**
+         * Build coordinatesViewPort
+         * The sparkline is drawn on the canvas viewport, a subset of the canvas
+         * drawing area, with padding between the two to make room for drawing
+         * decoration shapes, when necessary.
+         */
+        this.coordinatesViewport = [];
+        /** @type {?} */
+        var sX = (this.attributes.width - this.attributes.dotRadius * 2) / this.measurementsArray.length;
+        /** @type {?} */
+        var sY = (this.attributes.height - this.attributes.dotRadius * 2) / Math.max.apply(Math, Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__spread"])(this.measurementsArray));
+        /** @type {?} */
+        var worldToViewport = [[sX, 0, 0], [0, sY, 0], [0, 0, 1]];
+        for (var i = 0; i < this.measurementsArray.length; i++) {
+            // From world to viewport
+            /** @type {?} */
+            var temp1 = Object(mathjs__WEBPACK_IMPORTED_MODULE_2__["multiply"])(this.coordinatesWorld[i], worldToViewport);
+            // console.log(`coordinatesViewport temp1(` + i +`): ` + JSON.stringify(temp1));
+            this.coordinatesViewport.push(temp1);
+        }
+        // console.log(`coordinatesViewport: ` + JSON.stringify(this.coordinatesViewport));
+        /**
+         * Build coordinatesCanvas
+         * The world coordinates origin is at the bottom left, whereas the canvas and
+         * canvasViewport coordinates origin is at the top left, requiring the
+         * translation from bottom left to top left origin.
+         *
+         * Since canvas drawing always uses the canvas coordinates and the
+         * canvasViewport amounts to a padding around the canvas, a translation is
+         * required to move the canvasViewport coordinates:
+         */
+        this.coordinatesCanvas = [];
+        /** @type {?} */
+        var dX = this.attributes.dotRadius;
+        /** @type {?} */
+        var myHeight = this.attributes.height - this.attributes.dotRadius;
+        /** @type {?} */
+        var bottomLeftToTopLeft = [[1, 0, 0], [0, 1, 0], [dX, 0, 1]];
+        for (var i = 0; i < this.measurementsArray.length; i++) {
+            // Tricky calculation ... we want the delta to move the current coordinate
+            // const dY = myHeight - 2 * this.coordinatesViewport[i][1];
+            // console.log(`coordinatesCanvas dY(` + i +`): ` + myHeight - 2 * this.coordinatesViewport[i][1]);
+            bottomLeftToTopLeft[2][1] = myHeight - 2 * this.coordinatesViewport[i][1];
+            // console.log(`coordinatesCanvas bottomLeftToTopLeft(` + i +`): ` + JSON.stringify(bottomLeftToTopLeft));
+            this.coordinatesCanvas.push(Object(mathjs__WEBPACK_IMPORTED_MODULE_2__["multiply"])(this.coordinatesViewport[i], bottomLeftToTopLeft));
+        }
+        // console.log(`coordinatesViewport: ` + JSON.stringify(this.coordinatesViewport));
+        /**
+         * Now we draw the sparkline, in the following order
+         * - Shaded ared
+         * - line
+         * - decorations
+         */
+        ctx.clearRect(0, 0, this.attributes.width, this.attributes.height);
+        // console.log(`shadeColor: ` + this.attributes.shadeColor);
+        if (this.attributes.shadeColor) {
+            // Fill up the area
+            ctx.beginPath();
+            ctx.fillStyle = this.attributes.shadeColor;
+            ctx.moveTo(this.coordinatesCanvas[0][0], this.attributes.height);
+            for (var i = 0; i < this.measurementsArray.length; i++) {
+                ctx.lineTo(this.coordinatesCanvas[i][0], this.coordinatesCanvas[i][1]);
+                // console.log(`drawing(` + i +`): ` + JSON.stringify(this.coordinatesCanvas[i]));
+            }
+            ctx.lineTo(this.coordinatesCanvas[this.measurementsArray.length - 1][0], this.attributes.height);
+            ctx.fill();
+        }
+        // Draw the path, on top of the shade area
+        // https://www.w3schools.com/graphics/canvas_coordinates.asp
+        ctx.beginPath();
+        ctx.lineWidth = this.attributes.lineWidth;
+        ctx.strokeStyle = this.attributes.lineColor;
+        ctx.moveTo(this.coordinatesCanvas[0][0], this.coordinatesCanvas[0][1]);
+        for (var i = 1; i < this.measurementsArray.length; i++) {
+            ctx.lineTo(this.coordinatesCanvas[i][0], this.coordinatesCanvas[i][1]);
+            // console.log(`drawing(` + i +`): ` + JSON.stringify(this.coordinatesCanvas[i]));
+        }
+        ctx.stroke();
+        /**
+         * Draw decorations
+         */
+        this.decorationPointsArray = this.attributes.decorationPoints.slice(0);
+        if (this.attributes.dotRadius > 0 && this.decorationPointsArray.length > 0) {
+            // console.log('decorationPoints = ' + JSON.stringify(this.attributes.decorationPoints));
+            for (var i = 0; i < this.decorationPointsArray.length; i++) {
+                // todo: a hack to solve a problem when running inside vaadin-grid
+                if (this.decorationPointsArray[i]['index'] > this.measurementsArray.length - 1) ;
+                else {
+                    ctx.beginPath();
+                    /** @type {?} */
+                    var index = this.decorationPointsArray[i]['index'];
+                    ctx.arc(this.coordinatesCanvas[index][0], this.coordinatesCanvas[index][1], this.attributes.dotRadius, 0, Math.PI * 2);
+                    ctx.fillStyle = this.decorationPointsArray[i]['color'];
+                    ctx.fill();
+                }
+            }
+        }
+        /**
+         * Add tooltip support.
+         * Build coordinateScreen
+         */
+        // const rect: any = this.attributes.canvasEl.getBoundingClientRect();
+        // console.log(`SparklineLine::canvasEl rect.left: ` + rect.left + `, rect.top: ` + rect.top);
+        //
+        // this.canvasScreenOffsetX = rect.left + window.pageXOffset || document.documentElement.scrollLeft;
+        // this.canvasScreenOffsetY = rect.top + window.pageYOffset || document.documentElement.scrollTop;
+        // console.log(`canvasScreenOffsetX: ` + this.canvasScreenOffsetX);
+        // console.log(`canvasScreenOffsetY: ` + this.canvasScreenOffsetY);
+        this.coordinatesTips = [];
+        for (var i = 0; i < this.measurementsArray.length; i++) {
+            this.coordinatesTips.push({
+                x: this.coordinatesCanvas[i][0],
+                y: this.coordinatesCanvas[i][1],
+                r: 5,
+                rXr: 25,
+                color: 'red',
+                tip: this.measurementsArray[i]
+            });
+            // console.log(`coordinatesTips(` + i +`): ` + JSON.stringify(this.coordinatesTips[i]));
+        }
+    };
+    /**
+     * Sparkline Inline Mouse Move Handler
+     * @param $event
+     * @param canvasEl
+     */
+    /**
+     * Sparkline Inline Mouse Move Handler
+     * @param {?} $event
+     * @param {?} canvasEl
+     * @return {?}
+     */
+    LineService.prototype.handleMouseMove = /**
+     * Sparkline Inline Mouse Move Handler
+     * @param {?} $event
+     * @param {?} canvasEl
+     * @return {?}
+     */
+    function ($event, canvasEl) {
+        /** @type {?} */
+        var body;
+        /** @type {?} */
+        var mySpan;
+        /** @type {?} */
+        var fontDefinition = '12px FUTURA';
+        /** @type {?} */
+        var width;
+        /** @type {?} */
+        var height;
+        /** @type {?} */
+        var scrollLeft;
+        /** @type {?} */
+        var scrollTop;
+        /** @type {?} */
+        var rect;
+        /** @type {?} */
+        var mouseX;
+        /** @type {?} */
+        var mouseY;
+        /** @type {?} */
+        var tooltip;
+        // console.log(`\n`);
+        // Get the position of the canvas element relative to the document
+        // https://plainjs.com/javascript/styles/get-the-position-of-an-element-relative-to-the-document-24/
+        rect = canvasEl.getBoundingClientRect();
+        scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+        scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        rect = { left: rect.left + scrollLeft, top: rect.top + scrollTop };
+        // Get the mouse coordinates relative to the canvas
+        mouseX = $event.clientX - rect.left;
+        mouseY = $event.clientY - rect.top;
+        // Debug code
+        // let msg: string;
+        // msg = '';
+        // msg += `rect.left: ` + rect.left.toFixed(2);
+        // msg += `, rect.top: ` + rect.top.toFixed(2);
+        // msg += `, rect.width: ` + rect.width.toFixed(2);
+        // msg += `, rect.height: ` + rect.height.toFixed(2);
+        // console.log(msg);
+        // msg = '';
+        // msg += `$event.clientX: ` + $event.clientX.toFixed(2);
+        // msg += `, $event.clientY: ` + $event.clientY.toFixed(2);
+        // console.log(msg);
+        // msg = '';
+        // msg += `dot.x: ` + this.coordinatesTips[0].x.toFixed(2);
+        // msg += `, dot.y: ` + this.coordinatesTips[0].y.toFixed(2);
+        // console.log(msg);
+        // msg = '';
+        // msg += `mouseX: ` + mouseX.toFixed(2);
+        // msg += `, mouseY: ` + mouseY.toFixed(2);
+        // console.log(msg);
+        for (var i = 0; i < this.measurementsArray.length; i++) {
+            /** @type {?} */
+            var dot = this.coordinatesTips[i];
+            /** @type {?} */
+            var dx = mouseX - dot.x;
+            /** @type {?} */
+            var dy = mouseY - dot.y;
+            // console.log(`SparklineLine::handleMouseMove dx: ` + Math.floor(dx) + `, dy: ` + Math.floor(dy) + `, dot.rXr: ` + dot.rXr);
+            if (dx * dx + dy * dy < dot.rXr) {
+                // console.log(`SparklineLine::handleMouseMove found a match`);
+                // A trick to find the width of the canvas to host the tooltip
+                mySpan = document.createElement('span');
+                mySpan.id = 'mySpanId';
+                mySpan.style.font = fontDefinition;
+                mySpan.style.textAlign = 'center';
+                mySpan.innerHTML = '' + this.measurementsArray[i];
+                body = document.getElementsByTagName('body')[0];
+                body.appendChild(mySpan);
+                mySpan = document.getElementById('mySpanId');
+                width = mySpan.getBoundingClientRect().width + 2;
+                height = mySpan.getBoundingClientRect().height + 2;
+                mySpan.parentElement.removeChild(mySpan);
+                // console.log(`mySpan: ` + width);
+                // Remove tooltip if already there
+                tooltip = document.getElementById('rms-sparkline-inline-tooltip');
+                if (tooltip) {
+                    // console.log(`SparklineLine::handleMouseMove deleting tooltip`);
+                    tooltip.parentElement.removeChild(tooltip);
+                }
+                // Add a new tooltip
+                this.canvasTip = document.createElement('CANVAS');
+                this.canvasTip.id = 'rms-sparkline-inline-tooltip';
+                this.canvasTip.width = width;
+                this.canvasTip.height = height;
+                this.canvasTip.style.position = 'absolute';
+                this.canvasTip.style.left = ($event.clientX + 5) + 'px';
+                this.canvasTip.style.top = ($event.clientY + 7) + 'px';
+                this.canvasTip.style.border = '1px solid';
+                this.canvasTip.style.border = '1px solid';
+                this.canvasTip.style.zIndex = '20';
+                this.canvasTip.style.textAlign = 'center';
+                /** @type {?} */
+                var ctx = ((/** @type {?} */ (this.canvasTip))).getContext('2d');
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, width, height);
+                ctx.fill();
+                ctx.fillStyle = 'red';
+                ctx.font = fontDefinition;
+                ctx.fillText('' + this.measurementsArray[i], 1, height - 2);
+                body = document.getElementsByTagName('body')[0];
+                body.appendChild(this.canvasTip);
+                break; // the first match gets the tooltip
+            }
+            else {
+                // Remove tooltip if still there
+                tooltip = document.getElementById('rms-sparkline-inline-tooltip');
+                if (tooltip) {
+                    // console.log(`SparklineLine::handleMouseMove deleting tooltip`);
+                    tooltip.parentElement.removeChild(tooltip);
+                }
+            }
+        }
+    };
     LineService.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"], args: [{
                     providedIn: 'root'
                 },] }
     ];
     /** @nocollapse */
     LineService.ctorParameters = function () { return []; };
-    /** @nocollapse */ LineService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["defineInjectable"])({ factory: function LineService_Factory() { return new LineService(); }, token: LineService, providedIn: "root" });
+    /** @nocollapse */ LineService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["defineInjectable"])({ factory: function LineService_Factory() { return new LineService(); }, token: LineService, providedIn: "root" });
     return LineService;
 }());
 
@@ -249,12 +593,18 @@ var SparkLineComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this.lineService.draw(this.sparklineCanvas, this.lineColor);
+        /** @type {?} */
+        var decorationPoints = JSON.parse(this.decorationPointsString);
+        /** @type {?} */
+        var linePoints = JSON.parse(this.linePointsString);
+        // this.lineService.draw(this.sparklineCanvas, this.lineColor);
+        console.log('SparkLineComponent.ngAfterViewInit: about to call the line drawing');
+        this.lineService.draw1(this.className, decorationPoints, this.dotRadius, this.height, this.lineColor, linePoints, this.lineWidth, this.shadeColor, this.sparklineCanvas, this.width);
     };
     SparkLineComponent.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"], args: [{
                     selector: 'rms-spark-line',
-                    template: "<canvas #sparklineCanvas width=\"300\" height=\"300\"></canvas>\n",
+                    template: "<canvas #sparklineCanvas width=\"128\" height=\"64\"></canvas>\n",
                     styles: [""]
                 }] }
     ];
@@ -263,8 +613,16 @@ var SparkLineComponent = /** @class */ (function () {
         { type: LineService }
     ]; };
     SparkLineComponent.propDecorators = {
-        lineColor: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['spark_color',] }],
-        sparklineCanvas: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"], args: ['sparklineCanvas',] }]
+        className: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] }],
+        decorationPointsString: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"], args: ['decorationPoints',] }],
+        dotRadius: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] }],
+        height: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] }],
+        lineColor: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] }],
+        linePointsString: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"], args: ['linePoints',] }],
+        lineWidth: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] }],
+        shadeColor: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] }],
+        width: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] }],
+        sparklineCanvas: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"], args: ['sparklineCanvas',] }]
     };
     return SparkLineComponent;
 }());
@@ -277,7 +635,7 @@ var LibraryModule = /** @class */ (function () {
     function LibraryModule() {
     }
     LibraryModule.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"], args: [{
                     declarations: [
                         SparkBarchartComponent,
                         SparkBoxplotComponent,
@@ -347,23 +705,23 @@ var LibraryModuleNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵcmf"]
 var styles_SparkBarchartComponent = [""];
 var RenderType_SparkBarchartComponent = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵcrt"]({ encapsulation: 0, styles: styles_SparkBarchartComponent, data: {} });
 
-function View_SparkBarchartComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵqud"](402653184, 1, { sparklineCanvas: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](1, 0, [[1, 0], ["sparklineCanvas", 1]], null, 0, "canvas", [["height", "300"], ["width", "300"]], null, null, null, null, null))], null, null); }
+function View_SparkBarchartComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵqud"](402653184, 1, { sparklineCanvas: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](1, 0, [[1, 0], ["sparklineCanvas", 1]], null, 0, "canvas", [["height", "64"], ["width", "128"]], null, null, null, null, null))], null, null); }
 function View_SparkBarchartComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "rms-spark-barchart", [], null, null, null, View_SparkBarchartComponent_0, RenderType_SparkBarchartComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵdid"](1, 4243456, null, 0, library__WEBPACK_IMPORTED_MODULE_1__["SparkBarchartComponent"], [library__WEBPACK_IMPORTED_MODULE_1__["ɵa"]], null, null)], null, null); }
 var SparkBarchartComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵccf"]("rms-spark-barchart", library__WEBPACK_IMPORTED_MODULE_1__["SparkBarchartComponent"], View_SparkBarchartComponent_Host_0, { lineColor: "spark_color" }, {}, []);
 
 var styles_SparkBoxplotComponent = [""];
 var RenderType_SparkBoxplotComponent = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵcrt"]({ encapsulation: 0, styles: styles_SparkBoxplotComponent, data: {} });
 
-function View_SparkBoxplotComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵqud"](402653184, 1, { sparklineCanvas: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](1, 0, [[1, 0], ["sparklineCanvas", 1]], null, 0, "canvas", [["height", "300"], ["width", "300"]], null, null, null, null, null))], null, null); }
+function View_SparkBoxplotComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵqud"](402653184, 1, { sparklineCanvas: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](1, 0, [[1, 0], ["sparklineCanvas", 1]], null, 0, "canvas", [["height", "64"], ["width", "128"]], null, null, null, null, null))], null, null); }
 function View_SparkBoxplotComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "rms-spark-boxplot", [], null, null, null, View_SparkBoxplotComponent_0, RenderType_SparkBoxplotComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵdid"](1, 4243456, null, 0, library__WEBPACK_IMPORTED_MODULE_1__["SparkBoxplotComponent"], [library__WEBPACK_IMPORTED_MODULE_1__["ɵb"]], null, null)], null, null); }
 var SparkBoxplotComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵccf"]("rms-spark-boxplot", library__WEBPACK_IMPORTED_MODULE_1__["SparkBoxplotComponent"], View_SparkBoxplotComponent_Host_0, { lineColor: "spark_color" }, {}, []);
 
 var styles_SparkLineComponent = [""];
 var RenderType_SparkLineComponent = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵcrt"]({ encapsulation: 0, styles: styles_SparkLineComponent, data: {} });
 
-function View_SparkLineComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵqud"](402653184, 1, { sparklineCanvas: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](1, 0, [[1, 0], ["sparklineCanvas", 1]], null, 0, "canvas", [["height", "300"], ["width", "300"]], null, null, null, null, null))], null, null); }
+function View_SparkLineComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵqud"](402653184, 1, { sparklineCanvas: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](1, 0, [[1, 0], ["sparklineCanvas", 1]], null, 0, "canvas", [["height", "64"], ["width", "128"]], null, null, null, null, null))], null, null); }
 function View_SparkLineComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "rms-spark-line", [], null, null, null, View_SparkLineComponent_0, RenderType_SparkLineComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵdid"](1, 4243456, null, 0, library__WEBPACK_IMPORTED_MODULE_1__["SparkLineComponent"], [library__WEBPACK_IMPORTED_MODULE_1__["ɵc"]], null, null)], null, null); }
-var SparkLineComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵccf"]("rms-spark-line", library__WEBPACK_IMPORTED_MODULE_1__["SparkLineComponent"], View_SparkLineComponent_Host_0, { lineColor: "spark_color" }, {}, []);
+var SparkLineComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵccf"]("rms-spark-line", library__WEBPACK_IMPORTED_MODULE_1__["SparkLineComponent"], View_SparkLineComponent_Host_0, { className: "className", decorationPointsString: "decorationPoints", dotRadius: "dotRadius", height: "height", lineColor: "lineColor", linePointsString: "linePoints", lineWidth: "lineWidth", shadeColor: "shadeColor", width: "width" }, {}, []);
 
 
 
@@ -987,9 +1345,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InlineComponentNgFactory", function() { return InlineComponentNgFactory; });
 /* harmony import */ var _inline_component_css_shim_ngstyle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./inline.component.css.shim.ngstyle */ "./src/app/inline/inline.component.css.shim.ngstyle.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../dist/library/library.ngfactory */ "../../dist/library/library.ngfactory.js");
-/* harmony import */ var library__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! library */ "../../dist/library/fesm5/library.js");
-/* harmony import */ var _inline_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./inline.component */ "./src/app/inline/inline.component.ts");
+/* harmony import */ var _node_modules_angular_material_tabs_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/@angular/material/tabs/typings/index.ngfactory */ "../../node_modules/@angular/material/tabs/typings/index.ngfactory.js");
+/* harmony import */ var _angular_material_tabs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material/tabs */ "../../node_modules/@angular/material/esm5/tabs.es5.js");
+/* harmony import */ var _node_modules_angular_material_grid_list_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../node_modules/@angular/material/grid-list/typings/index.ngfactory */ "../../node_modules/@angular/material/grid-list/typings/index.ngfactory.js");
+/* harmony import */ var _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material/grid-list */ "../../node_modules/@angular/material/esm5/grid-list.es5.js");
+/* harmony import */ var _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/cdk/bidi */ "../../node_modules/@angular/cdk/esm5/bidi.es5.js");
+/* harmony import */ var _spark_line_simple_spark_line_simple_component_ngfactory__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./spark-line-simple/spark-line-simple.component.ngfactory */ "./src/app/inline/spark-line-simple/spark-line-simple.component.ngfactory.js");
+/* harmony import */ var _spark_line_simple_spark_line_simple_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./spark-line-simple/spark-line-simple.component */ "./src/app/inline/spark-line-simple/spark-line-simple.component.ts");
+/* harmony import */ var _spark_line_decoration_spark_line_decoration_component_ngfactory__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./spark-line-decoration/spark-line-decoration.component.ngfactory */ "./src/app/inline/spark-line-decoration/spark-line-decoration.component.ngfactory.js");
+/* harmony import */ var _spark_line_decoration_spark_line_decoration_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./spark-line-decoration/spark-line-decoration.component */ "./src/app/inline/spark-line-decoration/spark-line-decoration.component.ts");
+/* harmony import */ var _spark_line_shade_spark_line_shade_component_ngfactory__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./spark-line-shade/spark-line-shade.component.ngfactory */ "./src/app/inline/spark-line-shade/spark-line-shade.component.ngfactory.js");
+/* harmony import */ var _spark_line_shade_spark_line_shade_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./spark-line-shade/spark-line-shade.component */ "./src/app/inline/spark-line-shade/spark-line-shade.component.ts");
+/* harmony import */ var _node_modules_ngx_markdown_ngx_markdown_ngfactory__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../../../node_modules/ngx-markdown/ngx-markdown.ngfactory */ "../../node_modules/ngx-markdown/ngx-markdown.ngfactory.js");
+/* harmony import */ var ngx_markdown__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ngx-markdown */ "../../node_modules/ngx-markdown/fesm5/ngx-markdown.js");
+/* harmony import */ var _inline_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./inline.component */ "./src/app/inline/inline.component.ts");
 /**
  * @fileoverview This file was generated by the Angular template compiler. Do not edit.
  *
@@ -1001,12 +1370,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 var styles_InlineComponent = [_inline_component_css_shim_ngstyle__WEBPACK_IMPORTED_MODULE_0__["styles"]];
 var RenderType_InlineComponent = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵcrt"]({ encapsulation: 0, styles: styles_InlineComponent, data: {} });
 
-function View_InlineComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "rms-spark-barchart", [], null, null, null, _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_2__["View_SparkBarchartComponent_0"], _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_2__["RenderType_SparkBarchartComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4243456, null, 0, library__WEBPACK_IMPORTED_MODULE_3__["SparkBarchartComponent"], [library__WEBPACK_IMPORTED_MODULE_3__["ɵa"]], { lineColor: [0, "lineColor"] }, null)], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.app_color; _ck(_v, 1, 0, currVal_0); }, null); }
-function View_InlineComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-inline", [], null, null, null, View_InlineComponent_0, RenderType_InlineComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 114688, null, 0, _inline_component__WEBPACK_IMPORTED_MODULE_4__["InlineComponent"], [], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
-var InlineComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-inline", _inline_component__WEBPACK_IMPORTED_MODULE_4__["InlineComponent"], View_InlineComponent_Host_0, {}, {}, []);
+function View_InlineComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 34, "mat-tab-group", [["animationDuration", "0ms"], ["class", "mat-tab-group"]], [[2, "mat-tab-group-dynamic-height", null], [2, "mat-tab-group-inverted-header", null]], null, null, _node_modules_angular_material_tabs_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_2__["View_MatTabGroup_0"], _node_modules_angular_material_tabs_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_2__["RenderType_MatTabGroup"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 3325952, null, 1, _angular_material_tabs__WEBPACK_IMPORTED_MODULE_3__["MatTabGroup"], [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], [2, _angular_material_tabs__WEBPACK_IMPORTED_MODULE_3__["MAT_TABS_CONFIG"]]], { animationDuration: [0, "animationDuration"] }, null), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](603979776, 1, { _tabs: 1 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](3, 16777216, null, null, 19, "mat-tab", [["label", "Examples"]], null, null, null, _node_modules_angular_material_tabs_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_2__["View_MatTab_0"], _node_modules_angular_material_tabs_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_2__["RenderType_MatTab"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](4, 770048, [[1, 4]], 2, _angular_material_tabs__WEBPACK_IMPORTED_MODULE_3__["MatTab"], [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewContainerRef"]], { textLabel: [0, "textLabel"] }, null), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](335544320, 2, { templateLabel: 0 }), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](335544320, 3, { _explicitContent: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](7, 0, null, 0, 15, "mat-grid-list", [["class", "mat-grid-list"], ["cols", "3"], ["rowHeight", "400"]], null, null, null, _node_modules_angular_material_grid_list_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_4__["View_MatGridList_0"], _node_modules_angular_material_grid_list_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_4__["RenderType_MatGridList"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](8, 2211840, null, 1, _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_5__["MatGridList"], [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"], [2, _angular_cdk_bidi__WEBPACK_IMPORTED_MODULE_6__["Directionality"]]], { cols: [0, "cols"], rowHeight: [1, "rowHeight"] }, null), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](603979776, 4, { _tiles: 1 }), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵprd"](2048, null, _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_5__["ɵa8"], null, [_angular_material_grid_list__WEBPACK_IMPORTED_MODULE_5__["MatGridList"]]), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](11, 0, null, 0, 3, "mat-grid-tile", [["class", "mat-grid-tile"]], null, null, null, _node_modules_angular_material_grid_list_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_4__["View_MatGridTile_0"], _node_modules_angular_material_grid_list_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_4__["RenderType_MatGridTile"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](12, 49152, [[4, 4]], 0, _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_5__["MatGridTile"], [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"], [2, _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_5__["ɵa8"]]], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](13, 0, null, 0, 1, "app-spark-line-simple", [], null, null, null, _spark_line_simple_spark_line_simple_component_ngfactory__WEBPACK_IMPORTED_MODULE_7__["View_SparkLineSimpleComponent_0"], _spark_line_simple_spark_line_simple_component_ngfactory__WEBPACK_IMPORTED_MODULE_7__["RenderType_SparkLineSimpleComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](14, 114688, null, 0, _spark_line_simple_spark_line_simple_component__WEBPACK_IMPORTED_MODULE_8__["SparkLineSimpleComponent"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](15, 0, null, 0, 3, "mat-grid-tile", [["class", "mat-grid-tile"]], null, null, null, _node_modules_angular_material_grid_list_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_4__["View_MatGridTile_0"], _node_modules_angular_material_grid_list_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_4__["RenderType_MatGridTile"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](16, 49152, [[4, 4]], 0, _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_5__["MatGridTile"], [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"], [2, _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_5__["ɵa8"]]], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](17, 0, null, 0, 1, "app-spark-line-decoration", [], null, null, null, _spark_line_decoration_spark_line_decoration_component_ngfactory__WEBPACK_IMPORTED_MODULE_9__["View_SparkLineDecorationComponent_0"], _spark_line_decoration_spark_line_decoration_component_ngfactory__WEBPACK_IMPORTED_MODULE_9__["RenderType_SparkLineDecorationComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](18, 114688, null, 0, _spark_line_decoration_spark_line_decoration_component__WEBPACK_IMPORTED_MODULE_10__["SparkLineDecorationComponent"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](19, 0, null, 0, 3, "mat-grid-tile", [["class", "mat-grid-tile"]], null, null, null, _node_modules_angular_material_grid_list_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_4__["View_MatGridTile_0"], _node_modules_angular_material_grid_list_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_4__["RenderType_MatGridTile"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](20, 49152, [[4, 4]], 0, _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_5__["MatGridTile"], [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"], [2, _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_5__["ɵa8"]]], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](21, 0, null, 0, 1, "app-spark-line-shade", [], null, null, null, _spark_line_shade_spark_line_shade_component_ngfactory__WEBPACK_IMPORTED_MODULE_11__["View_SparkLineShadeComponent_0"], _spark_line_shade_spark_line_shade_component_ngfactory__WEBPACK_IMPORTED_MODULE_11__["RenderType_SparkLineShadeComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](22, 114688, null, 0, _spark_line_shade_spark_line_shade_component__WEBPACK_IMPORTED_MODULE_12__["SparkLineShadeComponent"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](23, 16777216, null, null, 6, "mat-tab", [["label", "README"]], null, null, null, _node_modules_angular_material_tabs_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_2__["View_MatTab_0"], _node_modules_angular_material_tabs_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_2__["RenderType_MatTab"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](24, 770048, [[1, 4]], 2, _angular_material_tabs__WEBPACK_IMPORTED_MODULE_3__["MatTab"], [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewContainerRef"]], { textLabel: [0, "textLabel"] }, null), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](335544320, 5, { templateLabel: 0 }), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](335544320, 6, { _explicitContent: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](27, 0, null, 0, 2, "markdown", [], null, null, null, _node_modules_ngx_markdown_ngx_markdown_ngfactory__WEBPACK_IMPORTED_MODULE_13__["View_MarkdownComponent_0"], _node_modules_ngx_markdown_ngx_markdown_ngfactory__WEBPACK_IMPORTED_MODULE_13__["RenderType_MarkdownComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](28, 4767744, null, 0, ngx_markdown__WEBPACK_IMPORTED_MODULE_14__["MarkdownComponent"], [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"], ngx_markdown__WEBPACK_IMPORTED_MODULE_14__["MarkdownService"]], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, 0, ["\n        Description\n        ----\n        The `<rms-spark-line>` Angular custom component renders a simple sparkline including the following elements:\n        * a line\n        * optional decorating points, drawn along the line, e.g. min / max / start / end / alert. etc.\n        * an optional dropdown shade\n\n        The `<rms-spark-line>` Angular custom component renders the following  sparkline variations:\n        1. `simple`: A simple line, all points positive\n        1. `decorated`:  A simple line, all points positive, with decoration points alongside the line.\n        1. `shade`: Dual charts' bars heights are negative, zero, or positive, with a positive height bars drawn northward and negative ones southward.\n\n        ### Usage\n\n        Below is example of a sparkline inline drawn without a shade and with decorationpoints.\n        ````html\n          <rms-sparkline-inline>\n              [className]=\"className\"\n              [decorationPoints]=\"decorationPoints\"\n              [dotRadius]=\"dotRadius\"\n              [lineColor]=\"lineColor\"\n              [linePoints]=\"linePoints\"\n              [lineWidth]=\"lineWidth\"\n              [height]=\"height\"\n              [shadeColor]=\"shadeColor\"\n              [width]=\"width\"\n\n          </rms-sparkline-inline>\n        ````\n\n        ### Properties\n        * `className: string`: The classe names to be added to the canvas element. Default is no classes.\n        * `decorationPoints: string` An array of objects describing decoration points,  e.g. min / max / start / end / alert. etc. See below for formating details.\n        * `dotRadius: Number`: The size of the decoration dots.\n        * `lineColor: string`: The color of the sparkline; any valid CSS color.\n        * `linePoints: string`: An array of numbers representing the sparkline data source. Default is empty array. See below for formating details.\n        * `lineWidth: number`: A number giving the stroke of the line in pixels. Default is 1.\n        * `width: number`: The width of the sparkline box in pixels.\n        * `shadeColor: string`: The color of to shade the area underneath the sparkline.\n        * `height: number`: The height of the sparkline box in pixels.\n\n        #### linePoints\n        A JOSN.stringfy'd string of a simple sequence of values representing f(x), with x being equally spaced units across the horizontal axis, as for instance:\n        ````typescript\n          linePoints: string = JSON.stringify([4, 3, 7, 8, 1, 4, 9, 2, 5, 3, 5, 5, 8 , 9, 7, 1]);\n        ````\n\n        Assuming the default width, 64 pixels, fifteen segments would will be drawn, four pixels wide. There are two decorations this example, one red dot indexed to be drawn over the line point of index 0 and one black dot indexed to be drawn over the line point of index 15. Considering the linepoints example above, these decorations would represent the sparkline's start and end points.\n\n        #### decorationPoints\n        A JOSN.stringfy'd string array of objectss describing the decoration points, as for instance the first point of the line and the last point of the line:\n        ````typescript\n        	decorationPoints: string = decorationPoints = JSON.stringify(\n            [\n                {index: 0, color: 'red'},\n                {index: 11, color: 'black}'\n            ]);\n        ````\n\n        ### Methods\n        none\n\n        ### Events Received\n        none\n\n        ### Events Emitted\n        none\n\n        # Last but not least\n        ````html\n        _   _                   _____\n        | | | | __ ___   _____  |  ___|   _ _ __\n        | |_| |/ _` \\ \\ / / _ \\ | |_ | | | | '_ \\\n        |  _  | (_| |\\ V /  __/ |  _|| |_| | | | |\n        |_| |_|\\__,_| \\_/ \\___| |_|   \\__,_|_| |_|\n        ````\n        "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](30, 16777216, null, null, 4, "mat-tab", [["label", "TBD"]], null, null, null, _node_modules_angular_material_tabs_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_2__["View_MatTab_0"], _node_modules_angular_material_tabs_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_2__["RenderType_MatTab"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](31, 770048, [[1, 4]], 2, _angular_material_tabs__WEBPACK_IMPORTED_MODULE_3__["MatTab"], [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewContainerRef"]], { textLabel: [0, "textLabel"] }, null), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](335544320, 7, { templateLabel: 0 }), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](335544320, 8, { _explicitContent: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, 0, ["TBD"]))], function (_ck, _v) { var currVal_2 = "0ms"; _ck(_v, 1, 0, currVal_2); var currVal_3 = "Examples"; _ck(_v, 4, 0, currVal_3); var currVal_4 = "3"; var currVal_5 = "400"; _ck(_v, 8, 0, currVal_4, currVal_5); _ck(_v, 14, 0); _ck(_v, 18, 0); _ck(_v, 22, 0); var currVal_6 = "README"; _ck(_v, 24, 0, currVal_6); var currVal_7 = "TBD"; _ck(_v, 31, 0, currVal_7); }, function (_ck, _v) { var currVal_0 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 1).dynamicHeight; var currVal_1 = (_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 1).headerPosition === "below"); _ck(_v, 0, 0, currVal_0, currVal_1); }); }
+function View_InlineComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-inline", [], null, null, null, View_InlineComponent_0, RenderType_InlineComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 114688, null, 0, _inline_component__WEBPACK_IMPORTED_MODULE_15__["InlineComponent"], [], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
+var InlineComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-inline", _inline_component__WEBPACK_IMPORTED_MODULE_15__["InlineComponent"], View_InlineComponent_Host_0, {}, {}, []);
 
 
 
@@ -1031,6 +1411,379 @@ var InlineComponent = /** @class */ (function () {
     InlineComponent.prototype.ngOnInit = function () {
     };
     return InlineComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/inline/spark-line-decoration/spark-line-decoration.component.css.shim.ngstyle.js":
+/*!**************************************************************************************************!*\
+  !*** ./src/app/inline/spark-line-decoration/spark-line-decoration.component.css.shim.ngstyle.js ***!
+  \**************************************************************************************************/
+/*! exports provided: styles */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "styles", function() { return styles; });
+/**
+ * @fileoverview This file was generated by the Angular template compiler. Do not edit.
+ *
+ * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
+ * tslint:disable
+ */ 
+var styles = ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJwcm9qZWN0cy9saXZpbmctc3R5bGUtZ3VpZGUvc3JjL2FwcC9pbmxpbmUvc3BhcmstbGluZS1kZWNvcmF0aW9uL3NwYXJrLWxpbmUtZGVjb3JhdGlvbi5jb21wb25lbnQuY3NzIn0= */"];
+
+
+
+/***/ }),
+
+/***/ "./src/app/inline/spark-line-decoration/spark-line-decoration.component.ngfactory.js":
+/*!*******************************************************************************************!*\
+  !*** ./src/app/inline/spark-line-decoration/spark-line-decoration.component.ngfactory.js ***!
+  \*******************************************************************************************/
+/*! exports provided: RenderType_SparkLineDecorationComponent, View_SparkLineDecorationComponent_0, View_SparkLineDecorationComponent_Host_0, SparkLineDecorationComponentNgFactory */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RenderType_SparkLineDecorationComponent", function() { return RenderType_SparkLineDecorationComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "View_SparkLineDecorationComponent_0", function() { return View_SparkLineDecorationComponent_0; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "View_SparkLineDecorationComponent_Host_0", function() { return View_SparkLineDecorationComponent_Host_0; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SparkLineDecorationComponentNgFactory", function() { return SparkLineDecorationComponentNgFactory; });
+/* harmony import */ var _spark_line_decoration_component_css_shim_ngstyle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./spark-line-decoration.component.css.shim.ngstyle */ "./src/app/inline/spark-line-decoration/spark-line-decoration.component.css.shim.ngstyle.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _node_modules_angular_material_card_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/@angular/material/card/typings/index.ngfactory */ "../../node_modules/@angular/material/card/typings/index.ngfactory.js");
+/* harmony import */ var _angular_material_card__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material/card */ "../../node_modules/@angular/material/esm5/card.es5.js");
+/* harmony import */ var _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../../dist/library/library.ngfactory */ "../../dist/library/library.ngfactory.js");
+/* harmony import */ var library__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! library */ "../../dist/library/fesm5/library.js");
+/* harmony import */ var _node_modules_ngx_markdown_ngx_markdown_ngfactory__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../../node_modules/ngx-markdown/ngx-markdown.ngfactory */ "../../node_modules/ngx-markdown/ngx-markdown.ngfactory.js");
+/* harmony import */ var ngx_markdown__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-markdown */ "../../node_modules/ngx-markdown/fesm5/ngx-markdown.js");
+/* harmony import */ var _node_modules_angular_material_button_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../../node_modules/@angular/material/button/typings/index.ngfactory */ "../../node_modules/@angular/material/button/typings/index.ngfactory.js");
+/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/button */ "../../node_modules/@angular/material/esm5/button.es5.js");
+/* harmony import */ var _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/cdk/platform */ "../../node_modules/@angular/cdk/esm5/platform.es5.js");
+/* harmony import */ var _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/cdk/a11y */ "../../node_modules/@angular/cdk/esm5/a11y.es5.js");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/platform-browser/animations */ "../../node_modules/@angular/platform-browser/fesm5/animations.js");
+/* harmony import */ var _spark_line_decoration_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./spark-line-decoration.component */ "./src/app/inline/spark-line-decoration/spark-line-decoration.component.ts");
+/**
+ * @fileoverview This file was generated by the Angular template compiler. Do not edit.
+ *
+ * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
+ * tslint:disable
+ */ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var styles_SparkLineDecorationComponent = [_spark_line_decoration_component_css_shim_ngstyle__WEBPACK_IMPORTED_MODULE_0__["styles"]];
+var RenderType_SparkLineDecorationComponent = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵcrt"]({ encapsulation: 0, styles: styles_SparkLineDecorationComponent, data: {} });
+
+function View_SparkLineDecorationComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 24, "mat-card", [["class", "example-card mat-card"]], null, null, null, _node_modules_angular_material_card_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_2__["View_MatCard_0"], _node_modules_angular_material_card_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_2__["RenderType_MatCard"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 49152, null, 0, _angular_material_card__WEBPACK_IMPORTED_MODULE_3__["MatCard"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](2, 0, null, 0, 7, "mat-card-header", [["class", "mat-card-header"]], null, null, null, _node_modules_angular_material_card_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_2__["View_MatCardHeader_0"], _node_modules_angular_material_card_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_2__["RenderType_MatCardHeader"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](3, 49152, null, 0, _angular_material_card__WEBPACK_IMPORTED_MODULE_3__["MatCardHeader"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](4, 0, null, 1, 2, "mat-card-title", [["class", "mat-card-title-rms mat-card-title"]], null, null, null, null, null)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](5, 16384, null, 0, _angular_material_card__WEBPACK_IMPORTED_MODULE_3__["MatCardTitle"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Sparkline type: Line"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](7, 0, null, 1, 2, "mat-card-subtitle", [["class", "mat-card-subtitle"]], null, null, null, null, null)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](8, 16384, null, 0, _angular_material_card__WEBPACK_IMPORTED_MODULE_3__["MatCardSubtitle"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Chart type: Decorated"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](10, 0, null, 0, 9, "mat-card-content", [["class", "mat-card-content"]], null, null, null, null, null)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](11, 16384, null, 0, _angular_material_card__WEBPACK_IMPORTED_MODULE_3__["MatCardContent"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](12, 0, null, null, 2, "p", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](13, 0, null, null, 1, "rms-spark-line", [], null, null, null, _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_4__["View_SparkLineComponent_0"], _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_4__["RenderType_SparkLineComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](14, 4243456, null, 0, library__WEBPACK_IMPORTED_MODULE_5__["SparkLineComponent"], [library__WEBPACK_IMPORTED_MODULE_5__["ɵc"]], { className: [0, "className"], decorationPointsString: [1, "decorationPointsString"], dotRadius: [2, "dotRadius"], height: [3, "height"], lineColor: [4, "lineColor"], linePointsString: [5, "linePointsString"], lineWidth: [6, "lineWidth"], shadeColor: [7, "shadeColor"], width: [8, "width"] }, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](15, 0, null, null, 1, "h4", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Highlights"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](17, 0, null, null, 2, "markdown", [], null, null, null, _node_modules_ngx_markdown_ngx_markdown_ngfactory__WEBPACK_IMPORTED_MODULE_6__["View_MarkdownComponent_0"], _node_modules_ngx_markdown_ngx_markdown_ngfactory__WEBPACK_IMPORTED_MODULE_6__["RenderType_MarkdownComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](18, 4767744, null, 0, ngx_markdown__WEBPACK_IMPORTED_MODULE_7__["MarkdownComponent"], [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"], ngx_markdown__WEBPACK_IMPORTED_MODULE_7__["MarkdownService"]], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, 0, ["\n            `rms-sparkline-line`. Move mouse alongside lines to see their values\n        "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](20, 0, null, 0, 4, "mat-card-actions", [["class", "mat-card-actions"]], [[2, "mat-card-actions-align-end", null]], null, null, null, null)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](21, 16384, null, 0, _angular_material_card__WEBPACK_IMPORTED_MODULE_3__["MatCardActions"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](22, 0, null, null, 2, "a", [["href", "https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/issue-44-ng7/projects/library/src/lib/spark-line"], ["mat-raised-button", ""], ["target", "_blank"]], [[1, "tabindex", 0], [1, "disabled", 0], [1, "aria-disabled", 0], [2, "_mat-animation-noopable", null]], [[null, "click"]], function (_v, en, $event) { var ad = true; if (("click" === en)) {
+        var pd_0 = (_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 23)._haltDisabledEvents($event) !== false);
+        ad = (pd_0 && ad);
+    } return ad; }, _node_modules_angular_material_button_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_8__["View_MatAnchor_0"], _node_modules_angular_material_button_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_8__["RenderType_MatAnchor"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](23, 180224, null, 0, _angular_material_button__WEBPACK_IMPORTED_MODULE_9__["MatAnchor"], [_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_10__["Platform"], _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_11__["FocusMonitor"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"], [2, _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_12__["ANIMATION_MODULE_TYPE"]]], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, 0, ["Source & README"]))], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.className; var currVal_1 = _co.decorationPoints; var currVal_2 = _co.dotRadius; var currVal_3 = _co.height; var currVal_4 = _co.lineColor; var currVal_5 = _co.linePoints; var currVal_6 = _co.lineWidth; var currVal_7 = _co.shadeColor; var currVal_8 = _co.width; _ck(_v, 14, 0, currVal_0, currVal_1, currVal_2, currVal_3, currVal_4, currVal_5, currVal_6, currVal_7, currVal_8); }, function (_ck, _v) { var currVal_9 = (_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 21).align === "end"); _ck(_v, 20, 0, currVal_9); var currVal_10 = (_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 23).disabled ? (0 - 1) : (_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 23).tabIndex || 0)); var currVal_11 = (_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 23).disabled || null); var currVal_12 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 23).disabled.toString(); var currVal_13 = (_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 23)._animationMode === "NoopAnimations"); _ck(_v, 22, 0, currVal_10, currVal_11, currVal_12, currVal_13); }); }
+function View_SparkLineDecorationComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-spark-line-decoration", [], null, null, null, View_SparkLineDecorationComponent_0, RenderType_SparkLineDecorationComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 114688, null, 0, _spark_line_decoration_component__WEBPACK_IMPORTED_MODULE_13__["SparkLineDecorationComponent"], [], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
+var SparkLineDecorationComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-spark-line-decoration", _spark_line_decoration_component__WEBPACK_IMPORTED_MODULE_13__["SparkLineDecorationComponent"], View_SparkLineDecorationComponent_Host_0, {}, {}, []);
+
+
+
+/***/ }),
+
+/***/ "./src/app/inline/spark-line-decoration/spark-line-decoration.component.ts":
+/*!*********************************************************************************!*\
+  !*** ./src/app/inline/spark-line-decoration/spark-line-decoration.component.ts ***!
+  \*********************************************************************************/
+/*! exports provided: SparkLineDecorationComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SparkLineDecorationComponent", function() { return SparkLineDecorationComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+
+var SparkLineDecorationComponent = /** @class */ (function () {
+    function SparkLineDecorationComponent() {
+        // Class(es) to be added to the canvas element.
+        this.className = '';
+        // Decoration points objects
+        this.decorationPoints = JSON.stringify([{ index: 0, color: 'red' }, { index: 11, color: 'black' }]);
+        // A number giving the size of the dots used to mark important values.
+        this.dotRadius = 1.5;
+        // A number giving the height of the sparkline box in pixels. By default, uses the height of the Canvas element.
+        this.height = 32;
+        // A string giving the color of the sparkline. Any valid CSS color.
+        this.lineColor = 'DarkGrey';
+        // The sparkline data source
+        this.linePoints = JSON.stringify([4, 3, 7, 8, 1, 4, 9, 2, 5, 3, 5, 9]);
+        // A number giving the stroke of the line in pixels.
+        this.lineWidth = 1.5;
+        // A string giving the color of the dot marking the highest value. Any valid CSS color.
+        this.shadeColor = '';
+        // A number giving the width of the sparkline box in pixels.
+        this.width = 128;
+    }
+    SparkLineDecorationComponent.prototype.ngOnInit = function () { };
+    return SparkLineDecorationComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/inline/spark-line-shade/spark-line-shade.component.css.shim.ngstyle.js":
+/*!****************************************************************************************!*\
+  !*** ./src/app/inline/spark-line-shade/spark-line-shade.component.css.shim.ngstyle.js ***!
+  \****************************************************************************************/
+/*! exports provided: styles */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "styles", function() { return styles; });
+/**
+ * @fileoverview This file was generated by the Angular template compiler. Do not edit.
+ *
+ * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
+ * tslint:disable
+ */ 
+var styles = ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJwcm9qZWN0cy9saXZpbmctc3R5bGUtZ3VpZGUvc3JjL2FwcC9pbmxpbmUvc3BhcmstbGluZS1zaGFkZS9zcGFyay1saW5lLXNoYWRlLmNvbXBvbmVudC5jc3MifQ== */"];
+
+
+
+/***/ }),
+
+/***/ "./src/app/inline/spark-line-shade/spark-line-shade.component.ngfactory.js":
+/*!*********************************************************************************!*\
+  !*** ./src/app/inline/spark-line-shade/spark-line-shade.component.ngfactory.js ***!
+  \*********************************************************************************/
+/*! exports provided: RenderType_SparkLineShadeComponent, View_SparkLineShadeComponent_0, View_SparkLineShadeComponent_Host_0, SparkLineShadeComponentNgFactory */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RenderType_SparkLineShadeComponent", function() { return RenderType_SparkLineShadeComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "View_SparkLineShadeComponent_0", function() { return View_SparkLineShadeComponent_0; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "View_SparkLineShadeComponent_Host_0", function() { return View_SparkLineShadeComponent_Host_0; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SparkLineShadeComponentNgFactory", function() { return SparkLineShadeComponentNgFactory; });
+/* harmony import */ var _spark_line_shade_component_css_shim_ngstyle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./spark-line-shade.component.css.shim.ngstyle */ "./src/app/inline/spark-line-shade/spark-line-shade.component.css.shim.ngstyle.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _node_modules_angular_material_card_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/@angular/material/card/typings/index.ngfactory */ "../../node_modules/@angular/material/card/typings/index.ngfactory.js");
+/* harmony import */ var _angular_material_card__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material/card */ "../../node_modules/@angular/material/esm5/card.es5.js");
+/* harmony import */ var _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../../dist/library/library.ngfactory */ "../../dist/library/library.ngfactory.js");
+/* harmony import */ var library__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! library */ "../../dist/library/fesm5/library.js");
+/* harmony import */ var _node_modules_ngx_markdown_ngx_markdown_ngfactory__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../../node_modules/ngx-markdown/ngx-markdown.ngfactory */ "../../node_modules/ngx-markdown/ngx-markdown.ngfactory.js");
+/* harmony import */ var ngx_markdown__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-markdown */ "../../node_modules/ngx-markdown/fesm5/ngx-markdown.js");
+/* harmony import */ var _node_modules_angular_material_button_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../../node_modules/@angular/material/button/typings/index.ngfactory */ "../../node_modules/@angular/material/button/typings/index.ngfactory.js");
+/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/button */ "../../node_modules/@angular/material/esm5/button.es5.js");
+/* harmony import */ var _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/cdk/platform */ "../../node_modules/@angular/cdk/esm5/platform.es5.js");
+/* harmony import */ var _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/cdk/a11y */ "../../node_modules/@angular/cdk/esm5/a11y.es5.js");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/platform-browser/animations */ "../../node_modules/@angular/platform-browser/fesm5/animations.js");
+/* harmony import */ var _spark_line_shade_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./spark-line-shade.component */ "./src/app/inline/spark-line-shade/spark-line-shade.component.ts");
+/**
+ * @fileoverview This file was generated by the Angular template compiler. Do not edit.
+ *
+ * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
+ * tslint:disable
+ */ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var styles_SparkLineShadeComponent = [_spark_line_shade_component_css_shim_ngstyle__WEBPACK_IMPORTED_MODULE_0__["styles"]];
+var RenderType_SparkLineShadeComponent = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵcrt"]({ encapsulation: 0, styles: styles_SparkLineShadeComponent, data: {} });
+
+function View_SparkLineShadeComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 24, "mat-card", [["class", "example-card mat-card"]], null, null, null, _node_modules_angular_material_card_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_2__["View_MatCard_0"], _node_modules_angular_material_card_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_2__["RenderType_MatCard"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 49152, null, 0, _angular_material_card__WEBPACK_IMPORTED_MODULE_3__["MatCard"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](2, 0, null, 0, 7, "mat-card-header", [["class", "mat-card-header"]], null, null, null, _node_modules_angular_material_card_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_2__["View_MatCardHeader_0"], _node_modules_angular_material_card_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_2__["RenderType_MatCardHeader"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](3, 49152, null, 0, _angular_material_card__WEBPACK_IMPORTED_MODULE_3__["MatCardHeader"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](4, 0, null, 1, 2, "mat-card-title", [["class", "mat-card-title-rms mat-card-title"]], null, null, null, null, null)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](5, 16384, null, 0, _angular_material_card__WEBPACK_IMPORTED_MODULE_3__["MatCardTitle"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Sparkline type: Line"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](7, 0, null, 1, 2, "mat-card-subtitle", [["class", "mat-card-subtitle"]], null, null, null, null, null)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](8, 16384, null, 0, _angular_material_card__WEBPACK_IMPORTED_MODULE_3__["MatCardSubtitle"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Chart type: Shaded"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](10, 0, null, 0, 9, "mat-card-content", [["class", "mat-card-content"]], null, null, null, null, null)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](11, 16384, null, 0, _angular_material_card__WEBPACK_IMPORTED_MODULE_3__["MatCardContent"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](12, 0, null, null, 2, "p", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](13, 0, null, null, 1, "rms-spark-line", [], null, null, null, _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_4__["View_SparkLineComponent_0"], _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_4__["RenderType_SparkLineComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](14, 4243456, null, 0, library__WEBPACK_IMPORTED_MODULE_5__["SparkLineComponent"], [library__WEBPACK_IMPORTED_MODULE_5__["ɵc"]], { className: [0, "className"], decorationPointsString: [1, "decorationPointsString"], dotRadius: [2, "dotRadius"], height: [3, "height"], lineColor: [4, "lineColor"], linePointsString: [5, "linePointsString"], lineWidth: [6, "lineWidth"], shadeColor: [7, "shadeColor"], width: [8, "width"] }, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](15, 0, null, null, 1, "h4", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Highlights"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](17, 0, null, null, 2, "markdown", [], null, null, null, _node_modules_ngx_markdown_ngx_markdown_ngfactory__WEBPACK_IMPORTED_MODULE_6__["View_MarkdownComponent_0"], _node_modules_ngx_markdown_ngx_markdown_ngfactory__WEBPACK_IMPORTED_MODULE_6__["RenderType_MarkdownComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](18, 4767744, null, 0, ngx_markdown__WEBPACK_IMPORTED_MODULE_7__["MarkdownComponent"], [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"], ngx_markdown__WEBPACK_IMPORTED_MODULE_7__["MarkdownService"]], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, 0, ["\n            `rms-sparkline-line`. Move mouse alongside lines to see their values\n        "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](20, 0, null, 0, 4, "mat-card-actions", [["class", "mat-card-actions"]], [[2, "mat-card-actions-align-end", null]], null, null, null, null)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](21, 16384, null, 0, _angular_material_card__WEBPACK_IMPORTED_MODULE_3__["MatCardActions"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](22, 0, null, null, 2, "a", [["href", "https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/issue-44-ng7/projects/library/src/lib/spark-line"], ["mat-raised-button", ""], ["target", "_blank"]], [[1, "tabindex", 0], [1, "disabled", 0], [1, "aria-disabled", 0], [2, "_mat-animation-noopable", null]], [[null, "click"]], function (_v, en, $event) { var ad = true; if (("click" === en)) {
+        var pd_0 = (_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 23)._haltDisabledEvents($event) !== false);
+        ad = (pd_0 && ad);
+    } return ad; }, _node_modules_angular_material_button_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_8__["View_MatAnchor_0"], _node_modules_angular_material_button_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_8__["RenderType_MatAnchor"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](23, 180224, null, 0, _angular_material_button__WEBPACK_IMPORTED_MODULE_9__["MatAnchor"], [_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_10__["Platform"], _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_11__["FocusMonitor"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"], [2, _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_12__["ANIMATION_MODULE_TYPE"]]], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, 0, ["Source & README"]))], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.className; var currVal_1 = _co.decorationPoints; var currVal_2 = _co.dotRadius; var currVal_3 = _co.height; var currVal_4 = _co.lineColor; var currVal_5 = _co.linePoints; var currVal_6 = _co.lineWidth; var currVal_7 = _co.shadeColor; var currVal_8 = _co.width; _ck(_v, 14, 0, currVal_0, currVal_1, currVal_2, currVal_3, currVal_4, currVal_5, currVal_6, currVal_7, currVal_8); }, function (_ck, _v) { var currVal_9 = (_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 21).align === "end"); _ck(_v, 20, 0, currVal_9); var currVal_10 = (_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 23).disabled ? (0 - 1) : (_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 23).tabIndex || 0)); var currVal_11 = (_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 23).disabled || null); var currVal_12 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 23).disabled.toString(); var currVal_13 = (_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 23)._animationMode === "NoopAnimations"); _ck(_v, 22, 0, currVal_10, currVal_11, currVal_12, currVal_13); }); }
+function View_SparkLineShadeComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-spark-line-shade", [], null, null, null, View_SparkLineShadeComponent_0, RenderType_SparkLineShadeComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 114688, null, 0, _spark_line_shade_component__WEBPACK_IMPORTED_MODULE_13__["SparkLineShadeComponent"], [], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
+var SparkLineShadeComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-spark-line-shade", _spark_line_shade_component__WEBPACK_IMPORTED_MODULE_13__["SparkLineShadeComponent"], View_SparkLineShadeComponent_Host_0, {}, {}, []);
+
+
+
+/***/ }),
+
+/***/ "./src/app/inline/spark-line-shade/spark-line-shade.component.ts":
+/*!***********************************************************************!*\
+  !*** ./src/app/inline/spark-line-shade/spark-line-shade.component.ts ***!
+  \***********************************************************************/
+/*! exports provided: SparkLineShadeComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SparkLineShadeComponent", function() { return SparkLineShadeComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+
+var SparkLineShadeComponent = /** @class */ (function () {
+    function SparkLineShadeComponent() {
+        // Class(es) to be added to the canvas element.
+        this.className = '';
+        // Decoration points objects
+        this.decorationPoints = JSON.stringify([{ index: 0, color: 'red' }, { index: 11, color: 'black' }]);
+        // A number giving the size of the dots used to mark important values.
+        this.dotRadius = 1.5;
+        // A number giving the height of the sparkline box in pixels. By default, uses the height of the Canvas element.
+        this.height = 32;
+        // A string giving the color of the sparkline. Any valid CSS color.
+        this.lineColor = 'DarkGrey';
+        // The sparkline data source
+        this.linePoints = JSON.stringify([4, 3, 7, 8, 1, 4, 9, 2, 5, 3, 5, 9]);
+        // A number giving the stroke of the line in pixels.
+        this.lineWidth = 1.5;
+        // A string giving the color of the dot marking the highest value. Any valid CSS color.
+        this.shadeColor = "LightBlue";
+        // A number giving the width of the sparkline box in pixels.
+        this.width = 128;
+    }
+    SparkLineShadeComponent.prototype.ngOnInit = function () {
+    };
+    return SparkLineShadeComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/inline/spark-line-simple/spark-line-simple.component.css.shim.ngstyle.js":
+/*!******************************************************************************************!*\
+  !*** ./src/app/inline/spark-line-simple/spark-line-simple.component.css.shim.ngstyle.js ***!
+  \******************************************************************************************/
+/*! exports provided: styles */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "styles", function() { return styles; });
+/**
+ * @fileoverview This file was generated by the Angular template compiler. Do not edit.
+ *
+ * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
+ * tslint:disable
+ */ 
+var styles = ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJwcm9qZWN0cy9saXZpbmctc3R5bGUtZ3VpZGUvc3JjL2FwcC9pbmxpbmUvc3BhcmstbGluZS1zaW1wbGUvc3BhcmstbGluZS1zaW1wbGUuY29tcG9uZW50LmNzcyJ9 */"];
+
+
+
+/***/ }),
+
+/***/ "./src/app/inline/spark-line-simple/spark-line-simple.component.ngfactory.js":
+/*!***********************************************************************************!*\
+  !*** ./src/app/inline/spark-line-simple/spark-line-simple.component.ngfactory.js ***!
+  \***********************************************************************************/
+/*! exports provided: RenderType_SparkLineSimpleComponent, View_SparkLineSimpleComponent_0, View_SparkLineSimpleComponent_Host_0, SparkLineSimpleComponentNgFactory */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RenderType_SparkLineSimpleComponent", function() { return RenderType_SparkLineSimpleComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "View_SparkLineSimpleComponent_0", function() { return View_SparkLineSimpleComponent_0; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "View_SparkLineSimpleComponent_Host_0", function() { return View_SparkLineSimpleComponent_Host_0; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SparkLineSimpleComponentNgFactory", function() { return SparkLineSimpleComponentNgFactory; });
+/* harmony import */ var _spark_line_simple_component_css_shim_ngstyle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./spark-line-simple.component.css.shim.ngstyle */ "./src/app/inline/spark-line-simple/spark-line-simple.component.css.shim.ngstyle.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _node_modules_angular_material_card_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/@angular/material/card/typings/index.ngfactory */ "../../node_modules/@angular/material/card/typings/index.ngfactory.js");
+/* harmony import */ var _angular_material_card__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material/card */ "../../node_modules/@angular/material/esm5/card.es5.js");
+/* harmony import */ var _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../../dist/library/library.ngfactory */ "../../dist/library/library.ngfactory.js");
+/* harmony import */ var library__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! library */ "../../dist/library/fesm5/library.js");
+/* harmony import */ var _node_modules_ngx_markdown_ngx_markdown_ngfactory__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../../node_modules/ngx-markdown/ngx-markdown.ngfactory */ "../../node_modules/ngx-markdown/ngx-markdown.ngfactory.js");
+/* harmony import */ var ngx_markdown__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-markdown */ "../../node_modules/ngx-markdown/fesm5/ngx-markdown.js");
+/* harmony import */ var _node_modules_angular_material_button_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../../node_modules/@angular/material/button/typings/index.ngfactory */ "../../node_modules/@angular/material/button/typings/index.ngfactory.js");
+/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/button */ "../../node_modules/@angular/material/esm5/button.es5.js");
+/* harmony import */ var _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/cdk/platform */ "../../node_modules/@angular/cdk/esm5/platform.es5.js");
+/* harmony import */ var _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/cdk/a11y */ "../../node_modules/@angular/cdk/esm5/a11y.es5.js");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/platform-browser/animations */ "../../node_modules/@angular/platform-browser/fesm5/animations.js");
+/* harmony import */ var _spark_line_simple_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./spark-line-simple.component */ "./src/app/inline/spark-line-simple/spark-line-simple.component.ts");
+/**
+ * @fileoverview This file was generated by the Angular template compiler. Do not edit.
+ *
+ * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
+ * tslint:disable
+ */ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var styles_SparkLineSimpleComponent = [_spark_line_simple_component_css_shim_ngstyle__WEBPACK_IMPORTED_MODULE_0__["styles"]];
+var RenderType_SparkLineSimpleComponent = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵcrt"]({ encapsulation: 0, styles: styles_SparkLineSimpleComponent, data: {} });
+
+function View_SparkLineSimpleComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 24, "mat-card", [["class", "example-card mat-card"]], null, null, null, _node_modules_angular_material_card_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_2__["View_MatCard_0"], _node_modules_angular_material_card_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_2__["RenderType_MatCard"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 49152, null, 0, _angular_material_card__WEBPACK_IMPORTED_MODULE_3__["MatCard"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](2, 0, null, 0, 7, "mat-card-header", [["class", "mat-card-header"]], null, null, null, _node_modules_angular_material_card_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_2__["View_MatCardHeader_0"], _node_modules_angular_material_card_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_2__["RenderType_MatCardHeader"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](3, 49152, null, 0, _angular_material_card__WEBPACK_IMPORTED_MODULE_3__["MatCardHeader"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](4, 0, null, 1, 2, "mat-card-title", [["class", "mat-card-title-rms mat-card-title"]], null, null, null, null, null)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](5, 16384, null, 0, _angular_material_card__WEBPACK_IMPORTED_MODULE_3__["MatCardTitle"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Sparkline type: Line"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](7, 0, null, 1, 2, "mat-card-subtitle", [["class", "mat-card-subtitle"]], null, null, null, null, null)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](8, 16384, null, 0, _angular_material_card__WEBPACK_IMPORTED_MODULE_3__["MatCardSubtitle"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Chart type: Simple"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](10, 0, null, 0, 9, "mat-card-content", [["class", "mat-card-content"]], null, null, null, null, null)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](11, 16384, null, 0, _angular_material_card__WEBPACK_IMPORTED_MODULE_3__["MatCardContent"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](12, 0, null, null, 2, "p", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](13, 0, null, null, 1, "rms-spark-line", [], null, null, null, _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_4__["View_SparkLineComponent_0"], _dist_library_library_ngfactory__WEBPACK_IMPORTED_MODULE_4__["RenderType_SparkLineComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](14, 4243456, null, 0, library__WEBPACK_IMPORTED_MODULE_5__["SparkLineComponent"], [library__WEBPACK_IMPORTED_MODULE_5__["ɵc"]], { className: [0, "className"], decorationPointsString: [1, "decorationPointsString"], dotRadius: [2, "dotRadius"], height: [3, "height"], lineColor: [4, "lineColor"], linePointsString: [5, "linePointsString"], lineWidth: [6, "lineWidth"], shadeColor: [7, "shadeColor"], width: [8, "width"] }, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](15, 0, null, null, 1, "h4", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Highlights"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](17, 0, null, null, 2, "markdown", [], null, null, null, _node_modules_ngx_markdown_ngx_markdown_ngfactory__WEBPACK_IMPORTED_MODULE_6__["View_MarkdownComponent_0"], _node_modules_ngx_markdown_ngx_markdown_ngfactory__WEBPACK_IMPORTED_MODULE_6__["RenderType_MarkdownComponent"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](18, 4767744, null, 0, ngx_markdown__WEBPACK_IMPORTED_MODULE_7__["MarkdownComponent"], [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"], ngx_markdown__WEBPACK_IMPORTED_MODULE_7__["MarkdownService"]], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, 0, ["\n            `rms-sparkline-linePoints`. Move mouse alongside lines to see their values\n        "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](20, 0, null, 0, 4, "mat-card-actions", [["class", "mat-card-actions"]], [[2, "mat-card-actions-align-end", null]], null, null, null, null)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](21, 16384, null, 0, _angular_material_card__WEBPACK_IMPORTED_MODULE_3__["MatCardActions"], [], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](22, 0, null, null, 2, "a", [["href", "https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/issue-44-ng7/projects/library/src/lib/spark-line"], ["mat-raised-button", ""], ["target", "_blank"]], [[1, "tabindex", 0], [1, "disabled", 0], [1, "aria-disabled", 0], [2, "_mat-animation-noopable", null]], [[null, "click"]], function (_v, en, $event) { var ad = true; if (("click" === en)) {
+        var pd_0 = (_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 23)._haltDisabledEvents($event) !== false);
+        ad = (pd_0 && ad);
+    } return ad; }, _node_modules_angular_material_button_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_8__["View_MatAnchor_0"], _node_modules_angular_material_button_typings_index_ngfactory__WEBPACK_IMPORTED_MODULE_8__["RenderType_MatAnchor"])), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](23, 180224, null, 0, _angular_material_button__WEBPACK_IMPORTED_MODULE_9__["MatAnchor"], [_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_10__["Platform"], _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_11__["FocusMonitor"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"], [2, _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_12__["ANIMATION_MODULE_TYPE"]]], null, null), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, 0, ["Source & README"]))], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.className; var currVal_1 = _co.decorationPoints; var currVal_2 = _co.dotRadius; var currVal_3 = _co.height; var currVal_4 = _co.lineColor; var currVal_5 = _co.linePoints; var currVal_6 = _co.lineWidth; var currVal_7 = _co.shadeColor; var currVal_8 = _co.width; _ck(_v, 14, 0, currVal_0, currVal_1, currVal_2, currVal_3, currVal_4, currVal_5, currVal_6, currVal_7, currVal_8); }, function (_ck, _v) { var currVal_9 = (_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 21).align === "end"); _ck(_v, 20, 0, currVal_9); var currVal_10 = (_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 23).disabled ? (0 - 1) : (_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 23).tabIndex || 0)); var currVal_11 = (_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 23).disabled || null); var currVal_12 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 23).disabled.toString(); var currVal_13 = (_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 23)._animationMode === "NoopAnimations"); _ck(_v, 22, 0, currVal_10, currVal_11, currVal_12, currVal_13); }); }
+function View_SparkLineSimpleComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-spark-line-simple", [], null, null, null, View_SparkLineSimpleComponent_0, RenderType_SparkLineSimpleComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 114688, null, 0, _spark_line_simple_component__WEBPACK_IMPORTED_MODULE_13__["SparkLineSimpleComponent"], [], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
+var SparkLineSimpleComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-spark-line-simple", _spark_line_simple_component__WEBPACK_IMPORTED_MODULE_13__["SparkLineSimpleComponent"], View_SparkLineSimpleComponent_Host_0, {}, {}, []);
+
+
+
+/***/ }),
+
+/***/ "./src/app/inline/spark-line-simple/spark-line-simple.component.ts":
+/*!*************************************************************************!*\
+  !*** ./src/app/inline/spark-line-simple/spark-line-simple.component.ts ***!
+  \*************************************************************************/
+/*! exports provided: SparkLineSimpleComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SparkLineSimpleComponent", function() { return SparkLineSimpleComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+
+var SparkLineSimpleComponent = /** @class */ (function () {
+    function SparkLineSimpleComponent() {
+        // Class(es) to be added to the canvas element.
+        this.className = '';
+        // Decoration points objects
+        this.decorationPoints = JSON.stringify([]);
+        // A number giving the size of the dots used to mark important values.
+        this.dotRadius = 1.5;
+        // A number giving the height of the sparkline box in pixels. By default, uses the height of the Canvas element.
+        this.height = 32;
+        // A string giving the color of the sparkline. Any valid CSS color.
+        this.lineColor = 'DarkGrey';
+        // The sparkline data source
+        this.linePoints = JSON.stringify([4, 3, 7, 8, 1, 4, 9, 2, 5, 3, 5, 9]);
+        // A number giving the stroke of the line in pixels.
+        this.lineWidth = 1.5;
+        // A string giving the color of the dot marking the highest value. Any valid CSS color.
+        this.shadeColor = "";
+        // A number giving the width of the sparkline box in pixels.
+        this.width = 128;
+    }
+    SparkLineSimpleComponent.prototype.ngOnInit = function () { };
+    return SparkLineSimpleComponent;
 }());
 
 
