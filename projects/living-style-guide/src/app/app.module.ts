@@ -15,6 +15,7 @@ import { AngularMaterialModuleModule } from './utils/angular-material-module/ang
 import { HttpModule } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
+import { SparkLineSimpleComponent } from './inline/spark-line-simple/spark-line-simple.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
     BarchartComponent,
     BoxplotComponent,
     InlineComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    SparkLineSimpleComponent
   ],
   imports: [
     AngularMaterialModuleModule,
