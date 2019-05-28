@@ -16,6 +16,8 @@ import { HttpModule } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 import { SparkLineSimpleComponent } from './inline/spark-line-simple/spark-line-simple.component';
+import { SparkLineShadeComponent } from './inline/spark-line-shade/spark-line-shade.component';
+import { SparkLineDecorationComponent } from './inline/spark-line-decoration/spark-line-decoration.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { SparkLineSimpleComponent } from './inline/spark-line-simple/spark-line-
     BoxplotComponent,
     InlineComponent,
     LandingPageComponent,
-    SparkLineSimpleComponent
+    SparkLineSimpleComponent,
+    SparkLineShadeComponent,
+    SparkLineDecorationComponent
   ],
   imports: [
     AngularMaterialModuleModule,
