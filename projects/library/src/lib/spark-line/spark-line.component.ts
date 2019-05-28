@@ -7,7 +7,32 @@ import { LineService } from '../services/line.service';
   styleUrls: ['./spark-line.component.css']
 })
 export class SparkLineComponent implements AfterViewInit {
-  @Input() lineColor: string;
+    // Class(es) to be added to the canvas element.
+    @Input() className: string;
+
+    // Decoration points objects
+    @Input() decorationPoints: string;
+
+    // A number giving the size of the dots used to mark important values.
+    @Input() dotRadius: number;
+
+    // A number giving the height of the sparkline box in pixels. By default, uses the height of the Canvas element.
+    @Input() height: number;
+
+    // A string giving the color of the sparkline. Any valid CSS color.
+    @Input() lineColor: string;
+
+    // The sparkline data source
+    @Input() linePoints: string;
+
+    // A number giving the stroke of the line in pixels.
+    @Input() lineWidth: number;
+
+    // A string giving the color of the dot marking the highest value. Any valid CSS color.
+    @Input() shadeColor: string;
+
+    // A number giving the width of the sparkline box in pixels.
+    @Input() width: number;
 
   // see https://blog.angular-university.io/angular-viewchild/
   // for a in-depth discussion on @ViewChild
