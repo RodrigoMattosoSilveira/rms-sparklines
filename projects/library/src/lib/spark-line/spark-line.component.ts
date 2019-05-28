@@ -7,7 +7,7 @@ import { LineService } from '../services/line.service';
   styleUrls: ['./spark-line.component.css']
 })
 export class SparkLineComponent implements AfterViewInit {
-  @Input('spark_color') lineColor: string;
+  @Input() lineColor: string;
 
   // see https://blog.angular-university.io/angular-viewchild/
   // for a in-depth discussion on @ViewChild

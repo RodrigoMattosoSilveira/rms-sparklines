@@ -6,8 +6,8 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./spark-line-simple.component.css']
 })
 export class SparkLineSimpleComponent implements OnInit {
-    app_color: string = 'yellow';
-    
+    lineColor: string = 'yellow';
+
     constructor() { }
 
     ngOnInit() {}
