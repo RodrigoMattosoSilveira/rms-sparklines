@@ -7,7 +7,7 @@ import * as  mathjs from 'mathjs';
 export class LineService {
 
     // Local attributes
-    attributes: any;
+    attributes: any = {};
     measurementsArray: number[];
     coordinatesWorld: any [];
     coordinatesViewport: any = [];
@@ -37,23 +37,44 @@ export class LineService {
     }
 
 
-    draw1(attributes) {
+    draw1(
+        className: string,
+        decorationPoints:any [],
+        dotRadius: number,
+        height: number,
+        lineColor: string,
+        linePoints: number[],
+        lineWidth: number,
+        shadeColor: string,
+        sparklineCanvas: ElementRef,
+        width: number
+    ) {
 
         // Save attributes
-        // console.log(`SparklineLine::draw ctx: ` + attributes.ctx);
-        // console.log(`SparklineLine::draw className: ` + attributes.className);
-        // console.log(`SparklineLine::draw decorationPoints: ` + JSON.stringify(attributes.decorationPoints));
-        // console.log(`SparklineLine::draw dotRadius: ` + attributes.dotRadius);
-        // console.log(`SparklineLine::draw height: ` + attributes.height);
-        // console.log(`SparklineLine::draw lineColor: ` + attributes.lineColor);
-        // console.log(`SparklineLine::draw linePoints: ` + JSON.stringify(attributes.linePoints));
-        // console.log(`SparklineLine::draw lineWidth: ` + attributes.lineWidth);
-        // console.log(`SparklineLine::draw shadeColor: ` + attributes.shadeColor);
-        // console.log(`SparklineLine::draw toolTip: ` + attributes.toolTip);
-        // console.log(`SparklineLine::draw width: ` + attributes.width);
-        this.attributes = attributes;
+        this.attributes['className'] = className;
+        this.attributes['decorationPoints'] = decorationPoints;
+        this.attributes['dotRadius'] = dotRadius;
+        this.attributes['height'] = height;
+        this.attributes['lineColor'] = lineColor;
+        this.attributes['linePoints'] = linePoints;
+        this.attributes['lineWidth'] = lineWidth;
+        this.attributes['shadeColor'] = shadeColor;
+        this.attributes['sparklineCanvas'] = sparklineCanvas;
+        this.attributes['width'] = width;
 
-        const ctx: CanvasRenderingContext2D = this.attributes.ctx;
+        console.log(`LineService::draw ctx: ` + this.attributes.ctx);
+        console.log(`LineService::draw className: ` + this.attributes.className);
+        console.log(`LineService::draw decorationPoints: ` + JSON.stringify(this.attributes.decorationPoints));
+        console.log(`LineService::draw dotRadius: ` + this.attributes.dotRadius);
+        console.log(`LineService::draw height: ` + this.attributes.height);
+        console.log(`LineService::draw lineColor: ` + this.attributes.lineColor);
+        console.log(`LineService::draw linePoints: ` + JSON.stringify(this.attributes.linePoints));
+        console.log(`LineService::draw lineWidth: ` + this.attributes.lineWidth);
+        console.log(`LineService::draw shadeColor: ` + this.attributes.shadeColor);
+        console.log(`LineService::draw toolTip: ` + this.attributes.toolTip);
+        console.log(`LineService::draw width: ` + this.attributes.width);
+
+        const ctx: CanvasRenderingContext2D = sparklineCanvas.nativeElement.getContext('2d');
 
         /**
          * Build coordinatesWorld

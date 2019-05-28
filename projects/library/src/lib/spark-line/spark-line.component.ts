@@ -11,7 +11,7 @@ export class SparkLineComponent implements AfterViewInit {
     @Input() className: string;
 
     // Decoration points objects
-    @Input() decorationPoints: string;
+    @Input('decorationPoints') decorationPointsString: string;
 
     // A number giving the size of the dots used to mark important values.
     @Input() dotRadius: number;
@@ -23,7 +23,7 @@ export class SparkLineComponent implements AfterViewInit {
     @Input() lineColor: string;
 
     // The sparkline data source
-    @Input() linePoints: string;
+    @Input('linePoints') linePointsString: string;
 
     // A number giving the stroke of the line in pixels.
     @Input() lineWidth: number;
@@ -43,6 +43,22 @@ export class SparkLineComponent implements AfterViewInit {
   // see https://blog.angular-university.io/angular-viewchild/
   // for recommendation to use ngAfterViewInit instead of ngOnInit
   ngAfterViewInit() {
-      this.lineService.draw(this.sparklineCanvas, this.lineColor);
+      let decorationPoints = JSON.parse(this.decorationPointsString);
+      let linePoints = JSON.parse(this.linePointsString);
+      // this.lineService.draw(this.sparklineCanvas, this.lineColor);
+
+      console.log('SparkLineComponent.ngAfterViewInit: about to call the line drawing');
+      this.lineService.draw1(
+          this.className,
+          decorationPoints,
+          this.dotRadius,
+          this.height,
+          this.lineColor,
+          linePoints,
+          this.lineWidth,
+          this.shadeColor,
+          this.sparklineCanvas,
+          this.width
+      )
   }
 }
