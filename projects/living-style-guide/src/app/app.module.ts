@@ -11,6 +11,7 @@ import { BoxplotComponent } from './boxplot/boxplot.component';
 import { InlineComponent } from './inline/inline.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 
+import { LivingStyleGuideService } from './utils/services/living-style-guide.service';
 import { AngularMaterialModuleModule } from './utils/angular-material-module/angular-material-module.module';
 import { HttpModule } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -56,7 +57,9 @@ import { SparkLineDecorationComponent } from './inline/spark-line-decoration/spa
 	}),
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+      LivingStyleGuideService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

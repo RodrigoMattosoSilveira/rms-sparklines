@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LivingStyleGuideService } from '../../utils/services/living-style-guide.service';
 
 @Component({
     selector: 'app-spark-line-shade',
@@ -33,9 +34,15 @@ export class SparkLineShadeComponent implements OnInit {
     // A number giving the width of the sparkline box in pixels.
     width = 128;
 
-    constructor() { }
+    leaf_lib: string = 'pprojects/library/src/lib/spark-line'
+    leaf_lsg: string = 'projects/living-style-guide/src/app/inline/spark-line-shade'
+    branchURL_lib: string = "";
+    branchURL_lsg: string = "";
+
+    constructor(private livingStyleGuideService: LivingStyleGuideService) { }
 
     ngOnInit() {
+        this.branchURL_lib = this.livingStyleGuideService.branchURL(this.leaf_lib);
+        this.branchURL_lsg = this.livingStyleGuideService.branchURL(this.leaf_lsg);
     }
-
 }
