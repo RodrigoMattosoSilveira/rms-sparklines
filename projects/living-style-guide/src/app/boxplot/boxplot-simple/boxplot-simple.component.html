@@ -1,0 +1,22 @@
+<mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title class="mat-card-title-rms">Sparkline type: Box Plot</mat-card-title>
+        <mat-card-subtitle>Chart type: Simple</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <p>
+            <rms-spark-boxplot [spark_color] = "app_color" ></rms-spark-boxplot>
+        </p>
+        <h4>Highlights</h4>
+        <markdown ngPreserveWhitespaces>
+            Move mouse alongside lines to see their values
+        </markdown>
+    </mat-card-content>
+    <mat-card-actions>
+        <h4>Source References</h4>
+        <markdown ngPreserveWhitespaces>
+            - [Component]({{branchURL_lib}})
+            - [Usage]({{branchURL_lsg}})
+        </markdown>
+    </mat-card-actions>
+</mat-card>
