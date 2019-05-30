@@ -7,6 +7,8 @@
     "build": "ng build",
     "build:lib": "ng build library",
     "build:lsg": "ng build living-style-guide",
+    "build:all": "yarn build:lib && yarn build:lib",
+    "build:reset": "rm -rf node_modules && yarn install && yarn build:all",
     "serve": "ng serve living-style-guide",
     "test": "ng test",
     "test:lib": "ng test library",
