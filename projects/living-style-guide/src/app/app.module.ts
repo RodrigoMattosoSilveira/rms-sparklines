@@ -19,6 +19,7 @@ import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 import { SparkLineSimpleComponent } from './inline/spark-line-simple/spark-line-simple.component';
 import { SparkLineShadeComponent } from './inline/spark-line-shade/spark-line-shade.component';
 import { SparkLineDecorationComponent } from './inline/spark-line-decoration/spark-line-decoration.component';
+import { BoxplotSimpleComponent } from './boxplot/boxplot-simple/boxplot-simple.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SparkLineDecorationComponent } from './inline/spark-line-decoration/spa
     LandingPageComponent,
     SparkLineSimpleComponent,
     SparkLineShadeComponent,
-    SparkLineDecorationComponent
+    SparkLineDecorationComponent,
+    BoxplotSimpleComponent
   ],
   imports: [
     AngularMaterialModuleModule,
