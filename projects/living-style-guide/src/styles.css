@@ -52,3 +52,9 @@ mat-card {
     background-image: url('./assets/images/Rodrigo_Cropped.png');
     background-size: cover;
 }
+
+.rms-mat-card-avatar {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+}
