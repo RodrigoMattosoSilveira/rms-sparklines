@@ -28,7 +28,7 @@ describe('InlineComponent', () => {
             BrowserAnimationsModule,
             LibraryModule,
             HttpModule,
-        	HttpClientModule,
+        	  HttpClientModule,
             MarkdownModule.forRoot({
         		loader: HttpClient, // optional, only if you use [src] attribute
         		markedOptions: {

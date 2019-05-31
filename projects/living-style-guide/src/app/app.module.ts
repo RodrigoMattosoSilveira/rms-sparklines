@@ -26,12 +26,12 @@ import { BoxplotSimpleComponent } from './boxplot/boxplot-simple/boxplot-simple.
     AppComponent,
     BarchartComponent,
     BoxplotComponent,
+    BoxplotSimpleComponent,
     InlineComponent,
     LandingPageComponent,
     SparkLineSimpleComponent,
     SparkLineShadeComponent,
     SparkLineDecorationComponent,
-    BoxplotSimpleComponent
   ],
   imports: [
     AngularMaterialModuleModule,

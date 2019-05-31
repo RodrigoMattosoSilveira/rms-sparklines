@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { SparkLineSimpleComponent } from './spark-line-simple.component'
 
 import { AngularMaterialModuleModule } from '../../utils/angular-material-module/angular-material-module.module';
 import { HttpModule } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { SparkLineSimpleComponent } from './spark-line-simple.component'
 import { LibraryModule } from 'library';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 
@@ -37,7 +37,6 @@ describe('SparkLineSimpleComponent', () => {
                     },
                 },
             }),
-
         ]
         }).compileComponents();
     }));
