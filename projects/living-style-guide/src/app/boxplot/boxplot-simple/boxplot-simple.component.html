@@ -5,7 +5,25 @@
     </mat-card-header>
     <mat-card-content>
         <p>
-            <rms-spark-boxplot [spark_color] = "app_color" ></rms-spark-boxplot>
+            <rms-spark-boxplot
+                [axisColor] = 'axisColor'
+                [axisLineWidth] = 'axisLineWidth'
+                [chartType] = 'chartType'
+                [className] = 'className'
+                [height] = 'height'
+                [highWhiskerColor]  = 'highWhiskerColor'
+                [highWhiskerLineWidth] = 'highWhiskerLineWidth'
+                [interQuartileRangeLineColor] = 'interQuartileRangeLineColor'
+                [interQuartileRangeLineWidth] = 'interQuartileRangeLineWidth'
+                [interQuartileRangeFillColor] = 'interQuartileRangeFillColor'
+                [lowWhiskerColor] = 'lowWhiskerColor'
+                [lowWhiskerLineWidth] = 'lowWhiskerLineWidth'
+                [medianColor] = 'medianColor'
+                [medianLineWidth] = 'medianLineWidth'
+                [population] = 'population'
+                [width] = 'width'
+            >
+            </rms-spark-boxplot>
         </p>
         <h4>Highlights</h4>
         <markdown ngPreserveWhitespaces>
@@ -15,8 +33,8 @@
     <mat-card-actions>
         <h4>Source References</h4>
         <markdown ngPreserveWhitespaces>
-            - [Component]({{branchURL_lib}})
-            - [Usage]({{branchURL_lsg}})
+            - [Component]({{branchUrlLib}})
+            - [Usage]({{branchUrlLsg}})
         </markdown>
     </mat-card-actions>
 </mat-card>

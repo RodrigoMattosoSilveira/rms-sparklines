@@ -8,31 +8,31 @@ import { LineService } from '../services/line.service';
 })
 export class SparkLineComponent implements AfterViewInit {
     // Class(es) to be added to the canvas element.
-    @Input() className: string;
+    @Input() className = ``;
 
     // Decoration points objects
-    @Input('decorationPoints') decorationPointsString: string;
+    @Input() decorationPoints = JSON.stringify([]);
 
     // A number giving the size of the dots used to mark important values.
-    @Input() dotRadius: number;
+    @Input() dotRadius = 1;
 
     // A number giving the height of the sparkline box in pixels. By default, uses the height of the Canvas element.
-    @Input() height: number;
+    @Input() height = 32;
 
     // A string giving the color of the sparkline. Any valid CSS color.
-    @Input() lineColor: string;
+    @Input() lineColor = `black`;
 
     // The sparkline data source
-    @Input('linePoints') linePointsString: string;
+    @Input() linePoints = JSON.stringify([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
     // A number giving the stroke of the line in pixels.
-    @Input() lineWidth: number;
+    @Input() lineWidth = 1;
 
     // A string giving the color of the dot marking the highest value. Any valid CSS color.
-    @Input() shadeColor: string;
+    @Input() shadeColor = ``;
 
     // A number giving the width of the sparkline box in pixels.
-    @Input() width: number;
+    @Input() width = 128;
 
   // see https://blog.angular-university.io/angular-viewchild/
   // for a in-depth discussion on @ViewChild
@@ -43,22 +43,22 @@ export class SparkLineComponent implements AfterViewInit {
   // see https://blog.angular-university.io/angular-viewchild/
   // for recommendation to use ngAfterViewInit instead of ngOnInit
   ngAfterViewInit() {
-      let decorationPoints = JSON.parse(this.decorationPointsString);
-      let linePoints = JSON.parse(this.linePointsString);
+      const decorationPointsArray = JSON.parse(this.decorationPoints);
+      const linePointsArray = JSON.parse(this.linePoints);
       // this.lineService.draw(this.sparklineCanvas, this.lineColor);
 
       console.log('SparkLineComponent.ngAfterViewInit: about to call the line drawing');
       this.lineService.draw1(
           this.className,
-          decorationPoints,
+          decorationPointsArray,
           this.dotRadius,
           this.height,
           this.lineColor,
-          linePoints,
+          linePointsArray,
           this.lineWidth,
           this.shadeColor,
           this.sparklineCanvas,
           this.width
-      )
+      );
   }
 }

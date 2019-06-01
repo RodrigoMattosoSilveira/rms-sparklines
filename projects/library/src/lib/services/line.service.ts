@@ -62,17 +62,17 @@ export class LineService {
         this.attributes['sparklineCanvas'] = sparklineCanvas;
         this.attributes['width'] = width;
 
-        console.log(`LineService::draw ctx: ` + this.attributes.ctx);
-        console.log(`LineService::draw className: ` + this.attributes.className);
-        console.log(`LineService::draw decorationPoints: ` + JSON.stringify(this.attributes.decorationPoints));
-        console.log(`LineService::draw dotRadius: ` + this.attributes.dotRadius);
-        console.log(`LineService::draw height: ` + this.attributes.height);
-        console.log(`LineService::draw lineColor: ` + this.attributes.lineColor);
-        console.log(`LineService::draw linePoints: ` + JSON.stringify(this.attributes.linePoints));
-        console.log(`LineService::draw lineWidth: ` + this.attributes.lineWidth);
-        console.log(`LineService::draw shadeColor: ` + this.attributes.shadeColor);
-        console.log(`LineService::draw toolTip: ` + this.attributes.toolTip);
-        console.log(`LineService::draw width: ` + this.attributes.width);
+        // console.log(`LineService::draw ctx: ` + this.attributes.ctx);
+        // console.log(`LineService::draw className: ` + this.attributes.className);
+        // console.log(`LineService::draw decorationPoints: ` + JSON.stringify(this.attributes.decorationPoints));
+        // console.log(`LineService::draw dotRadius: ` + this.attributes.dotRadius);
+        // console.log(`LineService::draw height: ` + this.attributes.height);
+        // console.log(`LineService::draw lineColor: ` + this.attributes.lineColor);
+        // console.log(`LineService::draw linePoints: ` + JSON.stringify(this.attributes.linePoints));
+        // console.log(`LineService::draw lineWidth: ` + this.attributes.lineWidth);
+        // console.log(`LineService::draw shadeColor: ` + this.attributes.shadeColor);
+        // console.log(`LineService::draw toolTip: ` + this.attributes.toolTip);
+        // console.log(`LineService::draw width: ` + this.attributes.width);
 
         const ctx: CanvasRenderingContext2D = sparklineCanvas.nativeElement.getContext('2d');
 
