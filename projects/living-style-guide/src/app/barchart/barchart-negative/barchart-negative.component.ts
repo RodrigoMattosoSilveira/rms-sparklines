@@ -9,12 +9,12 @@ import { LivingStyleGuideService } from '../../utils/services/living-style-guide
 export class BarchartNegativeComponent implements OnInit {
         app_color: string = 'red';
 
-constructor(private livingStyleGuideService: LivingStyleGuideService) { }
+        constructor(private livingStyleGuideService: LivingStyleGuideService) { }
 
-leafLib = 'projects/library/src/lib/spark-barchart';
-leafLsg = 'projects/living-style-guide/src/app/boxplot/barchart-negative';
-    branchUrlLib = ``;
-    branchUrlLsg = ``;
+        leafLib = 'projects/library/src/lib/spark-barchart';
+        leafLsg = 'projects/living-style-guide/src/app/barchart/barchart-negative';
+        branchUrlLib = ``;
+        branchUrlLsg = ``;
 
 
     ngOnInit() {

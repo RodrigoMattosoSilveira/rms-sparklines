@@ -12,7 +12,7 @@ export class BarchartTriComponent implements OnInit {
     constructor(private livingStyleGuideService: LivingStyleGuideService) { }
 
     leafLib = 'projects/library/src/lib/spark-barchart';
-    leafLsg = 'projects/living-style-guide/src/app/boxplot/barchart-tri';
+    leafLsg = 'projects/living-style-guide/src/app/barchart/barchart-tri';
     branchUrlLib = ``;
     branchUrlLsg = ``;
 

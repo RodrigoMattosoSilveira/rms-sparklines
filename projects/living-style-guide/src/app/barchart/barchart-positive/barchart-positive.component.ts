@@ -12,7 +12,7 @@ export class BarchartPositiveComponent implements OnInit {
     constructor(private livingStyleGuideService: LivingStyleGuideService) { }
 
     leafLib = 'projects/library/src/lib/spark-barchart';
-    leafLsg = 'projects/living-style-guide/src/app/boxplot/barchart-positive';
+    leafLsg = 'projects/living-style-guide/src/app/barchart/barchart-positive';
     branchUrlLib = ``;
     branchUrlLsg = ``;
 
