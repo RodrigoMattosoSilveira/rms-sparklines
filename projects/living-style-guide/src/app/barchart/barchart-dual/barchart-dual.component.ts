@@ -10,7 +10,7 @@ export class BarchartDualComponent implements OnInit {
     app_color: string = 'red';
 
     barGap = 6;
-    barHeights: string =  JSON.stringify([-4, 3, -7, -8, -1, 1, 3, -2, -5, 3, -5, 82]);
+    barHeights: string =  JSON.stringify([-4, 3, -7, -8, -1, 1, 3, -2, -5, 3, -5, 8]);
     chartType = 'dual';
     className = '';
     fillColorMinus = 'rgb(255,0,0)';

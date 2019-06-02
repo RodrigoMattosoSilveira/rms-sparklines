@@ -10,7 +10,7 @@ export class BarchartNegativeComponent implements OnInit {
     app_color: string = 'red';
 
     barGap = 6;
-    barHeights: string =  JSON.stringify([-1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -11, -12]);
+    barHeights: string =  JSON.stringify([-4, -3, -7, -8, -1, -1, -3, -2, -5, -3, -5, -8]);
     chartType = 'negative';
     className = '';
     fillColorMinus = 'rgb(255,0,0)';

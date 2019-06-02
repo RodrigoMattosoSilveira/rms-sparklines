@@ -140,50 +140,50 @@ export class BarchartService {
     private cssColorString: CssColorString = null;
 
     // Attributes setters and Getters
-    setCanvasEl(value: HTMLCanvasElement) { this.canvasEl = value; }
-    getCanvasEl(): HTMLCanvasElement { return this.canvasEl; }
-
-    setChartType(value: string) { this.chartType = value; }
-    getChartType(): string { return this.chartType; }
-
-    setBarHeights(value: number[]) { this.barHeights = value.slice(0); }
-    getBarHeights(): number[] { return this.barHeights.slice(0); }
-
-    setMinimumBarWidth(value: number) { this.minimumBarWidth = value; }
-    getMinimumBarWidth(): number { return this.minimumBarWidth; }
-
-    setBarGap(value: number) { this.barGap = value; }
-    getBarGap(): number { return this.barGap; }
-
-    setFillColorMinus(value: string) { this.fillColorMinus = value; }
-    getFillColorMinus(): string { return this.fillColorMinus; }
-
-    setFillColorZero(value: string) { this.fillColorZero = value; }
-    getFillColorZero(): string { return this.fillColorZero; }
-
-    setFillColorPlus(value: string) { this.fillColorPlus = value; }
-    getFillColorPlus(): string { return this.fillColorPlus; }
-
-    // Parameters setters and getters
-    setCtx(value: CanvasRenderingContext2D) { this.ctx = value; }
-    getCtx(): CanvasRenderingContext2D { return this.ctx; }
-
-    setCanvasWidth(value: number) { this.canvasWidth = value; }
-    getCanvasWidth(): number { return this.canvasWidth; }
-
-    setCanvasHeight(value: number) { this.canvasHeight = value; }
-    getCanvasHeight(): number { return this.canvasHeight; }
-
-    setBarWidth(value: number) { this.barWidth = value; }
-    getBarWidth(): number { return this.barWidth; }
-
-    getBars(): Bar[] { return this.bars; }
-
-    setBars3D(value: Bar3d[]) { this.bars_3d = value.slice(0); }
-    getBars3D(): Bar3d[] { return this.bars_3d; }
-
-    setCoordinatesTips(value: Rectangle[]) { this.coordinatesTips = value.slice(0); }
-    getCoordinatesTips(): Rectangle[] { return this.coordinatesTips; }
+    // setCanvasEl(value: HTMLCanvasElement) { this.canvasEl = value; }
+    // getCanvasEl(): HTMLCanvasElement { return this.canvasEl; }
+    //
+    // setChartType(value: string) { this.chartType = value; }
+    // getChartType(): string { return this.chartType; }
+    //
+    // setBarHeights(value: number[]) { this.barHeights = value.slice(0); }
+    // getBarHeights(): number[] { return this.barHeights.slice(0); }
+    //
+    // setMinimumBarWidth(value: number) { this.minimumBarWidth = value; }
+    // getMinimumBarWidth(): number { return this.minimumBarWidth; }
+    //
+    // setBarGap(value: number) { this.barGap = value; }
+    // getBarGap(): number { return this.barGap; }
+    //
+    // setFillColorMinus(value: string) { this.fillColorMinus = value; }
+    // getFillColorMinus(): string { return this.fillColorMinus; }
+    //
+    // setFillColorZero(value: string) { this.fillColorZero = value; }
+    // getFillColorZero(): string { return this.fillColorZero; }
+    //
+    // setFillColorPlus(value: string) { this.fillColorPlus = value; }
+    // getFillColorPlus(): string { return this.fillColorPlus; }
+    //
+    // // Parameters setters and getters
+    // setCtx(value: CanvasRenderingContext2D) { this.ctx = value; }
+    // getCtx(): CanvasRenderingContext2D { return this.ctx; }
+    //
+    // setCanvasWidth(value: number) { this.canvasWidth = value; }
+    // getCanvasWidth(): number { return this.canvasWidth; }
+    //
+    // setCanvasHeight(value: number) { this.canvasHeight = value; }
+    // getCanvasHeight(): number { return this.canvasHeight; }
+    //
+    // setBarWidth(value: number) { this.barWidth = value; }
+    // getBarWidth(): number { return this.barWidth; }
+    //
+    // getBars(): Bar[] { return this.bars; }
+    //
+    // setBars3D(value: Bar3d[]) { this.bars_3d = value.slice(0); }
+    // getBars3D(): Bar3d[] { return this.bars_3d; }
+    //
+    // setCoordinatesTips(value: Rectangle[]) { this.coordinatesTips = value.slice(0); }
+    // getCoordinatesTips(): Rectangle[] { return this.coordinatesTips; }
 
 
     constructor() { }
@@ -211,48 +211,90 @@ export class BarchartService {
         this.cssColorString = new CssColorString();
 
         // Must have 8 arguments
-        if (arguments.length !== 8) { throw new Error('barChart::constructor: invalid number of arguments: ' + arguments.length); }
+        if (arguments.length !== 11) {
+            console.log(`BarchartService:drawNew - Invalid number of arguments: ` + arguments.length);
+            throw new Error('barChart::constructor: invalid number of arguments: ' + arguments.length);
+        }
 
         // canvasEl must be provided
-        if (sparklineCanvas === null) { throw new Error('barChar::constructor: canvasEl is null'); }
-        if (sparklineCanvas.nativeElement.tagName !== `CANVAS`) { throw new Error('barChar::constructor: canvasEl is is not CANVAS: ' + sparklineCanvas.nativeElement.tagName); }
-        this.setCanvasEl(sparklineCanvas.nativeElement);
-        this.setCtx(this.getCanvasEl().getContext('2d'));
+        if (sparklineCanvas === null) {
+            console.log(`BarchartService:drawNew - sparklineCanvas is null`);
+            throw new Error('barChar::constructor: canvasEl is null');
+        }
+        if (sparklineCanvas.nativeElement.tagName !== `CANVAS`) {
+            console.log(`BarchartService:drawNew - sparklineCanvas tag is not CANVAS`);
+            throw new Error('barChar::constructor: canvasEl is is not CANVAS: ' + sparklineCanvas.nativeElement.tagName);
+        }
+        // this.setCanvasEl(sparklineCanvas.nativeElement);
+        // this.setCtx(this.getCanvasEl().getContext('2d'));
 
+        this.canvasEl = sparklineCanvas.nativeElement;
+        this.ctx = sparklineCanvas.nativeElement.getContext('2d');
         this.canvasEl.height = height;
+        this.canvasHeight = height;
         this.canvasEl.width = width;
-        this.canvasEl.classList.add(className);
+        this.canvasWidth = width;
+        if (className.length > 0) {
+            this.canvasEl.classList.add(className);
+        }
 
         // chartType must be valid
-        if (this.VALID_TYPES.findIndex(checkCartType) === -1) { throw new Error('barChart::constructor: Invalid chart type:  ' + chartType); }
+        if (this.VALID_TYPES.findIndex(checkCartType) === -1) {
+            console.log(`BarchartService:drawNew - checkCartType is invalid: ` + checkCartType);
+            throw new Error('barChart::constructor: Invalid chart type:  ' + chartType);
+        }
         function checkCartType(chartTypeX: string): boolean {
             return chartTypeX === chartType;
         }
-        this.setChartType(chartType);
+        this.chartType = chartType
+        // this.setChartType(chartType);
 
-        if (!barHeights) { throw new Error('barChart::constructor: barHeights is null'); }
-        if (barHeights.length === 0) { throw new Error('barChart::constructor: barHeights is empty'); }
-        this.setBarHeights(barHeights.slice(0));
+        if (barHeights.length === 0) {
+            console.log(`BarchartService:drawNew - barHeights is invalid: ` + barHeights);
+            throw new Error('barChart::constructor: barHeights is empty');
+        }
+        this.barHeights = barHeights.slice(0);
+        // this.setBarHeights(barHeights.slice(0));
 
         // Minimum barWidth must be equal or higher than 3
         if (minimumBarWidth < 3) { throw new Error('barChart::constructor: minimumBarWidth less than 3: ' + minimumBarWidth); }
-        this.setMinimumBarWidth(minimumBarWidth);
+        this.minimumBarWidth = minimumBarWidth;
+        // this.setMinimumBarWidth(minimumBarWidth);
 
         // Bar gap must be equal or higher than 1
         if (barGap < 1) { throw new Error('barChart::constructor: barGap less than 1: ' + barGap); }
-        this.setBarGap(barGap);
+        this.barGap = barGap;
+        // this.setBarGap(barGap);
 
-        // fillColorPlus must be a valid CSS color
-        if (!this.cssColorString.isValid(fillColorMinus)) { throw new Error('barChart::constructor: Invalid fillColorMinus: ' + fillColorMinus); }
-        this.setFillColorMinus(fillColorMinus);
+        // fillColorMinus must be a valid CSS color
+        if (!this.cssColorString.isValid(fillColorMinus)) {
+            console.log(`BarchartService:drawNew - fillColorMinus is invalid: ` + fillColorMinus);
+            throw new Error('barChart::constructor: Invalid fillColorMinus: ' + fillColorMinus);
+        }
+        this.fillColorMinus = fillColorMinus;
+        // this.setFillColorMinus(fillColorMinus);
+
+                // fillColorPlus must be a valid CSS color
+        if (!this.cssColorString.isValid(fillColorPlus)) {
+            console.log(`BarchartService:drawNew - fillColorPlus is invalid: ` + fillColorPlus);
+            throw new Error('barChart::constructor: Invalid fillColorPlus: ' + fillColorPlus);
+        }
+        this.fillColorPlus = fillColorPlus;
+        // this.fillColorPlus(fillColorPlus);
 
         // fillColorZero must be a valid CSS color
-        if (!this.cssColorString.isValid(fillColorZero)) { throw new Error('barChart::constructor: Invalid fillColorZero: ' + fillColorZero); }
-        this.setFillColorZero(fillColorZero);
+        if (!this.cssColorString.isValid(fillColorZero)) {
+            console.log(`BarchartService:drawNew - fillColorZero is invalid: ` + fillColorZero);
+            throw new Error('barChart::constructor: Invalid fillColorZero: ' + fillColorZero);
+        }
+        this.fillColorZero = fillColorZero;
+        // this.setFillColorZero(fillColorZero);
 
-        // fillColorPlus must be a valid CSS color
-        if (!this.cssColorString.isValid(fillColorPlus)) { throw new Error('barChart::constructor: Invalid fillColorPlus: ' + fillColorPlus); }
-        this.setFillColorPlus(fillColorPlus);
+        // Debug
+        // this.ctx.fillStyle = fillColorMinus;
+        // this.ctx.fillRect(20, 20, 150, 100);
+        // return;
+
 
         // Calculate parameters
         // this.setCtx(this.getCanvasEl().getContext('2d'));
@@ -260,34 +302,20 @@ export class BarchartService {
         // this.setCanvasHeight(this.getCanvasEl().height);
 
         // Insert the bars
-        let _barHeights: number[] =
-        this.calculateBarWidth(
-        this.getCanvasWidth(),
-        this.getBarHeights(),
-        this.getMinimumBarWidth()).slice(0);
+        let _barHeights: number[] = this.calculateBarWidth(width, barHeights, minimumBarWidth).slice(0);
         // console.log('BarChart::draw - calculateBarWidth: ' + JSON.stringify(this.getBarHeights()));
 
         // Save the bar width
-        this.setBarWidth(this.computeBarWidth(this.getCanvasWidth(), _barHeights));
+        this.barWidth = this.computeBarWidth(width, _barHeights);
         if (_barHeights.length === 0) { throw new Error('barChart::calculateBarWidth: barHeights was trimmed to be empty'); }
         // console.log('BarChart::draw - computeBarWidth: ' + this.getBarWidth());
 
         // Insert the gaps by reducing barWidth to be no lower than minimumBarWidth, if necessary
-        this.setBarWidth(
-            this.insertGapsUsingBarWidth(
-            this.getCanvasWidth(),
-            _barHeights,
-            this.getBarGap(),
-            this.getMinimumBarWidth())
-        );
+        this.barWidth = this.insertGapsUsingBarWidth( width, _barHeights, this.barGap, this.minimumBarWidth);
         // console.log('BarChart::draw - insertGapsUsingBarWidth: ' + this.getBarWidth());
 
         // Insert the gaps by trimming barHeights, if necessary
-        _barHeights = this.insertGapsUsingBarHeights(
-        this.getCanvasWidth(),
-        _barHeights,
-        this.getMinimumBarWidth(),
-        this.getBarGap());
+        _barHeights = this.insertGapsUsingBarHeights(width, _barHeights, minimumBarWidth, this.barGap);
         if (_barHeights.length === 0) { throw new Error('barChart::insertGapsUsingBarHeights: barHeights was trimmed to be empty'); }
         // console.log('BarChart::draw - insertGapsUsingBarHeights: ' + JSON.stringify(this.getBarHeights()));
 
@@ -303,18 +331,10 @@ export class BarchartService {
         // console.log('BarChart::draw - buildBars: ' +  JSON.stringify(this.getBars()));
 
         // Set the bars to be drawn
-        this.setBars3D(this.buildBars_1(
-        /* this.getCanvasHeight(), */
-        this.getBarGap(),
-        _barHeights,
-        this.getBarWidth(),
-        this.getChartType(),
-        this.getFillColorMinus(),
-        this.getFillColorZero(),
-        this.getFillColorPlus()));
+        this.bars_3d = this.buildBars_1(this.barGap, _barHeights, this.barWidth, chartType, fillColorMinus, fillColorZero, fillColorPlus);
         // console.log('BarChart::draw - buildBars: ' +  JSON.stringify(this.getBars()));
 
-        this.setCoordinatesTips(this.buildCoordinateTips(this.getBars3D()));
+        this.coordinatesTips = this.buildCoordinateTips(this.bars_3d);
 
         // Transform the canvas
         // this.transformCanvas(
@@ -324,7 +344,7 @@ export class BarchartService {
         //     this.getBarHeights());
 
         // Draw the sparkline
-        this._draw_1(this.getCtx(), this.getBars3D());
+        this._draw_1(this.ctx, this.bars_3d);
 
     }
 
@@ -508,13 +528,13 @@ export class BarchartService {
          bar_3d = this.buildWorldCoordinateBars(barGap, barHeights.slice(0), barWidth, chartType, fillColorMinus, fillColorPlus, fillColorZero);
 
          // Scale coordinates to fit the canvas height
-         sToCanvasHeightMatrix =  this.scaleToCanvasHeight(barHeights, chartType, this.getCanvasHeight());
+         sToCanvasHeightMatrix =  this.scaleToCanvasHeight(barHeights, chartType, this.canvasHeight);
 
          // Scale the coordinates to swtch from world to canvas coordinates
          sFlipCanvasMatrix = this.scaleToCanvasCoordinates();
 
          // Move the bars to fit the new coordinate system’s aesthetics
-         dMoveCanvasMatrix = this.moveWithinCanvas(this.getCanvasHeight(), chartType);
+         dMoveCanvasMatrix = this.moveWithinCanvas(this.canvasHeight, chartType);
 
          // compute the full transformation matrix
          tMatrix =  mathjs.matrix(mathjs.multiply(mathjs.multiply(sFlipCanvasMatrix, sToCanvasHeightMatrix), dMoveCanvasMatrix));

@@ -7,12 +7,12 @@ import { BarchartService } from '../services/barchart.service';
   styleUrls: ['./spark-barchart.component.css']
 })
 export class SparkBarchartComponent implements AfterViewInit {
-    @Input('spark_color') lineColor: string;
+    // @Input('spark_color') lineColor: string;
 
     @Input() barGap = 6;
-    @Input() barHeights = [, 2, 3, 4, 5, 6, 7, 8, 9];
+    @Input() barHeights = JSON.stringify([, 2, 3, 4, 5, 6, 7, 8, 9]);
     @Input() chartType = `positive`;
-    @Input() className = ``;
+    @Input() className = `rms-spark-barchart`;
     @Input() fillColorMinus = `red`;
     @Input() fillColorPlus = `blue`;
     @Input() fillColorZero = `green`;
@@ -30,9 +30,11 @@ export class SparkBarchartComponent implements AfterViewInit {
     // for recommendation to use ngAfterViewInit instead of ngOnInit
     ngAfterViewInit() {
         // this.barchartService.draw(this.sparklineCanvas, this.lineColor);
+        const barHeightsArray: number[] = JSON.parse(this.barHeights);
+        console.log(`SparkBarchartComponent:ngAfterViewInit - About to draw the boxplot`);
         this.barchartService.drawNew(
             this.barGap,
-            this.barHeights,
+            barHeightsArray,
             this.chartType,
             this.className,
             this.fillColorMinus,
@@ -42,6 +44,6 @@ export class SparkBarchartComponent implements AfterViewInit {
             this.minimumBarWidth,
             this.sparklineCanvas,
             this.width
-        )
+        );
     }
 }
