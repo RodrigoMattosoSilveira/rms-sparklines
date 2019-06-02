@@ -9,7 +9,7 @@
     "build:lib": "ng build library",
     "build:serve": "ng build library && yarn start:aot",
     "build:lsg": "ng build living-style-guide",
-    "build:all": "yarn build:lib && yarn build:lib",
+    "build:all": "yarn build:lib && yarn build:lsg",
     "build:reset": "rm -rf node_modules && yarn install && yarn build:all",
     "serve": "ng serve living-style-guide --port 4201",
     "test": "ng test",

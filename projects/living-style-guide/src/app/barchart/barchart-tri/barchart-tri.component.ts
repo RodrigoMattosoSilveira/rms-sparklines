@@ -9,6 +9,17 @@ import { LivingStyleGuideService } from '../../utils/services/living-style-guide
 export class BarchartTriComponent implements OnInit {
     app_color: string = 'red';
 
+    barGap = 6;
+    barHeights: string =  JSON.stringify([-4, 3, 0, -8, -1, 1, 3, 0, -5, 0, -5, 8]);
+    chartType = 'tri';
+    className = '';
+    fillColorMinus = 'rgb(255,0,0)';
+    fillColorPlus = 'rgb(0,0,255)';
+    fillColorZero = 'rgb(0,255,0)';
+    height = 32;
+    minimumBarWidth = 3;
+    width = 128;
+
     constructor(private livingStyleGuideService: LivingStyleGuideService) { }
 
     leafLib = 'projects/library/src/lib/spark-barchart';
