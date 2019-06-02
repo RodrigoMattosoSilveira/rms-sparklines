@@ -10,7 +10,7 @@ export class SparkBarchartComponent implements AfterViewInit {
     // @Input('spark_color') lineColor: string;
 
     @Input() barGap = 6;
-    @Input() barHeights = JSON.stringify([, 2, 3, 4, 5, 6, 7, 8, 9]);
+    @Input() barHeights = JSON.stringify([1, 2, 3, 4, 5, 6, 7, 8, 9]);
     @Input() chartType = `positive`;
     @Input() className = `rms-spark-barchart`;
     @Input() fillColorMinus = `red`;
@@ -31,7 +31,18 @@ export class SparkBarchartComponent implements AfterViewInit {
     ngAfterViewInit() {
         // this.barchartService.draw(this.sparklineCanvas, this.lineColor);
         const barHeightsArray: number[] = JSON.parse(this.barHeights);
-        console.log(`SparkBarchartComponent:ngAfterViewInit - About to draw the boxplot`);
+        // console.log(`SparkBarchartComponent:ngAfterViewInit - About to draw a ` + this.chartType + ` bar chart`);
+        // console.log(`    barGap: ` + this.barGap);
+        // console.log(`    barHeightsArray: ` + JSON.stringify(barHeightsArray));
+        // console.log(`    chartType: ` + this.chartType);
+        // console.log(`    className: ` + this.className);
+        // console.log(`    fillColorMinus: ` + this.fillColorMinus);
+        // console.log(`    fillColorPlus: ` + this.fillColorPlus);
+        // console.log(`    fillColorZero: ` + this.fillColorZero);
+        // console.log(`    height: ` + this.height);
+        // console.log(`    minimumBarWidth: ` + this.minimumBarWidth);
+        // console.log(`    sparklineCanvas: ` + JSON.stringify(this.sparklineCanvas));
+        // console.log(`    width: ` + this.width);
         this.barchartService.drawNew(
             this.barGap,
             barHeightsArray,
