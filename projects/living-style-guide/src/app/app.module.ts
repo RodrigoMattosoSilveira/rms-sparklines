@@ -20,6 +20,10 @@ import { SparkLineSimpleComponent } from './inline/spark-line-simple/spark-line-
 import { SparkLineShadeComponent } from './inline/spark-line-shade/spark-line-shade.component';
 import { SparkLineDecorationComponent } from './inline/spark-line-decoration/spark-line-decoration.component';
 import { BoxplotSimpleComponent } from './boxplot/boxplot-simple/boxplot-simple.component';
+import { BarchartPositiveComponent } from './barchart/barchart-positive/barchart-positive.component';
+import { BarchartNegativeComponent } from './barchart/barchart-negative/barchart-negative.component';
+import { BarchartDualComponent } from './barchart/barchart-dual/barchart-dual.component';
+import { BarchartTriComponent } from './barchart/barchart-tri/barchart-tri.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +36,10 @@ import { BoxplotSimpleComponent } from './boxplot/boxplot-simple/boxplot-simple.
     SparkLineSimpleComponent,
     SparkLineShadeComponent,
     SparkLineDecorationComponent,
+    BarchartPositiveComponent,
+    BarchartNegativeComponent,
+    BarchartDualComponent,
+    BarchartTriComponent,
   ],
   imports: [
     AngularMaterialModuleModule,
