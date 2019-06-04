@@ -7,46 +7,46 @@ import { LineService } from '../services/line.service';
   styleUrls: ['./spark-line.component.css']
 })
 export class SparkLineComponent implements AfterViewInit {
+   // Class(es) to be added to the canvas element.
+   @Input() className = ``;
 
-     measurementsArray: number[];
-     coordinatesWorld: number[];
-     coordinatesViewport: number[];
-     coordinatesCanvas: number[];
-     ctx: CanvasRenderingContext2D;
-     coordinateTips: any[];
+   // Decoration points objects
+   @Input() decorationPoints = JSON.stringify([]);
 
-    // Class(es) to be added to the canvas element.
-    @Input() className = ``;
+   // A number giving the size of the dots used to mark important values.
+   @Input() dotRadius = 1;
 
-    // Decoration points objects
-    @Input() decorationPoints = JSON.stringify([]);
+   // A number giving the height of the sparkline box in pixels. By default, uses the height of the Canvas element.
+   @Input() height = 32;
 
-    // A number giving the size of the dots used to mark important values.
-    @Input() dotRadius = 1;
+   // A string giving the color of the sparkline. Any valid CSS color.
+   @Input() lineColor = `black`;
 
-    // A number giving the height of the sparkline box in pixels. By default, uses the height of the Canvas element.
-    @Input() height = 32;
+   // The sparkline data source
+   @Input() linePoints = JSON.stringify([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
-    // A string giving the color of the sparkline. Any valid CSS color.
-    @Input() lineColor = `black`;
+   // A number giving the stroke of the line in pixels.
+   @Input() lineWidth = 1;
 
-    // The sparkline data source
-    @Input() linePoints = JSON.stringify([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+   // A string giving the color of the dot marking the highest value. Any valid CSS color.
+   @Input() shadeColor = ``;
 
-    // A number giving the stroke of the line in pixels.
-    @Input() lineWidth = 1;
+   // A number giving the width of the sparkline box in pixels.
+   @Input() width = 128;
 
-    // A string giving the color of the dot marking the highest value. Any valid CSS color.
-    @Input() shadeColor = ``;
+   // see https://blog.angular-university.io/angular-viewchild/
+   // for a in-depth discussion on @ViewChild
+   @ViewChild('#sparklineCanvas') sparklineCanvas: ElementRef;
 
-    // A number giving the width of the sparkline box in pixels.
-    @Input() width = 128;
+   constructor(private lineService: LineService) { }
 
-  // see https://blog.angular-university.io/angular-viewchild/
-  // for a in-depth discussion on @ViewChild
-  @ViewChild('sparklineCanvas') sparklineCanvas: ElementRef;
+   measurementsArray: number[];
+   coordinatesWorld: number[];
+   coordinatesViewport: number[];
+   coordinatesCanvas: number[];
+   ctx: CanvasRenderingContext2D;
+   coordinateTips: any[];
 
-  constructor(private lineService: LineService) { }
 
   // see https://blog.angular-university.io/angular-viewchild/
   // for recommendation to use ngAfterViewInit instead of ngOnInit
@@ -69,7 +69,6 @@ export class SparkLineComponent implements AfterViewInit {
       //     this.sparklineCanvas,
       //     this.width
       // );
-      this.ctx = this.sparklineCanvas.nativeElement.getContext('2d');
 
       this.measurementsArray = this.lineService.buildMeasurementsArray(linePointsArray);
       this.coordinatesWorld = this.lineService.buildCoordinatesWorld(this.measurementsArray);
@@ -82,6 +81,9 @@ export class SparkLineComponent implements AfterViewInit {
          this.height,
          this.measurementsArray,
          this.coordinatesViewport);
+
+      this.ctx = this.lineService.getCanvasContext(this.sparklineCanvas);
+      console.log(`SparkLineComponent:ngAfterViewInit - ctx: ` + JSON.stringify(this.ctx));
       this.lineService.drawShade(this.ctx,
             this.lineWidth,
             this.height,
@@ -96,7 +98,7 @@ export class SparkLineComponent implements AfterViewInit {
       this.lineService.drawDecorations(decorationPointsArray,
          this.dotRadius,
          this.measurementsArray,
-         this.ctx,
+         this.sparklineCanvas.nativeElement.getContext('2d'),
          this.coordinatesCanvas);
       this.coordinateTips = this.lineService.buildToolTipsCoordinates(this.measurementsArray,
          this.coordinatesCanvas);
@@ -106,7 +108,7 @@ export class SparkLineComponent implements AfterViewInit {
               this.measurementsArray,
               this.coordinatesTips);
       })
-      this.sparklineCanvas.nativeElement.addEventlistner('mouseout', function (event: any) {
+      this.sparklineCanvas.nativeElement.addEventlistner('mouseout', function () {
            thisThis.lineService.handleMouseOut();
       })
    }

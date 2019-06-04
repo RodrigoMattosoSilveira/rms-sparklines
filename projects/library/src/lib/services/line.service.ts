@@ -202,6 +202,10 @@ export class LineService {
             // console.log(`coordinatesTips(` + i +`): ` + JSON.stringify(this.coordinatesTips[i]));
         }
     }
+      getCanvasContext(sparklineCanvas: ElementRef): CanvasRenderingContext2D {
+         const ctx: CanvasRenderingContext2D = sparklineCanvas.nativeElement.getContext('2d');
+         return ctx;
+      }
 
       /**
        * buildMeasurementsArray
