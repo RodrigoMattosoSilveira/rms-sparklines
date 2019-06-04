@@ -28,14 +28,6 @@ export class LineService {
         ctx.fillRect(20, 20, 150, 100);
     }
 
-    static handleMouseOut() {
-        const tooltip = document.getElementById('rms-sparkline-inline-tooltip');
-        if (tooltip) {
-            // console.log(`SparklineLine::handleMouseMove deleting tooltip`);
-            tooltip.parentElement.removeChild(tooltip);
-        }
-    }
-
     draw1(
         className: string,
         decorationPoints:any [],
@@ -390,16 +382,17 @@ export class LineService {
      // this.canvasScreenOffsetY = rect.top + window.pageYOffset || document.documentElement.scrollTop;
      // console.log(`canvasScreenOffsetX: ` + this.canvasScreenOffsetX);
      // console.log(`canvasScreenOffsetY: ` + this.canvasScreenOffsetY);
-      buildToolTipsCoordinates(): any[] {
+      buildToolTipsCoordinates(measurementsArray: number[],
+         coordinatesCanvas: number[]): any[] {
          let coordinatesTips = [];
-         for (let i = 0; i < this.measurementsArray.length; i++) {
+         for (let i = 0; i < measurementsArray.length; i++) {
             this.coordinatesTips.push({
-               x: this.coordinatesCanvas[i][0],
-               y: this.coordinatesCanvas[i][1],
+               x: coordinatesCanvas[i][0],
+               y: coordinatesCanvas[i][1],
                r: 5,
                rXr: 25,
                color: 'red',
-               tip: this.measurementsArray[i]
+               tip: measurementsArray[i]
             });
             // console.log(`coordinatesTips(` + i +`): ` + JSON.stringify(this.coordinatesTips[i]));
          }
@@ -528,4 +521,13 @@ export class LineService {
             }
         }
     }
+
+   handleMouseOut() {
+      const tooltip = document.getElementById('rms-sparkline-inline-tooltip');
+      if (tooltip) {
+          // console.log(`SparklineLine::handleMouseMove deleting tooltip`);
+          tooltip.parentElement.removeChild(tooltip);
+      }
+   }
+
 }

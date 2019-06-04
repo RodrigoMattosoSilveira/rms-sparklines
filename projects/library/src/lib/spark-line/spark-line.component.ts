@@ -7,6 +7,14 @@ import { LineService } from '../services/line.service';
   styleUrls: ['./spark-line.component.css']
 })
 export class SparkLineComponent implements AfterViewInit {
+
+     measurementsArray: number[];
+     coordinatesWorld: number[];
+     coordinatesViewport: number[];
+     coordinatesCanvas: number[];
+     ctx: CanvasRenderingContext2D;
+     coordinateTips: any[];
+
     // Class(es) to be added to the canvas element.
     @Input() className = ``;
 
@@ -38,12 +46,6 @@ export class SparkLineComponent implements AfterViewInit {
   // for a in-depth discussion on @ViewChild
   @ViewChild('sparklineCanvas') sparklineCanvas: ElementRef;
 
-  measurementsArray: number[];
-  coordinatesWorld: number[];
-  coordinatesViewport: number[];
-  coordinatesCanvas: number[];
-  ctx: CanvasRenderingContext2D;
-
   constructor(private lineService: LineService) { }
 
   // see https://blog.angular-university.io/angular-viewchild/
@@ -51,6 +53,7 @@ export class SparkLineComponent implements AfterViewInit {
   ngAfterViewInit() {
       const decorationPointsArray = JSON.parse(this.decorationPoints);
       const linePointsArray: number[] = JSON.parse(this.linePoints);
+      const thisThis = this;
       // this.lineService.draw(this.sparklineCanvas, this.lineColor);
 
       console.log('SparkLineComponent.ngAfterViewInit: about to call the line drawing');
@@ -95,5 +98,16 @@ export class SparkLineComponent implements AfterViewInit {
          this.measurementsArray,
          this.ctx,
          this.coordinatesCanvas);
-  }
+      this.coordinateTips = this.lineService.buildToolTipsCoordinates(this.measurementsArray,
+         this.coordinatesCanvas);
+      this.sparklineCanvas.nativeElement.addEventlistner('mousemove', function (event: any) {
+            thisThis.lineService.handleMouseMove(event,
+              this.sparklineCanvas.nativeElement,
+              this.measurementsArray,
+              this.coordinatesTips);
+      })
+      this.sparklineCanvas.nativeElement.addEventlistner('mouseout', function (event: any) {
+           thisThis.lineService.handleMouseOut();
+      })
+   }
 }
