@@ -47,14 +47,6 @@ export class SparkLineComponent implements AfterViewInit {
 
    constructor(private lineService: LineService) { }
 
-   measurementsArray: number[];
-   coordinatesWorld: number[];
-   coordinatesViewport: number[];
-   coordinatesCanvas: number[];
-   ctx: CanvasRenderingContext2D;
-   coordinateTips: any[];
-
-
   // see https://blog.angular-university.io/angular-viewchild/
   // for recommendation to use ngAfterViewInit instead of ngOnInit
   ngAfterViewInit() {
