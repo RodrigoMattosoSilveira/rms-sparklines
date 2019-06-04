@@ -7,8 +7,15 @@ import { LineService } from '../services/line.service';
   styleUrls: ['./spark-line.component.css']
 })
 export class SparkLineComponent implements AfterViewInit {
-   // Class(es) to be added to the canvas element.
-   @Input() className = ``;
+   measurementsArray: number[];
+   coordinatesWorld: number[];
+   coordinatesViewport: number[];
+   coordinatesCanvas: number[];
+   ctx: CanvasRenderingContext2D;
+   coordinateTips: any[];
+
+    // Class(es) to be added to the canvas element.
+    @Input() className = ``;
 
    // Decoration points objects
    @Input() decorationPoints = JSON.stringify([]);
@@ -69,47 +76,53 @@ export class SparkLineComponent implements AfterViewInit {
       //     this.sparklineCanvas,
       //     this.width
       // );
+      this.render(linePointsArray, decorationPointsArray);
+  }
+  render(linePointsArray: number[], decorationPointsArray: number[]) {
 
-      this.measurementsArray = this.lineService.buildMeasurementsArray(linePointsArray);
-      this.coordinatesWorld = this.lineService.buildCoordinatesWorld(this.measurementsArray);
-      this.coordinatesViewport = this.lineService.buildCoordinatesViewPort(this.width,
+     const thisThis = this;
+
+     this.measurementsArray = this.lineService.buildMeasurementsArray(linePointsArray);
+     this.coordinatesWorld = this.lineService.buildCoordinatesWorld(this.measurementsArray);
+     this.coordinatesViewport = this.lineService.buildCoordinatesViewPort(this.width,
          this.height,
          this.dotRadius,
          this.measurementsArray,
          this.coordinatesWorld);
-      this.coordinatesCanvas = this.lineService.buildCoordinatesCanvas(this.dotRadius,
+     this.coordinatesCanvas = this.lineService.buildCoordinatesCanvas(this.dotRadius,
          this.height,
          this.measurementsArray,
          this.coordinatesViewport);
 
-      this.ctx = this.lineService.getCanvasContext(this.sparklineCanvas);
-      console.log(`SparkLineComponent:ngAfterViewInit - ctx: ` + JSON.stringify(this.ctx));
-      this.lineService.drawShade(this.ctx,
+     this.ctx = this.lineService.getCanvasContext(this.sparklineCanvas);
+     console.log(`SparkLineComponent:ngAfterViewInit - ctx: ` + JSON.stringify(this.ctx));
+     this.lineService.drawShade(this.ctx,
             this.lineWidth,
             this.height,
             this.shadeColor,
             this.coordinatesCanvas,
             this.measurementsArray.length);
-      this.lineService.drawLine(this.ctx,
+     this.lineService.drawLine(this.ctx,
          this.lineWidth,
          this.lineColor,
          this.coordinatesCanvas,
          this.measurementsArray.length);
-      this.lineService.drawDecorations(decorationPointsArray,
+     this.lineService.drawDecorations(decorationPointsArray,
          this.dotRadius,
          this.measurementsArray,
          this.sparklineCanvas.nativeElement.getContext('2d'),
          this.coordinatesCanvas);
-      this.coordinateTips = this.lineService.buildToolTipsCoordinates(this.measurementsArray,
+     this.coordinateTips = this.lineService.buildToolTipsCoordinates(this.measurementsArray,
          this.coordinatesCanvas);
-      this.sparklineCanvas.nativeElement.addEventlistner('mousemove', function (event: any) {
+   console.log(`SparkLineComponent:ngAfterViewInit - coordinateTips: ` + JSON.stringify(this.coordinateTips));
+     this.sparklineCanvas.nativeElement['onmousemove'] = function (event: any) {
             thisThis.lineService.handleMouseMove(event,
-              this.sparklineCanvas.nativeElement,
-              this.measurementsArray,
-              this.coordinatesTips);
-      })
-      this.sparklineCanvas.nativeElement.addEventlistner('mouseout', function () {
-           thisThis.lineService.handleMouseOut();
-      })
-   }
+              thisThis.sparklineCanvas.nativeElement,
+              thisThis.measurementsArray,
+              thisThis.coordinateTips);
+     }
+     this.sparklineCanvas.nativeElement['onmouseout'] = function () {
+          thisThis.lineService.handleMouseOut();
+     }
+ }
 }
