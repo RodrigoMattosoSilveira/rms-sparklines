@@ -411,7 +411,7 @@ export class BarchartService {
                          // console.log(`barHeights TRI - lowerLeft: ` + JSON.stringify(lowerLeft) + `, upperRight: ` + JSON.stringify(upperRight.toArray()));
                      }
 
-                     bar_3d.push(new Bar3d(lowerLeft, upperRight, fillColor, barHeight < 0 ? -1 : barHeight === 0 ? 0 : 1));
+                     bar_3d.push(new Bar3d(lowerLeft, upperRight, fillColor, barHeight === negativeHeight  ? -1 : barHeight === zeroHeight ? 0 : 1));
                  }
                  break;
              default:
