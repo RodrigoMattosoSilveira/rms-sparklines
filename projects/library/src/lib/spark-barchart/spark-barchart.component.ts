@@ -32,13 +32,16 @@ export class SparkBarchartComponent implements AfterViewInit {
     ngAfterViewInit() {
         // this.barchartService.draw(this.sparklineCanvas, this.lineColor);
         const barHeightsArray: number[] = JSON.parse(this.barHeights);
-
+        const tooltipId: string = `rms-spark-barchart` +(new Date).getTime();
+        const thisThis = this;
+        
         let canvasEl: HTMLCanvasElement;
         let ctx: CanvasRenderingContext2D;
         let _barHeights: number[];
         let barWidth: number;
         let bars_3d: Bar3d[];
         let coordinatesTips: any[];
+
 
         if (this.barchartService.validate(this.barGap,
               barHeightsArray,
@@ -100,6 +103,22 @@ export class SparkBarchartComponent implements AfterViewInit {
           this.barchartService._draw_1(ctx, bars_3d);
 
          coordinatesTips = this.barchartService.buildCoordinateTips(bars_3d);
-        }
+         this.sparklineCanvas.nativeElement.addEventListener('mousemove', function(event: any) {
+         // console.log(`RmsSparklineInlineNew::addEventListener`);
+
+         // Note that when this function is called, this points to the target element!
+         // console.log(`SparkLineComponent:ngAfterViewInit - handling mousemove`);
+            thisThis.barchartService.handleMouseMove(event,
+               canvasEl,
+               coordinatesTips,
+               tooltipId);
+         });
+
+         this.sparklineCanvas.nativeElement.addEventListener('mouseout', function() {
+         // console.log(`RmsSparklineInlineNew::addEventListener`);
+            thisThis.barchartService.handleMouseOut(tooltipId);
+         });
+
+      }
     }
 }
