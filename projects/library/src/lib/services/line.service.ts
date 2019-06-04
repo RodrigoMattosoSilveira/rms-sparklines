@@ -202,11 +202,7 @@ export class LineService {
             // console.log(`coordinatesTips(` + i +`): ` + JSON.stringify(this.coordinatesTips[i]));
         }
     }
-<<<<<<< HEAD
-      getCanvasContext(sparklineCanvas: ElementRef): CanvasRenderingContext2D {
-=======
     getCanvasContext(sparklineCanvas: ElementRef): CanvasRenderingContext2D {
->>>>>>> issue-44-ng7-tooltips-line-1
          const ctx: CanvasRenderingContext2D = sparklineCanvas.nativeElement.getContext('2d');
          return ctx;
       }
@@ -394,11 +390,7 @@ export class LineService {
          coordinatesCanvas: number[]): any[] {
          let coordinatesTips = [];
          for (let i = 0; i < measurementsArray.length; i++) {
-<<<<<<< HEAD
-            this.coordinatesTips.push({
-=======
             coordinatesTips.push({
->>>>>>> issue-44-ng7-tooltips-line-1
                x: coordinatesCanvas[i][0],
                y: coordinatesCanvas[i][1],
                r: 5,
@@ -541,8 +533,4 @@ export class LineService {
           tooltip.parentElement.removeChild(tooltip);
       }
    }
-<<<<<<< HEAD
-
-=======
->>>>>>> issue-44-ng7-tooltips-line-1
 }
