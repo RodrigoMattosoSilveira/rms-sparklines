@@ -38,27 +38,62 @@ export class SparkLineComponent implements AfterViewInit {
   // for a in-depth discussion on @ViewChild
   @ViewChild('sparklineCanvas') sparklineCanvas: ElementRef;
 
+  measurementsArray: number[];
+  coordinatesWorld: number[];
+  coordinatesViewport: number[];
+  coordinatesCanvas: number[];
+  ctx: CanvasRenderingContext2D;
+
   constructor(private lineService: LineService) { }
 
   // see https://blog.angular-university.io/angular-viewchild/
   // for recommendation to use ngAfterViewInit instead of ngOnInit
   ngAfterViewInit() {
       const decorationPointsArray = JSON.parse(this.decorationPoints);
-      const linePointsArray = JSON.parse(this.linePoints);
+      const linePointsArray: number[] = JSON.parse(this.linePoints);
       // this.lineService.draw(this.sparklineCanvas, this.lineColor);
 
       console.log('SparkLineComponent.ngAfterViewInit: about to call the line drawing');
-      this.lineService.draw1(
-          this.className,
-          decorationPointsArray,
-          this.dotRadius,
-          this.height,
-          this.lineColor,
-          linePointsArray,
-          this.lineWidth,
-          this.shadeColor,
-          this.sparklineCanvas,
-          this.width
-      );
+      // this.lineService.draw1(
+      //     this.className,
+      //     decorationPointsArray,
+      //     this.dotRadius,
+      //     this.height,
+      //     this.lineColor,
+      //     linePointsArray,
+      //     this.lineWidth,
+      //     this.shadeColor,
+      //     this.sparklineCanvas,
+      //     this.width
+      // );
+      this.ctx = this.sparklineCanvas.nativeElement.getContext('2d');
+
+      this.measurementsArray = this.lineService.buildMeasurementsArray(linePointsArray);
+      this.coordinatesWorld = this.lineService.buildCoordinatesWorld(this.measurementsArray);
+      this.coordinatesViewport = this.lineService.buildCoordinatesViewPort(this.width,
+         this.height,
+         this.dotRadius,
+         this.measurementsArray,
+         this.coordinatesWorld);
+      this.coordinatesCanvas = this.lineService.buildCoordinatesCanvas(this.dotRadius,
+         this.height,
+         this.measurementsArray,
+         this.coordinatesViewport);
+      this.lineService.drawShade(this.ctx,
+            this.lineWidth,
+            this.height,
+            this.shadeColor,
+            this.coordinatesCanvas,
+            this.measurementsArray.length);
+      this.lineService.drawLine(this.ctx,
+         this.lineWidth,
+         this.lineColor,
+         this.coordinatesCanvas,
+         this.measurementsArray.length);
+      this.lineService.drawDecorations(decorationPointsArray,
+         this.dotRadius,
+         this.measurementsArray,
+         this.ctx,
+         this.coordinatesCanvas);
   }
 }
