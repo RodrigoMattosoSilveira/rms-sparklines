@@ -112,11 +112,6 @@ export class BoxplotService {
    ): HTMLCanvasElement {
 
       const canvasEl = sparklineCanvas.nativeElement;
-      const ctx: CanvasRenderingContext2D = sparklineCanvas.nativeElement.getContext('2d');
-
-      // See https://stackoverflow.com/questions/7530593/html5-canvas-and-line-width/7531540#7531540
-      // for rationale
-      let canvasAdjustment: number;
 
       canvasEl.width = width;
       canvasEl.height = height;

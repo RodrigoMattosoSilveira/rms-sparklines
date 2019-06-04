@@ -149,131 +149,6 @@ export class BarchartService {
         ctx.fillRect(20, 20, 150, 100);
     }
 
-    drawNew(barGap: number,
-            barHeights: number[],
-            chartType: string,
-            className: string,
-            fillColorMinus: string,
-            fillColorPlus: string,
-            fillColorZero: string,
-            height: number,
-            minimumBarWidth: number,
-            sparklineCanvas: ElementRef,
-            width: number
-        ): void {
-        this.cssColorString = new CssColorString();
-
-        // Must have 8 arguments
-        if (arguments.length !== 11) {
-            console.log(`BarchartService:drawNew - Invalid number of arguments: ` + arguments.length);
-            throw new Error('barChart::constructor: invalid number of arguments: ' + arguments.length);
-        }
-
-        // canvasEl must be provided
-        if (sparklineCanvas === null) {
-            console.log(`BarchartService:drawNew - sparklineCanvas is null`);
-            throw new Error('barChar::constructor: canvasEl is null');
-        }
-        if (sparklineCanvas.nativeElement.tagName !== `CANVAS`) {
-            console.log(`BarchartService:drawNew - sparklineCanvas tag is not CANVAS`);
-            throw new Error('barChar::constructor: canvasEl is is not CANVAS: ' + sparklineCanvas.nativeElement.tagName);
-        }
-
-        this.canvasEl = sparklineCanvas.nativeElement;
-        this.ctx = sparklineCanvas.nativeElement.getContext('2d');
-        this.canvasEl.height = height;
-        this.canvasHeight = height;
-        this.canvasEl.width = width;
-        this.canvasWidth = width;
-        if (className.length > 0) {
-            this.canvasEl.classList.add(className);
-        }
-
-        // chartType must be valid
-        if (this.VALID_TYPES.findIndex(checkCartType) === -1) {
-            console.log(`BarchartService:drawNew - checkCartType is invalid: ` + checkCartType);
-            throw new Error('barChart::constructor: Invalid chart type:  ' + chartType);
-        }
-        function checkCartType(chartTypeX: string): boolean {
-            return chartTypeX === chartType;
-        }
-        this.chartType = chartType
-
-        if (barHeights.length === 0) {
-            console.log(`BarchartService:drawNew - barHeights is invalid: ` + barHeights);
-            throw new Error('barChart::constructor: barHeights is empty');
-        }
-        this.barHeights = barHeights.slice(0);
-
-        // Minimum barWidth must be equal or higher than 3
-        if (minimumBarWidth < 3) { throw new Error('barChart::constructor: minimumBarWidth less than 3: ' + minimumBarWidth); }
-        this.minimumBarWidth = minimumBarWidth;
-
-        // Bar gap must be equal or higher than 1
-        if (barGap < 1) { throw new Error('barChart::constructor: barGap less than 1: ' + barGap); }
-        this.barGap = barGap;
-
-        // fillColorMinus must be a valid CSS color
-        if (!this.cssColorString.isValid(fillColorMinus)) {
-            console.log(`BarchartService:drawNew - fillColorMinus is invalid: ` + fillColorMinus);
-            throw new Error('barChart::constructor: Invalid fillColorMinus: ' + fillColorMinus);
-        }
-        this.fillColorMinus = fillColorMinus;
-        // this.setFillColorMinus(fillColorMinus);
-
-                // fillColorPlus must be a valid CSS color
-        if (!this.cssColorString.isValid(fillColorPlus)) {
-            console.log(`BarchartService:drawNew - fillColorPlus is invalid: ` + fillColorPlus);
-            throw new Error('barChart::constructor: Invalid fillColorPlus: ' + fillColorPlus);
-        }
-        this.fillColorPlus = fillColorPlus;
-
-        // fillColorZero must be a valid CSS color
-        if (!this.cssColorString.isValid(fillColorZero)) {
-            console.log(`BarchartService:drawNew - fillColorZero is invalid: ` + fillColorZero);
-            throw new Error('barChart::constructor: Invalid fillColorZero: ' + fillColorZero);
-        }
-        this.fillColorZero = fillColorZero;
-
-        // Debug
-        // this.ctx.fillStyle = fillColorMinus;
-        // this.ctx.fillRect(20, 20, 150, 100);
-        // return;
-
-
-        // Calculate parameters
-        // this.setCtx(this.getCanvasEl().getContext('2d'));
-        // this.setCanvasWidth(this.getCanvasEl().width);
-        // this.setCanvasHeight(this.getCanvasEl().height);
-
-        // Insert the bars
-        let _barHeights: number[] = this.calculateBarWidth(width, barHeights, minimumBarWidth).slice(0);
-        // console.log('BarChart::draw - calculateBarWidth: ' + JSON.stringify(this.getBarHeights()));
-
-        // Save the bar width
-        this.barWidth = this.computeBarWidth(width, _barHeights);
-        if (_barHeights.length === 0) { throw new Error('barChart::calculateBarWidth: barHeights was trimmed to be empty'); }
-        // console.log('BarChart::draw - computeBarWidth: ' + this.getBarWidth());
-
-        // Insert the gaps by reducing barWidth to be no lower than minimumBarWidth, if necessary
-        this.barWidth = this.insertGapsUsingBarWidth( width, _barHeights, this.barGap, this.minimumBarWidth);
-        // console.log('BarChart::draw - insertGapsUsingBarWidth: ' + this.getBarWidth());
-
-        // Insert the gaps by trimming barHeights, if necessary
-        _barHeights = this.insertGapsUsingBarHeights(width, _barHeights, minimumBarWidth, this.barGap);
-        if (_barHeights.length === 0) { throw new Error('barChart::insertGapsUsingBarHeights: barHeights was trimmed to be empty'); }
-        // console.log('BarChart::draw - insertGapsUsingBarHeights: ' + JSON.stringify(this.getBarHeights()));
-
-        // Set the bars to be drawn
-        this.bars_3d = this.buildBars_1(this.barGap, _barHeights, this.barWidth, chartType, fillColorMinus, fillColorZero, fillColorPlus);
-        // console.log('BarChart::draw - buildBars: ' +  JSON.stringify(this.getBars()));
-
-        this.coordinatesTips = this.buildCoordinateTips(this.bars_3d);
-
-        // Draw the sparkline
-        this._draw_1(this.ctx, this.bars_3d);
-    }
-
     /**
      * The bar width, barWidth, is the ratio between the canvas width and the
      * number of bars to draw, rounded down. The barWidth calculation is an
@@ -442,7 +317,8 @@ export class BarchartService {
          chartType: string,
          fillColorMinus: string,
          fillColorZero: string,
-         fillColorPlus: string): Bar3d[] {
+         fillColorPlus: string,
+         canvasHeight: number): Bar3d[] {
 
          let bar_3d: Bar3d[];
          let sToCanvasHeightMatrix: Matrix;
@@ -454,13 +330,13 @@ export class BarchartService {
          bar_3d = this.buildWorldCoordinateBars(barGap, barHeights.slice(0), barWidth, chartType, fillColorMinus, fillColorPlus, fillColorZero);
 
          // Scale coordinates to fit the canvas height
-         sToCanvasHeightMatrix =  this.scaleToCanvasHeight(barHeights, chartType, this.canvasHeight);
+         sToCanvasHeightMatrix =  this.scaleToCanvasHeight(barHeights, chartType, canvasHeight);
 
          // Scale the coordinates to swtch from world to canvas coordinates
          sFlipCanvasMatrix = this.scaleToCanvasCoordinates();
 
          // Move the bars to fit the new coordinate system’s aesthetics
-         dMoveCanvasMatrix = this.moveWithinCanvas(this.canvasHeight, chartType);
+         dMoveCanvasMatrix = this.moveWithinCanvas(canvasHeight, chartType);
 
          // compute the full transformation matrix
          tMatrix =  mathjs.matrix(mathjs.multiply(mathjs.multiply(sFlipCanvasMatrix, sToCanvasHeightMatrix), dMoveCanvasMatrix));
@@ -632,71 +508,6 @@ export class BarchartService {
          return coordinateTips;
      }
 
-     //
-     // transformCanvas(
-     //     ctx: CanvasRenderingContext2D,
-     //     chartType: string,
-     //     canvasHeight: number,
-     //     barHeights: number[]) {
-     //
-     //     let hScaling = 1;
-     //     const hSkewing = 0;
-     //     const vSkewing = 0;
-     //     let vScaling = 1;
-     //     let hMoving = 0;
-     //     let vMoving = 0;
-     //     switch (chartType) {
-     //         case this.VALID_TYPES[this.POSITIVE]:
-     //             hScaling = 1;
-     //             vScaling = -1 * canvasHeight / Math.max(...barHeights);
-     //             hMoving  = 0;
-     //             vMoving  = canvasHeight;
-     //             break;
-     //         case this.VALID_TYPES[this.NEGATIVE]:
-     //             hScaling = 1;
-     //             vScaling = -1 * canvasHeight / Math.abs(Math.min(...barHeights));
-     //             hMoving  = 0;
-     //             vMoving  = 0;
-     //             break;
-     //         case this.VALID_TYPES[this.DUAL]:
-     //             hScaling = 1;
-     //                 // console.log(`::transformCanvas - DUAL /  vScaling / Math.min(...barHeights: ` + Math.min(...barHeights));
-     //                 // console.log(`::transformCanvas - DUAL /  vScaling / Math.max(...barHeights: ` + Math.max(...barHeights));
-     //             vScaling = -1 * canvasHeight / (Math.max(Math.abs(Math.min(...barHeights)), Math.max(...barHeights)) * 2);
-     //             hMoving  = 0;
-     //             vMoving  = canvasHeight / 2;
-     //                 // console.log(`::transformCanvas - DUAL /  vScaling / vMoving: ` + vMoving);
-     //             break;
-     //         case this.VALID_TYPES[this.TRI]:
-     //             hScaling = 1;
-     //                 // console.log(`::transformCanvas - TRI /  vScaling / Math.min(...barHeights: ` + Math.min(...barHeights));
-     //                 // console.log(`::transformCanvas - TRI /  vScaling / Math.max(...barHeights: ` + Math.max(...barHeights));
-     //             // vScaling = -1 * canvasHeight / (Math.max(Math.abs(Math.min(...barHeights)), Math.max(...barHeights)) * 2);
-     //             vScaling = -1;
-     //             hMoving  = 0;
-     //             vMoving  = canvasHeight / 2;
-     //                 // console.log(`::transformCanvas - TRI /  vScaling / vMoving: ` + vMoving);
-     //             break;
-     //         default:
-     //             break;
-     //     }
-     //     ctx.setTransform(hScaling, hSkewing, vSkewing, vScaling, hMoving, vMoving);
-     // }
-
-     // Draw the bars!
-     // _draw(ctx: CanvasRenderingContext2D, bars: Bar[], barGap: number): void {
-     //     for (const bar of bars) {
-     //         // set the bar fill color
-     //         ctx.fillStyle = bar.getFillColor();
-     //
-     //         // draw the bar
-     //         ctx.fillRect(bar.getX(), bar.getY(), bar.getWidth(), bar.getHeight());
-     //
-     //         // Insert barGap by translating x-orign
-     //         ctx.translate(barGap, 0);
-     //     }
-     // }
-
      // Draw the bars!
      _draw_1(ctx: CanvasRenderingContext2D, bars: Bar3d[]): void {
          console.log('drawing');
@@ -819,4 +630,102 @@ export class BarchartService {
              tooltip.parentElement.removeChild(tooltip);
          }
      }
+
+   // Isolating the rendering
+   validate(barGap: number,
+      barHeights: number[],
+      chartType: string,
+      fillColorMinus: string,
+      fillColorPlus: string,
+      fillColorZero: string,
+      minimumBarWidth: number,
+      sparklineCanvas: ElementRef,
+      ): boolean {
+
+      let valid = true;
+      this.cssColorString = new CssColorString();
+
+      // Must have 8 arguments
+      if (arguments.length !== 8) {
+          console.log(`BarchartService:drawNew - Invalid number of arguments: ` + arguments.length);
+          throw new Error('barChart::constructor: invalid number of arguments: ' + arguments.length);
+      }
+
+      // canvasEl must be provided
+      if (sparklineCanvas === null) {
+          console.log(`BarchartService:drawNew - sparklineCanvas is null`);
+          throw new Error('barChar::constructor: canvasEl is null');
+      }
+      if (sparklineCanvas.nativeElement.tagName !== `CANVAS`) {
+          console.log(`BarchartService:drawNew - sparklineCanvas tag is not CANVAS`);
+          throw new Error('barChar::constructor: canvasEl is is not CANVAS: ' + sparklineCanvas.nativeElement.tagName);
+      }
+
+      // chartType must be valid
+      if (this.VALID_TYPES.findIndex(checkCartType) === -1) {
+          console.log(`BarchartService:drawNew - checkCartType is invalid: ` + checkCartType);
+          valid = false;
+      }
+      function checkCartType(chartTypeX: string): boolean {
+          return chartTypeX === chartType;
+      }
+
+      if (barHeights.length === 0) {
+          console.log(`BarchartService:drawNew - barHeights is invalid: ` + barHeights);
+          valid = false;
+      }
+
+      // Minimum barWidth must be equal or higher than 3
+      if (minimumBarWidth < 3) {
+         console.log('barChart::constructor: minimumBarWidth less than 3: ' + minimumBarWidth);
+         valid = false;
+      }
+
+      // Bar gap must be equal or higher than 1
+      if (barGap < 1) {
+         console.log('barChart::constructor: barGap less than 1: ' + barGap);
+         valid = false;
+      }
+
+      // fillColorMinus must be a valid CSS color
+      if (!this.cssColorString.isValid(fillColorMinus)) {
+          console.log(`BarchartService:drawNew - fillColorMinus is invalid: ` + fillColorMinus);
+          valid = false;
+      }
+
+             // fillColorPlus must be a valid CSS color
+      if (!this.cssColorString.isValid(fillColorPlus)) {
+          console.log(`BarchartService:drawNew - fillColorPlus is invalid: ` + fillColorPlus);
+          valid = false;
+      }
+
+      // fillColorZero must be a valid CSS color
+      if (!this.cssColorString.isValid(fillColorZero)) {
+          console.log(`BarchartService:drawNew - fillColorZero is invalid: ` + fillColorZero);
+          valid = false;
+      }
+      return valid;
+   }
+   /**
+    * Begin code isolation
+    */
+   setupCanvasEl(sparklineCanvas: ElementRef,
+        width: number,
+        height: number,
+        className: string,
+     ): HTMLCanvasElement {
+
+     const canvasEl = sparklineCanvas.nativeElement;
+     canvasEl.width = width;
+     canvasEl.height = height;
+     canvasEl.style.display = 'inline-block';
+     canvasEl.style.verticalAlign = 'top';
+     if (className && className !== ``) { canvasEl.classList.add(className); }
+     return canvasEl;
+  }
+
+  setupCtx(canvasEl: HTMLCanvasElement): CanvasRenderingContext2D {
+     const ctx: CanvasRenderingContext2D = canvasEl.getContext('2d');
+     return ctx;
+  }
 }

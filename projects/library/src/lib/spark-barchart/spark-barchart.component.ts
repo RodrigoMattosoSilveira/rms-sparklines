@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { BarchartService } from '../services/barchart.service';
+import { Bar3d } from '../services/bar-3d';
 
 @Component({
   selector: 'rms-spark-barchart',
@@ -31,30 +32,74 @@ export class SparkBarchartComponent implements AfterViewInit {
     ngAfterViewInit() {
         // this.barchartService.draw(this.sparklineCanvas, this.lineColor);
         const barHeightsArray: number[] = JSON.parse(this.barHeights);
-        // console.log(`SparkBarchartComponent:ngAfterViewInit - About to draw a ` + this.chartType + ` bar chart`);
-        // console.log(`    barGap: ` + this.barGap);
-        // console.log(`    barHeightsArray: ` + JSON.stringify(barHeightsArray));
-        // console.log(`    chartType: ` + this.chartType);
-        // console.log(`    className: ` + this.className);
-        // console.log(`    fillColorMinus: ` + this.fillColorMinus);
-        // console.log(`    fillColorPlus: ` + this.fillColorPlus);
-        // console.log(`    fillColorZero: ` + this.fillColorZero);
-        // console.log(`    height: ` + this.height);
-        // console.log(`    minimumBarWidth: ` + this.minimumBarWidth);
-        // console.log(`    sparklineCanvas: ` + JSON.stringify(this.sparklineCanvas));
-        // console.log(`    width: ` + this.width);
-        this.barchartService.drawNew(
+
+        let canvasEl: HTMLCanvasElement;
+        let ctx: CanvasRenderingContext2D;
+        let _barHeights: number[];
+        let barWidth: number;
+        let bars_3d: Bar3d[];
+        let coordinatesTips: any[];
+
+        if (this.barchartService.validate(this.barGap,
+              barHeightsArray,
+              this.chartType,
+              this.fillColorMinus,
+              this.fillColorPlus,
+              this.fillColorZero,
+              this.minimumBarWidth,
+              this.sparklineCanvas) != true) {
+           console.log(`SparkBarchartComponent:ngAfterViewInit - Invalid arguments`)
+        }
+        else {
+           canvasEl = this.barchartService.setupCanvasEl(this.sparklineCanvas,
+                this.width,
+                this.height,
+                this.className);
+          ctx = this.barchartService.setupCtx(canvasEl);
+
+          // Debug
+         // this.ctx.fillStyle = fillColorMinus;
+         // this.ctx.fillRect(20, 20, 150, 100);
+         // return;
+
+
+         // Calculate parameters
+         // this.setCtx(this.getCanvasEl().getContext('2d'));
+         // this.setCanvasWidth(this.getCanvasEl().width);
+         // this.setCanvasHeight(this.getCanvasEl().height);
+
+         // Insert the bars
+         _barHeights = this.barchartService.calculateBarWidth(this.width, barHeightsArray, this.minimumBarWidth).slice(0);
+         if (_barHeights.length === 0) { throw new Error('barChart::calculateBarWidth: barHeights was trimmed to be empty'); }
+         // console.log('BarChart::draw - calculateBarWidth: ' + JSON.stringify(_barHeights));
+
+         // Save the bar width
+         barWidth = this.barchartService.computeBarWidth(this.width, _barHeights);
+         // console.log('BarChart::draw - computeBarWidth: ' + JSON.stringify(barWidth));
+
+         // Insert the gaps by reducing barWidth to be no lower than minimumBarWidth, if necessary
+         barWidth = this.barchartService.insertGapsUsingBarWidth( this.width, _barHeights, this.barGap, this.minimumBarWidth);
+         // console.log('BarChart::draw - computeBarWidth: ' + JSON.stringify(barWidth));
+
+         // Insert the gaps by trimming barHeights, if necessary
+         _barHeights = this.barchartService.insertGapsUsingBarHeights(this.width, _barHeights, this.minimumBarWidth, this.barGap);
+         if (_barHeights.length === 0) { throw new Error('barChart::insertGapsUsingBarHeights: barHeights was trimmed to be empty'); }
+         // console.log('BarChart::draw - insertGapsUsingBarHeights: ' + JSON.stringify(_barHeights));
+
+         // Set the bars to be drawn
+         bars_3d = this.barchartService.buildBars_1(
             this.barGap,
-            barHeightsArray,
+            _barHeights,
+            barWidth,
             this.chartType,
-            this.className,
             this.fillColorMinus,
-            this.fillColorPlus ,
-            this.fillColorZero ,
-            this.height,
-            this.minimumBarWidth,
-            this.sparklineCanvas,
-            this.width
-        );
+            this.fillColorZero,
+            this.fillColorPlus,
+            this.height);
+         // console.log('BarChart::draw - buildBars: ' +  JSON.stringify(this.getBars()));
+          this.barchartService._draw_1(ctx, bars_3d);
+
+         coordinatesTips = this.barchartService.buildCoordinateTips(bars_3d);
+        }
     }
 }
