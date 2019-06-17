@@ -2,8 +2,6 @@ import { TestBed } from '@angular/core/testing';
 
 import { BarchartService } from './barchart.service';
 import './arrayExtensions'
-import { Bar } from "./bar";
-import { Bar3d } from "./bar-3d";
 import { ChartTypeEnum } from "./chart-type-enum";
 import { Coordinates3DEnum } from "./coordinates-3D-enum";
 import { TranformationMatrixEnum } from './traformation-matrix-enum';
