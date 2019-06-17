@@ -34,7 +34,7 @@ describe('BarchartService', () => {
 
    beforeEach (() => {
       barChart = TestBed.get(BarchartService);
-      
+
       canvasEl = document.createElement('canvas');
       canvasEl.width = canvasWidth;
       canvasEl.height = canvasHeight;
@@ -90,6 +90,49 @@ describe('BarchartService', () => {
             let __barHeights = barChart.calculateBarWidth(canvasEl.width, _barHeights, minimumBarWidth);
             let expectedBarWidth = 3;
             expect(barChart.computeBarWidth(canvasEl.width, __barHeights)).toEqual(expectedBarWidth);
+         });
+      });
+   });
+   describe(`when I attempt to insert gaps`, () => {
+      describe(`with the bar width large enough to be decremented and be greater of equal to the minimum bar width`, () => {
+         beforeEach(() => {
+            barHeights = [1, 2, 3, 4, 5, 6, 7, 8];
+            barChart.barHeights = barHeights.slice(0);
+            barWidth = 8;
+         });
+         it(`the barHeights is unchanged`, () => {
+            barChart.insertGapsUsingBarWidth(canvasEl.width, barHeights, barGap, minimumBarWidth);
+            expect(barChart.barHeights.equals(barHeights)).toEqual(true);
+         });
+         it(`the barWidth is reduced by 2, now it is 6`, () => {
+            let expectedBarWidth = 6;
+            let _barWidth = barChart.insertGapsUsingBarWidth(canvasEl.width, barHeights, barGap, minimumBarWidth);
+            expect(_barWidth).toEqual(expectedBarWidth)
+         });
+      });
+      describe(`with the bar width not big enough to be decremented and be greater of equal to the minimum bar width`, () => {
+         describe(`I start by attempting to inject the gaps by decrementing the barWidth`, () => {
+            beforeEach(() => {
+               barHeights = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+               barChart.barHeights = barHeights.slice(0);
+            });
+            it(`the barHeights is unchanged`, () => {
+               barChart.insertGapsUsingBarWidth(canvasEl.width, barHeights, barGap, minimumBarWidth);
+               expect(barChart.barHeights.equals(barHeights)).toEqual(true);
+            });
+            it(`the barWidth is reduced to the minimum bar width`, () => {
+               let expectedBarWidth = 3;
+               let _barWidth = barChart.insertGapsUsingBarWidth(canvasEl.width, barHeights, barGap, minimumBarWidth);
+            expect(_barWidth).toEqual(expectedBarWidth)
+            });
+            it(`and barHeight pruned to 13 elements to make room for the gaps`, () => {
+               let _barWidth = 3;
+               let expectedBarHeightLength = 13;
+               let _exprectedBarHeights = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+               let _barHeight = barChart.insertGapsUsingBarHeights(canvasEl.width, barHeights, _barWidth, barGap);
+               expect(_barHeight.length).toEqual(expectedBarHeightLength);
+               expect(_barHeight.equals(_exprectedBarHeights)).toEqual(true);
+            });
          });
       });
    });
