@@ -2,6 +2,11 @@ import { TestBed } from '@angular/core/testing';
 
 import { BarchartService } from './barchart.service';
 import './arrayExtensions'
+import { Bar } from "./bar";
+import { Bar3d } from "./bar-3d";
+import { ChartTypeEnum } from "./chart-type-enum";
+import { Coordinates3DEnum } from "./coordinates-3D-enum";
+import { TranformationMatrixEnum } from './traformation-matrix-enum';
 
 // Hide method from for-in loops
 Object.defineProperty(Array.prototype, "equals", {enumerable: false});
@@ -43,6 +48,8 @@ describe('BarchartService', () => {
 
       barGap = 2;
       barChart.barGap = barGap;
+
+      barChart.canvasHeight = canvasHeight;
 
       chartType = 'positive';
       barChart.chartType = chartType;
@@ -136,4 +143,857 @@ describe('BarchartService', () => {
          });
       });
    });
+   describe(`when I attempt to builds the bars array`, () => {
+     describe(`for a positive chart type`, () => {
+        beforeEach(() => {
+           canvasHeight = canvasEl.height;
+           barHeights = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+           barWidth = 3;
+           chartType = 'positive';
+           bars = barChart.buildBars(canvasHeight, barHeights, barWidth, chartType, fillColorMinus, fillColorZero, fillColorPlus);
+        });
+        // canvasHeight, barHeights, barWidth, chartType, fillColorMinus, fillColorZero, fillColorPlus
+        it(`it builds an array of bars, 13 elements long`, () => {
+           let expectedBarsLength = 13;
+           expect(bars.length).toEqual(expectedBarsLength);
+        });
+        it(`with properly formatted bars`, () => {
+           for (let i = 0; i < bars.length;  i++) {
+                const bar = bars[i];
+                expect(bar.getX()).toEqual(0);
+                expect(bars[i].getY()).toEqual(0);
+                expect(bars[i].getWidth()).toEqual(barWidth);
+                expect(bars[i].getHeight()).toEqual(barHeights[i]);
+                expect(bars[i].getFillColor()).toEqual(fillColorPlus);
+           }
+        });
+   });
+   describe(`for a negative chart type`, () => {
+      beforeEach(() => {
+        barHeights = [-12, -13, -14, -15, -16, -17, -18, -19, -20, -21, -22, -23, -24];
+        chartType = 'negative';
+        bars = barChart.buildBars(canvasHeight, barHeights, barWidth, chartType, fillColorMinus, fillColorZero, fillColorPlus);
+      });
+      // canvasHeight, barHeights, barWidth, chartType, fillColorMinus, fillColorZero, fillColorPlus
+      it(`it builds an array of bars, 13 elements long`, () => {
+        let expectedBarsLength = 13;
+        expect(bars.length).toEqual(expectedBarsLength);
+      });
+      it(`with properly formatted bars`, () => {
+        for (let i = 0; i < bars.length;  i++) {
+           const bar = bars[i];
+           expect(bar.getX()).toEqual(0);
+           expect(bars[i].getY()).toEqual(0);
+           expect(bars[i].getWidth()).toEqual(barWidth);
+           expect(bars[i].getHeight()).toEqual(barHeights[i]);
+           expect(bars[i].getFillColor()).toEqual(fillColorMinus);
+        }
+      });
+   });
+   describe(`for a dual chart type`, () => {
+      beforeEach(() => {
+        barHeights = [-12, 13, -14, -15, 16, 17, -18, 19, 20, -21, -22, 23, -24];
+        chartType = 'dual';
+        bars = barChart.buildBars(canvasHeight, barHeights, barWidth, chartType, fillColorMinus, fillColorZero, fillColorPlus);
+      });
+      // canvasHeight, barHeights, barWidth, chartType, fillColorMinus, fillColorZero, fillColorPlus
+      it(`it builds an array of bars, 13 elements long`, () => {
+        let expectedBarsLength = 13;
+        expect(bars.length).toEqual(expectedBarsLength);
+      });
+      it(`with properly formatted bars`, () => {
+        for (let i = 0; i < bars.length;  i++) {
+           const bar = bars[i];
+           expect(bar.getX()).toEqual(0);
+           expect(bars[i].getY()).toEqual(0);
+           expect(bars[i].getWidth()).toEqual(barWidth);
+           expect(bars[i].getHeight()).toEqual(barHeights[i]);
+           if (barHeights[i] < 0) {
+               expect(bars[i].getFillColor()).toEqual(fillColorMinus);
+           }
+           else {
+               expect(bars[i].getFillColor()).toEqual(fillColorPlus);
+           }
+        }
+      });
+   });
+   describe(`for a tri chart type`, () => {
+      beforeEach(() => {
+        barHeights = [-12, 0, -14, 0, 16, 17, 0, 19, 20, -21, 0, 0, -24];
+        chartType = 'tri';
+        bars = barChart.buildBars(canvasHeight, barHeights, barWidth, chartType, fillColorMinus, fillColorZero, fillColorPlus);
+      });
+      // canvasHeight, barHeights, barWidth, chartType, fillColorMinus, fillColorZero, fillColorPlus
+      it(`it builds an array of bars, 13 elements long`, () => {
+        let expectedBarsLength = 13;
+        expect(bars.length).toEqual(expectedBarsLength);
+      });
+      it(`with properly formatted bars`, () => {
+        for (let i = 0; i < bars.length;  i++) {
+           const bar = bars[i];
+           expect(bar.getX()).toEqual(0);
+           if (barHeights[i] === 0) {
+               expect(bars[i].getY()).toEqual(-bar.getHeight()/2);
+           }
+           else {
+               expect(bars[i].getY()).toEqual(0);
+           }
+           // expect(bars[i].getY()).toEqual(0);
+           expect(bars[i].getWidth()).toEqual(barWidth);
+           //expect(bars[i].getHeight()).toEqual(barHeights[i]);
+           // console.log(`::with properly formatted bars - barHeight: ` + bar.getHeight() + `   canvasHeight: ` + barChart.canvasHeight);
+           if (barHeights[i] < 0) {
+               expect(bar.getHeight()).toEqual(-barChart.canvasHeight / 2);
+           }
+           else {
+               if (barHeights[i] === 0) {
+                  expect(bar.getHeight()).toEqual(barChart.canvasHeight / 4);
+               }
+               else {
+                  expect(bar.getHeight()).toEqual(barChart.canvasHeight / 2);
+               }
+           }
+
+           if (barHeights[i] < 0) {
+               expect(bars[i].getFillColor()).toEqual(fillColorMinus);
+           }
+           else {
+               if (barHeights[i] === 0) {
+                  expect(bars[i].getFillColor()).toEqual(fillColorZero);
+               }
+               else {
+                  expect(bars[i].getFillColor()).toEqual(fillColorPlus);
+               }
+           }
+        }
+      });
+   });
+   describe(`build world coordinate bar`, () => {
+      describe(`for chart type POSITIVE`, () => {
+        let bar;
+        beforeEach(() => {
+           barGap = 2;
+           barHeights = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+           barWidth = 4;
+           chartType = ChartTypeEnum.POSITIVE;
+           fillColorMinus = 'red';
+           fillColorPlus = 'blue';
+           fillColorZero = 'green';
+           bar_3d = barChart.buildWorldCoordinateBars(barGap, barHeights.slice(0), barWidth, chartType, fillColorMinus, fillColorPlus, fillColorZero);
+          });
+
+        it(`with a valid  bar_3d object`, () => {
+              expect(bar_3d).toBeTruthy;
+        });
+        describe(`with a valid first bar`, () => {
+           beforeEach(() => {
+               bar = bar_3d[0]
+           });
+           describe(`lower left`, () => {
+               it(`x coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.X]).toEqual(0);
+               });
+               it(`y coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.Y]).toEqual(0);
+               });
+               it(`z coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.Z]).toEqual(1);
+               });
+           });
+           describe(` upper right`, () => {
+               it(`x coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.X]).toEqual(4);
+               });
+               it(`y coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.Y]).toEqual(12);
+               });
+               it(`z coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.Z]).toEqual(1);
+               });
+           });
+           describe(`color`, () => {
+               it(`is fillColorPlus`, () => {
+                  expect(bar.fillColor).toEqual(fillColorPlus);
+               });
+           });
+        });
+        describe(`with a valid last bar `, () => {
+           beforeEach(() => {
+               bar = bar_3d[12]
+           });
+           describe(`lower left`, () => {
+               it(`x coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.X]).toEqual(72);
+               });
+               it(`y coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.Y]).toEqual(0);
+               });
+               it(`z coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.Z]).toEqual(1);
+               });
+           });
+           describe(`upper right`, () => {
+               it(`x coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.X]).toEqual(76);
+               });
+               it(`y coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.Y]).toEqual(24);
+               });
+               it(`z coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.Z]).toEqual(1);
+               });
+           });
+           describe(`color`, () => {
+               it(`is fillColorPlus`, () => {
+                  expect(bar.fillColor).toEqual(fillColorPlus);
+               });
+           });
+        });
+      });
+      describe(`for chart type NEGATIVE`, () => {
+        let bar;
+        beforeEach(() => {
+           barGap = 2;
+           barHeights = [-12, -13, -14, -15, -16, -17, -18, -19, -20, -21, -22, -23, -24];
+           barWidth = 4;
+           chartType = ChartTypeEnum.NEGATIVE;
+           fillColorMinus = 'red';
+           fillColorPlus = 'blue';
+           fillColorZero = 'green';
+           bar_3d = barChart.buildWorldCoordinateBars(barGap, barHeights.slice(0), barWidth, chartType, fillColorMinus, fillColorPlus, fillColorZero);
+        });
+
+        it(`with a valid  bar_3d object`, () => {
+           expect(bar_3d).toBeTruthy;
+        });
+        describe(`with a valid first bar`, () => {
+           beforeEach(() => {
+               bar = bar_3d[0]
+           });
+           describe(`lower left`, () => {
+               it(`x coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.X]).toEqual(0);
+               });
+               it(`y coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.Y]).toEqual(0);
+               });
+               it(`z coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.Z]).toEqual(1);
+               });
+           });
+           describe(`upper right`, () => {
+               it(`x coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.X]).toEqual(4);
+               });
+               it(`y coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.Y]).toEqual(-12);
+               });
+               it(`z coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.Z]).toEqual(1);
+               });
+           });
+           describe(`color`, () => {
+               it(`is fillColorMinus`, () => {
+                  expect(bar.fillColor).toEqual(fillColorMinus);
+               });
+           });
+
+        });
+        describe(`with a valid last bar `, () => {
+           beforeEach(() => {
+               bar = bar_3d[12]
+           });
+           describe(`lower left`, () => {
+               it(`x coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.X]).toEqual(72);
+               });
+               it(`y coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.Y]).toEqual(0);
+               });
+               it(`z coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.Z]).toEqual(1);
+               });
+           });
+           describe(` upper right`, () => {
+               it(`x coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.X]).toEqual(76);
+               });
+               it(`y coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.Y]).toEqual(-24);
+               });
+               it(`z coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.Z]).toEqual(1);
+               });
+           });
+           describe(`color`, () => {
+               it(`is fillColorMinus`, () => {
+                  expect(bar.fillColor).toEqual(fillColorMinus);
+               });
+           });
+        });
+      });
+      describe(`for chart type DUAL`, () => {
+        let bar;
+        beforeEach(() => {
+           barGap = 2;
+           barHeights = [12, 0, -14, 0, 16, 17, 0, 19, 20, -21, 0, 0, -24];
+           barWidth = 4;
+           chartType = ChartTypeEnum.DUAL;
+           fillColorMinus = 'red';
+           fillColorPlus = 'blue';
+           fillColorZero = 'green';
+           bar_3d = barChart.buildWorldCoordinateBars(barGap, barHeights.slice(0), barWidth, chartType, fillColorMinus, fillColorPlus, fillColorZero);
+        });
+        it(`with a valid  bar_3d object`, () => {
+           expect(bar_3d).toBeTruthy;
+        });
+        describe(`with a valid first bar`, () => {
+           beforeEach(() => {
+               bar = bar_3d[0]
+           });
+           describe(`lower left`, () => {
+               it(`x coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.X]).toEqual(0);
+               });
+               it(`y coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.Y]).toEqual(0);
+               });
+               it(`z coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.Z]).toEqual(1);
+               });
+           });
+           describe(`upper right`, () => {
+               it(`x coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.X]).toEqual(4);
+               });
+               it(`y coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.Y]).toEqual(12);
+               });
+               it(`z coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.Z]).toEqual(1);
+               });
+           });
+           describe(`color`, () => {
+               it(`is fillColorPlus`, () => {
+                  expect(bar.fillColor).toEqual(fillColorPlus);
+               });
+           });
+        });
+        describe(`with a valid last bar`, () => {
+           beforeEach(() => {
+               bar = bar_3d[12]
+           });
+           describe(`lower left`, () => {
+               it(`x coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.X]).toEqual(72);
+               });
+               it(`y coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.Y]).toEqual(0);
+               });
+               it(`z coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.Z]).toEqual(1);
+               });
+           });
+           describe(`upper right`, () => {
+               it(`x coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.X]).toEqual(76);
+               });
+               it(`y coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.Y]).toEqual(-24);
+               });
+               it(`z coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.Z]).toEqual(1);
+               });
+           });
+           describe(`color`, () => {
+               it(`is fillColorMinus`, () => {
+                  expect(bar.fillColor).toEqual(fillColorMinus);
+               });
+           });
+        });
+      });
+      describe(`for chart type TRI`, () => {
+        let bar;
+        beforeEach(() => {
+           barGap = 2;
+           barHeights = [12, 0, -14, 0, 16, 17, 0, 19, 20, -21, 0, 0, -24];
+           barWidth = 4;
+           chartType = ChartTypeEnum.TRI;
+           fillColorMinus = 'red';
+           fillColorPlus = 'blue';
+           fillColorZero = 'green';
+           bar_3d = barChart.buildWorldCoordinateBars(barGap, barHeights.slice(0), barWidth, chartType, fillColorMinus, fillColorPlus, fillColorZero);
+        });
+        it(`with a valid  bar_3d object`, () => {
+           expect(bar_3d).toBeTruthy;
+        });
+        describe(`with a valid first bar`, () => {
+           beforeEach(() => {
+               bar = bar_3d[0]
+           });
+           describe(`lower left`, () => {
+               it(`x coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.X]).toEqual(0);
+               });
+               it(`y coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.Y]).toEqual(0);
+               });
+               it(`z coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.Z]).toEqual(1);
+               });
+           });
+           describe(`upper right`, () => {
+               it(`x coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.X]).toEqual(4);
+               });
+               it(`y coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.Y]).toEqual(8);
+               });
+               it(`z coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.Z]).toEqual(1);
+               });
+           });
+           describe(`color`, () => {
+               it(`is fillColorPlus`, () => {
+                  expect(bar.fillColor).toEqual(fillColorPlus);
+               });
+           });
+        });
+        describe(`with a valid second bar`, () => {
+           beforeEach(() => {
+               bar = bar_3d[1]
+           });
+           describe(`lower left`, () => {
+               it(`x coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.X]).toEqual(6);
+               });
+               it(`y coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.Y]).toEqual(-2);
+               });
+               it(`z coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.Z]).toEqual(1);
+               });
+           });
+           describe(`upper right`, () => {
+               it(`x coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.X]).toEqual(10);
+               });
+               it(`y coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.Y]).toEqual(2);
+               });
+               it(`z coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.Z]).toEqual(1);
+               });
+           });
+           describe(`color`, () => {
+               it(`is fillColorZero`, () => {
+                  expect(bar.fillColor).toEqual(fillColorZero);
+               });
+           });
+        });
+        describe(`with a valid last bar`, () => {
+           beforeEach(() => {
+               bar = bar_3d[12]
+           });
+           describe(`lower left`, () => {
+               it(`x coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.X]).toEqual(72);
+               });
+               it(`y coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.Y]).toEqual(0);
+               });
+               it(`z coordinate`, () => {
+                  expect(bar.lowerLeft.toArray()[Coordinates3DEnum.Z]).toEqual(1);
+               });
+           });
+           describe(`upper right`, () => {
+               it(`x coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.X]).toEqual(76);
+               });
+               it(`y coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.Y]).toEqual(-8);
+               });
+               it(`z coordinate`, () => {
+                  expect(bar.upperRight.toArray()[Coordinates3DEnum.Z]).toEqual(1);
+               });
+           });
+           describe(`color`, () => {
+               it(`is fillColorMinus`, () => {
+                  expect(bar.fillColor).toEqual(fillColorMinus);
+               });
+           });
+        });
+      });
+
+   });
+   describe(`build sToCanvasHeightMatrix`, () => {
+      describe(`for a POSITIVE bar chart`, () => {
+        beforeEach(() => {
+           barGap = 2;
+           barHeights = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+           maxBarHeight = Math.abs(Math.max(...barHeights));
+           canvasRatio = canvasHeight / maxBarHeight;
+           barWidth = 4;
+           chartType = ChartTypeEnum.POSITIVE;
+           fillColorMinus = 'red';
+           fillColorPlus = 'blue';
+           fillColorZero = 'green';
+           bar_3d = barChart.buildWorldCoordinateBars(barGap, barHeights.slice(0), barWidth, chartType, fillColorMinus, fillColorPlus, fillColorZero);
+           sToCanvasHeightMatrix = barChart.scaleToCanvasHeight(barHeights, chartType, canvasHeight);
+        });
+        it(`with 3 sub arrays`, () => {
+           expect(sToCanvasHeightMatrix.toArray().length).toEqual(3);
+        });
+        it(`with first array SX equal to 1`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_X][Coordinates3DEnum.X]).toEqual(1);
+        });
+        it(`with first other elements equal to 0`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_X][Coordinates3DEnum.Y]).toEqual(0);
+        });
+        it(`with first other elements equal to 0`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_X][Coordinates3DEnum.Z]).toEqual(0);
+        });
+        it(`with second array other elements equal to 0`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_Y][Coordinates3DEnum.X]).toEqual(0);
+        });
+        it(`with second SY equal to canvasRatio`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_Y][Coordinates3DEnum.Y]).toEqual(canvasRatio);
+        });
+        it(`with second array other elements equal to 0`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_Y][Coordinates3DEnum.Z]).toEqual(0);
+        });
+        it(`with third array first element equal to 0`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_Z][Coordinates3DEnum.X]).toEqual(0);
+        });
+        it(`with third array second element equal to 0`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_Z][Coordinates3DEnum.Y]).toEqual(0);
+        });
+        it(`with third array third elements equal to 1`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_Z][Coordinates3DEnum.Z]).toEqual(1);
+        });
+      });
+      describe(`for a NEGATIVE bar chart`, () => {
+        beforeEach(() => {
+           barGap = 2;
+           barHeights = [-12, -13, -14, -15, -16, -17, -18, -19, -20, -12, -13, -14, -15];
+           maxBarHeight = Math.abs(Math.min(...barHeights));
+           canvasRatio = canvasHeight / maxBarHeight;
+           // console.log(`NEGATIVE bar chart maxBarHeight: ` + maxBarHeight + `, canvasHeight: ` + canvasHeight + ` canvasHeight / maxBarHeight: ` + canvasRatio);
+           barWidth = 4;
+           chartType = ChartTypeEnum.NEGATIVE;
+           fillColorMinus = 'red';
+           fillColorPlus = 'blue';
+           fillColorZero = 'green';
+           bar_3d = barChart.buildWorldCoordinateBars(barGap, barHeights.slice(0), barWidth, chartType, fillColorMinus, fillColorPlus, fillColorZero);
+           sToCanvasHeightMatrix = barChart.scaleToCanvasHeight(barHeights, chartType, canvasHeight);
+        });
+        it(`with 3 sub arrays`, () => {
+           expect(sToCanvasHeightMatrix.toArray().length).toEqual(3);
+        });
+        it(`with first array SX equal to 1`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_X][Coordinates3DEnum.X]).toEqual(1);
+        });
+        it(`with first other elements equal to 0`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_X][Coordinates3DEnum.Y]).toEqual(0);
+        });
+        it(`with first other elements equal to 0`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_X][Coordinates3DEnum.Z]).toEqual(0);
+        });
+        it(`with second array other elements equal to 0`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_Y][Coordinates3DEnum.X]).toEqual(0);
+        });
+        it(`with second SY equal to canvasRatio`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_Y][Coordinates3DEnum.Y]).toEqual(canvasRatio);
+        });
+        it(`with second array other elements equal to 0`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_Y][Coordinates3DEnum.Z]).toEqual(0);
+        });
+        it(`with third array first element equal to 0`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_Z][Coordinates3DEnum.X]).toEqual(0);
+        });
+        it(`with third array second element equal to 0`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_Z][Coordinates3DEnum.Y]).toEqual(0);
+        });
+        it(`with third array third elements equal to 1`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_Z][Coordinates3DEnum.Z]).toEqual(1);
+        });
+
+      });
+      describe(`for a DUAL bar chart`, () => {
+        beforeEach(() => {
+           barGap = 2;
+           barHeights = [12, -13, -14, 15, -16, -17, -21, -19, -20, -12, 20, -14, -15];
+           maxBarHeight = Math.max(Math.abs(Math.min(...barHeights)), Math.abs(Math.max(...barHeights)));
+           canvasRatio = (canvasHeight / 2) / maxBarHeight;
+           // console.log(`DUAL bar chart maxBarHeight: ` + maxBarHeight + `, canvasHeight: ` + canvasHeight + ` canvasHeight / maxBarHeight: ` + canvasRatio);
+           barWidth = 4;
+           chartType = ChartTypeEnum.DUAL;
+           fillColorMinus = 'red';
+           fillColorPlus = 'blue';
+           fillColorZero = 'green';
+           bar_3d = barChart.buildWorldCoordinateBars(barGap, barHeights.slice(0), barWidth, chartType, fillColorMinus, fillColorPlus, fillColorZero);
+           sToCanvasHeightMatrix = barChart.scaleToCanvasHeight(barHeights, chartType, canvasHeight);
+        });
+        it(`with 3 sub arrays`, () => {
+           expect(sToCanvasHeightMatrix.toArray().length).toEqual(3);
+        });
+        it(`with first array SX equal to 1`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_X][Coordinates3DEnum.X]).toEqual(1);
+        });
+        it(`with first other elements equal to 0`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_X][Coordinates3DEnum.Y]).toEqual(0);
+        });
+        it(`with first other elements equal to 0`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_X][Coordinates3DEnum.Z]).toEqual(0);
+        });
+        it(`with second array other elements equal to 0`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_Y][Coordinates3DEnum.X]).toEqual(0);
+        });
+        it(`with second SY equal to canvasRatio`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_Y][Coordinates3DEnum.Y]).toEqual(canvasRatio);
+        });
+        it(`with second array other elements equal to 0`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_Y][Coordinates3DEnum.Z]).toEqual(0);
+        });
+        it(`with third array first element equal to 0`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_Z][Coordinates3DEnum.X]).toEqual(0);
+        });
+        it(`with third array second element equal to 0`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_Z][Coordinates3DEnum.Y]).toEqual(0);
+        });
+        it(`with third array third elements equal to 1`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_Z][Coordinates3DEnum.Z]).toEqual(1);
+        });
+      });
+      describe(`for a TRI bar chart`, () => {
+        beforeEach(() => {
+           barGap = 2;
+           barHeights = [12, -13, -14, 15, -16, -17, 21, -19, -20, -12, 20, -14, -15].map(function (x) {return x < 0 ? -2 : x === 0 ? 1 : 2});
+           maxBarHeight = Math.max(Math.abs(Math.min(...barHeights)), Math.abs(Math.max(...barHeights)));
+           canvasRatio = (canvasHeight / 2) / maxBarHeight;
+           console.log(`TRI bar chart maxBarHeight: ` + maxBarHeight + `, canvasHeight: ` + canvasHeight + ` canvasHeight / maxBarHeight: ` + canvasRatio);
+           barWidth = 4;
+           chartType = ChartTypeEnum.TRI;
+           fillColorMinus = 'red';
+           fillColorPlus = 'blue';
+           fillColorZero = 'green';
+           bar_3d = barChart.buildWorldCoordinateBars(barGap, barHeights.slice(0), barWidth, chartType, fillColorMinus, fillColorPlus, fillColorZero);
+           sToCanvasHeightMatrix = barChart.scaleToCanvasHeight(barHeights, chartType, canvasHeight);
+        });
+        it(`with 3 sub arrays`, () => {
+           expect(sToCanvasHeightMatrix.toArray().length).toEqual(3);
+        });
+        it(`with first array SX equal to 1`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_X][Coordinates3DEnum.X]).toEqual(1);
+        });
+        it(`with first other elements equal to 0`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_X][Coordinates3DEnum.Y]).toEqual(0);
+        });
+        it(`with first other elements equal to 0`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_X][Coordinates3DEnum.Z]).toEqual(0);
+        });
+        it(`with second array other elements equal to 0`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_Y][Coordinates3DEnum.X]).toEqual(0);
+        });
+        it(`with second SY equal to canvasRatio`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_Y][Coordinates3DEnum.Y]).toEqual(canvasRatio);
+        });
+        it(`with second array other elements equal to 0`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_Y][Coordinates3DEnum.Z]).toEqual(0);
+        });
+        it(`with third array first element equal to 0`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_Z][Coordinates3DEnum.X]).toEqual(0);
+        });
+        it(`with third array second element equal to 0`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_Z][Coordinates3DEnum.Y]).toEqual(0);
+        });
+        it(`with third array third elements equal to 1`, () => {
+           expect(sToCanvasHeightMatrix.toArray()[TranformationMatrixEnum.SCALE_Z][Coordinates3DEnum.Z]).toEqual(1);
+        });
+      });
+   });
+   describe(`build dMoveCanvasMatrix`, () => {
+        describe(`for a POSITIVE bar chart`, () => {
+           beforeEach(() => {
+                barGap = 2;
+                barHeights = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+                maxBarHeight = Math.abs(Math.max(...barHeights));
+                canvasRatio = canvasHeight / maxBarHeight;
+                barWidth = 4;
+                chartType = ChartTypeEnum.POSITIVE;
+                fillColorMinus = 'red';
+                fillColorPlus = 'blue';
+                fillColorZero = 'green';
+                bar_3d = barChart.buildWorldCoordinateBars(barGap, barHeights.slice(0), barWidth, chartType, fillColorMinus, fillColorPlus, fillColorZero);
+                dMoveCanvasMatrix = barChart.moveWithinCanvas(canvasHeight, chartType);
+           });
+           it(`with 3 sub arrays`, () => {
+                expect(sToCanvasHeightMatrix.toArray().length).toEqual(3);
+           });
+           it(`with first array SX equal to 1`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_X][Coordinates3DEnum.X]).toEqual(1);
+           });
+           it(`with first other elements equal to 0`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_X][Coordinates3DEnum.Y]).toEqual(0);
+           });
+           it(`with first other elements equal to 0`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_X][Coordinates3DEnum.Z]).toEqual(0);
+           });
+           it(`with second array other elements equal to 0`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_Y][Coordinates3DEnum.X]).toEqual(0);
+           });
+           it(`with second SY equal to 1`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_Y][Coordinates3DEnum.Y]).toEqual(1);
+           });
+           it(`with second array other elements equal to 0`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_Y][Coordinates3DEnum.Z]).toEqual(0);
+           });
+           it(`with third array first element equal to 0`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_Z][Coordinates3DEnum.X]).toEqual(0);
+           });
+           it(`with third array second element equal to canvasHeight`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_Z][Coordinates3DEnum.Y]).toEqual(canvasHeight);
+           });
+           it(`with third array third elements equal to 1`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_Z][Coordinates3DEnum.Z]).toEqual(1);
+           });
+        });
+        describe(`for a NEGATIVE bar chart`, () => {
+           beforeEach(() => {
+                barGap = 2;
+                barHeights = [-12, -13, -14, -15, -16, -17, -18, -19, -20, -12, -13, -14, -15];
+                maxBarHeight = Math.abs(Math.max(...barHeights));
+                canvasRatio = canvasHeight / maxBarHeight;
+                barWidth = 4;
+                chartType = ChartTypeEnum.NEGATIVE;
+                fillColorMinus = 'red';
+                fillColorPlus = 'blue';
+                fillColorZero = 'green';
+                bar_3d = barChart.buildWorldCoordinateBars(barGap, barHeights.slice(0), barWidth, chartType, fillColorMinus, fillColorPlus, fillColorZero);
+                dMoveCanvasMatrix = barChart.moveWithinCanvas(canvasHeight, chartType);
+           });
+           it(`with 3 sub arrays`, () => {
+                expect(sToCanvasHeightMatrix.toArray().length).toEqual(3);
+           });
+           it(`with first array SX equal to 1`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_X][Coordinates3DEnum.X]).toEqual(1);
+           });
+           it(`with first other elements equal to 0`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_X][Coordinates3DEnum.Y]).toEqual(0);
+           });
+           it(`with first other elements equal to 0`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_X][Coordinates3DEnum.Z]).toEqual(0);
+           });
+           it(`with second array other elements equal to 0`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_Y][Coordinates3DEnum.X]).toEqual(0);
+           });
+           it(`with second SY equal to 1`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_Y][Coordinates3DEnum.Y]).toEqual(1);
+           });
+           it(`with second array other elements equal to 0`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_Y][Coordinates3DEnum.Z]).toEqual(0);
+           });
+           it(`with third array first element equal to 0`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_Z][Coordinates3DEnum.X]).toEqual(0);
+           });
+           it(`with third array second element equal to 0`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_Z][Coordinates3DEnum.Y]).toEqual(0);
+           });
+           it(`with third array third elements equal to 1`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_Z][Coordinates3DEnum.Z]).toEqual(1);
+           });
+        });
+        describe(`for a DUAL bar chart`, () => {
+           beforeEach(() => {
+                barGap = 2;
+                barHeights = [12, -13, -14, 15, -16, -17, -21, -19, -20, -12, 20, -14, -15];
+                maxBarHeight = Math.abs(Math.max(...barHeights));
+                canvasRatio = canvasHeight / maxBarHeight;
+                barWidth = 4;
+                chartType = ChartTypeEnum.DUAL;
+                fillColorMinus = 'red';
+                fillColorPlus = 'blue';
+                fillColorZero = 'green';
+                bar_3d = barChart.buildWorldCoordinateBars(barGap, barHeights.slice(0), barWidth, chartType, fillColorMinus, fillColorPlus, fillColorZero);
+                dMoveCanvasMatrix = barChart.moveWithinCanvas(canvasHeight, chartType);
+           });
+           it(`with 3 sub arrays`, () => {
+                expect(sToCanvasHeightMatrix.toArray().length).toEqual(3);
+           });
+           it(`with first array SX equal to 1`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_X][Coordinates3DEnum.X]).toEqual(1);
+           });
+           it(`with first other elements equal to 0`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_X][Coordinates3DEnum.Y]).toEqual(0);
+           });
+           it(`with first other elements equal to 0`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_X][Coordinates3DEnum.Z]).toEqual(0);
+           });
+           it(`with second array other elements equal to 0`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_Y][Coordinates3DEnum.X]).toEqual(0);
+           });
+           it(`with second SY equal to 1`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_Y][Coordinates3DEnum.Y]).toEqual(1);
+           });
+           it(`with second array other elements equal to 0`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_Y][Coordinates3DEnum.Z]).toEqual(0);
+           });
+           it(`with third array first element equal to 0`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_Z][Coordinates3DEnum.X]).toEqual(0);
+           });
+           it(`with third array second element equal to canvasHeight / 2`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_Z][Coordinates3DEnum.Y]).toEqual(canvasHeight / 2);
+           });
+           it(`with third array third elements equal to 1`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_Z][Coordinates3DEnum.Z]).toEqual(1);
+           });
+        });
+        describe(`for a TRI bar chart`, () => {
+           beforeEach(() => {
+                barGap = 2;
+                barHeights = [12, -13, -14, 15, 0, -17, -21, -19, -20, 0, 20, 0, -15];
+                maxBarHeight = Math.abs(Math.max(...barHeights));
+                canvasRatio = canvasHeight / maxBarHeight;
+                barWidth = 4;
+                chartType = ChartTypeEnum.TRI;
+                fillColorMinus = 'red';
+                fillColorPlus = 'blue';
+                fillColorZero = 'green';
+                bar_3d = barChart.buildWorldCoordinateBars(barGap, barHeights.slice(0), barWidth, chartType, fillColorMinus, fillColorPlus, fillColorZero);
+                dMoveCanvasMatrix = barChart.moveWithinCanvas(canvasHeight, chartType);
+           });
+           it(`with 3 sub arrays`, () => {
+                expect(sToCanvasHeightMatrix.toArray().length).toEqual(3);
+           });
+           it(`with first array SX equal to 1`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_X][Coordinates3DEnum.X]).toEqual(1);
+           });
+           it(`with first other elements equal to 0`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_X][Coordinates3DEnum.Y]).toEqual(0);
+           });
+           it(`with first other elements equal to 0`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_X][Coordinates3DEnum.Z]).toEqual(0);
+           });
+           it(`with second array other elements equal to 0`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_Y][Coordinates3DEnum.X]).toEqual(0);
+           });
+           it(`with second SY equal to 1`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_Y][Coordinates3DEnum.Y]).toEqual(1);
+           });
+           it(`with second array other elements equal to 0`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_Y][Coordinates3DEnum.Z]).toEqual(0);
+           });
+           it(`with third array first element equal to 0`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_Z][Coordinates3DEnum.X]).toEqual(0);
+           });
+           it(`with third array second element equal to canvasHeight / 2`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_Z][Coordinates3DEnum.Y]).toEqual(canvasHeight / 2);
+           });
+           it(`with third array third elements equal to 1`, () => {
+                expect(dMoveCanvasMatrix.toArray()[TranformationMatrixEnum.SCALE_Z][Coordinates3DEnum.Z]).toEqual(1);
+           });
+        });
+   });
+});
+
 });
