@@ -27,7 +27,7 @@ describe('BoxplotService', () => {
    let population: number[] = null;
 
    beforeEach(() => {
-      TestBed.configureTestingModule({})
+      TestBed.configureTestingModule({ providers: [BoxplotService]})
       boxPlot = TestBed.get(BoxplotService);
    });
 

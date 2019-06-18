@@ -31,11 +31,10 @@ describe('BarchartService', () => {
    let ll;
    let ur;
 
-
-   beforeEach(() => TestBed.configureTestingModule({}));
-
-
    beforeEach (() => {
+      TestBed.configureTestingModule({
+         providers: [BarchartService]
+      });
       barChart = TestBed.get(BarchartService);
 
       canvasEl = document.createElement('canvas');
