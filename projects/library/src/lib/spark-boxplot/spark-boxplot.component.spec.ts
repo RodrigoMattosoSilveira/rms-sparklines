@@ -47,7 +47,7 @@ describe('SparkBoxplotComponent', () => {
          let figerPrint = Md5.hashStr(imageData.data.toString());
          expect(figerPrint).toBe(SPARK_BOXPLOT_FINGERPRINT);
       });
-      it('fail drawing with default parameters', () => {
+      it('fail drawing with non-default parameters', () => {
          component.lowWhiskerColor = 'green';
          component.ngAfterViewInit();
          let imageData = canvasCtx.getImageData(0, 0, component.width, component.height)
