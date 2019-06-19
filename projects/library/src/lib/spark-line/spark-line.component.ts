@@ -30,7 +30,7 @@ export class SparkLineComponent implements AfterViewInit {
    @Input() lineColor = `black`;
 
    // The sparkline data source
-   @Input() linePoints = JSON.stringify([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+   @Input() linePoints = JSON.stringify([4, 3, 7, 8, 1, 4, 9, 2, 5, 3, 5, 9]);
 
    // A number giving the stroke of the line in pixels.
    @Input() lineWidth = 1;
