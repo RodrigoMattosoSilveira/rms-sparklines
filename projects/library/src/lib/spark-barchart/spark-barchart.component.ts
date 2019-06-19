@@ -24,6 +24,7 @@ export class SparkBarchartComponent implements AfterViewInit {
     // see https://blog.angular-university.io/angular-viewchild/
     // for a in-depth discussion on @ViewChild
     @ViewChild('sparklineCanvas') sparklineCanvas: ElementRef;
+    ctx: CanvasRenderingContext2D;
 
     constructor(private barchartService: BarchartService) { }
 
@@ -34,9 +35,9 @@ export class SparkBarchartComponent implements AfterViewInit {
         const barHeightsArray: number[] = JSON.parse(this.barHeights);
         const tooltipId: string = `rms-spark-barchart` +(new Date).getTime();
         const thisThis = this;
-        
+
         let canvasEl: HTMLCanvasElement;
-        let ctx: CanvasRenderingContext2D;
+        // let ctx: CanvasRenderingContext2D;
         let _barHeights: number[];
         let barWidth: number;
         let bars_3d: Bar3d[];
@@ -58,7 +59,7 @@ export class SparkBarchartComponent implements AfterViewInit {
                 this.width,
                 this.height,
                 this.className);
-          ctx = this.barchartService.setupCtx(canvasEl);
+          this.ctx = this.barchartService.setupCtx(canvasEl);
 
           // Debug
          // this.ctx.fillStyle = fillColorMinus;
@@ -100,7 +101,7 @@ export class SparkBarchartComponent implements AfterViewInit {
             this.fillColorPlus,
             this.height);
          // console.log('BarChart::draw - buildBars: ' +  JSON.stringify(this.getBars()));
-          this.barchartService._draw_1(ctx, bars_3d);
+          this.barchartService._draw_1(this.ctx, bars_3d);
 
          coordinatesTips = this.barchartService.buildCoordinateTips(bars_3d);
          this.sparklineCanvas.nativeElement.addEventListener('mousemove', function(event: any) {
