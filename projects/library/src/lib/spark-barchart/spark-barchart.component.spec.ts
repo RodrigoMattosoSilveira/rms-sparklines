@@ -11,7 +11,8 @@ describe('SparkBarchartComponent', () => {
    let canvasEl: HTMLCanvasElement;
    let canvasCtx: CanvasRenderingContext2D;
    const POSITIVE_SPARK_BARCHART_FINGERPRINT = "5ebb9c92870dfb5cbece87a6e613d2e0";
-   const NEGATIVE_SPARK_BARCHART_FINGERPRINT = "6b834221d21e78958576df29a4b464e1";
+   const NEGATIVE_SPARK_BARCHART_FINGERPRINT = "a6655396e2dc149d298f77a5cfd46e0c";
+   const TRI_SPARK_BARCHART_FINGERPRINT = "e206706980f9d282aa06eb514593497e";
 
    beforeEach(async(() => {
       TestBed.configureTestingModule({
@@ -68,17 +69,17 @@ describe('SparkBarchartComponent', () => {
       });
    });
    describe('Negative bar chart should', () => {
-      it('succeed drawing the with default parameters', () => {
-         component.barHeights =  JSON.stringify([-4, -3, -7, -8, -1, -1, -3, -2, -5, -3, -5, -8]);
-      	component.chartType = 'negative';
+      beforeEach(() => {
+            component.barHeights = JSON.stringify([-4, 3, -7, -8, -1, 1, 3, -2, -5, 3, -5, 8]);
+            component.chartType = 'negative';
+   	  });
+     it('succeed drawing the with default parameters', () => {
          component.ngAfterViewInit();
          let imageData = canvasCtx.getImageData(0, 0, component.width, component.height)
          let figerPrint = Md5.hashStr(imageData.data.toString());
          expect(figerPrint).toBe(NEGATIVE_SPARK_BARCHART_FINGERPRINT);
       });
       it('fail drawing with default parameters', () => {
-         component.barHeights =  JSON.stringify([-4, -3, -7, -8, -1, -1, -3, -2, -5, -3, -5, -8]);
-         component.chartType = 'negative';
          component.fillColorMinus = 'green';
          component.ngAfterViewInit();
          let imageData = canvasCtx.getImageData(0, 0, component.width, component.height)
@@ -86,4 +87,23 @@ describe('SparkBarchartComponent', () => {
          expect(figerPrint).not.toBe(NEGATIVE_SPARK_BARCHART_FINGERPRINT);
       });
    });
+   describe('Tri bar chart should', () => {
+    	  beforeEach(() => {
+ 	   	  component.barHeights = JSON.stringify([-4, 3, 0, -8, -1, 1, 3, 0, -5, 0, -5, 8]);
+ 	      component.chartType = 'tri';
+    	  });
+      it('succeed drawing the with default parameters', () => {
+          component.ngAfterViewInit();
+          let imageData = canvasCtx.getImageData(0, 0, component.width, component.height)
+          let figerPrint = Md5.hashStr(imageData.data.toString());
+          expect(figerPrint).toBe(TRI_SPARK_BARCHART_FINGERPRINT );
+       });
+       it('fail drawing with default parameters', () => {
+          component.fillColorMinus = 'green';
+          component.ngAfterViewInit();
+          let imageData = canvasCtx.getImageData(0, 0, component.width, component.height)
+          let figerPrint = Md5.hashStr(imageData.data.toString());
+          expect(figerPrint).not.toBe(TRI_SPARK_BARCHART_FINGERPRINT );
+       });
+    });
 });
