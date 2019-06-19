@@ -55,7 +55,7 @@ export class SparkLineComponent implements AfterViewInit {
       const thisThis = this;
       // this.lineService.draw(this.sparklineCanvas, this.lineColor);
 
-      console.log('SparkLineComponent.ngAfterViewInit: about to call the line drawing');
+      // console.log('SparkLineComponent.ngAfterViewInit: about to call the line drawing');
 
       this.measurementsArray = this.lineService.buildMeasurementsArray(linePointsArray);
 
@@ -72,9 +72,9 @@ export class SparkLineComponent implements AfterViewInit {
          this.measurementsArray,
          this.coordinatesViewport);
 
-      console.log(`SparkLineComponent:ngAfterViewInit - sparklineCanvas: ` + JSON.stringify(this.sparklineCanvas));
+      // console.log(`SparkLineComponent:ngAfterViewInit - sparklineCanvas: ` + JSON.stringify(this.sparklineCanvas));
       this.ctx = this.lineService.getCanvasContext(this.sparklineCanvas);
-      console.log(`SparkLineComponent:ngAfterViewInit - ctx: ` + JSON.stringify(this.ctx));
+      // console.log(`SparkLineComponent:ngAfterViewInit - ctx: ` + JSON.stringify(this.ctx));
 
       this.lineService.drawShade(this.ctx,
          this.lineWidth,
@@ -97,7 +97,7 @@ export class SparkLineComponent implements AfterViewInit {
       this.coordinateTips = this.lineService.buildToolTipsCoordinates(this.measurementsArray,
          this.coordinatesCanvas);
 
-      console.log(`SparkLineComponent:ngAfterViewInit - coordinateTips: ` + JSON.stringify(this.coordinateTips));
+      // console.log(`SparkLineComponent:ngAfterViewInit - coordinateTips: ` + JSON.stringify(this.coordinateTips));
 
       this.sparklineCanvas.nativeElement['onmousemove'] = function (event: any) {
          thisThis.lineService.handleMouseMove(event,

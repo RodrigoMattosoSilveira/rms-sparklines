@@ -510,7 +510,7 @@ export class BarchartService {
 
      // Draw the bars!
      _draw_1(ctx: CanvasRenderingContext2D, bars: Bar3d[]): void {
-         console.log('drawing');
+         // console.log('Barchat.Service:draw1: drawing');
          for (const bar of bars) {
              bar.draw(ctx);
          }
@@ -622,7 +622,7 @@ export class BarchartService {
      *    canvasEl
      */
     handleMouseMove($event: MouseEvent, canvasEl: HTMLElement, coordinatesTips: any[], tooltipId: string) {
-        let tooltip;
+        let tooltip: HTMLCanvasElement;
         let mySpan: HTMLSpanElement;
         const fontDefinition = '12px FUTURA';
         let body: any;
@@ -676,7 +676,7 @@ export class BarchartService {
                 // console.log(`mySpanWidth: ` + width + `, mySpanHeight: ` + height);
 
                 // Remove the existing tooltip, if present
-                tooltip = document.getElementById(tooltipId);
+                tooltip = document.getElementById(tooltipId) as HTMLCanvasElement;
                 if (tooltip) {
                     // console.log(`BarChart::handleMouseMove deleting tooltip`);
                     tooltip.parentElement.removeChild(tooltip);
@@ -711,7 +711,7 @@ export class BarchartService {
                 // console.log(`this is not a match`);
 
                 // Remove the existing tooltip, if present
-                tooltip = document.getElementById(tooltipId);
+                tooltip = document.getElementById(tooltipId) as HTMLCanvasElement;
                 if (tooltip) {
                     // console.log(`BarChart::handleMouseMove deleting tooltip`);
                     tooltip.parentElement.removeChild(tooltip);
@@ -720,7 +720,7 @@ export class BarchartService {
         }
     }
 
-    handleMouseOut(tooltipId) {
+    handleMouseOut(tooltipId: string) {
         // Remove the existing tooltip, if present
         const tooltipEl = document.getElementById(tooltipId);
         if (tooltipEl) {

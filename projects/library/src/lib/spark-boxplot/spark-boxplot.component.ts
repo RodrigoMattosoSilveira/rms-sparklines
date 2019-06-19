@@ -41,7 +41,7 @@ export class SparkBoxplotComponent implements AfterViewInit {
 
 
       // Compute drawing parameters
-      console.log(`SparkBoxplotComponent:ngAfterViewInit - About to draw the boxplot`);
+      // console.log(`SparkBoxplotComponent:ngAfterViewInit - About to draw the boxplot`);
       const maximum = Math.floor(Math.max(...populationArray));
       const minimum = Math.floor(Math.min(...populationArray));
       const median = Math.floor(BoxplotService.calculateMedian(populationArray));

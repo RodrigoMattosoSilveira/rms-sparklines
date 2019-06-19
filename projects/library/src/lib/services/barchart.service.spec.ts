@@ -768,7 +768,7 @@ describe('BarchartService', () => {
            barHeights = [12, -13, -14, 15, -16, -17, 21, -19, -20, -12, 20, -14, -15].map(function (x) {return x < 0 ? -2 : x === 0 ? 1 : 2});
            maxBarHeight = Math.max(Math.abs(Math.min(...barHeights)), Math.abs(Math.max(...barHeights)));
            canvasRatio = (canvasHeight / 2) / maxBarHeight;
-           console.log(`TRI bar chart maxBarHeight: ` + maxBarHeight + `, canvasHeight: ` + canvasHeight + ` canvasHeight / maxBarHeight: ` + canvasRatio);
+           // console.log(`TRI bar chart maxBarHeight: ` + maxBarHeight + `, canvasHeight: ` + canvasHeight + ` canvasHeight / maxBarHeight: ` + canvasRatio);
            barWidth = 4;
            chartType = ChartTypeEnum.TRI;
            fillColorMinus = 'red';
