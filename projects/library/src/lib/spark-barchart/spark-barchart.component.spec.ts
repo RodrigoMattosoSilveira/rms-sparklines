@@ -10,7 +10,8 @@ describe('SparkBarchartComponent', () => {
    let compiledFixture: HTMLElement;
    let canvasEl: HTMLCanvasElement;
    let canvasCtx: CanvasRenderingContext2D;
-   const DEFFAULT_SPARK_BARCHART_FINGERPRINT = "5ebb9c92870dfb5cbece87a6e613d2e0";
+   const POSITIVE_SPARK_BARCHART_FINGERPRINT = "5ebb9c92870dfb5cbece87a6e613d2e0";
+   const NEGATIVE_SPARK_BARCHART_FINGERPRINT = "80e9a4ed2a8258fc7629a70eec3e09bc";
 
    beforeEach(async(() => {
       TestBed.configureTestingModule({
@@ -45,23 +46,43 @@ describe('SparkBarchartComponent', () => {
       expect(component.chartType).toBe('positive');
       expect(component.className).toBe('rms-spark-barchart');
       expect(component.fillColorMinus).toBe('red');
-      // expect(component.fillColorPlus).toBe('blue');
+      expect(component.fillColorPlus).toBe('blue');
       expect(component.fillColorZero).toBe('green');
       expect(component.height).toBe(32);
       expect(component.minimumBarWidth).toBe(3);
       expect(component.width).toBe(128);
    });
-   it('should succeed drawing the canonical bar chart', () => {
-      component.ngAfterViewInit();
-      let imageData = canvasCtx.getImageData(0, 0, component.width, component.height)
-      let figerPrint = Md5.hashStr(imageData.data.toString());
-      expect(figerPrint).toBe(DEFFAULT_SPARK_BARCHART_FINGERPRINT);
+   describe('positive bar chart should', () => {
+      it('succeed drawing the with default parameters', () => {
+         component.ngAfterViewInit();
+         let imageData = canvasCtx.getImageData(0, 0, component.width, component.height)
+         let figerPrint = Md5.hashStr(imageData.data.toString());
+         expect(figerPrint).toBe(POSITIVE_SPARK_BARCHART_FINGERPRINT);
+      });
+      it('fail drawing with default parameters', () => {
+         component.fillColorPlus = 'red'
+         component.ngAfterViewInit();
+         let imageData = canvasCtx.getImageData(0, 0, component.width, component.height)
+         let figerPrint = Md5.hashStr(imageData.data.toString());
+         expect(figerPrint).not.toBe(POSITIVE_SPARK_BARCHART_FINGERPRINT);
+      });
    });
-   it('should fail drawing the canonical bar chart with a wrong color', () => {
-      component.fillColorPlus = 'red'
-      component.ngAfterViewInit();
-      let imageData = canvasCtx.getImageData(0, 0, component.width, component.height)
-      let figerPrint = Md5.hashStr(imageData.data.toString());
-      expect(figerPrint).not.toBe(DEFFAULT_SPARK_BARCHART_FINGERPRINT);
+   describe('Negative bar chart should', () => {
+      it('succeed drawing the with default parameters', () => {
+      	component.chartType = 'negative';
+         component.ngAfterViewInit();
+         let imageData = canvasCtx.getImageData(0, 0, component.width, component.height)
+         let figerPrint = Md5.hashStr(imageData.data.toString());
+         expect(figerPrint).toBe(NEGATIVE_SPARK_BARCHART_FINGERPRINT);
+      });
+      it('fail drawing with default parameters', () => {
+         component.barHeights =  JSON.stringify([-4, -3, -7, -8, -1, -1, -3, -2, -5, -3, -5, -8]);
+         component.chartType = 'negative';
+         component.fillColorMinus = 'green';
+         component.ngAfterViewInit();
+         let imageData = canvasCtx.getImageData(0, 0, component.width, component.height)
+         let figerPrint = Md5.hashStr(imageData.data.toString());
+         expect(figerPrint).not.toBe(NEGATIVE_SPARK_BARCHART_FINGERPRINT);
+      });
    });
 });
