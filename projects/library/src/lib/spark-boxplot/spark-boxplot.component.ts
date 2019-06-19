@@ -13,7 +13,7 @@ export class SparkBoxplotComponent implements AfterViewInit {
     @Input() axisLineWidth = 1;
     @Input() chartType = `black`;
     @Input() className = `black`;
-    @Input() height = 1;
+    @Input() height = 32;
     @Input() highWhiskerColor = `black`;
     @Input() highWhiskerLineWidth = 1;
     @Input() interQuartileRangeLineColor  = `black`;
@@ -23,12 +23,32 @@ export class SparkBoxplotComponent implements AfterViewInit {
     @Input() lowWhiskerLineWidth = 1;
     @Input() medianColor = `black`;
     @Input() medianLineWidth = 1;
-    @Input() population = JSON.stringify([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-    @Input() width = 1;
+    @Input() population = JSON.stringify([7,
+        17,
+        8,
+        15,
+        6,
+        7,
+        4,
+        14,
+        16,
+        16,
+        17,
+        6,
+        16,
+        20,
+        11,
+        16,
+        10,
+        19,
+        5,
+        18]);
+    @Input() width = 128;
 
     // see https://blog.angular-university.io/angular-viewchild/
     // for a in-depth discussion on @ViewChild
     @ViewChild('sparklBoxplot') sparklineCanvas: ElementRef;
+    ctx: CanvasRenderingContext2D;
 
     constructor(private boxplotService: BoxplotService) { }
 
@@ -57,14 +77,14 @@ export class SparkBoxplotComponent implements AfterViewInit {
          this.height,
          this.className);
 
-      const ctx = this.boxplotService.setupCtx(canvasEl);
-      this.boxplotService.drawXAxis(ctx,
+      this.ctx = this.boxplotService.setupCtx(canvasEl);
+      this.boxplotService.drawXAxis(this.ctx,
          this.axisLineWidth,
          this.axisColor,
          xAxisCanvasGap,
          this.height,
          this.width);
-      this.boxplotService.drawFilledRectangle(ctx,
+      this.boxplotService.drawFilledRectangle(this.ctx,
          // Draw filled rectangle
          this.width,
          xAxisCanvasGap,
@@ -76,7 +96,7 @@ export class SparkBoxplotComponent implements AfterViewInit {
          this.interQuartileRangeLineColor,
          this.interQuartileRangeLineWidth,
          quartileThree);
-      this.boxplotService.drawRectangleBorder(ctx,
+      this.boxplotService.drawRectangleBorder(this.ctx,
          this.width,
          xAxisCanvasGap,
          quartileOne,
@@ -86,7 +106,7 @@ export class SparkBoxplotComponent implements AfterViewInit {
          quartileThree,
          this.interQuartileRangeLineColor,
          this.interQuartileRangeLineWidth);
-      this.boxplotService.drawMedian(ctx,
+      this.boxplotService.drawMedian(this.ctx,
          this.width,
          xAxisCanvasGap,
          this.medianLineWidth,
@@ -95,14 +115,14 @@ export class SparkBoxplotComponent implements AfterViewInit {
          this.medianColor,
          this.height,
          medianHeight);
-      this.boxplotService.drawWesternWhisker(ctx,
+      this.boxplotService.drawWesternWhisker(this.ctx,
          // Draw western (low) whisker
          this.lowWhiskerColor,
          this.lowWhiskerLineWidth,
          xAxisCanvasGap,
          this.height,
          whiskerHeight);
-      this.boxplotService.drawEaternWhisker(ctx,
+      this.boxplotService.drawEaternWhisker(this.ctx,
          this.highWhiskerLineWidth,
          this.highWhiskerColor,
          this.width,
