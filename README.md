@@ -6,12 +6,6 @@
 
 [Live deployment](https://rodrigomattososilveira.github.io/rms-sparklines)
 
-:construction: This is work in progress:
-- Migrating to Angular Workspace;
-- Must convert all components to Angular;
-- Must re-write this to reflect the new paradigm to create Components
-- Replace Heroku with Github Pages
-
 ### New in version
 ###  [0.3.0] - 2019-06-19
 - Migrated to Angular Workspace, replaced Web Components with Angular Components
