@@ -13,6 +13,10 @@
 - Replace Heroku with Github Pages
 
 ### New in version
+###  [0.3.0] - 2019-06-19
+- Migrated to Angular Workspace, replaced Web Components with Angular Components
+- Replaced Heroku with Github Pages
+
 ####  [0.2.3] - 2018-09-01
 * Trying to fix a hard to understand bug in TRAVIS
 ####  [0.2.2] - 2018-09-01
