@@ -1,5 +1,5 @@
 {
-`  "name": "rms-sparklines",
+   "name": "rms-sparklines",
    "version": "0.3.0-rc.1",
    "scripts": {
       "build": "ng build",
