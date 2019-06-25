@@ -9,7 +9,6 @@
       "reset": "rm -rf node_modules && yarn install && yarn lib:build && yarn lsg:build",
       "test": "ng test",
       "test:all": "ng test living-style-guide --watch=false && ng e2e",
-
       "lib:build": "ng build library",
       "lib:files": "yarn lib:license && yarn lib:readme",
       "lib:license": "cp ./projects/library/LICENSE ./dist/library",
@@ -17,7 +16,6 @@
       "lib:readme": "cp .//projects/library/README.md ./dist/library",
       "lib:ready": "yarn lib:build && yarn lib:files && yarn lib:pack",
       "lib:test": "ng test library",
-
       "lsg:build": "ng build living-style-guide",
       "lsg:serve": "ng serve living-style-guide --port 4201",
       "lsg:serve:lib": "yarn lib:build && yarn lsg:serve",

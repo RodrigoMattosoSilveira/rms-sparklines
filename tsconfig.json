@@ -24,6 +24,12 @@
       ],
       "library/*": [
         "dist/library/*"
+      ],
+      "sparklines": [
+        "dist/sparklines"
+      ],
+      "sparklines/*": [
+        "dist/sparklines/*"
       ]
     }
   }
