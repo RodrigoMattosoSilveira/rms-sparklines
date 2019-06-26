@@ -5,7 +5,7 @@ import { BarchartDualComponent } from './barchart-dual.component';
 import { AngularMaterialModuleModule } from '../../utils/angular-material-module/angular-material-module.module';
 import { HttpModule } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { LibraryModule } from 'library';
+import { SparklinesModule } from 'sparklines';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 
 describe('BarchartDualComponent', () => {
@@ -19,7 +19,7 @@ describe('BarchartDualComponent', () => {
        ],
        imports: [
            AngularMaterialModuleModule,
-           LibraryModule,
+           SparklinesModule,
            HttpModule,
            HttpClientModule,
            MarkdownModule.forRoot({

@@ -5,7 +5,7 @@ import { BarchartNegativeComponent } from './barchart-negative.component';
 import { AngularMaterialModuleModule } from '../../utils/angular-material-module/angular-material-module.module';
 import { HttpModule } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { LibraryModule } from 'library';
+import { SparklinesModule } from 'sparklines';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 
 describe('BarchartNegativeComponent', () => {
@@ -19,7 +19,7 @@ describe('BarchartNegativeComponent', () => {
        ],
        imports: [
            AngularMaterialModuleModule,
-           LibraryModule,
+           SparklinesModule,
            HttpModule,
            HttpClientModule,
            MarkdownModule.forRoot({

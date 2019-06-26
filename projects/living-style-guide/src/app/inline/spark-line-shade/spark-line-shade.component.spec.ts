@@ -4,7 +4,7 @@ import { AngularMaterialModuleModule } from '../../utils/angular-material-module
 import { HttpModule } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { SparkLineShadeComponent } from './spark-line-shade.component'
-import { LibraryModule } from 'library';
+import { SparklinesModule } from 'sparklines';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 
 
@@ -19,7 +19,7 @@ describe('SparkLineSimpleComponent', () => {
         ],
         imports: [
             AngularMaterialModuleModule,
-            LibraryModule,
+            SparklinesModule,
             HttpModule,
             HttpClientModule,
             MarkdownModule.forRoot({
