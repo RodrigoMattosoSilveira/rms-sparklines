@@ -28,6 +28,6 @@ is_feature_branch_version() {
 
 if is_travis_branch_master || is_feature_branch_version; then
    yarn lib:ready
-   # yarn does not have an non interactive way do 
+   # yarn does not have an non interactive way do do this
    npm publish dist/sparklines/$1 --access public
 fi
