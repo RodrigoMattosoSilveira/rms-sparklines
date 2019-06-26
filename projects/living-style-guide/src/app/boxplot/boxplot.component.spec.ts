@@ -7,7 +7,7 @@ import { AngularMaterialModuleModule } from '../utils/angular-material-module/an
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { LibraryModule } from 'library';
+import { SparklinesModule } from 'sparklines';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 
 describe('BoxplotComponent', () => {
@@ -23,11 +23,11 @@ describe('BoxplotComponent', () => {
       imports: [
           AngularMaterialModuleModule,
           BrowserAnimationsModule,
-          LibraryModule,
+          SparklinesModule,
           HttpModule,
           HttpClientModule,
           MarkdownModule.forRoot({
-          loader: HttpClient, // optional, only if you use [src] attribute 
+          loader: HttpClient, // optional, only if you use [src] attribute
           markedOptions: {
             provide: MarkedOptions,
             useValue: {
