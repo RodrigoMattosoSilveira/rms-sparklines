@@ -27,9 +27,9 @@ before_script:
    - npm install
 script:
    - echo "script execution"
-   - ng build sparklines
+   - ng build rmstek-sparklines
    - ng build living-style-guide --prod --base-href /rms-sparklines/ --deploy-url https://rodrigomattososilveira.github.io/rms-sparklines/
-   - ng test sparklines --karmaConfig=./projects/living-style-guide/karma.conf.travisci.js
+   - ng test rmstek-sparklines --karmaConfig=./projects/living-style-guide/karma.conf.travisci.js
    - ng test living-style-guide --karmaConfig=./projects/sparklines/karma.conf.travisci.js
    - ng e2e
 before_cache:
@@ -50,8 +50,8 @@ deploy:
 after_deploy:
    - echo "after_deploy has no steps"
 after_script:
-   - echo "after_script has steps - Publish the sparkline component"
-   - ./scripts/publish.sh "$(ls dist/sparklines | grep tgz)"
+   - echo "after_script has steps - Publish the rmstek-sparkline component"
+   - ./scripts/publish.sh "$(ls dist/rmstek-sparklines | grep tgz)"
 env:
    global:
       secure: jTW6SOWMJnKETwzF/jBO0e9FfAukxjH8RzNnhVCpQdSlOARTlPDFRhMwGzkvV2ArOvUCQ8PjxqBPkSXtQcXPEPDvY1ALnrAhdFYbYrjZ6CmFNQTr49mCKRImae7y8olVgdlK+MOvpnm07X33hVOqmkxHORwCNTaNCv868R9kIgKNHJOgNfsIchuNYHLKax3ruUP1qR9B7PEjVEbYMKxHLbR7noGro1lpWd3d210YwsVpE5zXDyc1o+LA6CUx4FOvBsTZjh9eVmafpnY9NBvF14agnLOTnBgAwfjaa+amBxxba4ixRB59NUzgDMA5a+A17M4AWS7pmbAVbjIIeGn56fE/7DhQZkCvMPB4BC2o8uFOCTlr5v9AWJlAVuxHnPXxi9OAnLtGXpDOZwp1q8RyAT0EsF+gNzXbBAfRn12zja/YWOHZlblpTAXhGwtktWkIgNuVMg/C2EQxFgiU/ym74NblY15wlFdsl0emuozT2OQw67COzo1VjNi6rw3uADgP/Vi2Anyaf0jYj797Wow6Pw+p19tjIAlbv1LU7nh89SnQlzwdMSTjoEweNp1cTVvgkDMJ6Lnonknvf8ZXU9AzcKKSujtjU3E7vgqf4aquLx3Os2VLsZHfMeUQThv+0cO9JXZiYulCDxKIGi6vE1KxS5i2n0D/hpSdwi9VpruqVhs=

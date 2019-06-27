@@ -19,17 +19,11 @@
       "dom"
     ],
     "paths": {
-      "library": [
-        "dist/library"
+      "rmstek-sparklines": [
+        "dist/rmstek-sparklines"
       ],
-      "library/*": [
-        "dist/library/*"
-      ],
-      "sparklines": [
-        "dist/sparklines"
-      ],
-      "sparklines/*": [
-        "dist/sparklines/*"
+      "rmstek-sparklines/*": [
+        "dist/rmstek-sparklines/*"
       ]
     }
   }

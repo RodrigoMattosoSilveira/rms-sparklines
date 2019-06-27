@@ -4,8 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
+import { RmstekSparklinesModule } from '@rmstek/sparklines';
+
 import { AppComponent } from './app.component';
-import { SparklinesModule } from 'sparklines';
 import { BarchartComponent } from './barchart/barchart.component';
 import { BoxplotComponent } from './boxplot/boxplot.component';
 import { InlineComponent } from './inline/inline.component';
@@ -47,7 +48,7 @@ import { BarchartTriComponent } from './barchart/barchart-tri/barchart-tri.compo
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    SparklinesModule,
+    RmstekSparklinesModule,
 	HttpModule,
 	HttpClientModule,
     MarkdownModule.forRoot({
