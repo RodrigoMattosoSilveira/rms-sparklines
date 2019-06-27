@@ -19,12 +19,6 @@
       "dom"
     ],
     "paths": {
-      "library": [
-        "dist/library"
-      ],
-      "library/*": [
-        "dist/library/*"
-      ],
       "sparklines": [
         "dist/sparklines"
       ],
