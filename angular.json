@@ -131,33 +131,33 @@
         }
       }
     },
-    "sparklines": {
-      "root": "projects/sparklines",
-      "sourceRoot": "projects/sparklines/src",
+    "rmstek-sparklines": {
+      "root": "projects/rmstek-sparklines",
+      "sourceRoot": "projects/rmstek-sparklines/src",
       "projectType": "library",
-      "prefix": "rms",
+      "prefix": "rmstek",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/sparklines/tsconfig.lib.json",
-            "project": "projects/sparklines/ng-package.json"
+            "tsConfig": "projects/rmstek-sparklines/tsconfig.lib.json",
+            "project": "projects/rmstek-sparklines/ng-package.json"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/sparklines/src/test.ts",
-            "tsConfig": "projects/sparklines/tsconfig.spec.json",
-            "karmaConfig": "projects/sparklines/karma.conf.js"
+            "main": "projects/rmstek-sparklines/src/test.ts",
+            "tsConfig": "projects/rmstek-sparklines/tsconfig.spec.json",
+            "karmaConfig": "projects/rmstek-sparklines/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/sparklines/tsconfig.lib.json",
-              "projects/sparklines/tsconfig.spec.json"
+              "projects/rmstek-sparklines/tsconfig.lib.json",
+              "projects/rmstek-sparklines/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -167,5 +167,5 @@
       }
     }
   },
-  "defaultProject": "sparklines"
+  "defaultProject": "rmstek-sparklines"
 }
