@@ -29,7 +29,9 @@ is_feature_branch_version() {
 }
 
 if is_travis_branch_master || is_feature_branch_version; then
-   GITTAG=v$(npx -c 'echo "$npm_package_version"')
+   cd dist/rmstek-sparklines
+   GITTAG=v$(npx -c 'echo "$npm_package_name"_"$npm_package_version"')
+   cd ../..
    openssl aes-256-cbc -k "$travis_key_password" -d -md sha256 -a -in rms-sparkline-travis.enc -out rms-sparkline-travis-key
    echo "Host github.com" > $HOME/.ssh/config
    echo "  IdentityFile rms-sparkline-travis-key" >> $HOME/.ssh/config
