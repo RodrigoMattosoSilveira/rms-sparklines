@@ -23,15 +23,15 @@ install:
    - echo "install execution"
    - npm install -g @angular/cli@7.3.9
 before_script:
-   - echo "before_script execution"
+   - echo "before_script has no steps"
    - npm install
 script:
    - echo "script execution"
-   - ng build rmstek-sparklines
-   - ng build living-style-guide --prod --base-href /rms-sparklines/ --deploy-url https://rodrigomattososilveira.github.io/rms-sparklines/
-   - ng test rmstek-sparklines --karmaConfig=./projects/living-style-guide/karma.conf.travisci.js
-   - ng test living-style-guide --karmaConfig=./projects/sparklines/karma.conf.travisci.js
+   - yarn lib:reset
+   - ng test rmstek-sparklines  --karmaConfig=./projects/rmstek-sparklines/karma.conf.travisci.js
+   - ng test living-style-guide --karmaConfig=./projects/living-style-guide/karma.conf.travisci.js
    - ng e2e
+   - ng build living-style-guide --prod --base-href /rms-sparklines/ --deploy-url https://rodrigomattososilveira.github.io/rms-sparklines/
 before_cache:
    - echo "before_cache has no steps"
 cache:
