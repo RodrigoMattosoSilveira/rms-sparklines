@@ -15,7 +15,7 @@
       "lib:pack": "cd dist/rmstek-sparklines && yarn pack",
       "lib:readme": "cp ./projects/rmstek-sparklines/README.md ./dist/rmstek-sparklines",
       "lib:ready": "yarn lib:build && yarn lib:files && yarn lib:pack",
-	  "lib:reset": "yarn install && yarn lib:build && yarn lib:add",
+      "lib:reset": "npm install && rm package-lock.json && yarn lib:build && rm -rf node_modules/ && yarn install && yarn lib:add",
       "lib:test": "ng test rmstek-sparklines",
       "lib:upd": "yarn update & yarn lib:build",
       "lsg:build": "ng build living-style-guide",
