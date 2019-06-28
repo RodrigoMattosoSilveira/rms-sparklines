@@ -7,6 +7,7 @@
       "lint": "ng lint",
       "ng": "ng",
       "test": "ng test",
+      "lib:add": "yarn add ./dist/rmstek-sparklines/ -O",
       "test:all": "ng test living-style-guide --watch=false && ng e2e",
       "lib:build": "ng build rmstek-sparklines",
       "lib:files": "yarn lib:license && yarn lib:readme",
@@ -14,6 +15,7 @@
       "lib:pack": "cd dist/rmstek-sparklines && yarn pack",
       "lib:readme": "cp ./projects/rmstek-sparklines/README.md ./dist/rmstek-sparklines",
       "lib:ready": "yarn lib:build && yarn lib:files && yarn lib:pack",
+	  "lib:reset": "yarn install && yarn lib:build && yarn lib:add",
       "lib:test": "ng test rmstek-sparklines",
       "lib:upd": "yarn update & yarn lib:build",
       "lsg:build": "ng build living-style-guide",
@@ -70,5 +72,8 @@
       "tslib": "^1.10.0",
       "tslint": "~5.11.0",
       "typescript": "~3.2.2"
+   },
+   "optionalDependencies": {
+      "@rmstek/sparklines": "./dist/rmstek-sparklines/"
    }
 }
