@@ -1,6 +1,6 @@
 {
    "name": "rms-sparklines",
-   "version": "0.3.0-rc.1",
+   "version": "0.3.0",
    "scripts": {
       "build": "ng build",
       "e2e": "ng e2e --port 4201",
