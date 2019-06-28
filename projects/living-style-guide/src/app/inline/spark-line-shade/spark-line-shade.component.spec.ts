@@ -3,8 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AngularMaterialModuleModule } from '../../utils/angular-material-module/angular-material-module.module';
 import { HttpModule } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { SparkLineShadeComponent } from './spark-line-shade.component'
-import { SparklinesModule } from 'sparklines';
+import { SparkLineShadeComponent } from './spark-line-shade.component';
+import { RmstekSparklinesModule } from '@rmstek/sparklines';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 
 
@@ -19,7 +19,7 @@ describe('SparkLineSimpleComponent', () => {
         ],
         imports: [
             AngularMaterialModuleModule,
-            SparklinesModule,
+            RmstekSparklinesModule,
             HttpModule,
             HttpClientModule,
             MarkdownModule.forRoot({

@@ -5,7 +5,7 @@ import { SparkLineSimpleComponent } from './spark-line-simple.component';
 import { AngularMaterialModuleModule } from '../../utils/angular-material-module/angular-material-module.module';
 import { HttpModule } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { SparklinesModule } from 'sparklines';
+import { RmstekSparklinesModule } from '@rmstek/sparklines';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 
 describe('SparkLineSimpleComponent', () => {
@@ -19,7 +19,7 @@ describe('SparkLineSimpleComponent', () => {
         ],
         imports: [
             AngularMaterialModuleModule,
-            SparklinesModule,
+            RmstekSparklinesModule,
             HttpModule,
             HttpClientModule,
             MarkdownModule.forRoot({

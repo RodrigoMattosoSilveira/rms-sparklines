@@ -7,7 +7,7 @@ import { AngularMaterialModuleModule } from '../utils/angular-material-module/an
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { SparklinesModule } from 'sparklines';
+import { RmstekSparklinesModule } from '@rmstek/sparklines';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 
 describe('BoxplotComponent', () => {
@@ -23,7 +23,7 @@ describe('BoxplotComponent', () => {
       imports: [
           AngularMaterialModuleModule,
           BrowserAnimationsModule,
-          SparklinesModule,
+          RmstekSparklinesModule,
           HttpModule,
           HttpClientModule,
           MarkdownModule.forRoot({
