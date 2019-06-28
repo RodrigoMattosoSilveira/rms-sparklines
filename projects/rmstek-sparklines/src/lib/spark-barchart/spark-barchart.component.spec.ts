@@ -46,7 +46,7 @@ describe('SparkBarchartComponent', () => {
       expect(component.barGap).toBe(6);
       expect(component.barHeights).toBe(JSON.stringify([1, 2, 3, 4, 5, 6, 7, 8, 9]));
       expect(component.chartType).toBe('positive');
-      expect(component.className).toBe('rms-spark-barchart');
+      expect(component.className).toBe('rmstek-spark-barchart');
       expect(component.fillColorMinus).toBe('red');
       expect(component.fillColorPlus).toBe('blue');
       expect(component.fillColorZero).toBe('green');
