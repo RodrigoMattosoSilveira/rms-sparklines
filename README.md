@@ -1,10 +1,9 @@
-&lt;@rmstek/sparklines&gt;
 
-[![Build Status](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines.svg?branch=master)](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines)
-
+| Branch        | Status           |
+| master        | [![Build Status](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines.svg?branch=master)](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines) |
 
 # Description
-This is a collection of Angular components to render [sparklines](https://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0001OR), conceived by [Edward Tufte](https://www.edwardtufte.com/tufte/). My motivation for this project is to use web component technology to implement sparklines. The project's overall concepts, but not source code, borrows extensively from [Gareth Watts](https://omnipotent.net/jquery.sparkline/#s-about) jQery project.
+**@rmstek/sparklines** is an Angular Component Library to render [sparklines](https://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0001OR), conceived by [Edward Tufte](https://www.edwardtufte.com/tufte/). My motivation for this project is to use web component technology to implement sparklines. The project's overall concepts, but not source code, borrows extensively from [Gareth Watts](https://omnipotent.net/jquery.sparkline/#s-about) jQery project.
 
 These Angular components are hosted in an Angular Workspace consisting of a library, `rmstek-sparklines` and a test application, `living-styleguide`.
 
