@@ -8,16 +8,16 @@ echo Taging: $TRAVIS_BRANCH
 
 get_name() {
    cd ./dist/rmstek-sparklines
-   this_name=$(npx -c 'echo "$npm_package_name"')
+   PACKAGE_NAME=$(npx -c 'echo "$npm_package_name"')
    cd ../..
-   return $this_name
+   return 0
 }
 
 get_version() {
    cd ./dist/rmstek-sparklines
-   this_version=$(npx -c 'echo "$npm_package_version"')
+   PACKAGE_VERSION=$(npx -c 'echo "$npm_package_version"')
    cd ../..
-   return $this_version
+   return 0
 }
 
 is_travis_branch_master() {
@@ -31,21 +31,21 @@ is_travis_branch_master() {
 }
 
 is_feature_branch_version() {
-  version=$(get_version)
+  PACKAGE_VERSION=$(get_version)
   regex='^[[:digit:]]+(\.[[:digit:]]+)+(-[[:alnum:]]+)+'
-  if [[ ${version} =~ $regex ]]; then
-    echo "✅ Version ${version} is a feature branch version"
+  if [[ ${PACKAGE_VERSION} =~ $regex ]]; then
+    echo "✅ Version ${PACKAGE_VERSION} is a feature branch version"
     return 0
   else
-    echo "🚫 Version ${version} is not a feature branch version"
+    echo "🚫 Version ${PACKAGE_VERSION} is not a feature branch version"
     return 1
   fi
 }
 
 if is_travis_branch_master || is_feature_branch_version; then
-   name=$(get_name)
-   version=$(get_version)
-   GITTAG="$name@$version"
+   PACKAGE_NAME=$(get_name)
+   PACKAGE_VERSION=$(get_version)
+   GITTAG="$PACKAGE_NAME@$PACKAGE_VERSION"
    openssl aes-256-cbc -k "$travis_key_password" -d -md sha256 -a -in rms-sparkline-travis.enc -out rms-sparkline-travis-key
    echo "Host github.com" > $HOME/.ssh/config
    echo "  IdentityFile rms-sparkline-travis-key" >> $HOME/.ssh/config
