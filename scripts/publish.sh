@@ -37,6 +37,8 @@ is_feature_branch_version() {
 
 if is_travis_branch_master || is_feature_branch_version; then
    yarn lib:ready
-   # yarn does not have an non interactive way do do this
+   npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
+   npm whoami
+   git reset --hard # removes staged and working directory changes
    npm publish dist/rmstek-sparklines/$1 --access public
 fi
