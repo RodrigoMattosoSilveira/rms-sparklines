@@ -43,13 +43,12 @@ deploy:
      on:
         branch: issue-44-ng7
    # Deploy the component to nopm registry
-   - provider: npm
+   - provider: script
+     script: ./scripts/publish.sh "$(ls dist/rmstek-sparklines | grep tgz)"
      email: r3850365@gmail.com
      api_key:
         secure: Mx0KnQtatxQvyUTe/f/qsOVsd/c204J4lTOT6BG+5YL/NbquFu+PkJOlqZG9Pw9SL2nG7t9LnlBBqxYxCje41DWzN9M2qZcwWEexdGmC0MAkrBNlIaG/zrd1Siq/oLaD2T6SxkDUJMQ2mxUdn9ktc10dACLMT9zcqqg2ntVPvHJdS8Rqs5Gv4Bu6UlxPNrRQckuqq+dR3BhXbmrDbgVhmcjR6swIFo4XMy0OtC/mVi1EYOi6jjlriQg8CH3E+boYBv4lPTEEXapDeveyetYuuYTUtwL9HEvUFAzPs+ochoV7fdwBgSNZXG7XuIjsk4ciU273trxeuOnbGJ1n9fw2qYpyDO4NzEcTJDN+do5PXBd3MkQl48MR/knDGiq1JZCGeQhF5fYbQKZnMdbo7vtniAYOB9V/wF6pnnIMUiTNsmL6l0CcvrqR8WvCyftk1bIRy3M+WDZqsXD+qaz2sO0NJvYlqrGpOqZBrAqFI+708bnn9OqrVzwDwUgPq4S8tABV0E6IFtWxMaXbepMRnHsUjGiPtZaPTZpl7V8KE/7w/1RBaPaB3A8g0U7zsZ+TXcA2Pjy++5GZeavWIF2e6bTG2bt1txjAbC9OAZN0xP7lop4J3zY59ovfKbUf4z5iVW3uVD8My0wI2gskRr9k9YogPdSB8yplcSDxeqalBaHyBL4=
      on:
-        tags: true
-        repo: RodrigoMattosoSilveira/rms-sparklines
         branch: issue-44-ng7
 after_deploy:
    - echo "after_deploy has no steps"
