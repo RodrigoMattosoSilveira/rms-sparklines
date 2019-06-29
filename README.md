@@ -1,128 +1,78 @@
-&lt;rms-sparklines&gt;
-=
 
-
-[![Build Status](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines.svg?branch=master)](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines)
-
-### New in version
-####  [0.2.3] - 2018-09-01
-* Trying to fix a hard to understand bug in TRAVIS
-####  [0.2.2] - 2018-09-01
-* Trying to fix a hard to understand bug in TRAVIS
-####  [0.2.1] - 2018-09-01
-* Trying to fix a hard to understand bug in TRAVIS: Module parse failed: /home/travis/build/RodrigoMattosoSilveira/rms-sparklines-styleguide/node_modules/rms-sparklines/util-lib/src/util-lib.ts Unexpected token (10:33)
-You may need an appropriate loader to handle this file type.
-#### [0.2.0]
-* Added tooltips to barchart; now all sparklines have tooltips
+# Build Status
+| Branch        | Status           |
+| ------------- | ---------------- |
+| master        | [![Build Status](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines.svg?branch=master)](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines) |
 
 # Description
-This is a collection of web components to render [sparklines](https://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0001OR), conceived by [Edward Tufte](https://www.edwardtufte.com/tufte/). My motivation for this project is to use web component technology to implement sparklines. The project's overall concepts, but not source code, borrows extensively from [Gareth Watts](https://omnipotent.net/jquery.sparkline/#s-about) jQery project.
+**@rmstek/sparklines** is an Angular Component Library to render [sparklines](https://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0001OR), conceived by [Edward Tufte](https://www.edwardtufte.com/tufte/). My motivation for this project is to use Angular Workspace & component technology to implement sparklines. The project's overall concepts, but not source code, borrows extensively from [Gareth Watts](https://omnipotent.net/jquery.sparkline/#s-about) jQery project.
 
-These webcomponents are built using the [@nutmeg/cli](https://github.com/abraham/nutmeg-cli); this document assumes you are familiar with it and the ancillary technologies required by [@nutmeg/cli](https://github.com/abraham/nutmeg-cli).
+Note that it is original incarnation, this project used Web Component technology, the underlining foundation of Angular Component technology; I decided to move it to Angular Component technology because, in addition to learning Web Component technology, I also learned that the Angular Workspace framework would be a better foundation to grow my sparklines project.
 
-### Sparkline portifolio
-* [rms-sparkline-inline](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/rms-sparkline-inline): A simple line. Please refer to its [README](https://github.com/RodrigoMattosoSilveira/rms-sparklines/blob/master/rms-sparkline-inline/README.md) for usage details.
-* [rms-sparkline-bar-chart](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/rms-sparkline-bar-chart): A bar chart sparkline. Please refer to its [README](https://github.com/RodrigoMattosoSilveira/rms-sparklines/blob/master/rms-sparkline-bar-chart/README.md) for usage details.
-* [rms-sparkline-boxplot](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/rms-sparkline-boxplot): A box plot sparkline. Please refer to its [README](https://github.com/RodrigoMattosoSilveira/rms-sparklines/blob/master/rms-sparkline-boxplot/README.md) for usage details.
+These Angular components are hosted in an Angular Workspace consisting of a library, `rmstek-sparklines` and a test application, `living-style-guide`.
 
 ### Source code
-Check [rms-sparklines](https://github.com/RodrigoMattosoSilveira/rms-sparklines) for the web components repository.
-
-Check [rms-sparklines-styleguide](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide) for the repository of an Angular web application illustrating their usage.
+Check [rms-sparklines](https://github.com/RodrigoMattosoSilveira/rms-sparklines) for repository.
 
 ### Live Application
-You can navigate to [rms-sparklines-styleguide](https://rms-sparklines-styleguide.herokuapp.com/) to see a live version of the Angular web application illustrating their usage.
+You can navigate to [rms-sparklines](https://rodrigomattososilveira.github.io/rms-sparklines/) to see a live version of the `living-styleguide` illustrating the sparklines' usage.
 
-# Installation
-Cloning this repository: 
+### Portfolio
+The following sparklines are implemented:
+* [rms-sparkline-inline](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/projects/rmstek-sparklines/src/lib/spark-line): A simple line. Please refer to its [README](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/projects/rmstek-sparklines/src/lib/spark-line/README.md) for usage details.
+* [rms-sparkline-bar-chart](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/projects/rmstek-sparklines/src/lib/spark-barchart): A [bar chart](https://en.wikipedia.org/wiki/Bar_chart) sparkline. Please refer to its [README](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/projects/rmstek-sparklines/src/lib/spark-barchart/README.md) for usage details.
+* [rms-sparkline-boxplot](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/projects/rmstek-sparklines/src/lib/spark-boxplot): A [box plot](https://en.wikipedia.org/wiki/Box_plot) sparkline. Please refer to its [README](https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/master/projects/rmstek-sparklines/src/lib/spark-boxplot/README.md) for usage details.
+
+# Experimenting
+[rms-sparklines](https://github.com/RodrigoMattosoSilveira/rms-sparklines) is a read-only public repository.
+
+### Installation
+Cloning the repository:
 * **$** `cd ~`
 * **$** `git clone https://github.com/RodrigoMattosoSilveira/rms-sparklines`
 
 Initialize the sparklines
 * **$** `cd ~/rms-sparklines`
-* **$** `npm run setup`
+* **$** `lib:reset`
 
-This will take a few minutes, and does the following
-* For each sparkline package
-    * Installs the packages required by each sparkline package
-    * Builds the sparkline package
-    * Tests the sparkline
-    
-Note that this same script is used to tell the continuous development framwework to build and test all sparklines.
-    
-### Write a new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component
-The following steps are required:
-* Web Component Development
-    * Install `rms-sparklines`
-    * Develop the new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component.
-    * Develop unit tests for the new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component.
-    * Publish the new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component.
-* Show case the new web component in the style guide
-    * 
+This will take a few minutes. Although we use `yarn`, you will notice that the `lib:reset` script uses `npm`; this is required because of a couple of glitches:
+* Angular 7 scoped packages seamlessly;
+* The `yarn install --ignore-optional` does not work;
 
-#### Install `rms-sparklines` 
-If not already installed, install according to the instructions above.
+The `lib:reset` script is a around whereby we use:
+* **npm install** - to overcome the `yarn install --ignore-optional` bug;
+* **rm package-lock.json** - to remove the `npm install` vestiges;
+* **yarn lib:build (ng build rmstek-sparklines)** - to build the `@rmstek/sparklines` scoped package;
+* **rm -rf node_modules/ && yarn install** - reinstall node_modules using `yarn`;
+* **yarn lib:add (yarn add ./dist/rmstek-sparklines/ -O)** - to add `@rmstek/sparklines` as an optional library;
 
-#### Create a [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component
-I use the [nutmeg-cli](https://github.com/abraham/nutmeg-cli) to generate web components; see the instructions therein for details:
-* **$** `cd ~/rms-sparklines`
-* **$** `nutmeg new rms-sparkline-awesome attribute_1:attribute_type ... attribute_4:attribute_type`
+### Check out the living style guide locally
+This amounts to serving the application:
+* **$** yarn lsg:serve
+* Open a browser tab at: `localhost:4201`
 
-This will create a new folder, `rms-sparklines-awesome`, including a scaffold for the new web component
+### Write a new sparkline
+This assumes you have a thorough understanding of Angular 7, GitHub, and TravisCI:
+* Fork the [rms-sparklines](https://github.com/RodrigoMattosoSilveira/rms-sparklines) repository;
+* Install the forked repository in your development sandbox;
+* **$** `cd ~/rms-sparklines`;
+* **$** `ng g c <your cool sparkline name> --project=rms-sparklines`;
+* Change your `<your cool sparkline name>` `package.json` version name; I recommend you adhere to the `SEMVER` standard;
+* Develop your sparkline; see `projects/rmstek-sparklines/src/lib` for the existing sparklines' logic;
+* Develop your sparkline unit tests; use one of the existing sparklines' unit tests to guide you;
+* Showcase your sparkline in the `living-style-guide application`;
+* Issue a pull request, in case wish to have your sparkline added to [rms-sparklines](https://github.com/RodrigoMattosoSilveira/rms-sparklines) ;
 
-
-#### Develop and publish the new component 
-I reflect the patterns in the existing [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web components to set up the new web component:
-* create a `draw (): HTMLCanvasElement` function.
-* empty the ` private get styles(): TemplateResult` function, return only `<style></style>` for now.
-* update the `private get template(): TemplateResult` function to return the results of the `get styles()` and `draw()` functions.
-* update the `getter methods` to return default values were appropriate.
-* Update the unit tests to validate the handling of default attributes, and changed attributes; once the sparkline is complete, then include the image generation validation.
-* Renamde the `readme.md` to `README.md` and document your component requirements; keep this file updated as your component gains life.
-* Hook up `rms-sparkline-awesome` to `rms-sparklines`
-    * Add an index.js file, exporting the component: `export * from 'dist/rms-sparkline-awesome';`
-    * Update the ~/rms-sparklines/index.js to the component: `export * from './rms-sparkline-awesome;'`
-
-Update the `~/sparklines/app/setup.sh` script to initialize `rms-sparkline-awesome`
-* Add the relative web component path to the `setup.sh` script webComponents array`setup.sh`
-````bash
-#!/usr/bin/env bash
-
-declare -a webComponents=("rms-sparkline-inline" \
-. . . \
-"rms-sparkline-bar-awesome"
-)
-
-. . . 
-````
-
-#### Develop unit tests for the new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component.
-Ensure the web component's logic is covered by unit tests, and that the existing tests pass:
-* **$** `cd ~/rms-sparklines/rms-sparline-awesome`
-* **$** `ng run test`
-
-
-#### Show case the new web component in the style guide
-See the [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) README for instructions
-
-#### Publish the new [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component.
-This is done in the root directory:
-* **$** `cd ~/rms-sparklines`
-* Increment packages.json version using `semver` notation
-* **$** `npm publish`
-
-See the [rms-sparklines-styleguide](https://github.com/RodrigoMattosoSilveira/rms-sparklines-styleguide). README for instructions on how and when to use the web component's published and under development versions.
-
-Note that the publishing is done in the library's not the web component's root folder. 
-
-## Update an existing [@rms/sparkline](https://github.com/RodrigoMattosoSilveira/rms-sparklines) web component
-Similar as when creating a new component, except that you will skip the create component steps.
+### Continuous integration and deployment
+This repository is configured to work only on the `master` branch; if you forked the repository and wish to implement your own CI/CD:
+* Configure `.travis.yml` to suit your needs;
+* Ensure that the scripts on the `scripts` folder match your requirements;
 
 # Last but not least
 ````html
  _   _                   _____            
 | | | | __ ___   _____  |  ___|   _ _ __  
-| |_| |/ _` \ \ / / _ \ | |_ | | | | '_ \ 
+| |_| |/ _` \ \ / / _ \ | |_ | | | | '_ \
 |  _  | (_| |\ V /  __/ |  _|| |_| | | | |
 |_| |_|\__,_| \_/ \___| |_|   \__,_|_| |_|                                      
 ````

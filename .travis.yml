@@ -1,21 +1,58 @@
-language: node.js
-script: "./setup.sh -iu"
-sudo: required
+language: node_js
+node_js:
+   - 10.15.3
 dist: trusty
+sudo: required
 addons:
-  chrome: stable
-before_script:
-- sudo chown root /opt/google/chrome/chrome-sandbox
-- sudo chmod 4755 /opt/google/chrome/chrome-sandbox
-deploy:
-  skip_cleanup: true
-  provider: npm
-  email: rodrigomattososilveira@gmail.com
-  api_key:
-    secure: FtRWSfSCsab6W2DaHW1TMMz1/J3vtrzCf8pIgyEmCxsttNwWpblYMh1lCLnUFvUBUOhVg1jqmt7Kxxho8IQkfwYs9whl89WMlGkq0oao7Zhce1hnok/3LowN+hut+Y7EqmPvwOu+qLx/1HbXHosYRI66c2OZwrpILIn2iY6I0PG35T70nzv6bU80GlLuW+YIUNCOxARElrEeCi5TKQPe7rJ0WkjWZnZq28Z+R0vnR030nDrq34aCQYeL9f5rupE9PAGxtqyATFYe6LsU6l7sI/lE4BjwovEEiZXoAtCR2hg8hGPE5cfMOpHlnlkE+g7R8HGzWhyDUdRb6NsciyzTxG0nkM+HJ4r5jiL621jQHDhq7ssLyme8UPcFUxxPsgWPk+JoUvuwImAxRX2+u5CHTP2nrckoAGn3kKMMt5AjE2IU+5a4/m5J9aN41NHRuFA2oP7PqXY5xS1uaX+/LXib1hmiBG9pWAmu7blIDG2DZOIbcuPoXESEScZyAFfo7fzF2o48a7jcn3QNSVXoE4SWUPX/odjEXKtz/WHSAADXJPBSsXCJiYCL+SIBIT/Il2RB9+ADlK4QilPBXe6Eheu8iwfqWl+0jtl9yKpgW3AqKxGHa+buyf61iSl8zKgikVh2prNIRhgs8ps4XEZ+Rj+oRzDWt07Sd2Q3EWaBDJiw9Uk=
-  on:
-    repo: RodrigoMattosoSilveira/rms-sparklines
-    on: master
+   chrome: stable
+git:
+   quiet: true
+   submodules: false
 branches:
-  only:
-  - master
+   only:
+      - master
+# addons:
+#   ssh_known_hosts:
+#   - 192.30.253.112
+#   - 192.30.253.113
+before_install:
+   - echo "before_install steps"
+   - export DISPLAY=:99.0
+   - sh -e /etc/init.d/xvfb start
+   - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.6.0
+   - export PATH="$HOME/.yarn/bin:$PATH"
+install:
+   - echo "install execution"
+   - npm install -g @angular/cli@7.3.9
+before_script:
+   - echo "before_script has no steps"
+   - npm install
+script:
+   - echo "script execution"
+   - yarn lib:reset
+   - ng test rmstek-sparklines  --karmaConfig=./projects/rmstek-sparklines/karma.conf.travisci.js
+   - ng test living-style-guide --karmaConfig=./projects/living-style-guide/karma.conf.travisci.js
+   - ng e2e
+   - ng build living-style-guide --prod --base-href /rms-sparklines/ --deploy-url https://rodrigomattososilveira.github.io/rms-sparklines/
+before_cache:
+   - echo "before_cache has no steps"
+cache: yarn
+before_deploy:
+   - echo "before_deploy steps - Tagging"
+   - ./scripts/tag.sh
+deploy:
+   skip_cleanup: true
+   local_dir: "./dist/living-style-guide"
+   provider: pages
+   github_token: "$GITHUB_TOKEN"
+   keep_history: true
+   on:
+      branch: master
+after_deploy:
+   - echo "after_deploy has no steps"
+after_script:
+   - echo "after_script has steps - Publish the rmstek-sparkline component"
+   - ./scripts/publish.sh "$(ls dist/rmstek-sparklines | grep tgz)"
+env:
+   global:
+      secure: jTW6SOWMJnKETwzF/jBO0e9FfAukxjH8RzNnhVCpQdSlOARTlPDFRhMwGzkvV2ArOvUCQ8PjxqBPkSXtQcXPEPDvY1ALnrAhdFYbYrjZ6CmFNQTr49mCKRImae7y8olVgdlK+MOvpnm07X33hVOqmkxHORwCNTaNCv868R9kIgKNHJOgNfsIchuNYHLKax3ruUP1qR9B7PEjVEbYMKxHLbR7noGro1lpWd3d210YwsVpE5zXDyc1o+LA6CUx4FOvBsTZjh9eVmafpnY9NBvF14agnLOTnBgAwfjaa+amBxxba4ixRB59NUzgDMA5a+A17M4AWS7pmbAVbjIIeGn56fE/7DhQZkCvMPB4BC2o8uFOCTlr5v9AWJlAVuxHnPXxi9OAnLtGXpDOZwp1q8RyAT0EsF+gNzXbBAfRn12zja/YWOHZlblpTAXhGwtktWkIgNuVMg/C2EQxFgiU/ym74NblY15wlFdsl0emuozT2OQw67COzo1VjNi6rw3uADgP/Vi2Anyaf0jYj797Wow6Pw+p19tjIAlbv1LU7nh89SnQlzwdMSTjoEweNp1cTVvgkDMJ6Lnonknvf8ZXU9AzcKKSujtjU3E7vgqf4aquLx3Os2VLsZHfMeUQThv+0cO9JXZiYulCDxKIGi6vE1KxS5i2n0D/hpSdwi9VpruqVhs=

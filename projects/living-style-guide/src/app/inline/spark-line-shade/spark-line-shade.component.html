@@ -1,0 +1,33 @@
+<mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title class="mat-card-title-rms">Sparkline type: Line</mat-card-title>
+        <mat-card-subtitle>Chart type: Shaded</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <p>
+            <rmstek-spark-line
+                [className] = "className"
+                [decorationPoints] = "decorationPoints"
+                [dotRadius] = "dotRadius"
+                [height] = "height"
+                [lineColor] = "lineColor"
+                [linePoints] = "linePoints"
+                [lineWidth] = "lineWidth"
+                [shadeColor] = "shadeColor"
+                [width] = "width"
+            >
+            </rmstek-spark-line>
+        </p>
+        <h4>Highlights</h4>
+        <markdown ngPreserveWhitespaces>
+            Move mouse alongside lines to see their values
+        </markdown>
+    </mat-card-content>
+    <mat-card-actions>
+        <h4>Source References</h4>
+        <div>
+            <a mat-button href="{{branchURL_lib}}" target="_blank">Component</a>
+            <a mat-button href="{{branchURL_lsg}}" target="_blank">Usage</a>
+        </div>
+    </mat-card-actions>
+</mat-card>

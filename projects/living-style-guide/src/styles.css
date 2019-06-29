@@ -1,0 +1,60 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+body {
+    font-family: Roboto, Arial, sans-serif;
+    margin: 0;
+}
+
+.toolbar-spacer {
+    flex: 1 1 auto;
+}
+
+.toolbar-home-link {
+    color: #fff;
+    text-decoration-line: none;
+}
+
+.example-fill-remaining-space {
+    /* This fills the remaining space, by using flexbox.
+       Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+}
+
+.example-card {
+    max-width: 400px;
+}
+
+mat-card {
+    margin: 16px 16px 16px 16px;
+}
+
+.sidenav-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #eee;
+    height: 860px;
+
+}
+
+.mat-card-title-rms {
+    font-weight: bold;
+}
+
+.mat-card-margin-left {
+    margin-left: 16px;
+}
+
+
+.example-header-image {
+    background-image: url('./assets/images/Rodrigo_Cropped.png');
+    background-size: cover;
+}
+
+.rms-mat-card-avatar {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+}

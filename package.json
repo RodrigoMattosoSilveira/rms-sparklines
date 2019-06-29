@@ -1,35 +1,79 @@
 {
-	"name": "rms-sparklines",
-	"author": "Rodrigo Silveira",
-	"version": "0.2.3",
-	"description": "A sparkline collection, written as web components",
-	"homepage": "hhttps://github.com/RodrigoMattosoSilveira/rms-sparklines#README",
-	"license": "MIT",
-	"publishConfig": {
-		"access": "public"
-	},
-	"bugs": {
-		"url": "hhttps://github.com/RodrigoMattosoSilveira/rms-sparklines/issues",
-		"email": "r3850365@gmail.com"
-	},
-	"repository": {
-		"type": "git",
-		"url": "hhttps://github.com/RodrigoMattosoSilveira/rms-sparklines.git"
-	},
-	"main": "index.js",
-	"scripts": {
-		"setup_i": "./setup.sh -i",
-		"setup_iu": "./setup.sh -iu",
-		"setup_u": "./setup.sh -u"
-	},
-	"keywords": [
-		"rms",
-		"sparkline",
-		"nutemeg",
-		"webcompnent"
-	],
-	"dependencies": {
-		"codelyzer": "^4.3.0",
-		"tslint": "^5.9.1"
-	}
+   "name": "rms-sparklines",
+   "version": "0.3.0",
+   "scripts": {
+      "build": "ng build",
+      "e2e": "ng e2e --port 4201",
+      "lint": "ng lint",
+      "ng": "ng",
+      "test": "ng test",
+      "lib:add": "yarn add ./dist/rmstek-sparklines/ -O",
+      "test:all": "ng test living-style-guide --watch=false && ng e2e",
+      "lib:build": "ng build rmstek-sparklines",
+      "lib:files": "yarn lib:license && yarn lib:readme",
+      "lib:license": "cp ./projects/rmstek-sparklines/LICENSE ./dist/rmstek-sparklines",
+      "lib:pack": "cd dist/rmstek-sparklines && yarn pack",
+      "lib:readme": "cp ./projects/rmstek-sparklines/README.md ./dist/rmstek-sparklines",
+      "lib:ready": "yarn lib:build && yarn lib:files && yarn lib:pack",
+      "lib:reset": "npm install && rm package-lock.json && yarn lib:build && rm -rf node_modules/ && yarn install && yarn lib:add",
+      "lib:test": "ng test rmstek-sparklines",
+      "lib:upd": "yarn update & yarn lib:build",
+      "lsg:build": "ng build living-style-guide",
+      "lsg:serve": "ng serve living-style-guide --port 4201",
+      "lsg:serve:lib": "yarn lib:build && yarn lsg:serve",
+      "lsg:serve:aot": "ng serve living-style-guide --port 4201 --aot=true",
+      "lsg:serve:jit": "ng serve living-style-guide --port 4201 --aot=false",
+      "lsg:test": "ng test living-style-guide",
+      "lsg:upd": "yarn lib:upd && yarn lsg:build"
+   },
+   "private": true,
+   "dependencies": {
+      "@angular/animations": "^7.2.15",
+      "@angular/cdk": "^7.3.7",
+      "@angular/common": "~7.2.0",
+      "@angular/compiler": "~7.2.0",
+      "@angular/core": "~7.2.0",
+      "@angular/forms": "~7.2.0",
+      "@angular/http": "^7.2.15",
+      "@angular/material": "^7.3.7",
+      "@angular/platform-browser": "~7.2.0",
+      "@angular/platform-browser-dynamic": "~7.2.0",
+      "@angular/router": "~7.2.0",
+      "@types/mathjs": "^5.0.1",
+      "core-js": "^2.5.4",
+      "karma-mocha-reporter": "^2.2.5",
+      "mathjs": "^6.0.2",
+      "ngx-markdown": "^7.1.5",
+      "rxjs": "~6.3.3",
+      "zone.js": "~0.8.26"
+   },
+   "devDependencies": {
+      "@angular-devkit/build-angular": "~0.13.0",
+      "@angular-devkit/build-ng-packagr": "~0.13.0",
+      "@angular/cli": "~7.3.7",
+      "@angular/compiler-cli": "~7.2.0",
+      "@angular/language-service": "~7.2.0",
+      "@types/jasmine": "~2.8.8",
+      "@types/jasminewd2": "~2.0.3",
+      "@types/node": "~8.9.4",
+      "codelyzer": "~4.5.0",
+      "jasmine-core": "~2.99.1",
+      "jasmine-spec-reporter": "~4.2.1",
+      "karma": "~4.0.0",
+      "karma-chrome-launcher": "~2.2.0",
+      "karma-coverage-istanbul-reporter": "~2.0.1",
+      "karma-jasmine": "~1.1.2",
+      "karma-jasmine-html-reporter": "^0.2.2",
+      "ng-packagr": "^4.2.0",
+      "protractor": "~5.4.0",
+      "ts-md5": "^1.2.4",
+      "ts-node": "~7.0.0",
+      "tsickle": ">=0.34.0",
+      "tslib": "^1.10.0",
+      "tslint": "~5.11.0",
+      "typescript": "~3.2.2"
+   },
+   "optionalDependencies": {
+      "@rmstek/sparklines": "./dist/rmstek-sparklines/"
+   }
 }

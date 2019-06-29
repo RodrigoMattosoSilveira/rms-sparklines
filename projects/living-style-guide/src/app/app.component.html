@@ -1,0 +1,33 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <!-- span>Sparklines</span -->
+      <span><a id='myTitle' class ="toolbar-home-link" href=''>SPARKLINES</a><span style="font-size: 60%;"> v{{version}}</span></span>
+
+      <!-- This fills the remaining space of the current row -->
+      <span class="example-fill-remaining-space"></span>
+
+      <span>
+          <img class="rms-mat-card-avatar" src="assets/images/Rodrigo_Cropped.png" alt="Rodrigo Silveira">
+      </span>
+
+      <span>
+          <a mat-button href="https://www.linkedin.com/in/rodrigomattososilveira/" target="_blank">Rodrigo Silveira</a>
+      </span>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-drawer-container class="sidenav-container">
+  <mat-drawer mode="side" opened>
+    <h4>Sparklines</h4>
+    <mat-list>
+      <mat-list-item *ngFor="let sparkline of sparklines">
+          <h4 mat-line>
+            <a mat-button [routerLink]="sparkline.routeLink">{{sparkline.name}}</a>
+          </h4>
+      </mat-list-item>
+    </mat-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

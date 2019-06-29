@@ -1,0 +1,78 @@
+
+Description
+----
+The `&ltrms-spark-line&gt` Angular custom component renders a simple sparkline including the following elements:
+* a line
+* optional decorating points, drawn along the line, e.g. min / max / start / end / alert. etc.
+* an optional dropdown shade
+
+The `&ltrms-spark-line&gt` Angular custom component renders the following  sparkline variations:
+1. `simple`: A simple line, all points positive
+1. `decorated`:  A simple line, all points positive, with decoration points alongside the line.
+1. `shade`: Dual charts' bars heights are negative, zero, or positive, with a positive height bars drawn northward and negative ones southward.
+
+### Usage
+
+Below is example of a sparkline inline drawn without a shade and with decorationpoints.
+````html
+  &lt;rms-sparkline-inline&gt;
+      [className]="className"
+      [decorationPoints]="decorationPoints"
+      [dotRadius]="dotRadius"
+      [lineColor]="lineColor"
+      [linePoints]="linePoints"
+      [lineWidth]="lineWidth"
+      [height]="height"
+      [shadeColor]="shadeColor"
+      [width]="width"
+
+  &lt;/rms-sparkline-inline&gt;
+````
+
+### Properties
+* `className: string`: The classe names to be added to the canvas element. Default is no classes.
+* `decorationPoints: string` An array of objects describing decoration points,  e.g. min / max / start / end / alert. etc. See below for formating details.
+* `dotRadius: Number`: The size of the decoration dots.
+* `lineColor: string`: The color of the sparkline; any valid CSS color.
+* `linePoints: string`: An array of numbers representing the sparkline data source. Default is empty array. See below for formating details.
+* `lineWidth: number`: A number giving the stroke of the line in pixels. Default is 1.
+* `width: number`: The width of the sparkline box in pixels.
+* `shadeColor: string`: The color of to shade the area underneath the sparkline.
+* `height: number`: The height of the sparkline box in pixels.
+
+#### linePoints
+A JOSN.stringfy'd string of a simple sequence of values representing f(x), with x being equally spaced units across the horizontal axis, as for instance:
+````typescript
+  linePoints: string = JSON.stringify([4, 3, 7, 8, 1, 4, 9, 2, 5, 3, 5, 5, 8 , 9, 7, 1]);
+````
+
+Assuming the default width, 64 pixels, fifteen segments would will be drawn, four pixels wide. There are two decorations this example, one red dot indexed to be drawn over the line point of index 0 and one black dot indexed to be drawn over the line point of index 15. Considering the linepoints example above, these decorations would represent the sparkline's start and end points.
+
+#### decorationPoints
+A JOSN.stringfy'd string of an array of objectss describing the decoration points, one as the first point of the line and the other as the last point of the line:
+````typescript
+	decorationPoints: string = decorationPoints = JSON.stringify(
+    [
+        index: 0, color: 'red' ,
+        index: 11, color: 'black'
+    ]);
+````
+
+
+### Methods
+none
+
+### Events Received
+none
+
+### Events Emitted
+none
+
+# Last but not least
+````html
+_   _                   _____
+| | | | __ ___   _____  |  ___|   _ _ __
+| |_| |/ _` \ \ / / _ \ | |_ | | | | '_ \
+|  _  | (_| |\ V /  __/ |  _|| |_| | | | |
+|_| |_|\__,_| \_/ \___| |_|   \__,_|_| |_|
+````
