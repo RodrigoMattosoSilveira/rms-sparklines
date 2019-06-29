@@ -34,6 +34,7 @@ before_deploy:
    - echo "before_deploy steps - Tagging"
    - "./scripts/tag.sh"
 deploy:
+   - echo "Deploying to GitHub Pages"
    # Deploy the living styleguide to GitHub pages
    - provider: pages
      skip_cleanup: true
@@ -43,6 +44,7 @@ deploy:
      on:
         branch: issue-44-ng7
    # Deploy the component to nopm registry
+   - echo "Publishing @rmstek-sparklines"
    - provider: script
      script: ./scripts/publish.sh "$(ls dist/rmstek-sparklines | grep tgz)"
      on:
