@@ -42,8 +42,6 @@ deploy:
      keep_history: true
      on:
         branch: issue-44-ng7
-   - echo "Publishing @rmstek/sparklines"
-   - provider: script
 after_deploy:
    # Deploy the component to nopm registry
    - echo "after_deploy has no steps"
