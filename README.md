@@ -1,5 +1,6 @@
 
 | Branch        | Status           |
+| ------------- | ---------------- |
 | master        | [![Build Status](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines.svg?branch=master)](https://travis-ci.org/RodrigoMattosoSilveira/rms-sparklines) |
 
 # Description
