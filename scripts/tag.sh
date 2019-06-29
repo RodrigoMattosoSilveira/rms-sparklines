@@ -6,6 +6,20 @@
 set -ev
 echo Taging: $TRAVIS_BRANCH
 
+get_name() {
+   cd ./dist/rmstek-sparklines
+   this_name=$(npx -c 'echo "$npm_package_name"')
+   cd ../..
+   return $this_name
+}
+
+get_version() {
+   cd ./dist/rmstek-sparklines
+   this_version=$(npx -c 'echo "$npm_package_version"')
+   cd ../..
+   return $this_version
+}
+
 is_travis_branch_master() {
   if [[ ${TRAVIS_BRANCH} = master ]]; then
     echo "✅ Travis branch is master"
@@ -17,7 +31,7 @@ is_travis_branch_master() {
 }
 
 is_feature_branch_version() {
-  version=$(npx -c 'echo "$npm_package_version"')
+  version=$(get_version)
   regex='^[[:digit:]]+(\.[[:digit:]]+)+(-[[:alnum:]]+)+'
   if [[ ${version} =~ $regex ]]; then
     echo "✅ Version ${version} is a feature branch version"
@@ -29,9 +43,9 @@ is_feature_branch_version() {
 }
 
 if is_travis_branch_master || is_feature_branch_version; then
-   cd dist/rmstek-sparklines
-   GITTAG=$(npx -c 'echo "$npm_package_name"_"$npm_package_version"')
-   cd ../..
+   name=$(get_name)
+   version=$(get_version)
+   GITTAG="$name@$version"
    openssl aes-256-cbc -k "$travis_key_password" -d -md sha256 -a -in rms-sparkline-travis.enc -out rms-sparkline-travis-key
    echo "Host github.com" > $HOME/.ssh/config
    echo "  IdentityFile rms-sparkline-travis-key" >> $HOME/.ssh/config
