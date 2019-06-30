@@ -25,52 +25,58 @@ import { BarchartPositiveComponent } from './barchart/barchart-positive/barchart
 import { BarchartNegativeComponent } from './barchart/barchart-negative/barchart-negative.component';
 import { BarchartDualComponent } from './barchart/barchart-dual/barchart-dual.component';
 import { BarchartTriComponent } from './barchart/barchart-tri/barchart-tri.component';
+import { BulletChartComponent } from './bullet-chart/bullet-chart.component';
+import { BulletChartHorizontalComponent } from './bullet-chart/bullet-chart-horizontal/bullet-chart-horizontal.component';
+import { BulletChartVerticalComponent } from './bullet-chart/bullet-chart-vertical/bullet-chart-vertical.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    BarchartComponent,
-    BoxplotComponent,
-    BoxplotSimpleComponent,
-    InlineComponent,
-    LandingPageComponent,
-    SparkLineSimpleComponent,
-    SparkLineShadeComponent,
-    SparkLineDecorationComponent,
-    BarchartPositiveComponent,
-    BarchartNegativeComponent,
-    BarchartDualComponent,
-    BarchartTriComponent,
-  ],
-  imports: [
-    AngularMaterialModuleModule,
-    AppRoutingModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    RmstekSparklinesModule,
-	HttpModule,
-	HttpClientModule,
-    MarkdownModule.forRoot({
-		loader: HttpClient, // optional, only if you use [src] attribute
-		markedOptions: {
-			provide: MarkedOptions,
-			useValue: {
-				gfm: true,
-				tables: true,
-				breaks: false,
-				pedantic: false,
-				sanitize: false,
-				smartLists: true,
-				smartypants: false,
-			},
-		},
-	}),
-    ReactiveFormsModule,
-  ],
+   declarations: [
+      AppComponent,
+      BarchartComponent,
+      BoxplotComponent,
+      BoxplotSimpleComponent,
+      InlineComponent,
+      LandingPageComponent,
+      SparkLineSimpleComponent,
+      SparkLineShadeComponent,
+      SparkLineDecorationComponent,
+      BarchartPositiveComponent,
+      BarchartNegativeComponent,
+      BarchartDualComponent,
+      BarchartTriComponent,
+      BulletChartComponent,
+      BulletChartHorizontalComponent,
+      BulletChartVerticalComponent,
+   ],
+   imports: [
+      AngularMaterialModuleModule,
+      AppRoutingModule,
+      BrowserModule,
+      BrowserAnimationsModule,
+      FormsModule,
+      RmstekSparklinesModule,
+      HttpModule,
+      HttpClientModule,
+      MarkdownModule.forRoot({
+         loader: HttpClient, // optional, only if you use [src] attribute
+         markedOptions: {
+         provide: MarkedOptions,
+         useValue: {
+            gfm: true,
+            tables: true,
+            breaks: false,
+            pedantic: false,
+            sanitize: false,
+            smartLists: true,
+            smartypants: false,
+         },
+         },
+      }),
+      ReactiveFormsModule,
+   ],
   providers: [
       LivingStyleGuideService,
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
