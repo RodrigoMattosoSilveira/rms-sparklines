@@ -1,6 +1,5 @@
 import { ElementRef,  Injectable } from '@angular/core';
 
-import { BulletChart } from './bulletChart';
 import { Constants } from './constants';
 import { CssColorString } from '../valid-colors';
 import { QualitativeRange } from './qualitativeRange'
@@ -76,10 +75,22 @@ export class BulletChartService {
       return canvasEl.width > canvasEl.height ? Constants.HORIZONTAL : Constants.VERTICAL;
    }
 
+   getQualityRanges(qualitativeRangesString: string): QualitativeRange[] {
+      var qualitativeRanges: QualitativeRange[] = [];
+      var qrs = JSON.parse(qualitativeRangesString);
+      for (var i = 0; i < qrs.length; i++) {
+         var value = qrs[i]['value'];
+         var color = qrs[i]['color']
+         var qualitativeRange = new QualitativeRange(value, color);
+         qualitativeRanges.push(qualitativeRange);
+      }
+      return qualitativeRanges;
+   }
+
    getTopValue(qualitativeRanges: QualitativeRange[]): number {
       let topValue = -1;
       for (var i = 0; i < qualitativeRanges.length; i++) {
-         topValue =  qualitativeRanges[i].getRange() > topValue ? qualitativeRanges[i].getRange() : topValue;
+         topValue =  qualitativeRanges[i].getValue() > topValue ? qualitativeRanges[i].getValue() : topValue;
       }
       return topValue;
    }
@@ -88,15 +99,15 @@ export class BulletChartService {
       const orientaton = this.setOrientation(canvasEl);
       const topValue = this.getTopValue(qualitativeRanges)
       for (var i = 0; i < qualitativeRanges.length; i++) {
-         var range = qualitativeRanges[i].getRange();
+         var value = qualitativeRanges[i].getValue();
          switch (orientaton) {
           case Constants.HORIZONTAL:
-               qualitativeRanges[i].setWidth(range/topValue * canvasEl.width);
+               qualitativeRanges[i].setWidth(value/topValue * canvasEl.width);
                qualitativeRanges[i].setHeight(canvasEl.height);
                break;
             case Constants.VERTICAL:
                qualitativeRanges[i].setWidth(canvasEl.width);
-               qualitativeRanges[i].setHeight(range/topValue * canvasEl.height);
+               qualitativeRanges[i].setHeight(value/topValue * canvasEl.height);
                break;
             default:
                break;

@@ -1,6 +1,6 @@
 {
    "name": "rms-sparklines",
-   "version": "0.3.1",
+   "version": "0.3.2-rc.1",
    "scripts": {
       "build": "ng build",
       "e2e": "ng e2e --port 4201",
@@ -17,7 +17,7 @@
       "lib:ready": "yarn lib:build && yarn lib:files && yarn lib:pack",
       "lib:reset": "npm install && rm package-lock.json && yarn lib:build && rm -rf node_modules/ && yarn install && yarn lib:add",
       "lib:test": "ng test rmstek-sparklines",
-      "lib:upd": "yarn update & yarn lib:build",
+      "lib:upg": "yarn lib:build && yarn upgrade",
       "lsg:build": "ng build living-style-guide",
       "lsg:serve": "ng serve living-style-guide --port 4201",
       "lsg:serve:lib": "yarn lib:build && yarn lsg:serve",

@@ -25,7 +25,7 @@ export class SparkBulletComponent implements AfterViewInit {
    constructor(private bulletChartService: BulletChartService) { }
 
    ngAfterViewInit() {
-      var qrs: QualitativeRange[] = JSON.parse(this.qualitativeRanges);
+      var qrs: QualitativeRange[] = this.bulletChartService.getQualityRanges(this.qualitativeRanges);
       if (this.bulletChartService.validate(qrs, this.sparklineCanvas) != true) {
          console.log(`SparkBulletComponent:ngAfterViewInit - Invalid arguments`)
       }
@@ -44,7 +44,7 @@ export class SparkBulletComponent implements AfterViewInit {
       this.bulletChartService.scaleToCanvas(this.canvasEl, qrs);
 
       // draw bullet chart
-      for (var i = 0; i < this.qualitativeRanges.length; i++) {
+      for (var i = 0; i < qrs.length; i++) {
          qrs[i].draw(this.ctx);
       }
    }

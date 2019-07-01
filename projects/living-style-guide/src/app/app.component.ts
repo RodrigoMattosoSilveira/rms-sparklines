@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'living-style-guide';
-  version =  `0.3.0`;
+  version =  `0.3.2-rc.1`;
   sparklines = [
     {
       name: 'Bar Chart',

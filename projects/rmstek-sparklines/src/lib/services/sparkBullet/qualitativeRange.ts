@@ -1,16 +1,16 @@
 export class QualitativeRange {
-   range: number;
+   value: number;
    color: string;
    width: number;
    height: number;
 
-   constructor(range: number, color: string) {
-      this.setRange (range);
+   constructor(value: number, color: string) {
+      this.setValue (value);
       this.setColor (color);
    }
 
-   getRange(): number { return this.range; }
-   setRange(value: number) { this.range = value; }
+   getValue(): number { return this.value; }
+   setValue(value: number) { this.value = value; }
 
    getColor(): string { return this.color; }
    setColor(value: string) { this.color = value; }
