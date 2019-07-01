@@ -2,6 +2,7 @@ import { ElementRef,  Injectable } from '@angular/core';
 
 import { Constants } from './constants';
 import { CssColorString } from '../valid-colors';
+import { FeatureMeasure } from './featureMeasure';
 import { QualitativeRange } from './qualitativeRange'
 
 
@@ -95,13 +96,20 @@ export class BulletChartService {
       return topValue;
    }
 
+   getFeatureMeasure(featureMeasureString: string): FeatureMeasure {
+      var fm = JSON.parse(featureMeasureString);
+      return new FeatureMeasure(fm.value, fm.color);
+   }
+
    scaleToCanvas(canvasEl: HTMLCanvasElement, qualitativeRanges: QualitativeRange[]): void {
       const orientaton = this.setOrientation(canvasEl);
       const topValue = this.getTopValue(qualitativeRanges)
+
+      // qualitative ranges
       for (var i = 0; i < qualitativeRanges.length; i++) {
          var value = qualitativeRanges[i].getValue();
          switch (orientaton) {
-          case Constants.HORIZONTAL:
+            case Constants.HORIZONTAL:
                qualitativeRanges[i].setWidth(value/topValue * canvasEl.width);
                qualitativeRanges[i].setHeight(canvasEl.height);
                break;
@@ -112,12 +120,43 @@ export class BulletChartService {
             default:
                break;
          }
+
+         // feature measure
+         switch (orientaton) {
+            case Constants.HORIZONTAL:
+               qualitativeRanges[i].setWidth(value/topValue * canvasEl.width);
+               qualitativeRanges[i].setHeight(canvasEl.height);
+               break;
+            case Constants.VERTICAL:
+               qualitativeRanges[i].setWidth(canvasEl.width);
+               qualitativeRanges[i].setHeight(value/topValue * canvasEl.height);
+               break;
+               default:
+            break;
+         }
+
       }
    }
 
-   drawQualitativeRanges(ctx: CanvasRenderingContext2D, qualitativeRanges: QualitativeRange[]): void {
-      for (var i = 0; i < qualitativeRanges.length; i++) {
-         qualitativeRanges[i].draw(ctx);
+   scaleFeatureMeasureToCanvas(canvasEl: HTMLCanvasElement,
+      featureMeasure: FeatureMeasure,
+      qualitativeRanges: QualitativeRange[]): void {
+      const orientaton = this.setOrientation(canvasEl);
+      const topValue = this.getTopValue(qualitativeRanges)
+
+      // feature measure
+      var value = featureMeasure.getValue();
+      switch (orientaton) {
+         case Constants.HORIZONTAL:
+            featureMeasure.setWidth(value/topValue * canvasEl.width);
+            featureMeasure.setHeight(canvasEl.height/3);
+            break;
+         case Constants.VERTICAL:
+            featureMeasure.setWidth(canvasEl.width/3);
+            featureMeasure.setHeight(value/topValue * canvasEl.height);
+            break;
+            default:
+         break;
       }
    }
 }

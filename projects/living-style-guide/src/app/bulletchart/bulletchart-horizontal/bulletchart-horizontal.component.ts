@@ -9,6 +9,7 @@ import { LivingStyleGuideService } from '../../utils/services/living-style-guide
 export class BulletchartHorizontalComponent implements OnInit {
 
    className = '';
+   featureMeasure = JSON.stringify({'value': 42, 'color': 'black'});
    height = 32;
    qualitativeRanges = JSON.stringify([{'value': 60, 'color': '#FF7F50'}, {'value': 50, 'color': '#FF6347'}, {'value': 35, 'color': '#FF4500'}])
    width = 128;

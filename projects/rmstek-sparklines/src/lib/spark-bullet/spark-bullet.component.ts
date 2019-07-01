@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 
 import { BulletChartService } from '../services/sparkBullet/bulletchart.service';
+import { FeatureMeasure } from '../services/sparkBullet/featureMeasure';
 import { QualitativeRange } from '../services/sparkBullet/qualitativeRange'
 
 @Component({
@@ -11,6 +12,7 @@ import { QualitativeRange } from '../services/sparkBullet/qualitativeRange'
 export class SparkBulletComponent implements AfterViewInit {
 
    @Input() className = '';
+   @Input() featureMeasure = JSON.stringify({'value': 35, 'color': 'black'});
    @Input() height = 32;
    @Input() qualitativeRanges  = JSON.stringify([{'value': 60, 'color': '#FF7F50'}, {'value': 50, 'color': '#FF6347'}, {'value': 35, 'color': '#FF4500'}])
    @Input() width = 128;
@@ -26,6 +28,7 @@ export class SparkBulletComponent implements AfterViewInit {
 
    ngAfterViewInit() {
       var qrs: QualitativeRange[] = this.bulletChartService.getQualityRanges(this.qualitativeRanges);
+      var fm: FeatureMeasure = this.bulletChartService.getFeatureMeasure(this.featureMeasure);
       if (this.bulletChartService.validate(qrs, this.sparklineCanvas) != true) {
          console.log(`SparkBulletComponent:ngAfterViewInit - Invalid arguments`)
       }
@@ -35,17 +38,19 @@ export class SparkBulletComponent implements AfterViewInit {
          this.height,
          this.className);
          this.ctx = this.canvasEl.getContext('2d');
-      }
 
-      // set the setOrientation
-      this.orientation = this.bulletChartService.setOrientation(this.canvasEl);
+         // set the setOrientation
+         this.orientation = this.bulletChartService.setOrientation(this.canvasEl);
 
-      // scale to fit the canvas
-      this.bulletChartService.scaleToCanvas(this.canvasEl, qrs);
+         // scale to fit the canvas
+         this.bulletChartService.scaleToCanvas(this.canvasEl, qrs);
+         this.bulletChartService.scaleFeatureMeasureToCanvas(this.canvasEl, fm, qrs)
 
-      // draw bullet chart
-      for (var i = 0; i < qrs.length; i++) {
-         qrs[i].draw(this.ctx);
+         // draw bullet chart
+         for (var i = 0; i < qrs.length; i++) {
+            qrs[i].draw(this.ctx);
+         }
+         fm.draw(this.ctx, this.canvasEl);
       }
    }
 }
