@@ -28,6 +28,7 @@ import { BarchartDualComponent } from './barchart/barchart-dual/barchart-dual.co
 import { BarchartTriComponent } from './barchart/barchart-tri/barchart-tri.component';
 import { BulletchartVerticalComponent } from './bulletchart/bulletchart-vertical/bulletchart-vertical.component';
 import { BulletchartHorizontalComponent } from './bulletchart/bulletchart-horizontal/bulletchart-horizontal.component';
+import { BulletchartHorizontalTwoComponent } from './bulletchart/bulletchart-horizontal-two/bulletchart-horizontal-two.component';
 
 @NgModule({
    declarations: [
@@ -50,6 +51,7 @@ import { BulletchartHorizontalComponent } from './bulletchart/bulletchart-horizo
       
       BulletchartVerticalComponent,
       BulletchartHorizontalComponent,
+      BulletchartHorizontalTwoComponent,
    ],
    imports: [
       AngularMaterialModuleModule,
