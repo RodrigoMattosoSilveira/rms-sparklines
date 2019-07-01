@@ -17,6 +17,7 @@ import { SparkBulletComponent } from './spark-bullet/spark-bullet.component';
      SparkBarchartComponent,
      SparkBoxplotComponent,
      SparkLineComponent,
+     SparkBulletComponent,
   ]
 })
 export class RmstekSparklinesModule { }

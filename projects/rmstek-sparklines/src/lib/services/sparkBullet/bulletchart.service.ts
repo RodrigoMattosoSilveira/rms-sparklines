@@ -73,11 +73,7 @@ export class BulletChartService {
   }
 
    setOrientation(canvasEl: HTMLCanvasElement): string {
-      let orientaton: string;
-
-      orientation = canvasEl.width > canvasEl.height ? Constants.HORIZONTAL : Constants.VERTICAL;
-
-      return orientaton;
+      return canvasEl.width > canvasEl.height ? Constants.HORIZONTAL : Constants.VERTICAL;
    }
 
    getTopValue(qualitativeRanges: QualitativeRange[]): number {

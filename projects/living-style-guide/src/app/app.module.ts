@@ -9,6 +9,7 @@ import { RmstekSparklinesModule } from '@rmstek/sparklines';
 import { AppComponent } from './app.component';
 import { BarchartComponent } from './barchart/barchart.component';
 import { BoxplotComponent } from './boxplot/boxplot.component';
+import { BulletchartComponent } from './bulletchart/bulletchart.component';
 import { InlineComponent } from './inline/inline.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 
@@ -25,7 +26,6 @@ import { BarchartPositiveComponent } from './barchart/barchart-positive/barchart
 import { BarchartNegativeComponent } from './barchart/barchart-negative/barchart-negative.component';
 import { BarchartDualComponent } from './barchart/barchart-dual/barchart-dual.component';
 import { BarchartTriComponent } from './barchart/barchart-tri/barchart-tri.component';
-import { BulletchartComponent } from './bulletchart/bulletchart.component';
 import { BulletchartVerticalComponent } from './bulletchart/bulletchart-vertical/bulletchart-vertical.component';
 import { BulletchartHorizontalComponent } from './bulletchart/bulletchart-horizontal/bulletchart-horizontal.component';
 
@@ -35,16 +35,19 @@ import { BulletchartHorizontalComponent } from './bulletchart/bulletchart-horizo
       BarchartComponent,
       BoxplotComponent,
       BoxplotSimpleComponent,
+      BulletchartComponent,
       InlineComponent,
       LandingPageComponent,
+
       SparkLineSimpleComponent,
       SparkLineShadeComponent,
       SparkLineDecorationComponent,
+
       BarchartPositiveComponent,
       BarchartNegativeComponent,
       BarchartDualComponent,
       BarchartTriComponent,
-      BulletchartComponent,
+      
       BulletchartVerticalComponent,
       BulletchartHorizontalComponent,
    ],
