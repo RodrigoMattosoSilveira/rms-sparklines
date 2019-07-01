@@ -1,36 +1,45 @@
 export class ComparativeMeasure {
-   range: number;
-   width: number;
+   value: number;
    color: string;
+   fromX: number;
+   fromY: number;
+   toX: number;
+   toY: number;
+   lineWidth: number;
 
-   constructor(range: number, width: number, color: string) {
-      this.setRange (range);
-      this.setWidth (width);
+   constructor(value: number, color: string, lineWidth: number) {
+      this.setValue (value);
       this.setColor (color);
+      this.setLineWidth (lineWidth);
    }
 
-   getRange(): number { return this.range; }
-   setRange(value: number) { this.range = value; }
-
-   getWidth(): number { return this.width; }
-   setWidth(value: number) { this.width = value; }
+   getValue(): number { return this.value; }
+   setValue(value: number) { this.value = value; }
 
    getColor(): string { return this.color; }
    setColor(value: string) { this.color = value; }
 
-   /**
-   * The comparative measure, target marker for comparative measure, it is a
-   * rectangle drawn north/south:
-   * - It's height is two thirds of the canvas height;
-   * - Tt's width is configured;
-   * - It color is its color attribute;
-   * - Half of its height is above the center of the canvas height, and half
-   *   below thereof;
-   */
-   draw(ctx: CanvasRenderingContext2D, canvasWidth: number, canvasHeight: number) {
-      let featureRangeWidth = this.range/canvasWidth*100;
-      let featureRangeHeight = canvasWidth/3;
-      ctx.fillStyle = this.color;
-      ctx.fillRect(0, (canvasHeight/2 - featureRangeHeight/2), featureRangeWidth, featureRangeHeight);
+   getFromX(): number { return this.fromX; }
+   setFromX(value: number): void { this.fromX = value; }
+
+   getFromY(): number { return this.fromY; }
+   setFromY(value: number): void { this.fromY = value; }
+
+   getToX(): number { return this.toX; }
+   setToX(value: number): void { this.toX = value; }
+
+   getToY(): number { return this.toY; }
+   setToY(value: number): void { this.toY = value; }
+
+   getLineWidth(): number { return this.lineWidth; }
+   setLineWidth(value: number): void { this.lineWidth = value; }
+
+   draw(ctx: CanvasRenderingContext2D) {
+      ctx.beginPath();
+      ctx.strokeStyle = this.color;
+      ctx.lineWidth = this.lineWidth;
+      ctx.moveTo(this.fromX, this.fromY);
+      ctx.lineTo(this.toX, this.toY);
+      ctx.stroke();
    }
 }

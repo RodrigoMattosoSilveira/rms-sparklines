@@ -2,6 +2,7 @@ import { ElementRef,  Injectable } from '@angular/core';
 
 import { Constants } from './constants';
 import { CssColorString } from '../valid-colors';
+import { ComparativeMeasure } from './comparativeMeasure';
 import { FeatureMeasure } from './featureMeasure';
 import { QualitativeRange } from './qualitativeRange'
 
@@ -101,7 +102,13 @@ export class BulletChartService {
       return new FeatureMeasure(fm.value, fm.color);
    }
 
-   scaleToCanvas(canvasEl: HTMLCanvasElement, qualitativeRanges: QualitativeRange[]): void {
+   getComparativeMeasure(comparativeMeasureString: string) {
+      var cm = JSON.parse(comparativeMeasureString);
+      return new ComparativeMeasure(cm.value, cm.color, cm.width);
+   }
+
+   scaleToCanvas(canvasEl: HTMLCanvasElement,
+      qualitativeRanges: QualitativeRange[]): void {
       const orientaton = this.setOrientation(canvasEl);
       const topValue = this.getTopValue(qualitativeRanges)
 
@@ -141,12 +148,12 @@ export class BulletChartService {
    scaleFeatureMeasureToCanvas(canvasEl: HTMLCanvasElement,
       featureMeasure: FeatureMeasure,
       qualitativeRanges: QualitativeRange[]): void {
-      const orientaton = this.setOrientation(canvasEl);
+      const orientation = this.setOrientation(canvasEl);
       const topValue = this.getTopValue(qualitativeRanges)
 
       // feature measure
       var value = featureMeasure.getValue();
-      switch (orientaton) {
+      switch (orientation) {
          case Constants.HORIZONTAL:
             featureMeasure.setWidth(value/topValue * canvasEl.width);
             featureMeasure.setHeight(canvasEl.height/3);
@@ -158,5 +165,29 @@ export class BulletChartService {
             default:
          break;
       }
+   }
+
+   scaleComparativeMeasureToCanvas(canvasEl: HTMLCanvasElement,
+      comparativeMeasure: ComparativeMeasure,
+      qualitativeRanges: QualitativeRange[]): void {
+         const orientation = this.setOrientation(canvasEl);
+         const topValue = this.getTopValue(qualitativeRanges)
+         const value = comparativeMeasure.getValue();
+         switch (orientation) {
+            case Constants.HORIZONTAL:
+               comparativeMeasure.setFromX(value/topValue * canvasEl.width);
+               comparativeMeasure.setFromY(canvasEl.height/3);
+               comparativeMeasure.setToX(value/topValue * canvasEl.width);
+               comparativeMeasure.setToY(2*canvasEl.height/3);
+               break;
+            case Constants.VERTICAL:
+               comparativeMeasure.setFromX(canvasEl.height/3);
+               comparativeMeasure.setFromY(value/topValue * canvasEl.width);
+               comparativeMeasure.setToX(2*canvasEl.height/3);
+               comparativeMeasure.setToY(value/topValue * canvasEl.width);
+               break;
+               default:
+            break;
+         }
    }
 }
