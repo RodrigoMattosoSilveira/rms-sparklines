@@ -25,9 +25,9 @@ import { BarchartPositiveComponent } from './barchart/barchart-positive/barchart
 import { BarchartNegativeComponent } from './barchart/barchart-negative/barchart-negative.component';
 import { BarchartDualComponent } from './barchart/barchart-dual/barchart-dual.component';
 import { BarchartTriComponent } from './barchart/barchart-tri/barchart-tri.component';
-import { BulletChartComponent } from './bullet-chart/bullet-chart.component';
-import { BulletChartHorizontalComponent } from './bullet-chart/bullet-chart-horizontal/bullet-chart-horizontal.component';
-import { BulletChartVerticalComponent } from './bullet-chart/bullet-chart-vertical/bullet-chart-vertical.component';
+import { BulletchartComponent } from './bulletchart/bulletchart.component';
+import { BulletchartVerticalComponent } from './bulletchart/bulletchart-vertical/bulletchart-vertical.component';
+import { BulletchartHorizontalComponent } from './bulletchart/bulletchart-horizontal/bulletchart-horizontal.component';
 
 @NgModule({
    declarations: [
@@ -44,9 +44,9 @@ import { BulletChartVerticalComponent } from './bullet-chart/bullet-chart-vertic
       BarchartNegativeComponent,
       BarchartDualComponent,
       BarchartTriComponent,
-      BulletChartComponent,
-      BulletChartHorizontalComponent,
-      BulletChartVerticalComponent,
+      BulletchartComponent,
+      BulletchartVerticalComponent,
+      BulletchartHorizontalComponent,
    ],
    imports: [
       AngularMaterialModuleModule,

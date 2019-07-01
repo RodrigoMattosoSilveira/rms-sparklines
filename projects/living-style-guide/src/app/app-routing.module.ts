@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { BarchartComponent } from './barchart/barchart.component';
 import { BoxplotComponent } from './boxplot/boxplot.component';
-import { BulletChartComponent } from './bullet-chart/bullet-chart.component';
+import { BulletchartComponent } from './bulletchart/bulletchart.component';
 import { InlineComponent } from './inline/inline.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 
@@ -12,7 +12,7 @@ const appRoutes: Routes = [
 
 	{ path: 'barchart',    component: BarchartComponent },
 	{ path: 'boxplot',     component: BoxplotComponent },
-	{ path: 'bulletchart', component: BulletChartComponent },
+	{ path: 'bulletchart', component: BulletchartComponent },
    { path: 'inline',      component: InlineComponent },
 
 	{ path: '',   redirectTo: 'home', pathMatch: 'full' },

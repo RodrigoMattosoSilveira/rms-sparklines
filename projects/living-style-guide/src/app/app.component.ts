@@ -20,6 +20,11 @@ export class AppComponent {
       routeLink: 'boxplot'
     },
     {
+      name: 'Bullet Chart',
+      icon: '',
+      routeLink: 'bulletchart'
+    },
+    {
       name: 'Inline',
       icon: '',
       routeLink: 'inline'
