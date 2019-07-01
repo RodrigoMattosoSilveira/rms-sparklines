@@ -12,7 +12,7 @@ export class BulletchartHorizontalComponent implements OnInit {
    comparativeMeasure = JSON.stringify({'value': 55, 'color': '#FF0000 ', 'width': 4});
    featureMeasure = JSON.stringify({'value': 42, 'color': 'black'});
    height = 32;
-   qualitativeRanges = JSON.stringify([{'value': 60, 'color': '#F0F0F0'}, {'value': 50, 'color': '#A8A8A8'}, {'value': 35, 'color': '#808080'}])
+   qualitativeRanges = JSON.stringify([{'value': 60, 'color': '#E0E0E0'}, {'value': 50, 'color': '#A8A8A8'}, {'value': 35, 'color': '#808080'}])
    width = 128;
 
    constructor(private livingStyleGuideService: LivingStyleGuideService) { }

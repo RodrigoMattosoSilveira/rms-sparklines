@@ -155,15 +155,19 @@ export class BulletChartService {
       var value = featureMeasure.getValue();
       switch (orientation) {
          case Constants.HORIZONTAL:
+            featureMeasure.setFromX(0);
+            featureMeasure.setFromY(canvasEl.height/3);
             featureMeasure.setWidth(value/topValue * canvasEl.width);
             featureMeasure.setHeight(canvasEl.height/3);
             break;
          case Constants.VERTICAL:
+            featureMeasure.setFromX(canvasEl.width/3);
+            featureMeasure.setFromY(0);
             featureMeasure.setWidth(canvasEl.width/3);
             featureMeasure.setHeight(value/topValue * canvasEl.height);
             break;
-            default:
-         break;
+         default:
+            break;
       }
    }
 
@@ -181,10 +185,10 @@ export class BulletChartService {
                comparativeMeasure.setToY(2*canvasEl.height/3);
                break;
             case Constants.VERTICAL:
-               comparativeMeasure.setFromX(canvasEl.height/3);
-               comparativeMeasure.setFromY(value/topValue * canvasEl.width);
-               comparativeMeasure.setToX(2*canvasEl.height/3);
-               comparativeMeasure.setToY(value/topValue * canvasEl.width);
+               comparativeMeasure.setFromX(canvasEl.width/3);
+               comparativeMeasure.setFromY(value/topValue * canvasEl.height);
+               comparativeMeasure.setToX(2*canvasEl.width/3);
+               comparativeMeasure.setToY(value/topValue * canvasEl.height);
                break;
                default:
             break;

@@ -54,8 +54,8 @@ export class SparkBulletComponent implements AfterViewInit {
          for (var i = 0; i < qrs.length; i++) {
             qrs[i].draw(this.ctx);
          }
+         fm.draw(this.ctx);
          cm.draw(this.ctx);
-         fm.draw(this.ctx, this.canvasEl);
          }
    }
 }

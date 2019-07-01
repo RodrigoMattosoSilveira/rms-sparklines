@@ -1,6 +1,8 @@
 export class FeatureMeasure {
    value: number;
    color: string;
+   fromX: number;
+   fromY: number;
    width: number;
    height: number;
 
@@ -21,8 +23,14 @@ export class FeatureMeasure {
    getHeight(): number { return this.height; }
    setHeight(value: number): void { this.height = value; }
 
-   draw(ctx: CanvasRenderingContext2D, canvasEl: HTMLCanvasElement) {
+   getFromX(): number { return this.fromX; }
+   setFromX(value: number): void { this.fromX = value; }
+
+   getFromY(): number { return this.fromY; }
+   setFromY(value: number): void { this.fromY = value; }
+
+   draw(ctx: CanvasRenderingContext2D) {
       ctx.fillStyle = this.color;
-      ctx.fillRect(0, canvasEl.height/3, this.width, this.height);
+      ctx.fillRect(this.fromX, this.fromY, this.width, this.height);
    }
 }

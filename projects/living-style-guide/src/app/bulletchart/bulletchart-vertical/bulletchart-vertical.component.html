@@ -1,3 +1,30 @@
-<p>
-  bulletchart-vertical works!
-</p>
+<mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title class="mat-card-title-rms">Sparkline type: Bullet Chart</mat-card-title>
+        <mat-card-subtitle>Chart type: Vertical</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <p>
+            <rmstek-spark-bullet
+				[className] = "className"
+            [comparativeMeasure]="comparativeMeasure"
+            [featureMeasure] ="featureMeasure"
+            [height] = "height"
+				[qualitativeRanges] = "qualitativeRanges"
+				[width] = "width"
+			>
+			</rmstek-spark-bullet>
+        </p>
+        <h4>Highlights</h4>
+        <markdown ngPreserveWhitespaces>
+            Move mouse alongside lines to see their values
+        </markdown>
+    </mat-card-content>
+    <mat-card-actions>
+        <h4>Source References</h4>
+        <div>
+            <a mat-button href="{{branchUrlLib}}" target="_blank">Component</a>
+            <a mat-button href="{{branchUrlLsg}}" target="_blank">Usage</a>
+        </div>
+    </mat-card-actions>
+</mat-card>

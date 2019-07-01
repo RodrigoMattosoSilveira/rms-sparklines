@@ -19,7 +19,7 @@ export class LivingStyleGuideService {
      */
     branchURL(leaf: string): string {
         const root = `https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree`;
-        const branch = `issue-44-ng7`;
+        const branch = `issue-30-bullet`;
         return root + `/` + branch + `/` + leaf;
     }
 }
