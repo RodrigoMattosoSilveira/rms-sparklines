@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { LivingStyleGuideService } from '../../utils/services/living-style-guide.service';
 
 @Component({
@@ -22,14 +22,20 @@ export class BarchartTriComponent implements OnInit {
 
     constructor(private livingStyleGuideService: LivingStyleGuideService) { }
 
-    leafLib = 'projects/library/src/lib/spark-barchart';
-    leafLsg = 'projects/living-style-guide/src/app/barchart/barchart-tri';
     branchUrlLib = ``;
     branchUrlLsg = ``;
 
-
     ngOnInit() {
-        this.branchUrlLib = this.livingStyleGuideService.branchURL(this.leafLib);
-        this.branchUrlLsg = this.livingStyleGuideService.branchURL(this.leafLsg);
+      let branchName = 'master';
+      let projectName = 'living-style-guide'
+      let projectType = 'app'
+      let componentName = 'barchart/barchart-tri'
+      this.branchUrlLsg = this.livingStyleGuideService.targetURL(branchName, projectName, projectType, componentName);
+
+      branchName = 'master';
+      projectName = 'rmstek-sparklines'
+      projectType = 'lib'
+      componentName = 'spark-barchart'
+      this.branchUrlLib = this.livingStyleGuideService.targetURL(branchName, projectName, projectType, componentName);
     }
 }

@@ -11,15 +11,16 @@ export class LivingStyleGuideService {
      * A service method to return a link to source in the repository. The
      * repository and branch are kept in this service; the leaf is provided by the
      * caller
-     *
-     * Input
-     *    leaf: string
-     * Output
-     *    URL: string
      */
-    branchURL(leaf: string): string {
-        const root = `https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree`;
-        const branch = `issue-30-bullet`;
-        return root + `/` + branch + `/` + leaf;
-    }
+    targetURL(branchName: string, projectName: string, projecType: string, componentName: string): string {
+      return `https://github.com/RodrigoMattosoSilveira/rms-sparklines/tree/` +
+         branchName +
+         `/projects/` +
+         projectName +
+         `/src/` +
+         projecType +
+         `/` +
+         componentName
+   }
+
 }

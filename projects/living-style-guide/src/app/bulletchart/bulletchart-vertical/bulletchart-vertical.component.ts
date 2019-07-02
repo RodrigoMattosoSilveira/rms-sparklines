@@ -16,14 +16,19 @@ export class BulletchartVerticalComponent implements OnInit {
 
    constructor(private livingStyleGuideService: LivingStyleGuideService) { }
 
-   leafLib = 'projects/library/src/lib/spark-bulletchart';
-   leafLsg = 'projects/living-style-guide/src/app/barchart/bulletchart-horizontal';
    branchUrlLib = ``;
    branchUrlLsg = ``;
-
-
    ngOnInit() {
-     this.branchUrlLib = this.livingStyleGuideService.branchURL(this.leafLib);
-     this.branchUrlLsg = this.livingStyleGuideService.branchURL(this.leafLsg);
+      let branchName = 'issue-30-bullet';
+      let projectName = 'living-style-guide'
+      let projectType = 'app'
+      let componentName = 'bulletchart/bulletchart-vertical'
+      this.branchUrlLsg = this.livingStyleGuideService.targetURL(branchName, projectName, projectType, componentName);
+
+      branchName = 'issue-30-bullet';
+      projectName = 'rmstek-sparklines'
+      projectType = 'lib'
+      componentName = 'spark-bullet'
+      this.branchUrlLib = this.livingStyleGuideService.targetURL(branchName, projectName, projectType, componentName);
    }
 }

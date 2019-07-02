@@ -22,14 +22,20 @@ export class BarchartNegativeComponent implements OnInit {
 
     constructor(private livingStyleGuideService: LivingStyleGuideService) { }
 
-    leafLib = 'projects/library/src/lib/spark-barchart';
-    leafLsg = 'projects/living-style-guide/src/app/barchart/barchart-negative';
     branchUrlLib = ``;
     branchUrlLsg = ``;
 
-
     ngOnInit() {
-        this.branchUrlLib = this.livingStyleGuideService.branchURL(this.leafLib);
-        this.branchUrlLsg = this.livingStyleGuideService.branchURL(this.leafLsg);
+      let branchName = 'master';
+      let projectName = 'living-style-guide'
+      let projectType = 'app'
+      let componentName = 'barchart/barchart-negative'
+      this.branchUrlLsg = this.livingStyleGuideService.targetURL(branchName, projectName, projectType, componentName);
+
+      branchName = 'master';
+      projectName = 'rmstek-sparklines'
+      projectType = 'lib'
+      componentName = 'spark-barchart'
+      this.branchUrlLib = this.livingStyleGuideService.targetURL(branchName, projectName, projectType, componentName);
     }
 }

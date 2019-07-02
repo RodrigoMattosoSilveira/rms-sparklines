@@ -34,15 +34,21 @@ export class SparkLineSimpleComponent implements OnInit {
 	// A number giving the width of the sparkline box in pixels.
 	width = 128;
 
-    leaf_lib: string = 'projects/library/src/lib/spark-line'
-    leaf_lsg: string = 'projects/living-style-guide/src/app/inline/spark-line-simple'
-    branchURL_lib: string = "";
-    branchURL_lsg: string = "";
-
     constructor(private livingStyleGuideService: LivingStyleGuideService) { }
 
+    branchUrlLsg: string = "";
+    branchUrlLib: string = "";
     ngOnInit() {
-        this.branchURL_lib = this.livingStyleGuideService.branchURL(this.leaf_lib);
-        this.branchURL_lsg = this.livingStyleGuideService.branchURL(this.leaf_lsg);
+      let branchName = 'master';
+      let projectName = 'living-style-guide'
+      let projectType = 'app'
+      let componentName = 'inline/spark-line-simple'
+      this.branchUrlLsg = this.livingStyleGuideService.targetURL(branchName, projectName, projectType, componentName);
+
+      branchName = 'master';
+      projectName = 'rmstek-sparklines'
+      projectType = 'lib'
+      componentName = 'spark-line'
+      this.branchUrlLib = this.livingStyleGuideService.targetURL(branchName, projectName, projectType, componentName);
     }
 }

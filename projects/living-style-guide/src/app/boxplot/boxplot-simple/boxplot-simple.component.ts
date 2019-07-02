@@ -45,15 +45,22 @@ export class BoxplotSimpleComponent implements OnInit {
         18]);
     width = 128;
 
-    leafLib = 'projects/library/src/lib/spark-boxplot';
-    leafLsg = 'projects/living-style-guide/src/app/boxplot/boxplot-simple';
     branchUrlLib = ``;
     branchUrlLsg = ``;
 
     constructor(private livingStyleGuideService: LivingStyleGuideService) { }
 
     ngOnInit() {
-        this.branchUrlLib = this.livingStyleGuideService.branchURL(this.leafLib);
-        this.branchUrlLsg = this.livingStyleGuideService.branchURL(this.leafLsg);
+      let branchName = 'master';
+      let projectName = 'living-style-guide'
+      let projectType = 'app'
+      let componentName = 'boxplot/boxplot-simple'
+      this.branchUrlLsg = this.livingStyleGuideService.targetURL(branchName, projectName, projectType, componentName);
+
+      branchName = 'master';
+      projectName = 'rmstek-sparklines'
+      projectType = 'lib'
+      componentName = 'spark-boxplot'
+      this.branchUrlLib = this.livingStyleGuideService.targetURL(branchName, projectName, projectType, componentName);
     }
 }
