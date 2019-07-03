@@ -14,7 +14,7 @@ import { QualitativeRange } from '../services/sparkBullet/qualitativeRange'
 export class SparkBulletComponent implements AfterViewInit {
 
    @Input() className = '';
-   @Input() comparativeMeasure = JSON.stringify({'value': 57, 'color': 'black', 'width': 3});
+   @Input() comparativeMeasure = JSON.stringify({'value': 57, 'color': 'black', 'lineWidth': 3});
    @Input() featureMeasure = JSON.stringify({'value': 35, 'color': 'black'});
    @Input() height = 32;
    @Input() qualitativeRanges  = JSON.stringify([{'value': 60, 'color': '#FF7F50'}, {'value': 50, 'color': '#FF6347'}, {'value': 35, 'color': '#FF4500'}])
@@ -31,13 +31,20 @@ export class SparkBulletComponent implements AfterViewInit {
    constructor(private bulletChartService: BulletChartService) { }
 
    ngAfterViewInit() {
-      var qrs: QualitativeRange[] = this.bulletChartService.getQualityRanges(this.qualitativeRanges);
-      var fm: FeatureMeasure = this.bulletChartService.getFeatureMeasure(this.featureMeasure);
-      var cm: ComparativeMeasure = this.bulletChartService.getComparativeMeasure(this.comparativeMeasure);
+      var valid = true;
+
+      valid = this.bulletChartService.validateCanvas(this.sparklineCanvas);
+      valid = valid && this.bulletChartService.validateQualitativeRanges(JSON.parse(this.qualitativeRanges));
+      valid = valid && this.bulletChartService.validateFeatureMeasure(JSON.parse(this.featureMeasure));
+      valid = valid && this.bulletChartService.validateComparativeMeasure(JSON.parse(this.comparativeMeasure));
       if (this.bulletChartService.validate(qrs, this.sparklineCanvas) != true) {
          console.log(`SparkBulletComponent:ngAfterViewInit - Invalid arguments`)
       }
       else {
+         var qrs: QualitativeRange[] = this.bulletChartService.getQualityRanges(this.qualitativeRanges);
+         var fm: FeatureMeasure = this.bulletChartService.getFeatureMeasure(this.featureMeasure);
+         var cm: ComparativeMeasure = this.bulletChartService.getComparativeMeasure(this.comparativeMeasure);
+
          this.canvasEl = this.bulletChartService.setupCanvasEl(this.sparklineCanvas,
          this.width,
          this.height,
