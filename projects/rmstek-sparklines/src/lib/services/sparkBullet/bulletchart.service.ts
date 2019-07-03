@@ -20,41 +20,109 @@ export class BulletChartService {
    validate(qualitativeRanges:any[], sparklineCanvas: ElementRef): boolean {
 
       let valid = true;
-      this.cssColorString = new CssColorString();
 
+      valid = valid && this.validateCanvas(sparklineCanvas);
+      valid = valid && this.validateQualitativeRanges(qualitativeRanges);
+      return valid;
+   }
+
+   validateCanvas(sparklineCanvas: ElementRef): boolean {
+
+      let valid = true;
       // canvasEl must be provided
       if (sparklineCanvas === null) {
-          console.log(`BulletChartService:validate - sparklineCanvas is null`);
+          console.log(`BulletChartService:validateCanvas - sparklineCanvas is null`);
           valid = false;
       }
       if (sparklineCanvas.nativeElement.tagName !== `CANVAS`) {
-          console.log(`BulletChartService:validate - sparklineCanvas tag is not CANVAS`);
+          console.log(`BulletChartService:validateCanvas - sparklineCanvas tag is not CANVAS`);
           valid = false;
       }
+      return valid;
+   }
+
+   validateQualitativeRanges(qualitativeRanges: Array<any>): boolean {
+
+      let valid = true;
+      this.cssColorString = new CssColorString();
 
       if (qualitativeRanges.length == 0) {
-          console.log(`BulletChartService:validate - qualitativeRanges array is empty`);
+          console.log(`BulletChartService:validateQualitativeRanges - qualitativeRanges array is empty`);
           valid = false;
       }
 
       if (qualitativeRanges.length > 3) {
-          console.log(`BulletChartService:validate - qualitativeRanges array has more than 3 qualitativeRanges`);
+          console.log(`BulletChartService:validateQualitativeRanges - qualitativeRanges array has more than 3 qualitativeRanges`);
           valid = false;
       }
 
       for (var i = 0; i < qualitativeRanges.length; i++) {
+         if(Object.keys(qualitativeRanges[i]).length != 2) {
+            console.log(`BulletChartService:validateQualitativeRanges - qualitativeRange has more than 2 keys: ` + JSON.stringify(qualitativeRanges[i]));
+            valid = false;
+         }
          if(!qualitativeRanges[i].hasOwnProperty("value")) {
-            console.log(`BulletChartService:validate - qualitativeRange does not have the value property: ` + JSON.stringify(qualitativeRanges[i]));
+            console.log(`BulletChartService:validateQualitativeRanges - qualitativeRange does not have the value property: ` + JSON.stringify(qualitativeRanges[i]));
             valid = false;
          }
          if(!qualitativeRanges[i].hasOwnProperty("color")) {
-            console.log(`BulletChartService:validate - qualitativeRange does not have the color property: ` + JSON.stringify(qualitativeRanges[i]));
+            console.log(`BulletChartService:validateQualitativeRanges - qualitativeRange does not have the color property: ` + JSON.stringify(qualitativeRanges[i]));
             valid = false;
          }
          if (!this.cssColorString.isValid(qualitativeRanges[i].color)) {
-             console.log(`BulletChartService:validate - qualitativeRange color is invalid: ` +  + JSON.stringify(qualitativeRanges[i]));
+             console.log(`BulletChartService:validateQualitativeRanges - qualitativeRange color is invalid: ` +  + JSON.stringify(qualitativeRanges[i]));
              valid = false;
          }
+      }
+
+      return valid;
+   }
+
+   validateFeatureMeasure(featureMeasure: any): boolean {
+      let valid = true;
+
+      if(Object.keys(featureMeasure).length != 2) {
+         console.log(`BulletChartService:validateFeatureMeasure - featureMeasure has more than 2 keys: ` + JSON.stringify(featureMeasure));
+         valid = false;
+      }
+      if(!featureMeasure.hasOwnProperty("value")) {
+         console.log(`BulletChartService:validateFeatureMeasure - featureMeasure does not have the value property: ` + JSON.stringify(featureMeasure));
+         valid = false;
+      }
+      if(!featureMeasure.hasOwnProperty("color")) {
+         console.log(`BulletChartService:validateFeatureMeasure - featureMeasure does not have the color property: ` + JSON.stringify(featureMeasure));
+         valid = false;
+      }
+      if (!this.cssColorString.isValid(featureMeasure.color)) {
+          console.log(`BulletChartService:validateFeatureMeasure - featureMeasure color is invalid: ` +  + JSON.stringify(featureMeasure));
+          valid = false;
+      }
+
+      return valid;
+   }
+
+   validateComparativeMeasure(comparativeMeasure: any): boolean {
+      let valid = true;
+
+      if(Object.keys(comparativeMeasure).length != 3) {
+         console.log(`BulletChartService:validateFeatureMeasure - comparativeMeasure has more than 2 keys: ` + JSON.stringify(comparativeMeasure));
+         valid = false;
+      }
+      if(!comparativeMeasure.hasOwnProperty("value")) {
+         console.log(`BulletChartService:validateComparativeMeasure - comparativeMeasure does not have the value property: ` + JSON.stringify(comparativeMeasure));
+         valid = false;
+      }
+      if(!comparativeMeasure.hasOwnProperty("color")) {
+         console.log(`BulletChartService:validateComparativeMeasure - comparativeMeasure does not have the color property: ` + JSON.stringify(comparativeMeasure));
+         valid = false;
+      }
+      if (!this.cssColorString.isValid(comparativeMeasure.color)) {
+          console.log(`BulletChartService:validateComparativeMeasure - comparativeMeasure color is invalid: ` +  + JSON.stringify(comparativeMeasure));
+          valid = false;
+      }
+      if(!comparativeMeasure.hasOwnProperty("lineWidth")) {
+         console.log(`BulletChartService:validateComparativeMeasure - comparativeMeasure does not have the lineWidth property: ` + JSON.stringify(comparativeMeasure));
+         valid = false;
       }
 
       return valid;
@@ -81,9 +149,25 @@ export class BulletChartService {
 
    getQualityRanges(qualitativeRangesString: string): QualitativeRange[] {
       var qualitativeRanges: QualitativeRange[] = [];
-      var qrs = JSON.parse(qualitativeRangesString);
+      var qrs: Array<QualitativeRange> = JSON.parse(qualitativeRangesString);
       for (var i = 0; i < qrs.length; i++) {
-         var value = qrs[i]['value'];
+         let valid = true;
+         if (!qrs[i].hasOwnProperty('value')) {
+            console.log(`Invalid quality range, missing value property: ` + JSON.stringify(qrs[i]));
+            valid = false;
+         }
+         if (!qrs[i].hasOwnProperty('color')) {
+            console.log(`Invalid quality range, missing color property: ` + JSON.stringify(qrs[i]));
+            valid = false;
+         }
+         else {
+
+         }
+         if (!qrs[i].hasOwnProperty('color')) {
+            console.log(`Invalid quality range, missing color property: ` + JSON.stringify(qrs[i]));
+            valid = false;
+         }
+      var value = qrs[i]['value'];
          var color = qrs[i]['color']
          var qualitativeRange = new QualitativeRange(value, color);
          qualitativeRanges.push(qualitativeRange);
@@ -126,7 +210,7 @@ export class BulletChartService {
 
    getComparativeMeasure(comparativeMeasureString: string) {
       var cm = JSON.parse(comparativeMeasureString);
-      return new ComparativeMeasure(cm.value, cm.color, cm.width);
+      return new ComparativeMeasure(cm.value, cm.color, cm.lineWidth);
    }
 
    scaleToCanvas(canvasEl: HTMLCanvasElement,

@@ -32,18 +32,21 @@ export class SparkBulletComponent implements AfterViewInit {
 
    ngAfterViewInit() {
       var valid = true;
+      var qrs: QualitativeRange[];
+      var fm: FeatureMeasure;
+      var cm: ComparativeMeasure;
 
       valid = this.bulletChartService.validateCanvas(this.sparklineCanvas);
       valid = valid && this.bulletChartService.validateQualitativeRanges(JSON.parse(this.qualitativeRanges));
       valid = valid && this.bulletChartService.validateFeatureMeasure(JSON.parse(this.featureMeasure));
       valid = valid && this.bulletChartService.validateComparativeMeasure(JSON.parse(this.comparativeMeasure));
-      if (this.bulletChartService.validate(qrs, this.sparklineCanvas) != true) {
+      if (!valid) {
          console.log(`SparkBulletComponent:ngAfterViewInit - Invalid arguments`)
       }
       else {
-         var qrs: QualitativeRange[] = this.bulletChartService.getQualityRanges(this.qualitativeRanges);
-         var fm: FeatureMeasure = this.bulletChartService.getFeatureMeasure(this.featureMeasure);
-         var cm: ComparativeMeasure = this.bulletChartService.getComparativeMeasure(this.comparativeMeasure);
+         qrs = this.bulletChartService.getQualityRanges(this.qualitativeRanges);
+         fm = this.bulletChartService.getFeatureMeasure(this.featureMeasure);
+         cm = this.bulletChartService.getComparativeMeasure(this.comparativeMeasure);
 
          this.canvasEl = this.bulletChartService.setupCanvasEl(this.sparklineCanvas,
          this.width,
@@ -66,9 +69,10 @@ export class SparkBulletComponent implements AfterViewInit {
          }
          fm.draw(this.ctx);
          cm.draw(this.ctx);
+
+         sortedQrs = this.bulletChartService.sortQualitativeRangeLowHigh(qrs);
+         this.coordinateTips = this.bulletChartService.buildCoordinateTips(cm, fm, sortedQrs)
       }
 
-      let sortedQrs = this.bulletChartService.sortQualitativeRangeLowHigh(qrs);
-      this.coordinateTips = this.bulletChartService.buildCoordinateTips(cm, fm, sortedQrs)
    }
 }
