@@ -11,7 +11,7 @@ export class BulletchartVerticalComponent implements OnInit {
    comparativeMeasure = JSON.stringify({'value': 42, 'color': '#FF0000', 'lineWidth': 4});
    featureMeasure = JSON.stringify({'value': 55, 'color': 'black'});
    height = 128;
-   qualitativeRanges = JSON.stringify([{'value': 60, 'color': '#E0E0E0'}, {'value': 50, 'color': '#A8A8A8'}, {'value': 35, 'color': '#808080'}])
+   qualitativeRanges = JSON.stringify([{'value': 60, 'color': '#E0E0E0'}, {'value': 35, 'color': '#808080'}, {'value': 50, 'color': '#A8A8A8'}])
    width = 32;
 
    constructor(private livingStyleGuideService: LivingStyleGuideService) { }
