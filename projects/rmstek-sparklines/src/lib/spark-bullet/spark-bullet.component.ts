@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular
 
 import { BulletChartService } from '../services/sparkBullet/bulletchart.service';
 import { ComparativeMeasure } from '../services/sparkBullet/comparativeMeasure';
+import { CoordinateTip } from '../services/coordinate-tip';
 import { FeatureMeasure } from '../services/sparkBullet/featureMeasure';
 import { QualitativeRange } from '../services/sparkBullet/qualitativeRange'
 
@@ -25,6 +26,7 @@ export class SparkBulletComponent implements AfterViewInit {
    canvasEl:HTMLCanvasElement;
    ctx: CanvasRenderingContext2D;
    orientation: string;
+   coordinateTips: CoordinateTip[];
 
    constructor(private bulletChartService: BulletChartService) { }
 
@@ -51,11 +53,15 @@ export class SparkBulletComponent implements AfterViewInit {
          this.bulletChartService.scaleComparativeMeasureToCanvas(this.canvasEl, cm, qrs,)
 
          // draw bullet chart
-         for (var i = 0; i < qrs.length; i++) {
-            qrs[i].draw(this.ctx);
+         let sortedQrs = this.bulletChartService.sortQualitativeRangeHighLow(qrs);
+         for (var i = 0; i < sortedQrs.length; i++) {
+            sortedQrs[i].draw(this.ctx);
          }
          fm.draw(this.ctx);
          cm.draw(this.ctx);
-         }
+      }
+
+      let sortedQrs = this.bulletChartService.sortQualitativeRangeLowHigh(qrs);
+      this.coordinateTips = this.bulletChartService.buildCoordinateTips(cm, fm, sortedQrs)
    }
 }
