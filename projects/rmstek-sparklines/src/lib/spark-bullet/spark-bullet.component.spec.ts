@@ -36,6 +36,6 @@ describe('SparkBulletComponent', () => {
       expect(canvasEl).toBeTruthy();
       expect(canvasEl.tagName).toBe('CANVAS');
       expect(canvasEl.width).toBe(128);
-      expect(canvasEl.height).toBe(64);
+      expect(canvasEl.height).toBe(32);
    });
 });
