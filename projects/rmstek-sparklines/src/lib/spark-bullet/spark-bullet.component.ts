@@ -54,8 +54,8 @@ export class SparkBulletComponent implements AfterViewInit {
          this.className);
          this.ctx = this.canvasEl.getContext('2d');
 
-         // set the setOrientation
-         this.orientation = this.bulletChartService.setOrientation(this.canvasEl);
+         // Get Orientation
+         this.orientation = this.bulletChartService.getOrientation(this.canvasEl);
 
          // scale to fit the canvas
          this.bulletChartService.scaleToCanvas(this.canvasEl, qrs);

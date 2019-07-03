@@ -65,13 +65,23 @@ export class BulletChartService {
             console.log(`BulletChartService:validateQualitativeRanges - qualitativeRange does not have the value property: ` + JSON.stringify(qualitativeRanges[i]));
             valid = false;
          }
+         else {
+            let number = Number(qualitativeRanges[i].value);
+            if(isNaN(number)) {
+               console.log(`BulletChartService:validateQualitativeRanges - qualitativeRange value is not a number: ` + JSON.stringify(qualitativeRanges[i]));
+               valid = false;
+            }
+
+         }
          if(!qualitativeRanges[i].hasOwnProperty("color")) {
             console.log(`BulletChartService:validateQualitativeRanges - qualitativeRange does not have the color property: ` + JSON.stringify(qualitativeRanges[i]));
             valid = false;
          }
-         if (!this.cssColorString.isValid(qualitativeRanges[i].color)) {
-             console.log(`BulletChartService:validateQualitativeRanges - qualitativeRange color is invalid: ` +  + JSON.stringify(qualitativeRanges[i]));
-             valid = false;
+         else {
+            if (!this.cssColorString.isValid(qualitativeRanges[i].color)) {
+                console.log(`BulletChartService:validateQualitativeRanges - qualitativeRange color is invalid: ` +  + JSON.stringify(qualitativeRanges[i]));
+                valid = false;
+            }
          }
       }
 
@@ -88,6 +98,13 @@ export class BulletChartService {
       if(!featureMeasure.hasOwnProperty("value")) {
          console.log(`BulletChartService:validateFeatureMeasure - featureMeasure does not have the value property: ` + JSON.stringify(featureMeasure));
          valid = false;
+      }
+      else {
+         let number = Number(featureMeasure.value);
+         if(isNaN(number)) {
+            console.log(`BulletChartService:validateFeatureMeasure - featureMeasure value is not a number: ` + JSON.stringify(featureMeasure));
+            valid = false;
+         }
       }
       if(!featureMeasure.hasOwnProperty("color")) {
          console.log(`BulletChartService:validateFeatureMeasure - featureMeasure does not have the color property: ` + JSON.stringify(featureMeasure));
@@ -112,6 +129,13 @@ export class BulletChartService {
          console.log(`BulletChartService:validateComparativeMeasure - comparativeMeasure does not have the value property: ` + JSON.stringify(comparativeMeasure));
          valid = false;
       }
+      else {
+         let number = Number(comparativeMeasure.value);
+         if(isNaN(number)) {
+            console.log(`BulletChartService:validateComparativeMeasure - comparativeMeasure value is not a number: ` + JSON.stringify(comparativeMeasure));
+            valid = false;
+         }
+      }
       if(!comparativeMeasure.hasOwnProperty("color")) {
          console.log(`BulletChartService:validateComparativeMeasure - comparativeMeasure does not have the color property: ` + JSON.stringify(comparativeMeasure));
          valid = false;
@@ -120,9 +144,11 @@ export class BulletChartService {
           console.log(`BulletChartService:validateComparativeMeasure - comparativeMeasure color is invalid: ` +  + JSON.stringify(comparativeMeasure));
           valid = false;
       }
-      if(!comparativeMeasure.hasOwnProperty("lineWidth")) {
-         console.log(`BulletChartService:validateComparativeMeasure - comparativeMeasure does not have the lineWidth property: ` + JSON.stringify(comparativeMeasure));
-         valid = false;
+      else {
+         if(!comparativeMeasure.hasOwnProperty("lineWidth")) {
+            console.log(`BulletChartService:validateComparativeMeasure - comparativeMeasure does not have the lineWidth property: ` + JSON.stringify(comparativeMeasure));
+            valid = false;
+         }
       }
 
       return valid;
@@ -143,7 +169,7 @@ export class BulletChartService {
      return canvasEl;
   }
 
-   setOrientation(canvasEl: HTMLCanvasElement): string {
+   getOrientation(canvasEl: HTMLCanvasElement): string {
       return canvasEl.width > canvasEl.height ? Constants.HORIZONTAL : Constants.VERTICAL;
    }
 
@@ -215,7 +241,7 @@ export class BulletChartService {
 
    scaleToCanvas(canvasEl: HTMLCanvasElement,
       qualitativeRanges: QualitativeRange[]): void {
-      const orientaton = this.setOrientation(canvasEl);
+      const orientaton = this.getOrientation(canvasEl);
       const topValue = this.getTopValue(qualitativeRanges)
 
       // qualitative ranges
@@ -254,7 +280,7 @@ export class BulletChartService {
    scaleFeatureMeasureToCanvas(canvasEl: HTMLCanvasElement,
       featureMeasure: FeatureMeasure,
       qualitativeRanges: QualitativeRange[]): void {
-      const orientation = this.setOrientation(canvasEl);
+      const orientation = this.getOrientation(canvasEl);
       const topValue = this.getTopValue(qualitativeRanges)
 
       // feature measure
@@ -280,7 +306,7 @@ export class BulletChartService {
    scaleComparativeMeasureToCanvas(canvasEl: HTMLCanvasElement,
       comparativeMeasure: ComparativeMeasure,
       qualitativeRanges: QualitativeRange[]): void {
-         const orientation = this.setOrientation(canvasEl);
+         const orientation = this.getOrientation(canvasEl);
          const topValue = this.getTopValue(qualitativeRanges)
          const value = comparativeMeasure.getValue();
          switch (orientation) {
