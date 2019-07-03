@@ -3,8 +3,10 @@ import { ElementRef,  Injectable } from '@angular/core';
 import { Constants } from './constants';
 import { CssColorString } from '../valid-colors';
 import { ComparativeMeasure } from './comparativeMeasure';
+import { CoordinateTip } from '../coordinate-tip';
 import { FeatureMeasure } from './featureMeasure';
-import { QualitativeRange } from './qualitativeRange'
+import { QualitativeRange } from './qualitativeRange';
+import { Rectangle } from '../rectangle';
 
 
 @Injectable({
@@ -87,6 +89,26 @@ export class BulletChartService {
          qualitativeRanges.push(qualitativeRange);
       }
       return qualitativeRanges;
+   }
+
+   // used to draw from the highest range to the lowest range
+   sortQualitativeRangeHighLow(qrs: Array<QualitativeRange>): Array<QualitativeRange> {
+      var sortedQrs: Array<QualitativeRange>;
+
+      sortedQrs = qrs.sort(function (a: QualitativeRange, b: QualitativeRange) { return a.value<b.value ? 1 : a.value==b.value ? 0 : -1;});
+
+      return sortedQrs;
+   }
+
+   // used to show tooltips, we want to show the lowest range if the mouse is
+   // between the left margin and its frontier with the second range that is
+   // higher than the lower range
+   sortQualitativeRangeLowHigh(qrs: Array<QualitativeRange>): Array<QualitativeRange> {
+      var sortedQrs: Array<QualitativeRange>;
+
+      sortedQrs = qrs.sort(function (a: QualitativeRange, b: QualitativeRange) { return a.value<b.value ? -1 : a.value==b.value ? 0 : 1;});
+
+      return sortedQrs;
    }
 
    getTopValue(qualitativeRanges: QualitativeRange[]): number {
@@ -193,5 +215,18 @@ export class BulletChartService {
                default:
             break;
          }
+   }
+
+   buildCoordinateTips(cm: ComparativeMeasure, fm: FeatureMeasure, qr: QualitativeRange[]): CoordinateTip[] {
+      var coordinateTips: CoordinateTip[] = [];
+      var rect: Rectangle;
+      var color: string;
+      var tip: string;
+
+      // Feature Measure. We will build a rectangle around the line.
+      color = 'red',
+      tip = fm.getValue.toString();
+
+      return coordinateTips;
    }
 }
