@@ -1,3 +1,6 @@
+import { CoordinateTip } from '../coordinate-tip';
+import { Rectangle } from '../rectangle';
+
 export class QualitativeRange {
    value: number;
    color: string;
@@ -20,6 +23,17 @@ export class QualitativeRange {
 
    getHeight(): number { return this.height; }
    setHeight(value: number): void { this.height = value; }
+
+   buildCoordinateTip(): CoordinateTip {
+      var coordinateTip: CoordinateTip;
+      var rect: Rectangle;
+      var color: string = 'red'
+      var tip: string = this.getValue().toString();
+
+      rect = new Rectangle(0, 0, this.width, this.height);
+      coordinateTip = new CoordinateTip(rect, color, tip);
+      return coordinateTip;
+   }
 
    draw(ctx: CanvasRenderingContext2D) {
       ctx.fillStyle = this.color;

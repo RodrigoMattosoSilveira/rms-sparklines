@@ -1,3 +1,6 @@
+import { CoordinateTip } from '../coordinate-tip';
+import { Rectangle } from '../rectangle';
+
 export class FeatureMeasure {
    value: number;
    color: string;
@@ -28,6 +31,17 @@ export class FeatureMeasure {
 
    getFromY(): number { return this.fromY; }
    setFromY(value: number): void { this.fromY = value; }
+
+   buildCoordinateTip(): CoordinateTip {
+      var coordinateTip: CoordinateTip;
+      var rect: Rectangle;
+      var color: string = 'red'
+      var tip: string = this.getValue().toString();
+
+      rect = new Rectangle(this.fromX, this.fromY, this.width, this.height);
+      coordinateTip = new CoordinateTip(rect, color, tip);
+      return coordinateTip;
+   }
 
    draw(ctx: CanvasRenderingContext2D) {
       ctx.fillStyle = this.color;

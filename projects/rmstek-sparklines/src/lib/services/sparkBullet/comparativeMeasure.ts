@@ -1,3 +1,7 @@
+import { Constants } from './constants';
+import { CoordinateTip } from '../coordinate-tip';
+import { Rectangle } from '../rectangle';
+
 export class ComparativeMeasure {
    value: number;
    color: string;
@@ -33,6 +37,35 @@ export class ComparativeMeasure {
 
    getLineWidth(): number { return this.lineWidth; }
    setLineWidth(value: number): void { this.lineWidth = value; }
+
+   buildCoordinateTip(orientaton: string): CoordinateTip {
+      var coordinateTip: CoordinateTip;
+      var rect: Rectangle;
+      var color: string = 'red'
+      var tip: string = this.getValue().toString();
+      var x, y, width, height: number;
+
+      switch (orientaton) {
+         case Constants.HORIZONTAL:
+            x = this.fromX - this.lineWidth/2;
+            y = this.fromY;
+            width = this.lineWidth;
+            height = this.toY - this.fromY + 1;
+            break;
+         case Constants.VERTICAL:
+            x = this.fromX;
+            y = this.fromY - this.lineWidth/2;
+            width = this.toX - this.fromX + 1;
+            height = this.lineWidth;
+            break;
+         default:
+            break;
+      }
+
+      rect = new Rectangle(x, y, width, height);
+      coordinateTip = new CoordinateTip(rect, color, tip);
+      return coordinateTip;
+   }
 
    draw(ctx: CanvasRenderingContext2D) {
       ctx.beginPath();
