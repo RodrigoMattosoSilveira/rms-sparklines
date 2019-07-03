@@ -259,21 +259,6 @@ export class BulletChartService {
             default:
                break;
          }
-
-         // feature measure
-         switch (orientaton) {
-            case Constants.HORIZONTAL:
-               qualitativeRanges[i].setWidth(value/topValue * canvasEl.width);
-               qualitativeRanges[i].setHeight(canvasEl.height);
-               break;
-            case Constants.VERTICAL:
-               qualitativeRanges[i].setWidth(canvasEl.width);
-               qualitativeRanges[i].setHeight(value/topValue * canvasEl.height);
-               break;
-               default:
-            break;
-         }
-
       }
    }
 
