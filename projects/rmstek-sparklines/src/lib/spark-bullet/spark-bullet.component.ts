@@ -27,6 +27,7 @@ export class SparkBulletComponent implements AfterViewInit {
    ctx: CanvasRenderingContext2D;
    orientation: string;
    coordinateTips: CoordinateTip[];
+   coordinateTipId = `rms-spark-bulletchart-tooltip`;
 
    constructor(private bulletChartService: BulletChartService) { }
 
@@ -35,6 +36,7 @@ export class SparkBulletComponent implements AfterViewInit {
       var qrs: QualitativeRange[];
       var fm: FeatureMeasure;
       var cm: ComparativeMeasure;
+      const thisThis = this;
 
       valid = this.bulletChartService.validateCanvas(this.sparklineCanvas);
       valid = valid && this.bulletChartService.validateQualitativeRanges(JSON.parse(this.qualitativeRanges));
@@ -58,7 +60,7 @@ export class SparkBulletComponent implements AfterViewInit {
          this.orientation = this.bulletChartService.getOrientation(this.canvasEl);
 
          // scale to fit the canvas
-         this.bulletChartService.scaleToCanvas(this.canvasEl, qrs);
+         this.bulletChartService.scaleQualityRangesToCanvas(this.canvasEl, qrs);
          this.bulletChartService.scaleFeatureMeasureToCanvas(this.canvasEl, fm, qrs)
          this.bulletChartService.scaleComparativeMeasureToCanvas(this.canvasEl, cm, qrs,)
 
@@ -71,8 +73,22 @@ export class SparkBulletComponent implements AfterViewInit {
          cm.draw(this.ctx);
 
          sortedQrs = this.bulletChartService.sortQualitativeRangeLowHigh(qrs);
-         this.coordinateTips = this.bulletChartService.buildCoordinateTips(cm, fm, sortedQrs)
-      }
+         this.coordinateTips = this.bulletChartService.buildCoordinateTips(this.canvasEl, cm, fm, sortedQrs)
+         this.sparklineCanvas.nativeElement.addEventListener('mousemove', function(event: any) {
+         // console.log(`RmsSparklineInlineNew::addEventListener`);
 
+         // Note that when this function is called, this points to the target element!
+         // console.log(`SparkLineComponent:ngAfterViewInit - handling mousemove`);
+            thisThis.bulletChartService.handleMouseMove(event,
+               thisThis.canvasEl,
+               thisThis.coordinateTips,
+               thisThis.coordinateTipId);
+         });
+
+         this.sparklineCanvas.nativeElement.addEventListener('mouseout', function() {
+         // console.log(`RmsSparklineInlineNew::addEventListener`);
+            thisThis.bulletChartService.handleMouseOut(thisThis.coordinateTipId);
+         });
+      }
    }
 }

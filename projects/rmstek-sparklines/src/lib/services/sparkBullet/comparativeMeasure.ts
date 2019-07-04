@@ -38,6 +38,25 @@ export class ComparativeMeasure {
    getLineWidth(): number { return this.lineWidth; }
    setLineWidth(value: number): void { this.lineWidth = value; }
 
+   scaleToCanvas(canvasEl: HTMLCanvasElement, orientation: string, topValue: number) {
+      const value = this.getValue();
+      switch (orientation) {
+         case Constants.HORIZONTAL:
+            this.setFromX(value/topValue * canvasEl.width);
+            this.setFromY(canvasEl.height/3);
+            this.setToX(value/topValue * canvasEl.width);
+            this.setToY(2*canvasEl.height/3);
+            break;
+         case Constants.VERTICAL:
+            this.setFromX(canvasEl.width/3);
+            this.setFromY(value/topValue * canvasEl.height);
+            this.setToX(2*canvasEl.width/3);
+            this.setToY(value/topValue * canvasEl.height);
+            break;
+            default:
+         break;
+      }
+   }
    buildCoordinateTip(orientaton: string): CoordinateTip {
       var coordinateTip: CoordinateTip;
       var rect: Rectangle;
