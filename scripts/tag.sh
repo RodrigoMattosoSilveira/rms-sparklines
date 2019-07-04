@@ -44,6 +44,7 @@ is_feature_branch_version() {
   fi
 }
 
+yarn lib:reset
 if is_travis_branch_master || is_feature_branch_version; then
    GITTAG="$PACKAGE_NAME@$PACKAGE_VERSION"
    openssl aes-256-cbc -k "$travis_key_password" -d -md sha256 -a -in rms-sparkline-travis.enc -out rms-sparkline-travis-key

@@ -19,7 +19,6 @@ install:
    - npm install -g @angular/cli@7.3.9
 before_script:
    - echo "before_script has no steps"
-   - npm install
 script:
    - echo "script execution"
    - yarn lib:reset
@@ -35,6 +34,7 @@ before_deploy:
 deploy:
    # tag the build
    - provider: script
+     skip_cleanup: true
      script: "./scripts/tag.sh"
      on:
         branch: master
