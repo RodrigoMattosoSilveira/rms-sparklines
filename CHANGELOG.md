@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.3.0] - 2019-07-04
 #### Changed
-* Implemented bullet charts
+* Implemented bullet charts, with tooltips
 
 ## [0.3.0] - 2019-06-01
 #### Changed
