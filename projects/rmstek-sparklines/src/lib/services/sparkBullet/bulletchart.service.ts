@@ -16,7 +16,6 @@ export class BulletChartService {
    cssColorString:CssColorString;
 
    constructor() { }
-
    validate(qualitativeRanges:any[], sparklineCanvas: ElementRef): boolean {
 
       let valid = true;
@@ -25,7 +24,6 @@ export class BulletChartService {
       valid = valid && this.validateQualitativeRanges(qualitativeRanges);
       return valid;
    }
-
    validateCanvas(sparklineCanvas: ElementRef): boolean {
 
       let valid = true;
@@ -40,7 +38,6 @@ export class BulletChartService {
       }
       return valid;
    }
-
    validateQualitativeRanges(qualitativeRanges: Array<any>): boolean {
 
       let valid = true;
@@ -71,6 +68,9 @@ export class BulletChartService {
                console.log(`BulletChartService:validateQualitativeRanges - qualitativeRange value is not a number: ` + JSON.stringify(qualitativeRanges[i]));
                valid = false;
             }
+            else {
+               qualitativeRanges[i].value = number; // force it into a number if it is a valid numeric string
+            }
 
          }
          if(!qualitativeRanges[i].hasOwnProperty("color")) {
@@ -87,9 +87,9 @@ export class BulletChartService {
 
       return valid;
    }
-
    validateFeatureMeasure(featureMeasure: any): boolean {
       let valid = true;
+      this.cssColorString = new CssColorString();
 
       if(Object.keys(featureMeasure).length != 2) {
          console.log(`BulletChartService:validateFeatureMeasure - featureMeasure has more than 2 keys: ` + JSON.stringify(featureMeasure));
@@ -105,6 +105,9 @@ export class BulletChartService {
             console.log(`BulletChartService:validateFeatureMeasure - featureMeasure value is not a number: ` + JSON.stringify(featureMeasure));
             valid = false;
          }
+         else {
+            featureMeasure.value = number;  // force it into a number if it is a valid numeric string
+         }
       }
       if(!featureMeasure.hasOwnProperty("color")) {
          console.log(`BulletChartService:validateFeatureMeasure - featureMeasure does not have the color property: ` + JSON.stringify(featureMeasure));
@@ -117,9 +120,9 @@ export class BulletChartService {
 
       return valid;
    }
-
    validateComparativeMeasure(comparativeMeasure: any): boolean {
       let valid = true;
+      this.cssColorString = new CssColorString();
 
       if(Object.keys(comparativeMeasure).length != 3) {
          console.log(`BulletChartService:validateFeatureMeasure - comparativeMeasure has more than 2 keys: ` + JSON.stringify(comparativeMeasure));
@@ -135,30 +138,37 @@ export class BulletChartService {
             console.log(`BulletChartService:validateComparativeMeasure - comparativeMeasure value is not a number: ` + JSON.stringify(comparativeMeasure));
             valid = false;
          }
+         else {
+            comparativeMeasure.value = number;  // force it into a number if it is a valid numeric string
+         }
       }
       if(!comparativeMeasure.hasOwnProperty("color")) {
          console.log(`BulletChartService:validateComparativeMeasure - comparativeMeasure does not have the color property: ` + JSON.stringify(comparativeMeasure));
          valid = false;
       }
-      if (!this.cssColorString.isValid(comparativeMeasure.color)) {
-          console.log(`BulletChartService:validateComparativeMeasure - comparativeMeasure color is invalid: ` +  + JSON.stringify(comparativeMeasure));
-          valid = false;
-      }
       else {
-         if(!comparativeMeasure.hasOwnProperty("lineWidth")) {
-            console.log(`BulletChartService:validateComparativeMeasure - comparativeMeasure does not have the lineWidth property: ` + JSON.stringify(comparativeMeasure));
-            valid = false;
+         if (!this.cssColorString.isValid(comparativeMeasure.color)) {
+             console.log(`BulletChartService:validateComparativeMeasure - comparativeMeasure color is invalid: ` + JSON.stringify(comparativeMeasure));
+             valid = false;
          }
       }
-
+      if(!comparativeMeasure.hasOwnProperty("lineWidth")) {
+         console.log(`BulletChartService:validateComparativeMeasure - comparativeMeasure does not have the lineWidth property: ` + JSON.stringify(comparativeMeasure));
+         valid = false;
+      }
+      else {
+         let number = Number(comparativeMeasure.lineWidth);
+         if(isNaN(number)) {
+            console.log(`BulletChartService:validateComparativeMeasure - comparativeMeasure lineWidth is not a number: ` + JSON.stringify(comparativeMeasure));
+            valid = false;
+         }
+         else {
+             comparativeMeasure.lineWidth = number;  // force it into a number if it is a valid numeric string
+         }
+      }
       return valid;
    }
-
-   setupCanvasEl(sparklineCanvas: ElementRef,
-        width: number,
-        height: number,
-        className: string,
-     ): HTMLCanvasElement {
+   setupCanvasEl(sparklineCanvas: ElementRef, width: number, height: number, className: string ): HTMLCanvasElement {
 
      const canvasEl = sparklineCanvas.nativeElement;
      canvasEl.width = width;
@@ -168,11 +178,9 @@ export class BulletChartService {
      if (className && className !== ``) { canvasEl.classList.add(className); }
      return canvasEl;
   }
-
    getOrientation(canvasEl: HTMLCanvasElement): string {
       return canvasEl.width > canvasEl.height ? Constants.HORIZONTAL : Constants.VERTICAL;
    }
-
    getQualityRanges(qualitativeRangesString: string): QualitativeRange[] {
       var qualitativeRanges: QualitativeRange[] = [];
       var qrs: Array<QualitativeRange> = JSON.parse(qualitativeRangesString);
@@ -200,27 +208,24 @@ export class BulletChartService {
       }
       return qualitativeRanges;
    }
-
-   // used to draw from the highest range to the lowest range
    sortQualitativeRangeHighLow(qrs: Array<QualitativeRange>): Array<QualitativeRange> {
+      // used to draw from the highest range to the lowest range
       var sortedQrs: Array<QualitativeRange>;
 
       sortedQrs = qrs.sort(function (a: QualitativeRange, b: QualitativeRange) { return a.value<b.value ? 1 : a.value==b.value ? 0 : -1;});
 
       return sortedQrs;
    }
-
-   // used to show tooltips, we want to show the lowest range if the mouse is
-   // between the left margin and its frontier with the second range that is
-   // higher than the lower range
    sortQualitativeRangeLowHigh(qrs: Array<QualitativeRange>): Array<QualitativeRange> {
+      // used to show tooltips, we want to show the lowest range if the mouse is
+      // between the left margin and its frontier with the second range that is
+      // higher than the lower range
       var sortedQrs: Array<QualitativeRange>;
 
       sortedQrs = qrs.sort(function (a: QualitativeRange, b: QualitativeRange) { return a.value<b.value ? -1 : a.value==b.value ? 0 : 1;});
 
       return sortedQrs;
    }
-
    getTopValue(qualitativeRanges: QualitativeRange[]): number {
       let topValue = -1;
       for (var i = 0; i < qualitativeRanges.length; i++) {
@@ -228,19 +233,19 @@ export class BulletChartService {
       }
       return topValue;
    }
-
    getFeatureMeasure(featureMeasureString: string): FeatureMeasure {
       var fm = JSON.parse(featureMeasureString);
       return new FeatureMeasure(fm.value, fm.color);
    }
-
    getComparativeMeasure(comparativeMeasureString: string) {
+      var comparativeMeasure: ComparativeMeasure;
       var cm = JSON.parse(comparativeMeasureString);
-      return new ComparativeMeasure(cm.value, cm.color, cm.lineWidth);
-   }
 
-   scaleToCanvas(canvasEl: HTMLCanvasElement,
-      qualitativeRanges: QualitativeRange[]): void {
+      comparativeMeasure = new ComparativeMeasure(cm.value, cm.color, cm.lineWidth);
+
+      return comparativeMeasure;
+   }
+   scaleToCanvas(canvasEl: HTMLCanvasElement, qualitativeRanges: QualitativeRange[]): void {
       const orientaton = this.getOrientation(canvasEl);
       const topValue = this.getTopValue(qualitativeRanges)
 
@@ -261,10 +266,7 @@ export class BulletChartService {
          }
       }
    }
-
-   scaleFeatureMeasureToCanvas(canvasEl: HTMLCanvasElement,
-      featureMeasure: FeatureMeasure,
-      qualitativeRanges: QualitativeRange[]): void {
+   scaleFeatureMeasureToCanvas(canvasEl: HTMLCanvasElement, featureMeasure: FeatureMeasure, qualitativeRanges: QualitativeRange[]): void {
       const orientation = this.getOrientation(canvasEl);
       const topValue = this.getTopValue(qualitativeRanges)
 
@@ -287,10 +289,7 @@ export class BulletChartService {
             break;
       }
    }
-
-   scaleComparativeMeasureToCanvas(canvasEl: HTMLCanvasElement,
-      comparativeMeasure: ComparativeMeasure,
-      qualitativeRanges: QualitativeRange[]): void {
+   scaleComparativeMeasureToCanvas(canvasEl: HTMLCanvasElement, comparativeMeasure: ComparativeMeasure, qualitativeRanges: QualitativeRange[]): void {
          const orientation = this.getOrientation(canvasEl);
          const topValue = this.getTopValue(qualitativeRanges)
          const value = comparativeMeasure.getValue();
@@ -311,7 +310,6 @@ export class BulletChartService {
             break;
          }
    }
-
    buildCoordinateTips(cm: ComparativeMeasure, fm: FeatureMeasure, qr: QualitativeRange[]): CoordinateTip[] {
       var coordinateTips: CoordinateTip[] = [];
       var rect: Rectangle;
