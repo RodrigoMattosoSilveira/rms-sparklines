@@ -1,3 +1,4 @@
+import { Constants } from './constants';
 import { CoordinateTip } from '../coordinate-tip';
 import { Rectangle } from '../rectangle';
 
@@ -31,6 +32,27 @@ export class FeatureMeasure {
 
    getFromY(): number { return this.fromY; }
    setFromY(value: number): void { this.fromY = value; }
+
+   scaleToCanvas(canvasEl: HTMLCanvasElement, orientation: string, topValue: number) {
+      // feature measure
+      var value = this.getValue();
+      switch (orientation) {
+         case Constants.HORIZONTAL:
+            this.setFromX(0);
+            this.setFromY(canvasEl.height/3);
+            this.setWidth(value/topValue * canvasEl.width);
+            this.setHeight(canvasEl.height/3);
+            break;
+         case Constants.VERTICAL:
+            this.setFromX(canvasEl.width/3);
+            this.setFromY(0);
+            this.setWidth(canvasEl.width/3);
+            this.setHeight(value/topValue * canvasEl.height);
+            break;
+         default:
+            break;
+      }
+   }
 
    buildCoordinateTip(): CoordinateTip {
       var coordinateTip: CoordinateTip;

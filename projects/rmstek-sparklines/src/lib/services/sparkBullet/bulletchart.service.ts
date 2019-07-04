@@ -242,86 +242,141 @@ export class BulletChartService {
    getComparativeMeasure(comparativeMeasureString: string) {
       var comparativeMeasure: ComparativeMeasure;
       var cm = JSON.parse(comparativeMeasureString);
-
       comparativeMeasure = new ComparativeMeasure(cm.value, cm.color, cm.lineWidth);
-
       return comparativeMeasure;
    }
-   scaleToCanvas(canvasEl: HTMLCanvasElement, qualitativeRanges: QualitativeRange[]): void {
-      const orientaton = this.getOrientation(canvasEl);
+   scaleQualityRangesToCanvas(canvasEl: HTMLCanvasElement, qualitativeRanges: QualitativeRange[]): void {
+      const orientation = this.getOrientation(canvasEl);
       const topValue = this.getTopValue(qualitativeRanges)
-
-      // qualitative ranges
       for (var i = 0; i < qualitativeRanges.length; i++) {
-         var value = qualitativeRanges[i].getValue();
-         switch (orientaton) {
-            case Constants.HORIZONTAL:
-               qualitativeRanges[i].setWidth(value/topValue * canvasEl.width);
-               qualitativeRanges[i].setHeight(canvasEl.height);
-               break;
-            case Constants.VERTICAL:
-               qualitativeRanges[i].setWidth(canvasEl.width);
-               qualitativeRanges[i].setHeight(value/topValue * canvasEl.height);
-               break;
-            default:
-               break;
-         }
+         qualitativeRanges[i].scaleToCanvas(canvasEl, orientation, topValue)
       }
    }
    scaleFeatureMeasureToCanvas(canvasEl: HTMLCanvasElement, featureMeasure: FeatureMeasure, qualitativeRanges: QualitativeRange[]): void {
       const orientation = this.getOrientation(canvasEl);
       const topValue = this.getTopValue(qualitativeRanges)
-
-      // feature measure
-      var value = featureMeasure.getValue();
-      switch (orientation) {
-         case Constants.HORIZONTAL:
-            featureMeasure.setFromX(0);
-            featureMeasure.setFromY(canvasEl.height/3);
-            featureMeasure.setWidth(value/topValue * canvasEl.width);
-            featureMeasure.setHeight(canvasEl.height/3);
-            break;
-         case Constants.VERTICAL:
-            featureMeasure.setFromX(canvasEl.width/3);
-            featureMeasure.setFromY(0);
-            featureMeasure.setWidth(canvasEl.width/3);
-            featureMeasure.setHeight(value/topValue * canvasEl.height);
-            break;
-         default:
-            break;
-      }
+      featureMeasure.scaleToCanvas(canvasEl, orientation, topValue);
    }
    scaleComparativeMeasureToCanvas(canvasEl: HTMLCanvasElement, comparativeMeasure: ComparativeMeasure, qualitativeRanges: QualitativeRange[]): void {
          const orientation = this.getOrientation(canvasEl);
          const topValue = this.getTopValue(qualitativeRanges)
-         const value = comparativeMeasure.getValue();
-         switch (orientation) {
-            case Constants.HORIZONTAL:
-               comparativeMeasure.setFromX(value/topValue * canvasEl.width);
-               comparativeMeasure.setFromY(canvasEl.height/3);
-               comparativeMeasure.setToX(value/topValue * canvasEl.width);
-               comparativeMeasure.setToY(2*canvasEl.height/3);
-               break;
-            case Constants.VERTICAL:
-               comparativeMeasure.setFromX(canvasEl.width/3);
-               comparativeMeasure.setFromY(value/topValue * canvasEl.height);
-               comparativeMeasure.setToX(2*canvasEl.width/3);
-               comparativeMeasure.setToY(value/topValue * canvasEl.height);
-               break;
-               default:
-            break;
-         }
+         comparativeMeasure.scaleToCanvas(canvasEl, orientation, topValue)
    }
-   buildCoordinateTips(cm: ComparativeMeasure, fm: FeatureMeasure, qr: QualitativeRange[]): CoordinateTip[] {
+   buildCoordinateTips(canvasEl: HTMLCanvasElement, cm: ComparativeMeasure, fm: FeatureMeasure, qr: QualitativeRange[]): CoordinateTip[] {
+      const orientation = this.getOrientation(canvasEl);
       var coordinateTips: CoordinateTip[] = [];
-      var rect: Rectangle;
-      var color: string;
-      var tip: string;
-
-      // Feature Measure. We will build a rectangle around the line.
-      color = 'red',
-      tip = fm.getValue.toString();
-
+      coordinateTips.push( cm.buildCoordinateTip(orientation));
+      coordinateTips.push( fm.buildCoordinateTip());
+      for (var i = 0; i < qr.length; i++) {
+         coordinateTips.push(qr[i].buildCoordinateTip());
+      }
       return coordinateTips;
    }
+   handleMouseMove($event: MouseEvent, canvasEl: HTMLElement, coordinatesTips: Array<CoordinateTip>, tooltipId: string) {
+      let tooltip: HTMLCanvasElement;
+      let mySpan: HTMLSpanElement;
+      const fontDefinition = '12px FUTURA';
+      let body: any;
+      let width: number;
+      let height: number;
+      let rect: any;
+      let scrollLeft: number;
+      let scrollTop: number;
+
+      // Get the position of the canvas element relative to the document
+      // https://plainjs.com/javascript/styles/get-the-position-of-an-element-relative-to-the-document-24/
+      rect = canvasEl.getBoundingClientRect();
+      scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+      scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      rect = { left: rect.left + scrollLeft, top: rect.top + scrollTop  };
+
+      const mouseX = $event.clientX - rect.left + window.pageXOffset || document.documentElement.scrollLeft;
+      const mouseY = $event.clientY - rect.top + window.pageYOffset || document.documentElement.scrollTop;
+      // console.log(`BarChart::handleMouseMove mouseX: ` + mouseX + `, mouseY: ` + mouseY);
+
+      for (let i = 0; i < coordinatesTips.length; i++) {
+           const tipX = coordinatesTips[i].rect.getX();
+           const tipWidth = coordinatesTips[i].rect.getWidth();
+           let tipHeight = coordinatesTips[i].rect.getHeight();
+           let tipY = coordinatesTips[i].rect.getY();
+           if (tipHeight < 0) {
+               tipY += tipHeight;
+               tipHeight *= -1;
+           }
+
+           // console.log(`mouseX: ` + mouseX + `, mouseY: ` + mouseY);
+           // console.log(`tipX: ` + tipX + `, tipY: ` + tipY + `, tipWidth: ` + tipWidth + `, tipHeight: ` + tipHeight);
+
+           if (tipX <=  mouseX && mouseX <= tipX + tipWidth &&
+               tipY <=  mouseY && mouseY <= tipY + tipHeight) {
+
+               // console.log(`We have a match`);
+
+               // A trick to find the width / height of the canvas to host the tooltip
+               mySpan = document.createElement('span') as HTMLSpanElement;
+               mySpan.id = 'mySpanId';
+               mySpan.style.font = fontDefinition;
+               mySpan.style.textAlign = 'center';
+               mySpan.innerHTML = '' + coordinatesTips[i].tip;
+               body = document.getElementsByTagName('body')[0];
+               body.appendChild(mySpan);
+               mySpan = document.getElementById('mySpanId');
+               width = mySpan.getBoundingClientRect().width + 4;
+               height = mySpan.getBoundingClientRect().height + 2;
+               mySpan.parentElement.removeChild(mySpan);
+               // console.log(`mySpanWidth: ` + width + `, mySpanHeight: ` + height);
+
+               // Remove the existing tooltip, if present
+               tooltip = document.getElementById(tooltipId) as HTMLCanvasElement;
+               if (tooltip) {
+                   // console.log(`BarChart::handleMouseMove deleting tooltip`);
+                   tooltip.parentElement.removeChild(tooltip);
+               }
+
+               tooltip = document.createElement('CANVAS') as HTMLCanvasElement;
+               tooltip.id = tooltipId;
+               tooltip.width = width;
+               tooltip.height = height;
+               tooltip.style.position = 'absolute';
+               tooltip.style.left = ($event.clientX + 5) + 'px';
+               tooltip.style.top = ($event.clientY + 7) + 'px';
+               // tooltip.style.left = '' + 100 + 'px';
+               // tooltip.style.top = '' + 100 + 'px';
+               tooltip.style.border = '1px solid';
+               tooltip.style.zIndex = '20';
+               tooltip.style.textAlign = 'center';
+
+               const ctx = (tooltip as HTMLCanvasElement).getContext('2d');
+               ctx.fillStyle = 'white';
+               ctx.fillRect(0, 0, width, height);
+               ctx.fill();
+               ctx.fillStyle = 'red';
+               ctx.font = fontDefinition;
+               ctx.fillText('' + coordinatesTips[i].tip, 1, height - 2);
+
+               body = document.getElementsByTagName('body')[0];
+               body.appendChild(tooltip);
+
+               break; /// required to prevent Q1 : Q3 tooltip from showing
+           }  else {
+               // console.log(`this is not a match`);
+
+               // Remove the existing tooltip, if present
+               tooltip = document.getElementById(tooltipId) as HTMLCanvasElement;
+               if (tooltip) {
+                   // console.log(`BarChart::handleMouseMove deleting tooltip`);
+                   tooltip.parentElement.removeChild(tooltip);
+               }
+           }
+      }
+   }
+   handleMouseOut(tooltipId: string) {
+      // Remove the existing tooltip, if present
+      const tooltipEl = document.getElementById(tooltipId);
+      if (tooltipEl) {
+           // console.log(`BarChart::handleMouseOut deleting tooltip`);
+           tooltipEl.parentElement.removeChild(tooltipEl);
+      }
+   }
+
 }
