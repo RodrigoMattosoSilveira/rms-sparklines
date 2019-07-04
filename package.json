@@ -21,8 +21,8 @@
       "lsg:build": "ng build living-style-guide",
       "lsg:serve": "ng serve living-style-guide --port 4201",
       "lsg:serve:lib": "yarn lib:build && yarn lsg:serve",
-      "lsg:serve:aot": "ng serve living-style-guide --port 4201 --aot=true",
-      "lsg:serve:jit": "ng serve living-style-guide --port 4201 --aot=false",
+      "lsg:serve:aot": "ng serve living-style-guide --aot=true",
+      "lsg:serve:jit": "ng serve living-style-guide --aot=false",
       "lsg:test": "ng test living-style-guide",
       "lsg:upd": "yarn lib:upd && yarn lsg:build"
    },
