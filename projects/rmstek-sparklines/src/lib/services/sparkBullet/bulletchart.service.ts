@@ -113,9 +113,11 @@ export class BulletChartService {
          console.log(`BulletChartService:validateFeatureMeasure - featureMeasure does not have the color property: ` + JSON.stringify(featureMeasure));
          valid = false;
       }
-      if (!this.cssColorString.isValid(featureMeasure.color)) {
-          console.log(`BulletChartService:validateFeatureMeasure - featureMeasure color is invalid: ` +  + JSON.stringify(featureMeasure));
-          valid = false;
+      else {
+         if (!this.cssColorString.isValid(featureMeasure.color)) {
+             console.log(`BulletChartService:validateFeatureMeasure - featureMeasure color is invalid: ` +  + JSON.stringify(featureMeasure));
+             valid = false;
+         }
       }
 
       return valid;

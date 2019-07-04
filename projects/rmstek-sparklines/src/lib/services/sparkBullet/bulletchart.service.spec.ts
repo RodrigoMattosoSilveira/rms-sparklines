@@ -30,7 +30,7 @@ describe('BulletChartService', () => {
    it('should be created', () => {
       expect(bulletChartService).toBeTruthy();
    });
-   describe(`When handling Quality Ranges`, () => {
+   describe(`handling Quality Ranges array`, () => {
       beforeEach(() => {
          qualitativeRangeSourceGood = [{'value': 35, 'color': '#A8A8A8'}, {'value': 50, 'color': '#808080'}, {'value': 60, 'color': '#E0E0E0'}];
       });
@@ -125,11 +125,11 @@ describe('BulletChartService', () => {
          });
       });
    });
-   describe(`handling the Comparative Measure`, () => {
+   describe(`handling Comparative Measure object`, () => {
       beforeEach(() => {
           comparativeMeasureSourceGood = {'value': 57, 'color': 'black', 'lineWidth': 3};
       });
-      describe(`Valid objects`, () => {
+      describe(`valid object`, () => {
          it('should be created', () => {
             expect(comparativeMeasureSourceGood).toBeTruthy();
          });
@@ -169,7 +169,7 @@ describe('BulletChartService', () => {
             });
          });
       });
-      describe(`Invalid objects`, () => {
+      describe(`invalid object`, () => {
          it('missing an attribute', () => {
             comparativeMeasureBad = {'value': 57, 'color': 'black'};;
             expect(bulletChartService.validateComparativeMeasure(comparativeMeasureBad)).toBe(false);
@@ -192,11 +192,11 @@ describe('BulletChartService', () => {
          });
       });
    });
-   describe(`When handling the Feature Measure`, () => {
+   describe(`handling Feature Measure object`, () => {
       beforeEach(() => {
           featureMeasureSourceGood = {'value': 25, 'color': 'black'};
       });
-      describe(`Valid objects`, () => {
+      describe(`valid object`, () => {
          it('should be created', () => {
             expect(featureMeasureSourceGood).toBeTruthy();
          });
@@ -236,9 +236,26 @@ describe('BulletChartService', () => {
             });
          });
       });
-      describe(`Valid objects`, () => {
-         it('Recognizes them as such', () => {
-            expect(false).toBe(true);
+      describe(`invalid object`, () => {
+         it('missing an attribute', () => {
+            featureMeasureBad = {'value': 57};;
+            expect(bulletChartService.validateFeatureMeasure(featureMeasureBad)).toBe(false);
+         });
+         it('containng an extra an attribute', () => {
+            featureMeasureBad = {'value': 57, 'color': 'black', 'extra': 'extra'};;
+            expect(bulletChartService.validateFeatureMeasure(featureMeasureBad)).toBe(false);
+         });
+         it('having an invalid attribute key', () => {
+            featureMeasureBad = {'value': 57, 'colorrrr': 'black'};;
+            expect(bulletChartService.validateFeatureMeasure(featureMeasureBad)).toBe(false);
+         });
+         it('having a non non numeric value', () => {
+            featureMeasureBad = {'value': 'AA', 'color': 'black'};;
+            expect(bulletChartService.validateFeatureMeasure(featureMeasureBad)).toBe(false);
+         });
+         it('having an invalid color', () => {
+            featureMeasureBad = {'value': 57, 'color': '#80808G'};;
+            expect(bulletChartService.validateFeatureMeasure(featureMeasureBad)).toBe(false);
          });
       });
    });
