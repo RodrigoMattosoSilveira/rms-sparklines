@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2019-07-04
+#### Changed
+* Implemented bullet charts
+
+## [0.3.0] - 2019-06-01
+#### Changed
+* Migrated to Angular 7, switched from Web to Angular components
+
 ## [0.2.3] - 2018-09-02
 #### Changed
 * Trying to fix a hard to understand bug in TRAVIS
@@ -110,7 +118,7 @@ You may need an appropriate loader to handle this file type.
 ## [0.0.8] - 2018-05-03
 ### Changed
 - rms-sparklines-inline, significant changes, see its README for details
-- rms-sparklines-bar-chart, only README 
+- rms-sparklines-bar-chart, only README
 
 ## [0.0.7] - 2018-05-03
 ### Changed
@@ -118,7 +126,7 @@ You may need an appropriate loader to handle this file type.
 
 ## [0.0.1] - 2018-05-01
 ### Added
-* Added a travis.yml file to trigger automated builds and deployment. 
+* Added a travis.yml file to trigger automated builds and deployment.
 
 ### Changed
 * Consolidated all sparkline web components into this single host.
@@ -135,4 +143,3 @@ You may need an appropriate loader to handle this file type.
 
 ### Removed
 - N/A
-
