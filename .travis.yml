@@ -31,9 +31,13 @@ before_cache:
    - echo "before_cache has no steps"
 cache: yarn
 before_deploy:
-   - echo "before_deploy steps - Tagging"
-   - "./scripts/tag.sh"
+   - echo "before_deploy has no steps"
 deploy:
+   # tag the build
+   - provider: script
+     script: "./scripts/tag.sh"
+     on:
+        branch: master
    # Deploy the living styleguide to GitHub pages
    - provider: pages
      skip_cleanup: true
