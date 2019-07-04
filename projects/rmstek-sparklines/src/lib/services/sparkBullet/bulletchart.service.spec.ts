@@ -77,7 +77,7 @@ describe('BulletChartService', () => {
             it('horizontally', () => {
                canvasEl.width = 128;
                canvasEl.height = 32;
-               bulletChartService.scaleToCanvas(canvasEl, qualitativeRangeGood);
+               bulletChartService.scaleQualityRangesToCanvas(canvasEl, qualitativeRangeGood);
                let valid = true;
                let topValue = bulletChartService.getTopValue(qualitativeRangeGood)
                for(let i = 0; i < qualitativeRangeGood.length; i++) {
@@ -90,7 +90,7 @@ describe('BulletChartService', () => {
             it('vertically', () => {
                canvasEl.width = 32;
                canvasEl.height = 128;
-               bulletChartService.scaleToCanvas(canvasEl, qualitativeRangeGood);
+               bulletChartService.scaleQualityRangesToCanvas(canvasEl, qualitativeRangeGood);
                let valid = true;
                let topValue = bulletChartService.getTopValue(qualitativeRangeGood)
                for(let i = 0; i < qualitativeRangeGood.length; i++) {
