@@ -8,6 +8,10 @@ addons:
 git:
    quiet: true
    submodules: false
+# safelist
+branches:
+   only:
+      - master
 before_install:
    - echo "before_install steps"
    - export DISPLAY=:99.0
@@ -36,21 +40,15 @@ deploy:
    - provider: script
      skip_cleanup: true
      script: "./scripts/tag.sh"
-     on:
-        branch: master
    # Deploy the living styleguide to GitHub pages
    - provider: pages
      skip_cleanup: true
      local_dir: "./dist/living-style-guide"
      github_token: "$GITHUB_TOKEN"
      keep_history: true
-     on:
-        branch: master
    # Deploy the component to npm registry
    - provider: script
      script: ./scripts/publish.sh "$(ls dist/rmstek-sparklines | grep tgz)"
-     on:
-        branch: master
 after_deploy:
    - echo "after_deploy has no steps"
 after_script:
