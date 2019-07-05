@@ -20,9 +20,6 @@ get_version() {
    return 0
 }
 
-get_version
-get_name
-
 is_travis_branch_master() {
   if [[ ${TRAVIS_BRANCH} = master ]]; then
     echo "✅ Travis branch is master"
@@ -44,7 +41,9 @@ is_feature_branch_version() {
   fi
 }
 
-yarn lib:reset
+yarn lib:build
+get_version
+get_name
 if is_travis_branch_master || is_feature_branch_version; then
    GITTAG="$PACKAGE_NAME@$PACKAGE_VERSION"
    openssl aes-256-cbc -k "$travis_key_password" -d -md sha256 -a -in rms-sparkline-travis.enc -out rms-sparkline-travis-key

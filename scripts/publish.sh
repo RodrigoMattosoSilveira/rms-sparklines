@@ -11,8 +11,6 @@ get_version() {
    return 0
 }
 
-get_version
-
 is_travis_branch_master() {
    if [[ ${TRAVIS_BRANCH} = master ]]; then
       echo "✅ Travis branch is master"
@@ -35,7 +33,8 @@ is_feature_branch_version() {
    fi
 }
 
-yarn lib:ready
+yarn lib:build
+get_version
 if is_travis_branch_master || is_feature_branch_version; then
    npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
    npm whoami
