@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { version } from '../../../../package.json';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'living-style-guide';
-  version =  `0.3.2-rc.1`;
+  // version =  `0.3.2-rc.1`;
+   public version: string = version;
   sparklines = [
     {
       name: 'Bar Chart',
