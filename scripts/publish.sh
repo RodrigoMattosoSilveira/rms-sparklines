@@ -2,8 +2,6 @@
 
 set -e
 
-echo Publihing "$(ls dist/sparklines | grep tgz)"
-
 get_version() {
    cd ./dist/rmstek-sparklines
    PACKAGE_VERSION=$(npx -c 'echo "$npm_package_version"')
@@ -33,7 +31,8 @@ is_feature_branch_version() {
    fi
 }
 
-yarn lib:build
+yarn lib:reset
+echo Publihing "$(ls dist/sparklines | grep tgz)"
 get_version
 if is_travis_branch_master || is_feature_branch_version; then
    npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
