@@ -17,7 +17,7 @@ export class SparkBulletComponent implements AfterViewInit {
    @Input() comparativeMeasure = JSON.stringify({'value': 57, 'color': 'black', 'lineWidth': 3});
    @Input() featureMeasure = JSON.stringify({'value': 35, 'color': 'black'});
    @Input() height = 32;
-   @Input() qualitativeRanges  = JSON.stringify([{'value': 60, 'color': '#FF7F50'}, {'value': 50, 'color': '#FF6347'}, {'value': 35, 'color': '#FF4500'}])
+   @Input() qualitativeRanges  = JSON.stringify([{'value': 60, 'color': '#FF7F50'}, {'value': 50, 'color': '#FF6347'}, {'value': 35, 'color': '#FF4500'}]);
    @Input() width = 128;
 
    // see https://blog.angular-university.io/angular-viewchild/
