@@ -1,4 +1,4 @@
-import { CoordinateTip } from '../coordinate-tip';
+import { CoordinateTip } from '../utils/coordinate-tip';
 import { QualitativeRange } from './qualitative-range'
 
 export class QualitativeRanges {
@@ -16,7 +16,7 @@ export class QualitativeRanges {
       this.setQualitativeRangesRaw (qualitativeRangesRaw);
    }
    validate(): boolean {
-      var qualitativeRangesAny: any = JSON.parse(qualitativeRangesRaw);
+      var qualitativeRangesAny: any = JSON.parse(this.getQualitativeRangesRaw());
       var qualitativeRangesRaw: string;
 
       this.setValid(true);
@@ -26,7 +26,7 @@ export class QualitativeRanges {
          this.setValid(false);
       }
       else {
-         qualitativeRangesAny = JSON.parse(this.getQualitativeRangesRaw());
+         qualitativeRangesAny = JSON.parse(qualitativeRangesRaw);
          if (qualitativeRangesAny.length == 0) {
              console.log(`QualitativeRanges:validate - qualitativeRanges array is empty`);
              this.setValid(false);
@@ -36,7 +36,8 @@ export class QualitativeRanges {
              this.setValid(false);
          }
          for (var i = 0; i < qualitativeRangesAny.length; i++) {
-            let qualitativeRange: QualitativeRange = new QualitativeRange(qualitativeRangesAny[i])
+            let qualitativeRangeRaw: string = JSON.stringify(qualitativeRangesAny[i]);
+            let qualitativeRange: QualitativeRange = new QualitativeRange(qualitativeRangeRaw)
             this.setValid(this.getValid() && qualitativeRange.validate());
          }
       }

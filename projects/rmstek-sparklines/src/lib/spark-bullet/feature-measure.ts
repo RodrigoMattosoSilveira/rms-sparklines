@@ -1,7 +1,7 @@
-import { CssColorString } from '../valid-colors';
-import { Constants } from './constants';
-import { CoordinateTip } from '../coordinate-tip';
-import { Rectangle } from '../rectangle';
+import { CssColorString } from '../utils/valid-colors';
+import { Constants } from '../utils/constants';
+import { CoordinateTip } from '../utils/coordinate-tip';
+import { Rectangle } from '../utils/rectangle';
 
 export class FeatureMeasure {
    color: string;
@@ -44,12 +44,12 @@ export class FeatureMeasure {
          this.setValid(false);
       }
       else {
-         if (typeof featureMeasureRaw !== 'object') {
+         var featureMeasureAny: any = JSON.parse(featureMeasureRaw);
+         if (typeof featureMeasureAny !== 'object') {
             console.log(`FeatureMeasure:validate - featureMeasureRaw is not an object: ` + JSON.stringify(featureMeasureRaw));
             this.setValid(false);
          }
          else {
-            var featureMeasureAny: any = JSON.parse(featureMeasureRaw);
             if(Object.keys(featureMeasureAny).length != 2) {
                console.log(`FeatureMeasure:validate - featureMeasure has more than 2 keys: ` + JSON.stringify(featureMeasureAny));
                this.setValid(false);

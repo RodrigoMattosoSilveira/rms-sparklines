@@ -1,4 +1,4 @@
-import { SparklineInterface} from '../sparkline-interface'
+import { SparklineInterface} from '../utils/sparkline-interface'
 import { FeatureMeasure } from './feature-measure';
 import { ComparativeMeasure } from './comparative-measure';
 import { QualitativeRanges } from './qualitative-ranges';

@@ -1,7 +1,7 @@
-import { CssColorString } from '../valid-colors';
-import { Constants } from './constants';
-import { CoordinateTip } from '../coordinate-tip';
-import { Rectangle } from '../rectangle';
+import { CssColorString } from '../utils/valid-colors';
+import { Constants } from '../utils/constants';
+import { CoordinateTip } from '../utils/coordinate-tip';
+import { Rectangle } from '../utils/rectangle';
 
 export class ComparativeMeasure {
    color: string;
@@ -47,12 +47,12 @@ export class ComparativeMeasure {
          this.setValid(false);
       }
       else {
-         if (typeof comparativeMeasureRaw !== 'object') {
+         comparativeMeasureAny = JSON.parse(this.getComparativeMeasureRaw());
+         if (typeof comparativeMeasureAny !== 'object') {
             console.log(`ComparativeMeasure:validate - comparativeMeasure is not an object: ` + JSON.stringify(comparativeMeasureRaw));
             this.setValid(false);
          }
          else {
-            comparativeMeasureAny = JSON.parse(this.getComparativeMeasureRaw());
             if(Object.keys(comparativeMeasureAny).length != 3) {
                console.log(`ComparativeMeasure:validate - comparativeMeasure has more than 2 keys: ` + JSON.stringify(comparativeMeasureAny));
                this.setValid(false);

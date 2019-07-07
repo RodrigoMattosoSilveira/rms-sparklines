@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { Constants } from '../utils/constants';
 import { QualitativeRange } from './qualitative-range';
 
 describe(`QualitativeRange`, () => {
@@ -14,28 +15,34 @@ describe(`QualitativeRange`, () => {
    describe(`when validating`, () => {
 		describe(`a valid`, () => {
 			describe(`qualitativeRange`, () => {
-				describe(`scales it correctly`, () => {
-               it(`calculates top value correctly`, () => {
-   		         expect(false).toEqual(true);
-   				});
-   				describe(`short them correctly `, () => {
-   					it(`ascendently`, () => {
-   			         expect(false).toEqual(true);
-   					});
-   					it(`descendently`, () => {
-   			         expect(false).toEqual(true);
-   					});
-   				});
-   				describe(`scaler them correctly `, () => {
-   					it(`horizontally`, () => {
-   			         expect(false).toEqual(true);
-   					});
-   					it(`vertically`, () => {
-   			         expect(false).toEqual(true);
-   					});
-   				});
-				});
-			});
+            describe(`scales them correctly `, () => {
+               var canvasEl: HTMLCanvasElement;
+               var topValue: number;
+               beforeEach(() => {
+                  canvasEl = document.createElement('canvas');
+                  topValue = 60;
+                  qualitativeRange = new QualitativeRange(qualitativeRangeRaw);
+                  qualitativeRange.validate();
+               });
+               it('is valid ', () => {
+                  expect(qualitativeRange.getValid()).toBe(true);
+               });
+               it('horizontally', () => {
+                  canvasEl.width = 128;
+                  canvasEl.height = 32;
+                  qualitativeRange.scaleToCanvas(canvasEl, Constants.HORIZONTAL, topValue);
+                  expect(qualitativeRange.getWidth()).toEqual(qualitativeRange.getValue()/topValue * canvasEl.width);
+                  expect(qualitativeRange.getHeight()).toEqual(canvasEl.height);
+               });
+               it('vertically', () => {
+                  canvasEl.width = 32;
+                  canvasEl.height = 128;
+                  qualitativeRange.scaleToCanvas(canvasEl, Constants.VERTICAL, topValue);
+                  expect(qualitativeRange.getWidth()).toEqual(canvasEl.width);
+                  expect(qualitativeRange.getHeight()).toEqual(qualitativeRange.getValue()/topValue * canvasEl.height);
+               });
+            });
+         });
       });
       describe(`an invalid`, () => {
 			describe(`featureMeasureRaw it catches`, () => {

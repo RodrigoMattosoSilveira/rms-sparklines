@@ -2,7 +2,6 @@ import { TestBed } from '@angular/core/testing';
 
 import { ComparativeMeasure } from './comparative-measure';
 import { FeatureMeasure } from './feature-measure';
-import { QualitativeRange } from './qualitative-range';
 import { QualitativeRanges } from './qualitative-ranges';
 
 import { SparkBullet } from './spark-bullet';
@@ -10,13 +9,10 @@ import { SparkBullet } from './spark-bullet';
 describe(`SparkBullet`, () => {
 	var sparkBullet: SparkBullet;
 
-   var comparativeMeasure: ComparativeMeasure;
 	var comparativeMeasureRaw: string;
    var featureMeasureRaw: string;
-	var featureMeasure: FeatureMeasure;
    var height: number;
 	var heightRaw: string;
-	var qualitativeRanges: QualitativeRanges;
 	var qualitativeRangesRaw: string;
    var width: number;
 	var widthRaw: string;
@@ -67,14 +63,14 @@ describe(`SparkBullet`, () => {
 		describe(`an invalid`, () => {
 			describe(`height it catches`, () => {
 				it('a non-numeric height', () => {
-					heightRaw = `32`;
+					heightRaw = `3A`;
 					sparkBullet = new SparkBullet(comparativeMeasureRaw, featureMeasureRaw, heightRaw, qualitativeRangesRaw, widthRaw);
 	            expect(sparkBullet.validateHeightRaw()).toBe(false);
 	         });
 			});
 			describe(`width it catches`, () => {
 				it('a non-numeric value', () => {
-					widthRaw = `32`;
+					widthRaw = `3A`;
 					sparkBullet = new SparkBullet(comparativeMeasureRaw, featureMeasureRaw, heightRaw, qualitativeRangesRaw, widthRaw);
 	            expect(sparkBullet.validateWidthtRaw()).toBe(false);
 	         });

@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { Constants } from '../utils/constants';
 import { FeatureMeasure } from './feature-measure';
 
 describe(`FeatureMeasure`, () => {
@@ -15,12 +16,35 @@ describe(`FeatureMeasure`, () => {
 		describe(`a valid`, () => {
 			describe(`featureMeasure`, () => {
 				describe(`scales it correctly`, () => {
-					it(`horizontally`, () => {
-			         expect(false).toEqual(true);
-					});
-					it(`vertically`, () => {
-			         expect(false).toEqual(true);
-					});
+               var canvasEl: HTMLCanvasElement;
+               var topValue: number;
+               beforeEach(() => {
+                  canvasEl = document.createElement('canvas');
+                  topValue = 60;
+                  featureMeasure = new FeatureMeasure(featureMeasureRaw);
+                  featureMeasure.validate();
+               });
+               it('is valid ', () => {
+                  expect(featureMeasure.getValid()).toBe(true);
+               });
+               it('horizontally', () => {
+                  canvasEl.width = 128;
+                  canvasEl.height = 32;
+                  featureMeasure.scaleToCanvas(canvasEl, Constants.HORIZONTAL, topValue);
+                  expect(featureMeasure.getFromX()).toBe(0);
+                  expect(featureMeasure.getFromY()).toBe(canvasEl.height/3);
+                  expect(featureMeasure.getWidth()).toBe(featureMeasure.value/topValue * canvasEl.width);
+                  expect(featureMeasure.getHeight()).toBe(canvasEl.height/3);
+               });
+               it('vertically', () => {
+                  canvasEl.width = 32;
+                  canvasEl.height = 128;
+                  featureMeasure.scaleToCanvas(canvasEl, Constants.VERTICAL, topValue);
+                  expect(featureMeasure.getFromX()).toBe(canvasEl.width/3);
+                  expect(featureMeasure.getFromY()).toBe(0);
+                  expect(featureMeasure.getWidth()).toBe(canvasEl.width/3);
+                  expect(featureMeasure.getHeight()).toBe(featureMeasure.value/topValue * canvasEl.height);
+               });
 				});
 			});
       });

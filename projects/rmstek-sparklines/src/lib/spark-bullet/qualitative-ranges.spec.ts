@@ -13,25 +13,25 @@ describe(`QualitativeRanges`, () => {
    });
    describe(`when validating`, () => {
 		describe(`a valid`, () => {
-			describe(`qualitativeRanges`, () => {
-				describe(`it is valid`, () => {
-               beforeEach(() => {
-                  qualitativeRanges = new QualitativeRanges(qualitativeRangesRaw);               ;
-               });
-               it('an invalid quality range', () => {
-   	            expect(qualitativeRanges.validate()).toBe(true);
-   	         });
-				});
+			describe(`it`, () => {
+            beforeEach(() => {
+               qualitativeRanges = new QualitativeRanges(qualitativeRangesRaw);               ;
+            });
+            it('likes it', () => {
+               expect(qualitativeRanges.validate()).toBe(true);
+            });
 			});
       });
       describe(`an invalid`, () => {
-			describe(`qualitativeRanges it catches`, () => {
-				it('an invalid quality range', () => {
-               // note the colorss key on the second qualitative range 
+         describe(`it`, () => {
+            beforeEach(() => {
+               // note the colorss key on the second qualitative range
                qualitativeRangesRaw = JSON.stringify([{'value': 60, 'color': '#FF7F50'}, {'value': 50, 'colorss': '#FF6347'}, {'value': 35, 'color': '#FF4500'}]);
-					qualitativeRanges = new QualitativeRanges(qualitativeRangesRaw);
-	            expect(qualitativeRanges.validate()).toBe(false);
-	         });
+               qualitativeRanges = new QualitativeRanges(qualitativeRangesRaw);               ;
+            });
+            it('likes does not like it', () => {
+               expect(qualitativeRanges.validate()).toBe(false);
+            });
 			});
 		});
    });

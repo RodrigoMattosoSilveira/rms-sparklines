@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { ComparativeMeasure } from './comparative-measure';
+import { Constants } from '../utils/constants'
 
 describe(`ComparativeMeasure`, () => {
    var comparativeMeasureRaw: string;
@@ -15,12 +16,35 @@ describe(`ComparativeMeasure`, () => {
 		describe(`a valid`, () => {
 			describe(`comparativeMeasure`, () => {
 				describe(`scales it correctly`, () => {
-					it(`horizontally`, () => {
-			         expect(false).toEqual(true);
-					});
-					it(`vertically`, () => {
-			         expect(false).toEqual(true);
-					});
+               var canvasEl: HTMLCanvasElement;
+               var topValue: number;
+               beforeEach(() => {
+                  canvasEl = document.createElement('canvas');
+                  topValue = 60;
+                  comparativeMeasure = new ComparativeMeasure(comparativeMeasureRaw);
+                  comparativeMeasure.validate();
+               });
+               it('is valid ', () => {
+                  expect(comparativeMeasure.getValid()).toBe(true);
+               });
+               it('horizontally', () => {
+                  canvasEl.width = 128;
+                  canvasEl.height = 32;
+                  comparativeMeasure.scaleToCanvas(canvasEl, Constants.HORIZONTAL, topValue);
+                  expect(comparativeMeasure.getFromX()).toBe(comparativeMeasure.getValue()/topValue * canvasEl.width);
+                  expect(comparativeMeasure.getFromY()).toBe(canvasEl.height/3);
+                  expect(comparativeMeasure.getToX()).toBe(comparativeMeasure.getValue()/topValue * canvasEl.width);
+                  expect(comparativeMeasure.getToY()).toBe(2*canvasEl.height/3);
+               });
+               it('vertically', () => {
+                  canvasEl.width = 32;
+                  canvasEl.height = 128;
+                  comparativeMeasure.scaleToCanvas(canvasEl, Constants.VERTICAL, topValue);
+                  expect(comparativeMeasure.getFromX()).toBe(canvasEl.width/3);
+                  expect(comparativeMeasure.getFromY()).toBe(comparativeMeasure.getValue()/topValue * canvasEl.height);
+                  expect(comparativeMeasure.getToX()).toBe(2*canvasEl.width/3);
+                  expect(comparativeMeasure.getToY()).toBe(comparativeMeasure.getValue()/topValue * canvasEl.height);
+               });
 				});
 			});
       });

@@ -1,7 +1,7 @@
-import { CssColorString } from '../valid-colors';
-import { Constants } from './constants';
-import { CoordinateTip } from '../coordinate-tip';
-import { Rectangle } from '../rectangle';
+import { CssColorString } from '../utils/valid-colors';
+import { Constants } from '../utils/constants';
+import { CoordinateTip } from '../utils/coordinate-tip';
+import { Rectangle } from '../utils/rectangle';
 
 export class QualitativeRange {
    color: string;
@@ -34,26 +34,26 @@ export class QualitativeRange {
       this.setValid(true);
       qualitativeRangeRaw = this.getQualitativeRangeRaw();
       if (qualitativeRangeRaw === null) {
-         console.log(`QualitativeRange:validate - qualitative range is null: ` + JSON.stringify(qualitativeRangeRaw));
+         console.log(`QualitativeRange:validate - qualitative range is null: ` + qualitativeRangeRaw);
          this.setValid(false);
       }
       else {
-         if (typeof qualitativeRangeRaw !== 'object') {
-            console.log(`QualitativeRange:validate - comparativeMeasure is not an object: ` + JSON.stringify(qualitativeRangeRaw));
+         qualitativeRangeAny = JSON.parse(qualitativeRangeRaw);
+         if (typeof qualitativeRangeAny !== 'object') {
+            console.log(`QualitativeRange:validate - qualitativeRange is not an object: ` + qualitativeRangeRaw);
             this.setValid(false);
          }
          else {
-            qualitativeRangeAny = JSON.parse(this.getQualitativeRangeRaw());
-            if (qualitativeRangeAny.length == 0) {
-                console.log(`QualitativeRange:validateQualitativeRanges - qualitativeRanges array is empty`);
-                this.setValid(false);
-            }
-
-            if (qualitativeRangeAny.length > 3) {
-                console.log(`QualitativeRange:validate - qualitativeRanges array has more than 3 qualitativeRanges`);
-                this.setValid(false);
-            }
-
+            // if (qualitativeRangeAny.length == 0) {
+            //     console.log(`QualitativeRange:validate - qualitativeRanges has no keys`);
+            //     this.setValid(false);
+            // }
+            //
+            // if (qualitativeRangeAny.length > 3) {
+            //     console.log(`QualitativeRange:validate - qualitativeRanges array has more than 3 qualitativeRanges`);
+            //     this.setValid(false);
+            // }
+            //
             if(Object.keys(qualitativeRangeAny).length != 2) {
                console.log(`QualitativeRange:validate - qualitativeRange has more than 2 keys: ` + JSON.stringify(qualitativeRangeAny));
                this.setValid(false);
