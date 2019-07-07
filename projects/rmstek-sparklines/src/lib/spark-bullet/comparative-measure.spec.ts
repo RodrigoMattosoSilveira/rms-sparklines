@@ -1,6 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { ComparativeMeasure } from './comparative-measure';
-import { Constants } from '../utils/constants'
+import { CoordinateTip } from '../utils/coordinate-tip';
+import { Constants } from '../utils/constants';
+import { HelperMethods } from '../utils/helper-methods';
+import { Rectangle } from '../utils/rectangle';
 
 describe(`ComparativeMeasure`, () => {
    var comparativeMeasureRaw: string;
@@ -14,8 +17,8 @@ describe(`ComparativeMeasure`, () => {
    });
    describe(`when validating`, () => {
 		describe(`a valid`, () => {
-			describe(`comparativeMeasure`, () => {
-				describe(`scales it correctly`, () => {
+			describe(`comparativeMeasure it`, () => {
+				describe(`scales correctly`, () => {
                var canvasEl: HTMLCanvasElement;
                var topValue: number;
                beforeEach(() => {
@@ -46,6 +49,47 @@ describe(`ComparativeMeasure`, () => {
                   expect(comparativeMeasure.getToY()).toBe(comparativeMeasure.getValue()/topValue * canvasEl.height);
                });
 				});
+            describe(`builds coordinate tips corectly`, () => {
+               var canvasEl: HTMLCanvasElement;
+               var coordinateTip: CoordinateTip;
+               var orientation: string;
+               var tipRect: Rectangle;
+               var topValue: number;
+               beforeEach(() => {
+                  canvasEl = document.createElement('canvas');
+                  comparativeMeasure = new ComparativeMeasure(comparativeMeasureRaw);
+                  comparativeMeasure.validate();
+                  topValue = 60;
+               });
+               it('horizontally', () => {
+                  canvasEl.width = 128;
+                  canvasEl.height = 32;
+                  orientation = HelperMethods.computeOrientation(canvasEl)
+                  comparativeMeasure.scaleToCanvas(canvasEl, orientation, topValue);
+                  coordinateTip = comparativeMeasure.buildCoordinateTip(orientation)
+                  tipRect = coordinateTip.getRect();
+                  expect(coordinateTip.getColor()).toBe('red');
+                  expect(coordinateTip.getTip()).toBe(comparativeMeasure.getValue().toString());
+                  expect(tipRect.getX()).toBe(comparativeMeasure.getFromX() - comparativeMeasure.getLineWidth()/2);
+                  expect(tipRect.getY()).toBe(comparativeMeasure.getFromY());
+                  expect(tipRect.getWidth()).toBe(comparativeMeasure.getLineWidth());
+                  expect(tipRect.getHeight()).toBe(comparativeMeasure.getToY() - comparativeMeasure.getFromY() + 1);
+               });
+               it('vertically', () => {
+                  canvasEl.width = 32;
+                  canvasEl.height = 128;
+                  orientation = HelperMethods.computeOrientation(canvasEl)
+                  comparativeMeasure.scaleToCanvas(canvasEl, orientation, topValue);
+                  coordinateTip = comparativeMeasure.buildCoordinateTip(orientation);
+                  tipRect = coordinateTip.getRect();
+                  expect(coordinateTip.getColor()).toBe('red');
+                  expect(coordinateTip.getTip()).toBe(comparativeMeasure.getValue().toString());
+                  expect(tipRect.getX()).toBe(comparativeMeasure.getFromX());
+                  expect(tipRect.getY()).toBe(comparativeMeasure.getFromY() - comparativeMeasure.getLineWidth()/2);
+                  expect(tipRect.getWidth()).toBe(comparativeMeasure.getToX() - comparativeMeasure.getFromX() + 1);
+                  expect(tipRect.getHeight()).toBe(comparativeMeasure.getLineWidth());
+               });
+            });
 			});
       });
       describe(`an invalid`, () => {

@@ -130,7 +130,7 @@ export class ComparativeMeasure {
       var rect: Rectangle;
       var color: string = 'red'
       var tip: string = this.getValue().toString();
-      var x, y, width, height: number;
+      var x: number, y: number, width: number, height: number;
 
       switch (orientaton) {
          case Constants.HORIZONTAL:
@@ -153,7 +153,6 @@ export class ComparativeMeasure {
       coordinateTip = new CoordinateTip(rect, color, tip);
       return coordinateTip;
    }
-
    draw(ctx: CanvasRenderingContext2D) {
       ctx.beginPath();
       ctx.strokeStyle = this.color;
