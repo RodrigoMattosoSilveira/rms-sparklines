@@ -1,6 +1,9 @@
 import { TestBed } from '@angular/core/testing';
+import { CoordinateTip } from '../utils/coordinate-tip';
 import { Constants } from '../utils/constants';
 import { FeatureMeasure } from './feature-measure';
+import { HelperMethods } from '../utils/helper-methods';
+import { Rectangle } from '../utils/rectangle';
 
 describe(`FeatureMeasure`, () => {
    var featureMeasureRaw: string;
@@ -46,6 +49,47 @@ describe(`FeatureMeasure`, () => {
                   expect(featureMeasure.getHeight()).toBe(featureMeasure.value/topValue * canvasEl.height);
                });
 				});
+            describe(`build coordinate tips`, () => {
+               var canvasEl: HTMLCanvasElement;
+               var coordinateTip: CoordinateTip;
+               var orientation: string;
+               var tipRect: Rectangle;
+               var topValue: number;
+               beforeEach(() => {
+                  canvasEl = document.createElement('canvas');
+                  featureMeasure = new FeatureMeasure(featureMeasureRaw);
+                  featureMeasure.validate();
+                  topValue = 60;
+               });
+               it('horizontally', () => {
+                  canvasEl.width = 128;
+                  canvasEl.height = 32;
+                  orientation = HelperMethods.computeOrientation(canvasEl)
+                  featureMeasure.scaleToCanvas(canvasEl, orientation, topValue);
+                  coordinateTip = featureMeasure.buildCoordinateTip()
+                  tipRect = coordinateTip.getRect();
+                  expect(coordinateTip.getColor()).toBe('red');
+                  expect(coordinateTip.getTip()).toBe(featureMeasure.getValue().toString());
+                  expect(tipRect.getX()).toBe(featureMeasure.getFromX());
+                  expect(tipRect.getY()).toBe(featureMeasure.getFromY());
+                  expect(tipRect.getWidth()).toBe(featureMeasure.getWidth());
+                  expect(tipRect.getHeight()).toBe(featureMeasure.getHeight());
+               });
+               it('vertically', () => {
+                  canvasEl.width = 32;
+                  canvasEl.height = 128;
+                  orientation = HelperMethods.computeOrientation(canvasEl)
+                  featureMeasure.scaleToCanvas(canvasEl, orientation, topValue);
+                  coordinateTip = featureMeasure.buildCoordinateTip()
+                  tipRect = coordinateTip.getRect();
+                  expect(coordinateTip.getColor()).toBe('red');
+                  expect(coordinateTip.getTip()).toBe(featureMeasure.getValue().toString());
+                  expect(tipRect.getX()).toBe(featureMeasure.getFromX());
+                  expect(tipRect.getY()).toBe(featureMeasure.getFromY());
+                  expect(tipRect.getWidth()).toBe(featureMeasure.getWidth());
+                  expect(tipRect.getHeight()).toBe(featureMeasure.getHeight());
+               });
+            });
 			});
       });
       describe(`an invalid`, () => {
