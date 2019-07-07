@@ -1,6 +1,10 @@
 import { TestBed } from '@angular/core/testing';
+import { CoordinateTip } from '../utils/coordinate-tip';
 import { Constants } from '../utils/constants';
 import { QualitativeRange } from './qualitative-range';
+import { HelperMethods } from '../utils/helper-methods';
+import { Rectangle } from '../utils/rectangle';
+
 
 describe(`QualitativeRange`, () => {
    var qualitativeRangeRaw: string;
@@ -40,6 +44,47 @@ describe(`QualitativeRange`, () => {
                   qualitativeRange.scaleToCanvas(canvasEl, Constants.VERTICAL, topValue);
                   expect(qualitativeRange.getWidth()).toEqual(canvasEl.width);
                   expect(qualitativeRange.getHeight()).toEqual(qualitativeRange.getValue()/topValue * canvasEl.height);
+               });
+               describe(`build coordinate tips`, () => {
+                  var canvasEl: HTMLCanvasElement;
+                  var coordinateTip: CoordinateTip;
+                  var orientation: string;
+                  var tipRect: Rectangle;
+                  var topValue: number;
+                  beforeEach(() => {
+                     canvasEl = document.createElement('canvas');
+                     qualitativeRange = new QualitativeRange(qualitativeRangeRaw);
+                     qualitativeRange.validate();
+                     topValue = 60;
+                  });
+                  it('horizontally', () => {
+                     canvasEl.width = 128;
+                     canvasEl.height = 32;
+                     orientation = HelperMethods.computeOrientation(canvasEl)
+                     qualitativeRange.scaleToCanvas(canvasEl, orientation, topValue);
+                     coordinateTip = qualitativeRange.buildCoordinateTip()
+                     tipRect = coordinateTip.getRect();
+                     expect(coordinateTip.getColor()).toBe('red');
+                     expect(coordinateTip.getTip()).toBe(qualitativeRange.getValue().toString());
+                     expect(tipRect.getX()).toBe(0);
+                     expect(tipRect.getY()).toBe(0);
+                     expect(tipRect.getWidth()).toBe(qualitativeRange.getWidth());
+                     expect(tipRect.getHeight()).toBe(qualitativeRange.getHeight());
+                  });
+                  it('vertically', () => {
+                     canvasEl.width = 32;
+                     canvasEl.height = 128;
+                     orientation = HelperMethods.computeOrientation(canvasEl)
+                     qualitativeRange.scaleToCanvas(canvasEl, orientation, topValue);
+                     coordinateTip = qualitativeRange.buildCoordinateTip()
+                     tipRect = coordinateTip.getRect();
+                     expect(coordinateTip.getColor()).toBe('red');
+                     expect(coordinateTip.getTip()).toBe(qualitativeRange.getValue().toString());
+                     expect(tipRect.getX()).toBe(0);
+                     expect(tipRect.getY()).toBe(0);
+                     expect(tipRect.getWidth()).toBe(qualitativeRange.getWidth());
+                     expect(tipRect.getHeight()).toBe(qualitativeRange.getHeight());
+                  });
                });
             });
          });
