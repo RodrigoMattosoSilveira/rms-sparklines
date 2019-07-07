@@ -39,12 +39,12 @@ export class SparkBullet implements SparklineInterface{
    topValue: number;
    getTopValue(): number { return this.topValue; }
    setTopValue(value: number): void { this.topValue = value; }
+   valid: boolean;
+   getValid(): boolean { return this.valid; }
+   setValid(value: boolean) { this.valid = value; }
    width: number;
    getWidth(): number { return this.width; }
    setWidth(value: number): void { this.width = value; }
-
-   // Working attributes
-   valid: boolean = true;
 
    // Raw Data is collected in the constructor
    constructor(comparativeMeasureRaw: string,
