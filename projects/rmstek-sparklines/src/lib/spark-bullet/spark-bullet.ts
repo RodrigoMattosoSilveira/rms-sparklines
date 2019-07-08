@@ -1,6 +1,8 @@
 import { SparklineInterface} from '../utils/sparkline-interface'
 import { FeatureMeasure } from './feature-measure';
 import { ComparativeMeasure } from './comparative-measure';
+import { CoordinateTip } from '../utils/coordinate-tip';
+import { HelperMethods } from '../utils/helper-methods';
 import { QualitativeRanges } from './qualitative-ranges';
 
 export class SparkBullet implements SparklineInterface{
@@ -70,9 +72,29 @@ export class SparkBullet implements SparklineInterface{
    prepare(): void {
       this.computeTopValue();
    }
-   scale(): void {}
-   draw(): void {}
-   buildToolTips(): void {}
+   scale(canvasEl: HTMLCanvasElement): void {
+      let orientation = HelperMethods.computeOrientation(canvasEl);
+      let topValue: number = this.getTopValue();
+      this.getQualitativeRanges().scaleToCanvas(canvasEl);
+      this.getComparativeMeasure().scaleToCanvas(canvasEl, orientation, topValue);
+      this.getFeatureMeasure().scaleToCanvas(canvasEl, orientation, topValue);
+   }
+   draw(canvasEl: HTMLCanvasElement): void {
+      const ctx: CanvasRenderingContext2D = canvasEl.getContext('2d');
+      this.getQualitativeRanges().draw(ctx);
+      this.getComparativeMeasure().draw(ctx);
+      this.getFeatureMeasure().draw(ctx);
+   }
+   buildToolTips(canvasEl: HTMLCanvasElement): void {
+      const orientation: string = HelperMethods.computeOrientation(canvasEl);
+      var coordinateTips: CoordinateTip[] = [];
+      let qualityRangesTips: Array<CoordinateTip> = this.getQualitativeRanges().buildCoordinateTip()
+      coordinateTips.push( this.getComparativeMeasure().buildCoordinateTip(orientation));
+      coordinateTips.push( this.getFeatureMeasure().buildCoordinateTip());
+      for (let i = 0; qualityRangesTips.length; i++) {
+         coordinateTips.push(qualityRangesTips[i]);
+      }
+   }
    setToolTips(): void {}
    // validation methods
    validateComparativeMeasureRaw(comparativeMeasureRaw: string): boolean {

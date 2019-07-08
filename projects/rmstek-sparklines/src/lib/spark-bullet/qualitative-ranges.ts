@@ -78,13 +78,17 @@ export class QualitativeRanges {
       sortedQrs = qrs.sort(function (a: QualitativeRange, b: QualitativeRange) { return a.value<b.value ? -1 : a.value==b.value ? 0 : 1;});
       return sortedQrs;
    }
-   buildCoordinateTip(): CoordinateTip {
-      let coordinateTip: CoordinateTip;
-      return coordinateTip;
+   buildCoordinateTip(): Array<CoordinateTip> {
+      let coordinateTips: Array<CoordinateTip>;
+      for (let i = 0; i < this.qualitativeRangesArray.length; i++) {
+         let qualitativeRange: QualitativeRange = this.qualitativeRangesArray[i];
+         coordinateTips.push(qualitativeRange.buildCoordinateTip());
+      }
+      return coordinateTips;
    }
    draw(ctx: CanvasRenderingContext2D): void {
-      for (let i = 0; i < this.getQualitativeRangesArray().length; i++) {
-         let qualitativeRange: QualitativeRange = this.getQualitativeRangesArray()[i];
+      for (let i = 0; i < this.qualitativeRangesArray.length; i++) {
+         let qualitativeRange: QualitativeRange = this.qualitativeRangesArray[i];
          qualitativeRange.draw(ctx);
       }
    }
