@@ -93,11 +93,11 @@ export class SparkBullet implements SparklineInterface{
    buildToolTips(canvasEl: HTMLCanvasElement): void {
       const orientation: string = HelperMethods.computeOrientation(canvasEl);
       this.setTooltips([]);
-      let qualityRangesToolips: Array<Tooltip> = this.getQualitativeRanges().buildCoordinateTip()
+      let qualityRangesTootips: Array<Tooltip> = this.getQualitativeRanges().buildCoordinateTip()
       this.getTooltips().push( this.getComparativeMeasure().buildCoordinateTip(orientation));
       this.getTooltips().push( this.getFeatureMeasure().buildCoordinateTip());
-      for (let i = 0; qualityRangesToolips.length; i++) {
-         this.getTooltips().push(qualityRangesToolips[i]);
+      for (let i = 0; qualityRangesTootips.length; i++) {
+         this.getTooltips().push(qualityRangesTootips[i]);
       }
    }
    setToolTips(): void {}
