@@ -1,7 +1,7 @@
 import { SparklineInterface} from '../utils/sparkline-interface'
 import { FeatureMeasure } from './feature-measure';
 import { ComparativeMeasure } from './comparative-measure';
-import { CoordinateTip } from '../utils/coordinate-tip';
+import { Tooltip } from '../utils/tooltip';
 import { HelperMethods } from '../utils/helper-methods';
 import { QualitativeRanges } from './qualitative-ranges';
 
@@ -38,6 +38,9 @@ export class SparkBullet implements SparklineInterface{
    qualitativeRanges: QualitativeRanges;
    getQualitativeRanges(): QualitativeRanges { return this.qualitativeRanges; }
    setQualitativeRanges(value: QualitativeRanges): void { this.qualitativeRanges = value; }
+   tooltips: Array<Tooltip>;
+   getTooltips(): Array<Tooltip> { return this.tooltips; }
+   setTooltips(value: Array<Tooltip>): void { this.tooltips = value; }
    topValue: number;
    getTopValue(): number { return this.topValue; }
    setTopValue(value: number): void { this.topValue = value; }
@@ -60,7 +63,9 @@ export class SparkBullet implements SparklineInterface{
       this.setQualitativeRangesRaw(qualitativeRangesRaw);
       this.setWidthRaw(widthRaw);
    }
+   //
    // interface methods
+   //
    validate(): boolean {
       this.valid = this.valid && this.validateComparativeMeasureRaw(this.comparativeMeasureRaw);
       this.valid = this.valid && this.validateFeatureMeasureRaw(this.featureMeasureRaw);
@@ -87,16 +92,18 @@ export class SparkBullet implements SparklineInterface{
    }
    buildToolTips(canvasEl: HTMLCanvasElement): void {
       const orientation: string = HelperMethods.computeOrientation(canvasEl);
-      var coordinateTips: CoordinateTip[] = [];
-      let qualityRangesTips: Array<CoordinateTip> = this.getQualitativeRanges().buildCoordinateTip()
-      coordinateTips.push( this.getComparativeMeasure().buildCoordinateTip(orientation));
-      coordinateTips.push( this.getFeatureMeasure().buildCoordinateTip());
-      for (let i = 0; qualityRangesTips.length; i++) {
-         coordinateTips.push(qualityRangesTips[i]);
+      this.setTooltips([]);
+      let qualityRangesToolips: Array<Tooltip> = this.getQualitativeRanges().buildCoordinateTip()
+      this.getTooltips().push( this.getComparativeMeasure().buildCoordinateTip(orientation));
+      this.getTooltips().push( this.getFeatureMeasure().buildCoordinateTip());
+      for (let i = 0; qualityRangesToolips.length; i++) {
+         this.getTooltips().push(qualityRangesToolips[i]);
       }
    }
    setToolTips(): void {}
-   // validation methods
+   //
+   // Validation supporting methods
+   //
    validateComparativeMeasureRaw(comparativeMeasureRaw: string): boolean {
       var comparativeMeasure: ComparativeMeasure = new  ComparativeMeasure(comparativeMeasureRaw);
       var valid: boolean = comparativeMeasure.validate();

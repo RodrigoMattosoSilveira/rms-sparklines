@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { ComparativeMeasure } from './comparative-measure';
-import { CoordinateTip } from '../utils/coordinate-tip';
 import { Constants } from '../utils/constants';
 import { HelperMethods } from '../utils/helper-methods';
 import { Rectangle } from '../utils/rectangle';
+import { Tooltip } from '../utils/tooltip';
 
 describe(`ComparativeMeasure`, () => {
    var comparativeMeasureRaw: string;
@@ -51,7 +51,7 @@ describe(`ComparativeMeasure`, () => {
 				});
             describe(`builds coordinate tips corectly`, () => {
                var canvasEl: HTMLCanvasElement;
-               var coordinateTip: CoordinateTip;
+               var tooltip: Tooltip;
                var orientation: string;
                var tipRect: Rectangle;
                var topValue: number;
@@ -66,10 +66,10 @@ describe(`ComparativeMeasure`, () => {
                   canvasEl.height = 32;
                   orientation = HelperMethods.computeOrientation(canvasEl)
                   comparativeMeasure.scaleToCanvas(canvasEl, orientation, topValue);
-                  coordinateTip = comparativeMeasure.buildCoordinateTip(orientation)
-                  tipRect = coordinateTip.getRect();
-                  expect(coordinateTip.getColor()).toBe('red');
-                  expect(coordinateTip.getTip()).toBe(comparativeMeasure.getValue().toString());
+                  tooltip = comparativeMeasure.buildCoordinateTip(orientation)
+                  tipRect = tooltip.getRect();
+                  expect(tooltip.getColor()).toBe('red');
+                  expect(tooltip.getTip()).toBe(comparativeMeasure.getValue().toString());
                   expect(tipRect.getX()).toBe(comparativeMeasure.getFromX() - comparativeMeasure.getLineWidth()/2);
                   expect(tipRect.getY()).toBe(comparativeMeasure.getFromY());
                   expect(tipRect.getWidth()).toBe(comparativeMeasure.getLineWidth());
@@ -80,10 +80,10 @@ describe(`ComparativeMeasure`, () => {
                   canvasEl.height = 128;
                   orientation = HelperMethods.computeOrientation(canvasEl)
                   comparativeMeasure.scaleToCanvas(canvasEl, orientation, topValue);
-                  coordinateTip = comparativeMeasure.buildCoordinateTip(orientation);
-                  tipRect = coordinateTip.getRect();
-                  expect(coordinateTip.getColor()).toBe('red');
-                  expect(coordinateTip.getTip()).toBe(comparativeMeasure.getValue().toString());
+                  tooltip = comparativeMeasure.buildCoordinateTip(orientation);
+                  tipRect = tooltip.getRect();
+                  expect(tooltip.getColor()).toBe('red');
+                  expect(tooltip.getTip()).toBe(comparativeMeasure.getValue().toString());
                   expect(tipRect.getX()).toBe(comparativeMeasure.getFromX());
                   expect(tipRect.getY()).toBe(comparativeMeasure.getFromY() - comparativeMeasure.getLineWidth()/2);
                   expect(tipRect.getWidth()).toBe(comparativeMeasure.getToX() - comparativeMeasure.getFromX() + 1);

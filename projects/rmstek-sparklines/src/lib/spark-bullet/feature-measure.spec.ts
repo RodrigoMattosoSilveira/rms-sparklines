@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
-import { CoordinateTip } from '../utils/coordinate-tip';
 import { Constants } from '../utils/constants';
 import { FeatureMeasure } from './feature-measure';
 import { HelperMethods } from '../utils/helper-methods';
 import { Rectangle } from '../utils/rectangle';
+import { Tooltip } from '../utils/tooltip';
 
 describe(`FeatureMeasure`, () => {
    var featureMeasureRaw: string;
@@ -51,7 +51,7 @@ describe(`FeatureMeasure`, () => {
 				});
             describe(`build coordinate tips`, () => {
                var canvasEl: HTMLCanvasElement;
-               var coordinateTip: CoordinateTip;
+               var tooltip: Tooltip;
                var orientation: string;
                var tipRect: Rectangle;
                var topValue: number;
@@ -66,10 +66,10 @@ describe(`FeatureMeasure`, () => {
                   canvasEl.height = 32;
                   orientation = HelperMethods.computeOrientation(canvasEl)
                   featureMeasure.scaleToCanvas(canvasEl, orientation, topValue);
-                  coordinateTip = featureMeasure.buildCoordinateTip()
-                  tipRect = coordinateTip.getRect();
-                  expect(coordinateTip.getColor()).toBe('red');
-                  expect(coordinateTip.getTip()).toBe(featureMeasure.getValue().toString());
+                  tooltip = featureMeasure.buildCoordinateTip()
+                  tipRect = tooltip.getRect();
+                  expect(tooltip.getColor()).toBe('red');
+                  expect(tooltip.getTip()).toBe(featureMeasure.getValue().toString());
                   expect(tipRect.getX()).toBe(featureMeasure.getFromX());
                   expect(tipRect.getY()).toBe(featureMeasure.getFromY());
                   expect(tipRect.getWidth()).toBe(featureMeasure.getWidth());
@@ -80,10 +80,10 @@ describe(`FeatureMeasure`, () => {
                   canvasEl.height = 128;
                   orientation = HelperMethods.computeOrientation(canvasEl)
                   featureMeasure.scaleToCanvas(canvasEl, orientation, topValue);
-                  coordinateTip = featureMeasure.buildCoordinateTip()
-                  tipRect = coordinateTip.getRect();
-                  expect(coordinateTip.getColor()).toBe('red');
-                  expect(coordinateTip.getTip()).toBe(featureMeasure.getValue().toString());
+                  tooltip = featureMeasure.buildCoordinateTip()
+                  tipRect = tooltip.getRect();
+                  expect(tooltip.getColor()).toBe('red');
+                  expect(tooltip.getTip()).toBe(featureMeasure.getValue().toString());
                   expect(tipRect.getX()).toBe(featureMeasure.getFromX());
                   expect(tipRect.getY()).toBe(featureMeasure.getFromY());
                   expect(tipRect.getWidth()).toBe(featureMeasure.getWidth());

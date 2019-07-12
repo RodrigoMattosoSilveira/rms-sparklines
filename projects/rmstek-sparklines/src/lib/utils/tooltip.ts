@@ -1,6 +1,6 @@
 import { Rectangle } from './rectangle';
 
-export class CoordinateTip {
+export class Tooltip {
    rect: Rectangle;
    color: string;
    tip: string;

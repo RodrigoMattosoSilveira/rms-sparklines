@@ -1,7 +1,7 @@
 import { CssColorString } from '../utils/valid-colors';
 import { Constants } from '../utils/constants';
-import { CoordinateTip } from '../utils/coordinate-tip';
 import { Rectangle } from '../utils/rectangle';
+import { Tooltip } from '../utils/tooltip';
 
 export class ComparativeMeasure {
    color: string;
@@ -125,8 +125,8 @@ export class ComparativeMeasure {
          break;
       }
    }
-   buildCoordinateTip(orientaton: string): CoordinateTip {
-      var coordinateTip: CoordinateTip;
+   buildCoordinateTip(orientaton: string): Tooltip {
+      var tooltip: Tooltip;
       var rect: Rectangle;
       var color: string = 'red'
       var tip: string = this.getValue().toString();
@@ -150,8 +150,8 @@ export class ComparativeMeasure {
       }
 
       rect = new Rectangle(x, y, width, height);
-      coordinateTip = new CoordinateTip(rect, color, tip);
-      return coordinateTip;
+      tooltip = new Tooltip(rect, color, tip);
+      return tooltip;
    }
    draw(ctx: CanvasRenderingContext2D) {
       ctx.beginPath();

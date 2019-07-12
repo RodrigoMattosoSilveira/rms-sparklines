@@ -1,7 +1,7 @@
 import { CssColorString } from '../utils/valid-colors';
 import { Constants } from '../utils/constants';
-import { CoordinateTip } from '../utils/coordinate-tip';
 import { Rectangle } from '../utils/rectangle';
+import { Tooltip } from '../utils/tooltip';
 
 export class FeatureMeasure {
    color: string;
@@ -105,15 +105,15 @@ export class FeatureMeasure {
             break;
       }
    }
-   buildCoordinateTip(): CoordinateTip {
-      var coordinateTip: CoordinateTip;
+   buildCoordinateTip(): Tooltip {
+      var tooltip: Tooltip;
       var rect: Rectangle;
       var color: string = 'red'
       var tip: string = this.getValue().toString();
 
       rect = new Rectangle(this.fromX, this.fromY, this.width, this.height);
-      coordinateTip = new CoordinateTip(rect, color, tip);
-      return coordinateTip;
+      tooltip = new Tooltip(rect, color, tip);
+      return tooltip;
    }
 
    draw(ctx: CanvasRenderingContext2D) {

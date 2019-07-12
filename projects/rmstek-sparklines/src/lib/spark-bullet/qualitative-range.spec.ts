@@ -1,10 +1,9 @@
 import { TestBed } from '@angular/core/testing';
-import { CoordinateTip } from '../utils/coordinate-tip';
 import { Constants } from '../utils/constants';
 import { QualitativeRange } from './qualitative-range';
 import { HelperMethods } from '../utils/helper-methods';
 import { Rectangle } from '../utils/rectangle';
-
+import { Tooltip } from '../utils/tooltip';
 
 describe(`QualitativeRange`, () => {
    var qualitativeRangeRaw: string;
@@ -47,7 +46,7 @@ describe(`QualitativeRange`, () => {
                });
                describe(`build coordinate tips`, () => {
                   var canvasEl: HTMLCanvasElement;
-                  var coordinateTip: CoordinateTip;
+                  var tooltip: Tooltip;
                   var orientation: string;
                   var tipRect: Rectangle;
                   var topValue: number;
@@ -62,10 +61,10 @@ describe(`QualitativeRange`, () => {
                      canvasEl.height = 32;
                      orientation = HelperMethods.computeOrientation(canvasEl)
                      qualitativeRange.scaleToCanvas(canvasEl, orientation, topValue);
-                     coordinateTip = qualitativeRange.buildCoordinateTip()
-                     tipRect = coordinateTip.getRect();
-                     expect(coordinateTip.getColor()).toBe('red');
-                     expect(coordinateTip.getTip()).toBe(qualitativeRange.getValue().toString());
+                     tooltip = qualitativeRange.buildCoordinateTip()
+                     tipRect = tooltip.getRect();
+                     expect(tooltip.getColor()).toBe('red');
+                     expect(tooltip.getTip()).toBe(qualitativeRange.getValue().toString());
                      expect(tipRect.getX()).toBe(0);
                      expect(tipRect.getY()).toBe(0);
                      expect(tipRect.getWidth()).toBe(qualitativeRange.getWidth());
@@ -76,10 +75,10 @@ describe(`QualitativeRange`, () => {
                      canvasEl.height = 128;
                      orientation = HelperMethods.computeOrientation(canvasEl)
                      qualitativeRange.scaleToCanvas(canvasEl, orientation, topValue);
-                     coordinateTip = qualitativeRange.buildCoordinateTip()
-                     tipRect = coordinateTip.getRect();
-                     expect(coordinateTip.getColor()).toBe('red');
-                     expect(coordinateTip.getTip()).toBe(qualitativeRange.getValue().toString());
+                     tooltip = qualitativeRange.buildCoordinateTip()
+                     tipRect = tooltip.getRect();
+                     expect(tooltip.getColor()).toBe('red');
+                     expect(tooltip.getTip()).toBe(qualitativeRange.getValue().toString());
                      expect(tipRect.getX()).toBe(0);
                      expect(tipRect.getY()).toBe(0);
                      expect(tipRect.getWidth()).toBe(qualitativeRange.getWidth());
