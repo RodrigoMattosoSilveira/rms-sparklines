@@ -1,23 +1,23 @@
-import { CoordinateTip } from './coordinate-tip';
+import { Tooltip } from './tooltip';
 
-export class setToolTips {
+export class TooltipService {
    canvasEl: HTMLCanvasElement;
    getClassEl(): HTMLCanvasElement { return this.canvasEl; }
    setupCanvasEl(value: HTMLCanvasElement) { this.canvasEl = value; }
-   coordinatesTips: Array<CoordinateTip>;
-   getCoordinatesTips(): Array<CoordinateTip> { return this.coordinatesTips; }
-   setCoordinatesTips(value: Array<CoordinateTip>) { this.coordinatesTips = value; }
+   tooltips: Array<Tooltip>;
+   getTooltips(): Array<Tooltip> { return this.tooltips; }
+   setTooltips(value: Array<Tooltip>) { this.tooltips = value; }
    tooltipId: string;
    getTooltipId(): string { return this.tooltipId; }
    setTooltipId(value: string) { this.tooltipId = value; }
-   constructor(canvasEl: HTMLCanvasElement, coordinatesTips: Array<CoordinateTip>, tooltipId: string) {
+   constructor(canvasEl: HTMLCanvasElement, coordinatesTips: Array<Tooltip>, tooltipId: string) {
       this.setupCanvasEl(canvasEl);
-      this.setCoordinatesTips(coordinatesTips);
+      this.setTooltips(coordinatesTips);
       this.setTooltipId(tooltipId);
    }
    handleMouseMove($event: MouseEvent) {
       var canvasEl = this.getClassEl();
-      var coordinatesTips: Array<CoordinateTip> = this.getCoordinatesTips();
+      var tooltips: Array<Tooltip> = this.getTooltips();
       var tooltipId: string = this.getTooltipId();
       let tooltip: HTMLCanvasElement;
       let mySpan: HTMLSpanElement;
@@ -40,11 +40,11 @@ export class setToolTips {
       const mouseY = $event.clientY - rect.top + window.pageYOffset || document.documentElement.scrollTop;
       // console.log(`BarChart::handleMouseMove mouseX: ` + mouseX + `, mouseY: ` + mouseY);
 
-      for (let i = 0; i < coordinatesTips.length; i++) {
-           const tipX = coordinatesTips[i].rect.getX();
-           const tipWidth = coordinatesTips[i].rect.getWidth();
-           let tipHeight = coordinatesTips[i].rect.getHeight();
-           let tipY = coordinatesTips[i].rect.getY();
+      for (let i = 0; i < tooltips.length; i++) {
+           const tipX = tooltips[i].rect.getX();
+           const tipWidth = tooltips[i].rect.getWidth();
+           let tipHeight = tooltips[i].rect.getHeight();
+           let tipY = tooltips[i].rect.getY();
            if (tipHeight < 0) {
                tipY += tipHeight;
                tipHeight *= -1;
@@ -63,7 +63,7 @@ export class setToolTips {
                mySpan.id = 'mySpanId';
                mySpan.style.font = fontDefinition;
                mySpan.style.textAlign = 'center';
-               mySpan.innerHTML = '' + coordinatesTips[i].tip;
+               mySpan.innerHTML = '' + tooltips[i].tip;
                body = document.getElementsByTagName('body')[0];
                body.appendChild(mySpan);
                mySpan = document.getElementById('mySpanId');
@@ -98,7 +98,7 @@ export class setToolTips {
                ctx.fill();
                ctx.fillStyle = 'red';
                ctx.font = fontDefinition;
-               ctx.fillText('' + coordinatesTips[i].tip, 1, height - 2);
+               ctx.fillText('' + tooltips[i].tip, 1, height - 2);
 
                body = document.getElementsByTagName('body')[0];
                body.appendChild(tooltip);
