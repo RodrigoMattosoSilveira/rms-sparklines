@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
-import { Constants } from '../utils/constants';
+import { Constants } from '../../utils/constants';
 import { FeatureMeasure } from './feature-measure';
-import { HelperMethods } from '../utils/helper-methods';
-import { Rectangle } from '../utils/rectangle';
-import { Tooltip } from '../utils/tooltip';
+import { HelperMethods } from '../../utils/helper-methods';
+import { Rectangle } from '../../utils/rectangle';
+import { Tooltip } from '../../utils/tooltip';
 
 describe(`FeatureMeasure`, () => {
    var featureMeasureRaw: string;
@@ -66,7 +66,7 @@ describe(`FeatureMeasure`, () => {
                   canvasEl.height = 32;
                   orientation = HelperMethods.computeOrientation(canvasEl)
                   featureMeasure.scaleToCanvas(canvasEl, orientation, topValue);
-                  tooltip = featureMeasure.buildCoordinateTip()
+                  tooltip = featureMeasure.buildtooltips()
                   tipRect = tooltip.getRect();
                   expect(tooltip.getColor()).toBe('red');
                   expect(tooltip.getTip()).toBe(featureMeasure.getValue().toString());
@@ -80,7 +80,7 @@ describe(`FeatureMeasure`, () => {
                   canvasEl.height = 128;
                   orientation = HelperMethods.computeOrientation(canvasEl)
                   featureMeasure.scaleToCanvas(canvasEl, orientation, topValue);
-                  tooltip = featureMeasure.buildCoordinateTip()
+                  tooltip = featureMeasure.buildtooltips()
                   tipRect = tooltip.getRect();
                   expect(tooltip.getColor()).toBe('red');
                   expect(tooltip.getTip()).toBe(featureMeasure.getValue().toString());

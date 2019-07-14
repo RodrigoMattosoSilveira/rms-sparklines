@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { ComparativeMeasure } from './comparative-measure';
-import { Constants } from '../utils/constants';
-import { HelperMethods } from '../utils/helper-methods';
-import { Rectangle } from '../utils/rectangle';
-import { Tooltip } from '../utils/tooltip';
+import { Constants } from '../../utils/constants';
+import { HelperMethods } from '../../utils/helper-methods';
+import { Rectangle } from '../../utils/rectangle';
+import { Tooltip } from '../../utils/tooltip';
 
 describe(`ComparativeMeasure`, () => {
    var comparativeMeasureRaw: string;
@@ -80,7 +80,7 @@ describe(`ComparativeMeasure`, () => {
                   canvasEl.height = 128;
                   orientation = HelperMethods.computeOrientation(canvasEl)
                   comparativeMeasure.scaleToCanvas(canvasEl, orientation, topValue);
-                  tooltip = comparativeMeasure.buildCoordinateTip(orientation);
+                  tooltip = comparativeMeasure.buildtooltips(orientation);
                   tipRect = tooltip.getRect();
                   expect(tooltip.getColor()).toBe('red');
                   expect(tooltip.getTip()).toBe(comparativeMeasure.getValue().toString());

@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
-import { Constants } from '../utils/constants';
+import { Constants } from '../../utils/constants';
 import { QualitativeRange } from './qualitative-range';
-import { HelperMethods } from '../utils/helper-methods';
-import { Rectangle } from '../utils/rectangle';
-import { Tooltip } from '../utils/tooltip';
+import { HelperMethods } from '../../utils/helper-methods';
+import { Rectangle } from '../../utils/rectangle';
+import { Tooltip } from '../../utils/tooltip';
 
 describe(`QualitativeRange`, () => {
    var qualitativeRangeRaw: string;

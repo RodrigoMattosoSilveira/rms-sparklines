@@ -1,7 +1,7 @@
-import { CssColorString } from '../utils/valid-colors';
-import { Constants } from '../utils/constants';
-import { Rectangle } from '../utils/rectangle';
-import { Tooltip } from '../utils/tooltip';
+import { CssColorString } from '../../utils/valid-colors';
+import { Constants } from '../../utils/constants';
+import { Rectangle } from '../../utils/rectangle';
+import { Tooltip } from '../../utils/tooltip';
 
 export class FeatureMeasure {
    color: string;
@@ -105,7 +105,7 @@ export class FeatureMeasure {
             break;
       }
    }
-   buildCoordinateTip(): Tooltip {
+   buildtooltips(): Tooltip {
       var tooltip: Tooltip;
       var rect: Rectangle;
       var color: string = 'red'

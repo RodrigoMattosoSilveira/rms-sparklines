@@ -1,7 +1,7 @@
-import { CssColorString } from '../utils/valid-colors';
-import { Constants } from '../utils/constants';
-import { Rectangle } from '../utils/rectangle';
-import { Tooltip } from '../utils/tooltip';
+import { CssColorString } from '../../utils/valid-colors';
+import { Constants } from '../../utils/constants';
+import { Rectangle } from '../../utils/rectangle';
+import { Tooltip } from '../../utils/tooltip';
 
 export class QualitativeRange {
    color: string;

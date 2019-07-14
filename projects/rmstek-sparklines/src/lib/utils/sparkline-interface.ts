@@ -2,9 +2,8 @@
 export interface SparklineInterface {
    // Data is collected via the constructor \
    validate(): void;
-   prepare(): void;
+   prepare(canvasEl?: HTMLCanvasElement): void;
    scale(canvasEl: HTMLCanvasElement): void;
    draw(canvasEl: HTMLCanvasElement): void;
-   buildToolTips(canvasEl: HTMLCanvasElement): void;
-   setToolTips(): void;
+   setToolTips(canvasEl: HTMLCanvasElement): void;
 }

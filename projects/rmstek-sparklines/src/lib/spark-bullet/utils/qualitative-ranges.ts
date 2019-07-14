@@ -1,6 +1,6 @@
-import { HelperMethods } from '../utils/helper-methods';
+import { HelperMethods } from '../../utils/helper-methods';
 import { QualitativeRange } from './qualitative-range'
-import { Tooltip } from '../utils/tooltip';
+import { Tooltip } from '../../utils/tooltip';
 
 export class QualitativeRanges {
    qualitativeRangesArray: Array<QualitativeRange> = [];
@@ -78,8 +78,8 @@ export class QualitativeRanges {
       sortedQrs = qrs.sort(function (a: QualitativeRange, b: QualitativeRange) { return a.value<b.value ? -1 : a.value==b.value ? 0 : 1;});
       return sortedQrs;
    }
-   buildCoordinateTip(): Array<Tooltip> {
-      let tooltips: Array<Tooltip>;
+   buildtooltips(): Array<Tooltip> {
+      let tooltips: Array<Tooltip> = [];
       for (let i = 0; i < this.qualitativeRangesArray.length; i++) {
          let qualitativeRange: QualitativeRange = this.qualitativeRangesArray[i];
          tooltips.push(qualitativeRange.buildCoordinateTip());

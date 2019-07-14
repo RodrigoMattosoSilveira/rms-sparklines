@@ -10,10 +10,23 @@ export class TooltipService {
    tooltipId: string;
    getTooltipId(): string { return this.tooltipId; }
    setTooltipId(value: string) { this.tooltipId = value; }
-   constructor(canvasEl: HTMLCanvasElement, coordinatesTips: Array<Tooltip>, tooltipId: string) {
+   constructor(canvasEl: HTMLCanvasElement, tooltips: Array<Tooltip>, tooltipId: string) {
+      var thisThis: any = this;
+
       this.setupCanvasEl(canvasEl);
-      this.setTooltips(coordinatesTips);
+      this.setTooltips(tooltips);
       this.setTooltipId(tooltipId);
+
+      canvasEl.addEventListener('mousemove', function(event: any) {
+         // console.log(`TooltipService::addEventListener`);
+         thisThis.handleMouseMove(event);
+      });
+
+      canvasEl.addEventListener('mouseout', function() {
+      // console.log(`TooltipService::addEventListener`);
+         thisThis.handleMouseOut();
+      });
+
    }
    handleMouseMove($event: MouseEvent) {
       var canvasEl = this.getClassEl();

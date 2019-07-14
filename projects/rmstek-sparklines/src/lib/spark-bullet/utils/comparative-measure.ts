@@ -1,7 +1,7 @@
-import { CssColorString } from '../utils/valid-colors';
-import { Constants } from '../utils/constants';
-import { Rectangle } from '../utils/rectangle';
-import { Tooltip } from '../utils/tooltip';
+import { CssColorString } from '../../utils/valid-colors';
+import { Constants } from '../../utils/constants';
+import { Rectangle } from '../../utils/rectangle';
+import { Tooltip } from '../../utils/tooltip';
 
 export class ComparativeMeasure {
    color: string;
@@ -125,7 +125,7 @@ export class ComparativeMeasure {
          break;
       }
    }
-   buildCoordinateTip(orientaton: string): Tooltip {
+   buildtooltips(orientaton: string): Tooltip {
       var tooltip: Tooltip;
       var rect: Rectangle;
       var color: string = 'red'

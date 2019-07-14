@@ -1,9 +1,12 @@
-import { SparklineInterface} from '../utils/sparkline-interface'
+import { SparklineInterface} from '../../utils/sparkline-interface'
 import { FeatureMeasure } from './feature-measure';
 import { ComparativeMeasure } from './comparative-measure';
-import { Tooltip } from '../utils/tooltip';
-import { HelperMethods } from '../utils/helper-methods';
+import { HelperMethods } from '../../utils/helper-methods';
 import { QualitativeRanges } from './qualitative-ranges';
+import { Tooltip } from '../../utils/tooltip';
+import { TooltipService } from '../../utils/tooltip-service';
+
+
 
 export class SparkBullet implements SparklineInterface{
    // raw arguments
@@ -38,6 +41,7 @@ export class SparkBullet implements SparklineInterface{
    qualitativeRanges: QualitativeRanges;
    getQualitativeRanges(): QualitativeRanges { return this.qualitativeRanges; }
    setQualitativeRanges(value: QualitativeRanges): void { this.qualitativeRanges = value; }
+   tooltipId = `rms-spark-bulletchart-tooltip`;
    tooltips: Array<Tooltip>;
    getTooltips(): Array<Tooltip> { return this.tooltips; }
    setTooltips(value: Array<Tooltip>): void { this.tooltips = value; }
@@ -67,6 +71,7 @@ export class SparkBullet implements SparklineInterface{
    // interface methods
    //
    validate(): boolean {
+      this.setValid(true);
       this.valid = this.valid && this.validateComparativeMeasureRaw(this.comparativeMeasureRaw);
       this.valid = this.valid && this.validateFeatureMeasureRaw(this.featureMeasureRaw);
       this.valid = this.valid && this.validateHeightRaw();
@@ -90,17 +95,26 @@ export class SparkBullet implements SparklineInterface{
       this.getComparativeMeasure().draw(ctx);
       this.getFeatureMeasure().draw(ctx);
    }
-   buildToolTips(canvasEl: HTMLCanvasElement): void {
-      const orientation: string = HelperMethods.computeOrientation(canvasEl);
-      this.setTooltips([]);
-      let qualityRangesTootips: Array<Tooltip> = this.getQualitativeRanges().buildCoordinateTip()
-      this.getTooltips().push( this.getComparativeMeasure().buildCoordinateTip(orientation));
-      this.getTooltips().push( this.getFeatureMeasure().buildCoordinateTip());
-      for (let i = 0; qualityRangesTootips.length; i++) {
-         this.getTooltips().push(qualityRangesTootips[i]);
-      }
+   setToolTips(canvasEl: HTMLCanvasElement): void {
+      var tooltipService: TooltipService;
+
+      this.buildToolTips(canvasEl);
+      tooltipService = new TooltipService(canvasEl, this.getTooltips(), this.tooltipId)
+
+
+      canvasEl.addEventListener('mousemove', function(event: any) {
+         // console.log(`RmsSparklineInlineNew::addEventListener`);
+
+         // Note that when this function is called, this points to the target element!
+         // console.log(`SparkLineComponent:ngAfterViewInit - handling mousemove`);
+         tooltipService.handleMouseMove(event);
+      });
+
+      canvasEl.addEventListener('mouseout', function() {
+      // console.log(`RmsSparklineInlineNew::addEventListener`);
+         tooltipService.handleMouseOut();
+      });
    }
-   setToolTips(): void {}
    //
    // Validation supporting methods
    //
@@ -122,7 +136,7 @@ export class SparkBullet implements SparklineInterface{
    }
    validateHeightRaw(): boolean {
       var valid: boolean = true;
-      var heightRaw = this.getHeightRaw;
+      var heightRaw = this.getHeightRaw();
       let number = Number(this.getHeightRaw());
       if(isNaN(number)) {
          console.log(`SparkBullet:validate - height value is not a number: ` + JSON.stringify(heightRaw));
@@ -158,4 +172,18 @@ export class SparkBullet implements SparklineInterface{
    computeTopValue() {
       this.setTopValue(this.getQualitativeRanges().computeTopValue());
    }
+   //
+   // tooltip methods
+   //
+   buildToolTips(canvasEl: HTMLCanvasElement): void {
+      const orientation: string = HelperMethods.computeOrientation(canvasEl);
+      this.setTooltips([]);
+      let qualityRangesTootips: Array<Tooltip> = this.getQualitativeRanges().buildtooltips();
+      this.getTooltips().push( this.getComparativeMeasure().buildtooltips(orientation));
+      this.getTooltips().push( this.getFeatureMeasure().buildtooltips());
+      for (let i = 0; qualityRangesTootips.length; i++) {
+         this.getTooltips().push(qualityRangesTootips[i]);
+      }
+   }
+
 }
