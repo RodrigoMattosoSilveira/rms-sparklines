@@ -9,6 +9,7 @@
       "lint": "ng lint",
       "e2e": "ng e2e",
       "lib:build": "ng build rmstek-sparklines",
+      "lib:build:watch": "ng build rmstek-sparklines --watch",
       "lib:chglog": "cp ./projects/rmstek-sparklines/CHANGELOG.md ./dist/rmstek-sparklines",
       "lib:license": "cp ./projects/rmstek-sparklines/LICENSE ./dist/library",
       "lib:readme": "cp ./projects/rmstek-sparklines/README.md ./dist/rmstek-sparklines",
