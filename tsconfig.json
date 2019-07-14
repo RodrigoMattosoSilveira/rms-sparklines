@@ -19,9 +19,6 @@
       "dom"
     ],
     "paths": {
-      "rmstek-sparklines": [
-        "dist/rmstek-sparklines"
-      ],
       "rmstek-sparklines/*": [
         "dist/rmstek-sparklines/*"
       ]
