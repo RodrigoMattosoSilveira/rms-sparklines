@@ -23,8 +23,8 @@ describe('SparkBulletComponent', () => {
      fixture = TestBed.createComponent(SparkBulletComponent);
      component = fixture.componentInstance;
      fixture.detectChanges();
-     canvasEl = fixture.nativeElement.querySelector('canvas');
      compiledFixture = fixture.debugElement.nativeElement
+     canvasEl = fixture.nativeElement.querySelector('canvas');
      canvasCtx = canvasEl.getContext('2d');
   });
 
