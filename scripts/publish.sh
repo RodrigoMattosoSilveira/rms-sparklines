@@ -31,10 +31,11 @@ is_feature_branch_version() {
    fi
 }
 
-yarn lib:reset
-echo Publihing "$(ls dist/sparklines | grep tgz)"
-get_version
 if is_travis_branch_master || is_feature_branch_version; then
+   yarn lib:reset
+   echo Publihing "$(ls dist/sparklines | grep tgz)"
+   get_version
+
    npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
    npm whoami
    git reset --hard # removes staged and working directory changes
