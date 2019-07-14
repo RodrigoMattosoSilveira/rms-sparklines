@@ -9,7 +9,7 @@ import { version } from '../../../../package.json';
 export class AppComponent {
   title = 'living-style-guide';
   // version =  `0.3.2-rc.1`;
-   public version: string = version;
+   public myVersion: string = version;
   sparklines = [
     {
       name: 'Bar Chart',
