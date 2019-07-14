@@ -79,17 +79,18 @@ export class QualitativeRanges {
       return sortedQrs;
    }
    buildtooltips(): Array<Tooltip> {
+      var qualitativeRanges: Array<QualitativeRange> = this.sortQualitativeRangeLowHigh();
       let tooltips: Array<Tooltip> = [];
-      for (let i = 0; i < this.qualitativeRangesArray.length; i++) {
-         let qualitativeRange: QualitativeRange = this.qualitativeRangesArray[i];
+      for (let i = 0; i < qualitativeRanges.length; i++) {
+         let qualitativeRange: QualitativeRange = qualitativeRanges[i];
          tooltips.push(qualitativeRange.buildCoordinateTip());
       }
       return tooltips;
    }
-   draw(ctx: CanvasRenderingContext2D): void {
-      for (let i = 0; i < this.qualitativeRangesArray.length; i++) {
-         let qualitativeRange: QualitativeRange = this.qualitativeRangesArray[i];
-         qualitativeRange.draw(ctx);
+   draw(ctx: CanvasRenderingContext2D): void { 
+      var qualitativeRanges: Array<QualitativeRange> = this.sortQualitativeRangeHighLow();
+      for (let i = 0; i < qualitativeRanges.length; i++) {
+         qualitativeRanges[i].draw(ctx);
       }
    }
 }
