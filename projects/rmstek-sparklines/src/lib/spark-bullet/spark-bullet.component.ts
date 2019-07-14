@@ -25,6 +25,8 @@ export class SparkBulletComponent implements AfterViewInit {
    ngAfterViewInit() {
       var sparkBullet: SparkBullet;
       this.canvasEl = this.sparklineCanvas.nativeElement;
+      this.canvasEl.height = this.height;
+      this.canvasEl.width = this.width;
       sparkBullet = new SparkBullet(this.comparativeMeasure,
          this.featureMeasure,
          this.height.toString(),
@@ -38,7 +40,7 @@ export class SparkBulletComponent implements AfterViewInit {
          sparkBullet.scale(this.canvasEl);
          sparkBullet.draw(this.canvasEl);
          sparkBullet.buildToolTips(this.canvasEl);
-         sparkBullet.setToolTips(this.canvasEl);
+         sparkBullet.showToolTips(this.canvasEl);
       }
    }
 }

@@ -5,5 +5,5 @@ export interface SparklineInterface {
    prepare(canvasEl?: HTMLCanvasElement): void;
    scale(canvasEl: HTMLCanvasElement): void;
    draw(canvasEl: HTMLCanvasElement): void;
-   setToolTips(canvasEl: HTMLCanvasElement): void;
+   showToolTips(canvasEl: HTMLCanvasElement): void;
 }
