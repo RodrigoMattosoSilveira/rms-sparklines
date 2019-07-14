@@ -66,7 +66,7 @@ describe(`ComparativeMeasure`, () => {
                   canvasEl.height = 32;
                   orientation = HelperMethods.computeOrientation(canvasEl)
                   comparativeMeasure.scaleToCanvas(canvasEl, orientation, topValue);
-                  tooltip = comparativeMeasure.buildCoordinateTip(orientation)
+                  tooltip = comparativeMeasure.buildtooltips(orientation)
                   tipRect = tooltip.getRect();
                   expect(tooltip.getColor()).toBe('red');
                   expect(tooltip.getTip()).toBe(comparativeMeasure.getValue().toString());
