@@ -36,10 +36,6 @@ cache: yarn
 before_deploy:
    - echo "before_deploy has no steps"
 deploy:
-   # tag the build
-   - provider: script
-     skip_cleanup: true
-     script: "./scripts/tag.sh"
    # Deploy the living styleguide to GitHub pages
    - provider: pages
      skip_cleanup: true
@@ -49,6 +45,10 @@ deploy:
    # Deploy the component to npm registry
    - provider: script
      script: ./scripts/publish.sh "$(ls dist/rmstek-sparklines | grep tgz)"
+   # tag the build
+   - provider: script
+     skip_cleanup: true
+     script: "./scripts/tag.sh"
 after_deploy:
    - echo "after_deploy has no steps"
 after_script:
