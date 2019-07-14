@@ -2,27 +2,19 @@
    "name": "rms-sparklines",
    "version": "0.3.5",
    "scripts": {
-      "build": "ng build",
-      "e2e": "ng e2e --port 4201",
-      "lint": "ng lint",
       "ng": "ng",
+      "start": "ng serve",
+      "build": "ng build",
       "test": "ng test",
-      "lib:add": "yarn add ./dist/rmstek-sparklines/ -O",
-      "test:all": "ng test living-style-guide --watch=false && ng e2e",
+      "lint": "ng lint",
+      "e2e": "ng e2e",
       "lib:build": "ng build rmstek-sparklines",
-      "lib:files": "yarn lib:license && yarn lib:readme",
-      "lib:license": "cp ./projects/rmstek-sparklines/LICENSE ./dist/rmstek-sparklines",
-      "lib:pack": "cd dist/rmstek-sparklines && yarn pack",
+      "lib:chglog": "cp ./projects/rmstek-sparklines/CHANGELOG.md ./dist/rmstek-sparklines",
+      "lib:license": "cp ./projects/rmstek-sparklines/LICENSE ./dist/library",
       "lib:readme": "cp ./projects/rmstek-sparklines/README.md ./dist/rmstek-sparklines",
-      "lib:ready": "yarn lib:build && yarn lib:files && yarn lib:pack",
-      "lib:reset": "npm install && rm package-lock.json && yarn lib:build && rm -rf node_modules/ && yarn install && yarn lib:add",
-      "lib:test": "ng test rmstek-sparklines",
-      "lib:upg": "yarn lib:build && yarn upgrade",
-      "lsg:build": "ng build living-style-guide",
-      "lsg:serve": "ng serve living-style-guide --aot=true",
-      "lsg:serve:jit": "ng serve living-style-guide --aot=false",
-      "lsg:test": "ng test living-style-guide",
-      "lsg:upd": "yarn lib:upd && yarn lsg:build"
+      "lib:clr": "yarn lib:chglog && yarn lib:license && yarn lib:readme",
+      "lib:pack": "yarn lib_setup && cd dist/rmstek-sparklines && npm pack",
+      "lib:ready": "yarn lib:build && yarn lib:clr && yarn lib:pack"
    },
    "private": true,
    "dependencies": {
@@ -71,7 +63,10 @@
       "tslint": "~5.11.0",
       "typescript": "~3.2.2"
    },
-   "optionalDependencies": {
-      "@rmstek/sparklines": "./dist/rmstek-sparklines/"
-   }
+    "optionalDependencies": {
+       "@rmstek/sparklines": "./dist/rmstek-sparklines/"
+    },
+   "workspaces": [
+      "projects/*"
+   ]
 }
