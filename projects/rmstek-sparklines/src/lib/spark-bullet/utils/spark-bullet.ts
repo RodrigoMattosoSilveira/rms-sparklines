@@ -92,8 +92,8 @@ export class SparkBullet implements SparklineInterface{
    draw(canvasEl: HTMLCanvasElement): void {
       const ctx: CanvasRenderingContext2D = canvasEl.getContext('2d');
       this.getQualitativeRanges().draw(ctx);
-      this.getComparativeMeasure().draw(ctx);
       this.getFeatureMeasure().draw(ctx);
+      this.getComparativeMeasure().draw(ctx);
    }
    showToolTips(canvasEl: HTMLCanvasElement): void {
       var tooltipService: TooltipService;
@@ -186,7 +186,7 @@ export class SparkBullet implements SparklineInterface{
       for (let i = 0; i < qualityRangesTootips.length; i++) {
          tooltips.push(qualityRangesTootips[i]);
       }
-      
+
       this.setTooltips(tooltips);
 
    }
