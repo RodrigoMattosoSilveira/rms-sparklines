@@ -10,7 +10,7 @@ describe('SparkBulletComponent', () => {
    let compiledFixture: HTMLElement;
    let canvasEl: HTMLCanvasElement;
    let canvasCtx: CanvasRenderingContext2D;
-   const SPARK_BULLET_FINGERPRINT_HORIZONTAL_A = "321a7ddf835030527ea013da0b54649a";
+   const SPARK_BULLET_FINGERPRINT_HORIZONTAL_A = "ec3765046042f44e47e5bc58ebd9c836";
 
    beforeEach(async(() => {
       TestBed.configureTestingModule({
@@ -36,7 +36,7 @@ describe('SparkBulletComponent', () => {
       expect(canvasEl).toBeTruthy();
       expect(canvasEl.tagName).toBe('CANVAS');
       expect(canvasEl.width).toBe(128);
-      expect(canvasEl.height).toBe(64);
+      expect(canvasEl.height).toBe(32);
    });
    describe('chart should', () => {
      beforeEach(() => {
