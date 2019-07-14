@@ -22,29 +22,31 @@ get_version() {
 
 is_travis_branch_master() {
   if [[ ${TRAVIS_BRANCH} = master ]]; then
-    echo "✅ Travis branch is master"
+    echo "✅ Tagging, Travis branch is master"
     return 0
   else
-    echo "🚫 Travis branch ${TRAVIS_BRANCH} is not master"
+    echo "🚫 Note tagging, Travis branch ${TRAVIS_BRANCH} is not master"
     return 1
   fi
 }
 
-is_feature_branch_version() {
-  regex='^[[:digit:]]+(\.[[:digit:]]+)+(-[[:alnum:]]+)+'
-  if [[ ${PACKAGE_VERSION} =~ $regex ]]; then
-    echo "✅ Version ${PACKAGE_VERSION} is a feature branch version"
-    return 0
-  else
-    echo "🚫 Version ${PACKAGE_VERSION} is not a feature branch version"
-    return 1
-  fi
-}
+# is_feature_branch_version() {
+#   regex='^[[:digit:]]+(\.[[:digit:]]+)+(-[[:alnum:]]+)+'
+#   if [[ ${PACKAGE_VERSION} =~ $regex ]]; then
+#     echo "✅ Version ${PACKAGE_VERSION} is a feature branch version"
+#     return 0
+#   else
+#     echo "🚫 Version ${PACKAGE_VERSION} is not a feature branch version"
+#     return 1
+#   fi
+# }
 
-yarn lib:build
-get_version
-get_name
-if is_travis_branch_master || is_feature_branch_version; then
+if is_travis_branch_master; then
+   # Only tagging master
+   yarn lib:build
+   get_version
+   get_name
+
    GITTAG="$PACKAGE_NAME@$PACKAGE_VERSION"
    openssl aes-256-cbc -k "$travis_key_password" -d -md sha256 -a -in rms-sparkline-travis.enc -out rms-sparkline-travis-key
    echo "Host github.com" > $HOME/.ssh/config
