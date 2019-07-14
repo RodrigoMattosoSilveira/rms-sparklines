@@ -38,7 +38,7 @@ export class SparkBulletComponent implements AfterViewInit {
          sparkBullet.scale(this.canvasEl);
          sparkBullet.draw(this.canvasEl);
          sparkBullet.buildToolTips(this.canvasEl);
-         sparkBullet.setToolTips(this.canvasEl);
+         sparkBullet.showToolTips(this.canvasEl);
       }
    }
 }

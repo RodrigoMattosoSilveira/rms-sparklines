@@ -95,7 +95,7 @@ export class SparkBullet implements SparklineInterface{
       this.getComparativeMeasure().draw(ctx);
       this.getFeatureMeasure().draw(ctx);
    }
-   setToolTips(canvasEl: HTMLCanvasElement): void {
+   showToolTips(canvasEl: HTMLCanvasElement): void {
       var tooltipService: TooltipService;
 
       this.buildToolTips(canvasEl);
@@ -176,14 +176,18 @@ export class SparkBullet implements SparklineInterface{
    // tooltip methods
    //
    buildToolTips(canvasEl: HTMLCanvasElement): void {
+      var tooltips: Array<Tooltip> = [];
+      var qualityRangesTootips: Array<Tooltip>;
       const orientation: string = HelperMethods.computeOrientation(canvasEl);
-      this.setTooltips([]);
-      let qualityRangesTootips: Array<Tooltip> = this.getQualitativeRanges().buildtooltips();
-      this.getTooltips().push( this.getComparativeMeasure().buildtooltips(orientation));
-      this.getTooltips().push( this.getFeatureMeasure().buildtooltips());
-      for (let i = 0; qualityRangesTootips.length; i++) {
-         this.getTooltips().push(qualityRangesTootips[i]);
-      }
-   }
 
+      tooltips.push( this.getComparativeMeasure().buildtooltips(orientation));
+      tooltips.push( this.getFeatureMeasure().buildtooltips());
+      qualityRangesTootips = this.getQualitativeRanges().buildtooltips();
+      for (let i = 0; i < qualityRangesTootips.length; i++) {
+         tooltips.push(qualityRangesTootips[i]);
+      }
+      
+      this.setTooltips(tooltips);
+
+   }
 }
