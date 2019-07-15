@@ -1,17 +1,23 @@
-import { SparklineInterface} from '../../utils/sparkline-interface'
+import { SparklineInterface} from '../../utils/sparkline-interface';
+import { CanvasHeight } from '../../utils/canvas-height';
+import { CanvasWidth } from '../../utils/canvas-widthRaw';
 import { DecorationPoints } from './decoration-points';
+import { DotRadius } from './dot-radius';
 
 export class SparkLine implements SparklineInterface {
    // rqw attribures
    private decorationPointsRaw: string;
    getDecorationPointsRaw(): string { return this.decorationPointsRaw; }
    setDecorationPointsRaw(value: string): void { this.decorationPointsRaw = value; }
+   private canvasHeightRaw: string;
+   getCanvasHeightRaw(): string { return this.canvasHeightRaw; }
+   setCanvasHeightRaw(value: string): void { this.canvasHeightRaw = value; }
+   private canvasWidthRaw: string;
+   getCanvasWidthRaw(): string { return this.canvasWidthRaw; }
+   setCanvasWidthRaw(value: string): void { this.canvasWidthRaw = value; }
    private dotRadiusRaw: string;
    getDotRadiusRaw(): string { return this.dotRadiusRaw; }
    setDotRadiusRaw(value: string): void { this.dotRadiusRaw = value; }
-   private heightRaw: string;
-   getHeightRaw(): string { return this.heightRaw; }
-   setHeightRaw(value: string): void { this.heightRaw = value; }
    private lineColorRaw: string;
    getLineColorRaw(): string { return this.lineColorRaw; }
    setLineColorRaw(value: string): void { this.lineColorRaw = value; }
@@ -24,20 +30,20 @@ export class SparkLine implements SparklineInterface {
    private shadeColorRaw: string;
    getShadeColorRaw(): string { return this.shadeColorRaw; }
    setShadeColorRaw(value: string): void { this.shadeColorRaw = value; }
-   private widthRaw: string;
-   getWidthRaw(): string { return this.widthRaw; }
-   setWidthRaw(value: string): void { this.widthRaw = value; }
 
    // validated attributes
    private decorationPoints: DecorationPoints;
    getDecorationPoints(): DecorationPoints { return this.decorationPoints; }
    setDecorationPoints(value: DecorationPoints): void { this.decorationPoints = value; }
+   private canvasHeight: number;
+   getCanvasHeight(): number { return this.canvasHeight; }
+   setCanvasHeight(value: number): void { this.canvasHeight = value; }
+   private canvasWidth: number;
+   getCanvasWidth(): number { return this.canvasWidth; }
+   setCanvasWidth(value: number): void { this.canvasWidth = value; }
    private dotRadius: number;
    getDotRadius(): number { return this.dotRadius; }
    setDotRadius(value: number): void { this.dotRadius = value; }
-   private height: number;
-   getHeight(): number { return this.height; }
-   setHeight(value: number): void { this.height = value; }
    private lineColor: string;
    getLineColor(): string { return this.lineColor; }
    setLineColor(value: string): void { this.lineColor = value; }
@@ -53,9 +59,6 @@ export class SparkLine implements SparklineInterface {
    private valid: boolean;
    getValid(): boolean { return this.valid; }
    setValid(value: boolean): void { this.valid = value; }
-   private width: number;
-   getWidth(): number { return this.width; }
-   setWidth(value: number): void { this.width = value; }
 
    constructor(decorationPointsRaw: string,
       dotRadiusRaw: string,
@@ -68,19 +71,28 @@ export class SparkLine implements SparklineInterface {
    ) {
       this.setDecorationPointsRaw(decorationPointsRaw);
       this.setDotRadiusRaw(dotRadiusRaw);
-      this.setHeightRaw(heightRaw);
+      this.setCanvasHeightRaw(heightRaw);
       this.setLineColorRaw(lineColorRaw);
       this.setLinePointsRaw(linePointsRaw);
       this.setLineWidthRaw(lineWidthRaw);
       this.setShadeColorRaw(shadeColorRaw);
-      this.setWidthRaw(widthRaw);
+      this.setCanvasWidthRaw(widthRaw);
    }
 
    validate(): void {
       var valid: boolean = true;
-      
+
       var decorationPoints = new DecorationPoints(this.getDecorationPointsRaw());
       valid = valid && decorationPoints.validate(`DecorationPoints`);
+
+      var canvasHeight: CanvasHeight = new CanvasHeight(this.getCanvasHeightRaw())
+      valid = valid && canvasHeight.validate(`CanvasHeight`);
+
+      var canvasWidth: CanvasWidth = new CanvasWidth(this.getCanvasWidthRaw())
+      valid = valid && canvasWidth.validate(`CanvasWidth`);
+
+      var dotRadius: DotRadius = new DotRadius(this.getDotRadiusRaw());
+      valid = valid && dotRadius.validate(`DotRadius`);
 
       this.setValid(valid);
    }
