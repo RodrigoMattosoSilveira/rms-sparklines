@@ -39,12 +39,12 @@ describe(`SparkLine`, () => {
       it(`initialized correctly`, () => {
          expect(sparkLine.getDecorationPointsRaw()).toBeTruthy(`decorationPointsRaw`);
          expect(sparkLine.getDotRadiusRaw()).toBe(`dotRadiusRaw`);
-         expect(sparkLine.getHeightRaw()).toBe(`heightRaw`);
+         expect(sparkLine.getCanvasHeightRaw()).toBe(`heightRaw`);
          expect(sparkLine.getLineColorRaw()).toBe(`lineColorsRaw`);
          expect(sparkLine.getLinePointsRaw()).toBe(`linePointsRaw`);
          expect(sparkLine.getLineWidthRaw()).toBe(`lineWidthRaw`);
          expect(sparkLine.getShadeColorRaw()).toBe(`shadeColorRaw`);
-         expect(sparkLine.getWidthRaw()).toBe(`widthRaw`);
+         expect(sparkLine.getCanvasWidthRaw()).toBe(`widthRaw`);
       });
    });
 });
