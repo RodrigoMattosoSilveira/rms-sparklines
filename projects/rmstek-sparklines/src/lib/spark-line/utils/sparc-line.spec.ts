@@ -36,7 +36,7 @@ describe(`SparkLine`, () => {
       it(`created`, () => {
          expect(sparkLine).toBeTruthy();
       });
-      it(`initialized correctlyh`, () => {
+      it(`initialized correctly`, () => {
          expect(sparkLine.getDecorationPointsRaw()).toBeTruthy(`decorationPointsRaw`);
          expect(sparkLine.getDotRadiusRaw()).toBe(`dotRadiusRaw`);
          expect(sparkLine.getHeightRaw()).toBe(`heightRaw`);
