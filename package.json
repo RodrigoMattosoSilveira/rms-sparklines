@@ -19,6 +19,7 @@
       "lib:pack": "yarn lib_setup && cd dist/rmstek-sparklines && npm pack",
       "lib:ready": "yarn lib:build && yarn lib:clr && yarn lib:pack",
       "lib:reset": "yarn npm:reset && yarn lib:build && rm -rf node_modules/ && yarn install && yarn lib:add",
+      "lib:test": "ng test rmstek-sparklines",
       "npm:reset": "rm -f yarn.lock && rm -rf node_modules/ && npm install && rm -f package-lock.json"
    },
    "private": true,
