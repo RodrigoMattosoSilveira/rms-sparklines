@@ -194,14 +194,12 @@ export class RmstekColor {
    }
 
    validate(failMessage: string): boolean {
-      var valid: boolean;
+      var valid: boolean = true;
       var valueRaw: string = this.getValueRaw();
       // https://stackoverflow.com/questions/23437476/in-typescript-how-to-check-if-a-string-is-numeric
       if(!this.isValid(valueRaw)) {
          console.log(failMessage + ` : ` + valueRaw);
           valid = false;
-      }
-      else {
       }
       if (valid) { this.setValue(Number(valueRaw)); }
       return valid;
