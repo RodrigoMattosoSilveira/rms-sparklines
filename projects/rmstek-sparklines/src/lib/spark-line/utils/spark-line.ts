@@ -3,6 +3,10 @@ import { CanvasHeight } from '../../utils/canvas-height';
 import { CanvasWidth } from '../../utils/canvas-width';
 import { DecorationPoints } from './decoration-points';
 import { DotRadius } from './dot-radius';
+import { LineColor } from './line-color';
+import { LinePoints } from './line-points';
+import { LineWidth } from './line-width';
+import { ShadeColor } from './shade-color';
 
 export class SparkLine implements SparklineInterface {
    // rqw attribures
@@ -93,6 +97,18 @@ export class SparkLine implements SparklineInterface {
 
       var dotRadius: DotRadius = new DotRadius(this.getDotRadiusRaw());
       valid = valid && dotRadius.validate(`DotRadius`);
+
+      var lineColor: LineColor = new LineColor(this.getLineColorRaw());
+      valid = valid && lineColor.validate(`LineColor`);
+
+      var linePoints: LinePoints = new LinePoints(this.getLineColorRaw());
+      valid = valid && linePoints.validate(`LinePoints`);
+
+      var lineWidth: LineWidth = new LineWidth(this.getLineColorRaw());
+      valid = valid && lineWidth.validate(`LineWidth`);
+
+      var shadeColor: ShadeColor = new ShadeColor(this.getShadeColorRaw());
+      valid = valid && shadeColor.validate(`ShadeColor`);
 
       this.setValid(valid);
    }

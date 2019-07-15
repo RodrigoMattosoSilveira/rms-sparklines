@@ -1,15 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DotRadius } from './dot-radius';
+import { ShadeColor } from './shade-color';
 
 describe(`DotRadius`, () => {
-   var testObj: DotRadius;
+   var testObj: ShadeColor;
    var valueRaw: string;
    var value: number;
    describe(`should be`, () => {
       beforeEach(() => {
          valueRaw = `valueRaw`;
-   		testObj = new DotRadius(valueRaw);
+   		testObj = new ShadeColor(valueRaw);
    	});
       it(`created`, () => {
          expect(testObj).toBeTruthy();
@@ -22,14 +22,14 @@ describe(`DotRadius`, () => {
       beforeEach(() => {
    	});
       it(`valid with all numbers`, () => {
-         valueRaw = '1';
-   		testObj = new DotRadius(valueRaw);
-         expect(testObj.validate(`DotRadius`)).toBe(true);
+         valueRaw = 'DARKGRAY';
+   		testObj = new ShadeColor(valueRaw);
+         expect(testObj.validate(`ShadeColor`)).toBe(true);
       });
       it(`invalid with non numeric`, () => {
-         valueRaw = `1A`;
-   		testObj = new DotRadius(valueRaw);
-         expect(testObj.validate(`DotRadius`)).toBe(false);
+         valueRaw = 'DARKGRAYY';
+   		testObj = new ShadeColor(valueRaw);
+         expect(testObj.validate(`ShadeColor`)).toBe(false);
       });
    });
 });
