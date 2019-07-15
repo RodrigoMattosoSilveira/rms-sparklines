@@ -1,6 +1,6 @@
 import { SparklineInterface} from '../../utils/sparkline-interface';
 import { CanvasHeight } from '../../utils/canvas-height';
-import { CanvasWidth } from '../../utils/canvas-widthRaw';
+import { CanvasWidth } from '../../utils/canvas-width';
 import { DecorationPoints } from './decoration-points';
 import { DotRadius } from './dot-radius';
 
