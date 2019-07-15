@@ -1,4 +1,4 @@
-export class NumberArray {
+export class RmstekNumberArray {
    private valueRaw: string;
    getValueRaw(): string { return this.valueRaw; }
    setValueRaw(value: string): void { this.valueRaw = value; }
@@ -15,13 +15,12 @@ export class NumberArray {
       var valueRaw = JSON.parse(this.getValueRaw());
       var value: Array<number> = [];
       for (let i = 0; i < valueRaw.length; i++) {
-         let number = Number(valueRaw[i]);
-         if(isNaN(number)) {
+         if(isNaN(Number(valueRaw[i]))) {
             console.log(failMessage + ` : ` + valueRaw[i]);
              valid = false;
          }
          else {
-            value.push(number);
+            value.push(Number(valueRaw[i]));
          }
       }
       if (valid) { this.setValue(value); }
