@@ -1,5 +1,5 @@
-import { NumberArray } from '../../utils/number-array';
+import { RmstekNumberArray } from '../../utils/rmstek-number-array';
 
-export class DecorationPoints extends NumberArray {
+export class DecorationPoints extends RmstekNumberArray {
    constructor(numberArrayRaw: string) { super(numberArrayRaw); }
 }
