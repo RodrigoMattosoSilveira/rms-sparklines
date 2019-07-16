@@ -178,9 +178,9 @@ export class RmstekColor {
    private valueRaw: string;
    getValueRaw(): string { return this.valueRaw; }
    setValuerRaw(value: string): void { this.valueRaw = value; }
-   private value: number;
-   getValue(): number { return this.value; }
-   setValue(value: number): void { this.value = value; }
+   private value: string;
+   getValue(): string { return this.value; }
+   setValue(value: string): void { this.value = value; }
 
    constructor(valueRaw: string) {
       this.setValuerRaw(valueRaw);
@@ -201,7 +201,7 @@ export class RmstekColor {
          console.log(failMessage + ` : ` + valueRaw);
           valid = false;
       }
-      if (valid) { this.setValue(Number(valueRaw)); }
+      if (valid) { this.setValue(valueRaw); }
       return valid;
    }
 
