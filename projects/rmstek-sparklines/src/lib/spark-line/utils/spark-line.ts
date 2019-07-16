@@ -83,7 +83,7 @@ export class SparkLine implements SparklineInterface {
       this.setCanvasWidthRaw(widthRaw);
    }
 
-   validate(): void {
+   validate(): boolean {
       var valid: boolean = true;
 
       var decorationPoints = new DecorationPoints(this.getDecorationPointsRaw());
@@ -101,7 +101,7 @@ export class SparkLine implements SparklineInterface {
       var lineColor: LineColor = new LineColor(this.getLineColorRaw());
       valid = valid && lineColor.validate(`LineColor`);
 
-      var linePoints: LinePoints = new LinePoints(this.getLineColorRaw());
+      var linePoints: LinePoints = new LinePoints(this.getLinePointsRaw());
       valid = valid && linePoints.validate(`LinePoints`);
 
       var lineWidth: LineWidth = new LineWidth(this.getLineColorRaw());
@@ -111,6 +111,7 @@ export class SparkLine implements SparklineInterface {
       valid = valid && shadeColor.validate(`ShadeColor`);
 
       this.setValid(valid);
+      return valid;
    }
    prepare(canvasEl?: HTMLCanvasElement): void {}
    scale(canvasEl: HTMLCanvasElement): void {}
