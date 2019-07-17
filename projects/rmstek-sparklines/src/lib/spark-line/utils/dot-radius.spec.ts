@@ -15,7 +15,7 @@ describe(`DotRadius`, () => {
          expect(testObj).toBeTruthy();
       });
       it(`initialized correctly`, () => {
-         expect(testObj.getValueRaw()).toBeTruthy(`valueRaw`);
+         expect(testObj.getValueRaw()).toBe(`valueRaw`);
       });
    });
    describe(`should be`, () => {
