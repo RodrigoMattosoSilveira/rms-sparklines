@@ -1,26 +1,26 @@
 export class RmstekNumberArray {
-   private valueRaw: string;
-   getValueRaw(): string { return this.valueRaw; }
-   setValueRaw(value: string): void { this.valueRaw = value; }
+   private valueParsed: string;
+   getValueRaw(): string { return this.valueParsed; }
+   setValueRaw(value: string): void { this.valueParsed = value; }
    private value: Array<number>;
    getValue(): Array<number> { return this.value; }
    setValue(value: Array<number>): void { this.value = value; }
 
-   constructor(valueRaw: string) {
-      this.setValueRaw(valueRaw);
+   constructor(valueParsed: string) {
+      this.setValueRaw(valueParsed);
    }
 
    validate(failMessage: string): boolean {
       var valid: boolean = true;
-      var valueRaw = JSON.parse(this.getValueRaw());
+      var valueParsed = JSON.parse(this.getValueRaw());
       var value: Array<number> = [];
-      for (let i = 0; i < valueRaw.length; i++) {
-         if(isNaN(Number(valueRaw[i]))) {
-            console.log(failMessage + ` : ` + valueRaw[i]);
+      for (let i = 0; i < valueParsed.length; i++) {
+         if(isNaN(Number(valueParsed[i]))) {
+            console.log(failMessage + ` : ` + valueParsed[i]);
              valid = false;
          }
          else {
-            value.push(Number(valueRaw[i]));
+            value.push(Number(valueParsed[i]));
          }
       }
       if (valid) { this.setValue(value); }
