@@ -1,36 +1,36 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SparkLine } from './spark-Line';
+import { SparkLine } from './spark-line';
 
 describe(`SparkLine`, () => {
 	var sparkLine: SparkLine;
+	var canvasHeightRaw: string;
+	var canvasWidthRaw: string;
    var decorationPointsRaw: string;
    var dotRadiusRaw: string;
-   var heightRaw: string;
    var lineColorsRaw: string;
    var linePointsRaw: string;
    var lineWidthRaw: string;
    var shadeColorRaw: string;
-   var widthRaw: string;
 
    describe(`should be`, () => {
       beforeEach(() => {
+			canvasHeightRaw = `canvasHeightRaw`;
+			canvasWidthRaw = `canvasWidthRaw`;
          decorationPointsRaw = `decorationPointsRaw`;
          dotRadiusRaw = `dotRadiusRaw`;
-         heightRaw = `heightRaw`;
          lineColorsRaw = `lineColorsRaw`;
          linePointsRaw = `linePointsRaw`;
          lineWidthRaw = `lineWidthRaw`;
          shadeColorRaw = `shadeColorRaw`;
-         widthRaw = `widthRaw`;
-   		sparkLine = new SparkLine(decorationPointsRaw,
+   		sparkLine = new SparkLine(canvasHeightRaw,
+			 	canvasWidthRaw,
+				decorationPointsRaw,
             dotRadiusRaw,
-            heightRaw,
             lineColorsRaw,
             linePointsRaw,
             lineWidthRaw,
-            shadeColorRaw,
-            widthRaw
+            shadeColorRaw
           );
    	});
       it(`created`, () => {
@@ -39,12 +39,12 @@ describe(`SparkLine`, () => {
       it(`initialized correctly`, () => {
          expect(sparkLine.getDecorationPointsRaw()).toBeTruthy(`decorationPointsRaw`);
          expect(sparkLine.getDotRadiusRaw()).toBe(`dotRadiusRaw`);
-         expect(sparkLine.getCanvasHeightRaw()).toBe(`heightRaw`);
+         expect(sparkLine.getCanvasHeightRaw()).toBe(`canvasHeightRaw`);
          expect(sparkLine.getLineColorRaw()).toBe(`lineColorsRaw`);
          expect(sparkLine.getLinePointsRaw()).toBe(`linePointsRaw`);
          expect(sparkLine.getLineWidthRaw()).toBe(`lineWidthRaw`);
          expect(sparkLine.getShadeColorRaw()).toBe(`shadeColorRaw`);
-         expect(sparkLine.getCanvasWidthRaw()).toBe(`widthRaw`);
+         expect(sparkLine.getCanvasWidthRaw()).toBe(`canvasWidthRaw`);
       });
    });
 });

@@ -14,14 +14,17 @@ export class SparkLineComponent implements AfterViewInit {
    ctx: CanvasRenderingContext2D;
    coordinateTips: any[];
 
+   // A number giving the height of the sparkline box in pixels. By default, uses the height of the Canvas element.
+   @Input() canvasHeight = 32;
+
+   // A number giving the width of the sparkline box in pixels.
+   @Input() canvasWidth = 128;
+
    // Decoration points objects
    @Input() decorationPoints = JSON.stringify([]);
 
    // A number giving the size of the dots used to mark important values.
    @Input() dotRadius = 1;
-
-   // A number giving the height of the sparkline box in pixels. By default, uses the height of the Canvas element.
-   @Input() height = 32;
 
    // A string giving the color of the sparkline. Any valid CSS color.
    @Input() lineColor = `black`;
@@ -34,9 +37,7 @@ export class SparkLineComponent implements AfterViewInit {
 
    // A string giving the color of the dot marking the highest value. Any valid CSS color.
    @Input() shadeColor = ``;
-
-   // A number giving the width of the sparkline box in pixels.
-   @Input() width = 128;
+   
    @ViewChild('sparklineCanvas') sparklineCanvas: ElementRef;
    canvasEl:HTMLCanvasElement;
 
@@ -45,17 +46,17 @@ export class SparkLineComponent implements AfterViewInit {
    ngAfterViewInit() {
       var drawingObj: SparkLine;
       this.canvasEl = this.sparklineCanvas.nativeElement;
-      this.canvasEl.height = this.height;
-      this.canvasEl.width = this.width;
+      this.canvasEl.height = this.canvasHeight;
+      this.canvasEl.width = this.canvasWidth;
 
-      drawingObj = new SparkLine(this.decorationPoints,
+      drawingObj = new SparkLine(this.canvasHeight.toString(),
+         this.canvasWidth.toString(),
+         this.decorationPoints,
          this.dotRadius.toString(),
-         this.height.toString(),
          this.lineColor,
          this.linePoints,
          this.lineWidth.toString(),
-         this.shadeColor,
-         this.width.toString());
+         this.shadeColor);
 
       if(!drawingObj.validate()) {
          console.log(`SparkLineComponent:ngAfterViewInit - Invalid arguments`)

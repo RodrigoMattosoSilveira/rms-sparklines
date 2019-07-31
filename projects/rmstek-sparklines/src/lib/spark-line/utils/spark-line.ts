@@ -15,15 +15,18 @@ import * as  mathjs from 'mathjs';
 
 export class SparkLine implements SparklineInterface {
    // rqw attribures
+   // private canvasHeightRaw: string;
+   getCanvasHeightRaw(): string { return this.canvasHeightRaw; }
+   setCanvasHeightRaw(value: string): void { this.canvasHeightRaw = value; }
+   // private canvasWidthRaw: string;
+   getCanvasWidthRaw(): string { return this.canvasWidthRaw; }
+   setCanvasWidthRaw(value: string): void { this.canvasWidthRaw = value; }
    // private decorationPointsRaw: string;
    getDecorationPointsRaw(): string { return this.decorationPointsRaw; }
    setDecorationPointsRaw(value: string): void { this.decorationPointsRaw = value; }
    // private dotRadiusRaw: string;
    getDotRadiusRaw(): string { return this.dotRadiusRaw; }
    setDotRadiusRaw(value: string): void { this.dotRadiusRaw = value; }
-   // private heightRaw: string;
-   getHeightRaw(): string { return this.heightRaw; }
-   setHeightRaw(value: string): void { this.heightRaw = value; }
    // private lineColorRaw: string;
    getLineColorRaw(): string { return this.lineColorRaw; }
    setLineColorRaw(value: string): void { this.lineColorRaw = value; }
@@ -36,9 +39,6 @@ export class SparkLine implements SparklineInterface {
    // private shadeColorRaw: string;
    getShadeColorRaw(): string { return this.shadeColorRaw; }
    setShadeColorRaw(value: string): void { this.shadeColorRaw = value; }
-   // private widthRaw: string;
-   getwidhtRaw(): string { return this.widthRaw; }
-   setwidhtRaw(value: string): void { this.widthRaw = value; }
 
    // validated attributes
    private decorationPoints: DecorationPoints;
@@ -67,12 +67,6 @@ export class SparkLine implements SparklineInterface {
    setShadeColor(value: ShadeColor): void { this.shadeColor = value; }
 
    // working attributes
-   private canvasHeightRaw: string;
-   getCanvasHeightRaw(): string { return this.canvasHeightRaw; }
-   setCanvasHeightRaw(value: string): void { this.canvasHeightRaw = value; }
-   private canvasWidthRaw: string;
-   getCanvasWidthRaw(): string { return this.canvasWidthRaw; }
-   setCanvasWidthRaw(value: string): void { this.canvasWidthRaw = value; }
    private coordinatesCanvas: Array<any>;
    getCoordinatesCanvas(): Array<number> { return this.coordinatesCanvas; }
    setCoordinatesCanvas(value: Array<number>) { this.coordinatesCanvas = value; }
@@ -93,14 +87,14 @@ export class SparkLine implements SparklineInterface {
    getValid(): boolean { return this.valid; }
    setValid(value: boolean): void { this.valid = value; }
 
-   constructor(private decorationPointsRaw: string,
+   constructor(private canvasHeightRaw: string,
+      private canvasWidthRaw: string,
+      private decorationPointsRaw: string,
       private dotRadiusRaw: string,
-      private heightRaw: string,
       private lineColorRaw: string,
       private linePointsRaw: string,
       private lineWidthRaw: string,
-      private shadeColorRaw: string,
-      private widthRaw: string
+      private shadeColorRaw: string
    ) {}
 
    validate(): boolean {
