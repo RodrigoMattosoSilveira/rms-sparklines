@@ -1,6 +1,7 @@
 import { SparklineInterface} from '../../utils/sparkline-interface';
 import { CanvasHeight } from '../../utils/canvas-height';
 import { CanvasWidth } from '../../utils/canvas-width';
+import { DecorationPoint } from './decoration-point';
 import { DecorationPoints } from './decoration-points';
 import { DotRadius } from './dot-radius';
 import { LineColor } from './line-color';
@@ -169,7 +170,7 @@ export class SparkLine implements SparklineInterface {
    draw(canvasEl: HTMLCanvasElement): void {
       const coordinatesCanvas: Array<any> = this.getCoordinatesCanvas();
       const ctx: CanvasRenderingContext2D = canvasEl.getContext('2d');
-      const decorationPoints: Array<number> = this.getDecorationPoints().getValue();
+      const decorationPoints: Array<DecorationPoint> = this.getDecorationPoints().getValue();
       const dotRadius: number = this.getDotRadius().getValue()
       const height: number = this.getCanvasHeight().getValue()
       const lineColor: string = this.getLineColor().getValue();
@@ -326,9 +327,9 @@ export class SparkLine implements SparklineInterface {
     * drawDecorations
     * TODO move this method to the decoration-points object
     */
-   drawDecorations(decorationPoints: number[], attributesDotRadius: number, measurementsArray: number[], ctx: CanvasRenderingContext2D, coordinatesCanvas: Array<any>): void {
+   drawDecorations(decorationPoints: Array<DecorationPoint>, attributesDotRadius: number, measurementsArray: number[], ctx: CanvasRenderingContext2D, coordinatesCanvas: Array<any>): void {
 
-      let decorationPointsArray: number[] = decorationPoints.slice(0);
+      let decorationPointsArray: Array<DecorationPoint> = decorationPoints.slice(0);
       if (attributesDotRadius > 0 && decorationPointsArray.length > 0) {
       // console.log('decorationPoints = ' + JSON.stringify(this.attributes.decorationPoints));
          for (let i = 0; i < decorationPointsArray.length; i++) {

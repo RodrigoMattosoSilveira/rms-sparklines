@@ -26,7 +26,7 @@ export class DecorationPoints {
       else {
          decorationPointsWork = JSON.parse(decorationPointsRaw);
          for (let i=0; i < decorationPointsWork.length; i++) {
-            decorationPoint = new DecorationPoint(decorationPointsWork[i]);
+            decorationPoint = new DecorationPoint(JSON.stringify(decorationPointsWork[i]));
             if (!decorationPoint.validate(`DecorationPoints`)) {
                this.setValid(false);
                console.log(`DecorationPoints - Invalid decoration point: ` + decorationPoint.getValueRaw());

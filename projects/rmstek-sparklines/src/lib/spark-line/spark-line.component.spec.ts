@@ -67,14 +67,14 @@ describe('SparkLineComponent', () => {
       });
       it('succeed drawing the with default parameters', () => {
           component.ngAfterViewInit();
-          let imageData = canvasCtx.getImageData(0, 0, component.width, component.height)
+          let imageData = canvasCtx.getImageData(0, 0, component.canvasWidth, component.canvasHeight)
           let figerPrint = Md5.hashStr(imageData.data.toString());
           expect(figerPrint).toBe(DECORATED_SPARK_LINE_FINGERPRINT);
       });
       it('fail drawing with non-default parameters', () => {
           component.shadeColor = `green`;
           component.ngAfterViewInit();
-          let imageData = canvasCtx.getImageData(0, 0, component.width, component.height)
+          let imageData = canvasCtx.getImageData(0, 0, component.canvasWidth, component.canvasHeight)
           let figerPrint = Md5.hashStr(imageData.data.toString());
           expect(figerPrint).not.toBe(DECORATED_SPARK_LINE_FINGERPRINT);
       });
@@ -87,14 +87,14 @@ describe('SparkLineComponent', () => {
       });
       it('succeed drawing the with default parameters', () => {
           component.ngAfterViewInit();
-          let imageData = canvasCtx.getImageData(0, 0, component.width, component.height)
+          let imageData = canvasCtx.getImageData(0, 0, component.canvasWidth, component.canvasHeight)
           let figerPrint = Md5.hashStr(imageData.data.toString());
           expect(figerPrint).toBe(SHADED_SPARK_LINE_FINGERPRINT);
       });
       it('fail drawing with non-default parameters', () => {
           component.shadeColor = `green`;
           component.ngAfterViewInit();
-          let imageData = canvasCtx.getImageData(0, 0, component.width, component.height)
+          let imageData = canvasCtx.getImageData(0, 0, component.canvasWidth, component.canvasHeight)
           let figerPrint = Md5.hashStr(imageData.data.toString());
           expect(figerPrint).not.toBe(SHADED_SPARK_LINE_FINGERPRINT);
       });
