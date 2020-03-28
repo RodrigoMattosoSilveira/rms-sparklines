@@ -26,7 +26,7 @@ export class SparkLineDecorationComponent implements OnInit {
     lineWidth = 1.5;
 
     // A string giving the color of the dot marking the highest value. Any valid CSS color.
-    shadeColor = '';
+    shadeColor = `TRANSPARENT`;
 
     constructor(private livingStyleGuideService: LivingStyleGuideService) { }
 
