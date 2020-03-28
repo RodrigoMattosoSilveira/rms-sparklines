@@ -47,7 +47,7 @@ export class SparkBoxplotComponent implements AfterViewInit {
 
     // see https://blog.angular-university.io/angular-viewchild/
     // for a in-depth discussion on @ViewChild
-    @ViewChild('sparklBoxplot') sparklineCanvas: ElementRef;
+    @ViewChild('sparklBoxplot', {static: false}) sparklineCanvas: ElementRef;
     ctx: CanvasRenderingContext2D;
 
     constructor(private boxplotService: BoxplotService) { }
