@@ -16,9 +16,6 @@ export class SparkLineSimpleComponent implements OnInit {
 	// A number giving the size of the dots used to mark important values.
 	dotRadius = 1.5;
 
-	// A number giving the height of the sparkline box in pixels. By default, uses the height of the Canvas element.
-	height = 32;
-
 	// A string giving the color of the sparkline. Any valid CSS color.
 	lineColor = 'DarkGrey';
 
@@ -30,9 +27,6 @@ export class SparkLineSimpleComponent implements OnInit {
 
 	// A string giving the color of the dot marking the highest value. Any valid CSS color.
 	shadeColor = ``;
-
-	// A number giving the width of the sparkline box in pixels.
-	width = 128;
 
     constructor(private livingStyleGuideService: LivingStyleGuideService) { }
 

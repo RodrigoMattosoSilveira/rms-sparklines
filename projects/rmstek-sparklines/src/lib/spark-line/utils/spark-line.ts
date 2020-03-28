@@ -119,7 +119,7 @@ export class SparkLine implements SparklineInterface {
       var linePoints: LinePoints = new LinePoints(this.getLinePointsRaw());
       valid = valid && linePoints.validate(`LinePoints`);
 
-      var lineWidth: LineWidth = new LineWidth(this.getLineColorRaw());
+      var lineWidth: LineWidth = new LineWidth(this.getLineWidthRaw());
       valid = valid && lineWidth.validate(`LineWidth`);
 
       var shadeColor: ShadeColor = new ShadeColor(this.getShadeColorRaw());
