@@ -147,13 +147,13 @@
           "options": {
             "tsConfig": "projects/rmstek-sparklines/tsconfig.lib.json",
             "project": "projects/rmstek-sparklines/ng-package.json"
-          }
-        ,          "configurations": {
+          },
+          "configurations": {
             "production": {
               "tsConfig": "projects/rmstek-sparklines/tsconfig.lib.prod.json"
             }
           }
-},
+        },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -177,5 +177,8 @@
       }
     }
   },
-  "defaultProject": "living-style-guide"
+  "defaultProject": "living-style-guide",
+  "cli": {
+    "analytics": "3620e5e5-8965-472a-a7e9-fdc93284edd2"
+  }
 }
