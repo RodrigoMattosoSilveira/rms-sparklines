@@ -17,7 +17,7 @@ export class SparkBulletComponent implements AfterViewInit {
 
    // see https://blog.angular-university.io/angular-viewchild/
    // for a in-depth discussion on @ViewChild
-   @ViewChild('sparklBulletChart', {static: false}) sparklineCanvas: ElementRef;
+   @ViewChild('sparklBulletChart') sparklineCanvas: ElementRef;
    canvasEl:HTMLCanvasElement;
 
    constructor() { }
