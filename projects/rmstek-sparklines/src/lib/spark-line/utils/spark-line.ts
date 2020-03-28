@@ -178,8 +178,9 @@ export class SparkLine implements SparklineInterface {
       const measurementsArrayLength: number = measurementsArray.length;
       const shadeColor: string = this.getShadeColor().getValue();
       const width: number = this.getCanvasWidth().getValue()
+      const lineWidth: number = this.getLineWidth().getValue()
       this.drawShade(ctx, width, height, shadeColor, coordinatesCanvas, measurementsArrayLength);
-      this.drawLine(ctx, width, lineColor, coordinatesCanvas, measurementsArrayLength);
+      this.drawLine(ctx, lineWidth, lineColor, coordinatesCanvas, measurementsArrayLength);
       this.drawDecorations(decorationPoints, dotRadius, measurementsArray, ctx, coordinatesCanvas);
    }
    showToolTips(canvasEl: HTMLCanvasElement): void {
