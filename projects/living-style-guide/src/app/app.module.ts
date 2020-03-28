@@ -15,7 +15,6 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 
 import { LivingStyleGuideService } from './utils/services/living-style-guide.service';
 import { AngularMaterialModuleModule } from './utils/angular-material-module/angular-material-module.module';
-import { HttpModule } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 import { SparkLineSimpleComponent } from './inline/spark-line-simple/spark-line-simple.component';
@@ -48,7 +47,7 @@ import { BulletchartHorizontalTwoComponent } from './bulletchart/bulletchart-hor
       BarchartNegativeComponent,
       BarchartDualComponent,
       BarchartTriComponent,
-      
+
       BulletchartVerticalComponent,
       BulletchartHorizontalComponent,
       BulletchartHorizontalTwoComponent,
@@ -60,7 +59,6 @@ import { BulletchartHorizontalTwoComponent } from './bulletchart/bulletchart-hor
       BrowserAnimationsModule,
       FormsModule,
       RmstekSparklinesModule,
-      HttpModule,
       HttpClientModule,
       MarkdownModule.forRoot({
          loader: HttpClient, // optional, only if you use [src] attribute

@@ -4,7 +4,6 @@ import { AppComponent } from './app.component';
 import { AngularMaterialModuleModule } from './utils/angular-material-module/angular-material-module.module';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { Routes, RouterModule } from '@angular/router';
-import { HttpModule } from '@angular/http';
 
 describe('AppComponent', () => {
   const appRoutes: Routes = [];
@@ -17,7 +16,6 @@ describe('AppComponent', () => {
       imports: [
         AngularMaterialModuleModule,
         BrowserAnimationsModule,
-        HttpModule,
         RouterModule.forRoot(appRoutes), // https://stackoverflow.com/questions/46108581/no-provider-for-childrenoutletcontexts-injectionerror
       ]
     }).compileComponents();

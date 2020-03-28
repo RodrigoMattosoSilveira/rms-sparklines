@@ -10,7 +10,6 @@ import { BarchartTriComponent } from './barchart-tri/barchart-tri.component';
 
 import { AngularMaterialModuleModule } from '../utils/angular-material-module/angular-material-module.module';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { HttpModule } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RmstekSparklinesModule } from '@rmstek/sparklines';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
@@ -32,7 +31,6 @@ describe('BarchartComponent', () => {
            AngularMaterialModuleModule,
            BrowserAnimationsModule,
            RmstekSparklinesModule,
-           HttpModule,
            HttpClientModule,
            MarkdownModule.forRoot({
                loader: HttpClient, // optional, only if you use [src] attribute

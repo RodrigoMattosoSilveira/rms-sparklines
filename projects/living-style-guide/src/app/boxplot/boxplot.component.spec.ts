@@ -5,7 +5,6 @@ import { BoxplotSimpleComponent } from './boxplot-simple/boxplot-simple.componen
 
 import { AngularMaterialModuleModule } from '../utils/angular-material-module/angular-material-module.module';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { HttpModule } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RmstekSparklinesModule } from '@rmstek/sparklines';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
@@ -24,7 +23,6 @@ describe('BoxplotComponent', () => {
           AngularMaterialModuleModule,
           BrowserAnimationsModule,
           RmstekSparklinesModule,
-          HttpModule,
           HttpClientModule,
           MarkdownModule.forRoot({
           loader: HttpClient, // optional, only if you use [src] attribute

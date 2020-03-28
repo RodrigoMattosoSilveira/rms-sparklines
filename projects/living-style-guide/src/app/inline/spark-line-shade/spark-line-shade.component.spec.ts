@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AngularMaterialModuleModule } from '../../utils/angular-material-module/angular-material-module.module';
-import { HttpModule } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { SparkLineShadeComponent } from './spark-line-shade.component';
 import { RmstekSparklinesModule } from '@rmstek/sparklines';
@@ -20,7 +19,6 @@ describe('SparkLineSimpleComponent', () => {
         imports: [
             AngularMaterialModuleModule,
             RmstekSparklinesModule,
-            HttpModule,
             HttpClientModule,
             MarkdownModule.forRoot({
                 loader: HttpClient, // optional, only if you use [src] attribute
