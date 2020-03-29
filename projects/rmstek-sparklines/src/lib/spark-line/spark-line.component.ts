@@ -39,12 +39,12 @@ export class SparkLineComponent implements AfterViewInit {
    @Input() shadeColor = ``;
 
    @ViewChild('sparklineCanvas') sparklineCanvas: ElementRef;
-   canvasEl:HTMLCanvasElement;
+   canvasEl: HTMLCanvasElement;
 
    constructor() { }
 
    ngAfterViewInit() {
-      var drawingObj: SparkLine;
+      let drawingObj: SparkLine;
       this.canvasEl = this.sparklineCanvas.nativeElement;
       this.canvasEl.height = this.canvasHeight;
       this.canvasEl.width = this.canvasWidth;
@@ -58,10 +58,9 @@ export class SparkLineComponent implements AfterViewInit {
          this.lineWidth.toString(),
          this.shadeColor);
 
-      if(!drawingObj.validate()) {
-         console.log(`SparkLineComponent:ngAfterViewInit - Invalid arguments`)
-      }
-      else {
+      if (!drawingObj.validate()) {
+         console.log(`SparkLineComponent:ngAfterViewInit - Invalid arguments`);
+      } else {
          drawingObj.prepare();
          drawingObj.scale(this.canvasEl);
          drawingObj.draw(this.canvasEl);

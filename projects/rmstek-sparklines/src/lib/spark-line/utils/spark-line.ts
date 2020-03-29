@@ -15,7 +15,72 @@ import { TooltipService } from '../../utils/tooltip-service';
 import * as  mathjs from 'mathjs';
 
 export class SparkLine implements SparklineInterface {
-   // rqw attribures
+    // validated attributes
+    private decorationPoints: DecorationPoints;
+    private canvasHeight: CanvasHeight;
+    private canvasWidth: CanvasWidth;
+    private dotRadius: DotRadius;
+    private lineColor: LineColor;
+    private linePoints: LinePoints;
+    private lineWidth: LineWidth;
+    private shadeColor: ShadeColor;
+
+    // Working attributesShadeColor
+    private coordinatesCanvas: Array<any>;
+    private coordinatesViewport: Array<number>;
+    private coordinatesWorld: Array<number>;
+    private measurementsArray: Array<number>;
+    private tooltipId = `rms-spark-line-tooltip`;
+    private tooltips: Array<Tooltip>;
+    private valid: boolean;
+
+    // decorationPoints
+    getDecorationPoints(): DecorationPoints { return this.decorationPoints; }
+    setDecorationPoints(value: DecorationPoints): void { this.decorationPoints = value; }
+    // canvasHeight
+    getCanvasHeight(): CanvasHeight { return this.canvasHeight; }
+    setCanvasHeight(value: CanvasHeight): void { this.canvasHeight = value; }
+    // canvasWidth
+    getCanvasWidth(): CanvasWidth { return this.canvasWidth; }
+    setCanvasWidth(value: CanvasWidth): void { this.canvasWidth = value; }
+    // dotRadius
+    getDotRadius(): DotRadius { return this.dotRadius; }
+    setDotRadius(value: DotRadius): void { this.dotRadius = value; }
+    // lineColor
+    getLineColor(): LineColor { return this.lineColor; }
+    setLineColor(value: LineColor): void { this.lineColor = value; }
+    // linePoints
+    getLinePoints(): LinePoints { return this.linePoints; }
+    setLinePoints(value: LinePoints): void { this.linePoints = value; }
+    // lineWidth
+
+    getLineWidth(): LineWidth { return this.lineWidth; }
+    setLineWidth(value: LineWidth): void { this.lineWidth = value; }
+    // shadeColor
+    getShadeColor(): ShadeColor { return this.shadeColor; }
+    setShadeColor(value: ShadeColor): void { this.shadeColor = value; }
+
+   // working attributes
+   // coordinatesCanvas
+   getCoordinatesCanvas(): Array<number> { return this.coordinatesCanvas; }
+   setCoordinatesCanvas(value: Array<number>) { this.coordinatesCanvas = value; }
+   // pcoordinatesViewport
+   getCoordinatesViewport(): Array<number> { return this.coordinatesViewport; }
+   setCoordinatesViewport(value: Array<number>) { this.coordinatesViewport = value; }
+   // coordinatesWorld
+   getCoordinatesWorld(): Array<number> { return this.coordinatesWorld; }
+   setCoordinatesWorld(value: Array<number>) { this.coordinatesWorld = value; }
+   // measurementsArray
+   getMeasurementsArray(): Array<number> { return this.measurementsArray; }
+   setMeasurementsArray(value: Array<number>) { this.measurementsArray = value; }
+   // tooltips: Array<Tooltip>;
+   getTooltips(): Array<Tooltip> { return this.tooltips; }
+   setTooltips(value: Array<Tooltip>): void { this.tooltips = value; }
+   // private valid: boolean;
+   getValid(): boolean { return this.valid; }
+   setValid(value: boolean): void { this.valid = value; }
+
+   // raw attribures
    // private canvasHeightRaw: string;
    getCanvasHeightRaw(): string { return this.canvasHeightRaw; }
    setCanvasHeightRaw(value: string): void { this.canvasHeightRaw = value; }
@@ -41,88 +106,44 @@ export class SparkLine implements SparklineInterface {
    getShadeColorRaw(): string { return this.shadeColorRaw; }
    setShadeColorRaw(value: string): void { this.shadeColorRaw = value; }
 
-   // validated attributes
-   private decorationPoints: DecorationPoints;
-   getDecorationPoints(): DecorationPoints { return this.decorationPoints; }
-   setDecorationPoints(value: DecorationPoints): void { this.decorationPoints = value; }
-   private canvasHeight: CanvasHeight;
-   getCanvasHeight(): CanvasHeight { return this.canvasHeight; }
-   setCanvasHeight(value: CanvasHeight): void { this.canvasHeight = value; }
-   private canvasWidth: CanvasWidth;
-   getCanvasWidth(): CanvasWidth { return this.canvasWidth; }
-   setCanvasWidth(value: CanvasWidth): void { this.canvasWidth = value; }
-   private dotRadius: DotRadius;
-   getDotRadius(): DotRadius { return this.dotRadius; }
-   setDotRadius(value: DotRadius): void { this.dotRadius = value; }
-   private lineColor: LineColor;
-   getLineColor(): LineColor { return this.lineColor; }
-   setLineColor(value: LineColor): void { this.lineColor = value; }
-   private linePoints: LinePoints;
-   getLinePoints(): LinePoints { return this.linePoints; }
-   setLinePoints(value: LinePoints): void { this.linePoints = value; }
-   private lineWidth: LineWidth;
-   getLineWidth(): LineWidth { return this.lineWidth; }
-   setLineWidth(value: LineWidth): void { this.lineWidth = value; }
-   private shadeColor: ShadeColor;
-   getShadeColor(): ShadeColor { return this.shadeColor; }
-   setShadeColor(value: ShadeColor): void { this.shadeColor = value; }
 
-   // working attributes
-   private coordinatesCanvas: Array<any>;
-   getCoordinatesCanvas(): Array<number> { return this.coordinatesCanvas; }
-   setCoordinatesCanvas(value: Array<number>) { this.coordinatesCanvas = value; }
-   private coordinatesViewport: Array<number>;
-   getCoordinatesViewport(): Array<number> { return this.coordinatesViewport; }
-   setCoordinatesViewport(value: Array<number>) { this.coordinatesViewport = value; }
-   private coordinatesWorld: Array<number>;
-   getCoordinatesWorld(): Array<number> { return this.coordinatesWorld; }
-   setCoordinatesWorld(value: Array<number>) { this.coordinatesWorld = value; }
-   private measurementsArray: Array<number>;
-   getMeasurementsArray(): Array<number> { return this.measurementsArray; }
-   setMeasurementsArray(value: Array<number>) { this.measurementsArray = value; }
-   tooltipId = `rms-spark-line-tooltip`;
-   tooltips: Array<Tooltip>;
-   getTooltips(): Array<Tooltip> { return this.tooltips; }
-   setTooltips(value: Array<Tooltip>): void { this.tooltips = value; }
-   private valid: boolean;
-   getValid(): boolean { return this.valid; }
-   setValid(value: boolean): void { this.valid = value; }
 
-   constructor(private canvasHeightRaw: string,
-      private canvasWidthRaw: string,
-      private decorationPointsRaw: string,
-      private dotRadiusRaw: string,
-      private lineColorRaw: string,
-      private linePointsRaw: string,
-      private lineWidthRaw: string,
-      private shadeColorRaw: string
-   ) {}
+    constructor(
+        private canvasHeightRaw: string,
+        private canvasWidthRaw: string,
+        private decorationPointsRaw: string,
+        private dotRadiusRaw: string,
+        private lineColorRaw: string,
+        private linePointsRaw: string,
+        private lineWidthRaw: string,
+        private shadeColorRaw: string
+    ) {}
 
    validate(): boolean {
-      var valid: boolean = true;
+      let valid = true;
 
-      var decorationPoints = new DecorationPoints(this.getDecorationPointsRaw());
+      const decorationPoints = new DecorationPoints(this.getDecorationPointsRaw());
       valid = valid && decorationPoints.validate(`DecorationPoints`);
 
-      var canvasHeight: CanvasHeight = new CanvasHeight(this.getCanvasHeightRaw())
+      const canvasHeight: CanvasHeight = new CanvasHeight(this.getCanvasHeightRaw());
       valid = valid && canvasHeight.validate(`CanvasHeight`);
 
-      var canvasWidth: CanvasWidth = new CanvasWidth(this.getCanvasWidthRaw())
+      const canvasWidth: CanvasWidth = new CanvasWidth(this.getCanvasWidthRaw());
       valid = valid && canvasWidth.validate(`CanvasWidth`);
 
-      var dotRadius: DotRadius = new DotRadius(this.getDotRadiusRaw());
+      const dotRadius: DotRadius = new DotRadius(this.getDotRadiusRaw());
       valid = valid && dotRadius.validate(`DotRadius`);
 
-      var lineColor: LineColor = new LineColor(this.getLineColorRaw());
+      const lineColor: LineColor = new LineColor(this.getLineColorRaw());
       valid = valid && lineColor.validate(`LineColor`);
 
-      var linePoints: LinePoints = new LinePoints(this.getLinePointsRaw());
+      const linePoints: LinePoints = new LinePoints(this.getLinePointsRaw());
       valid = valid && linePoints.validate(`LinePoints`);
 
-      var lineWidth: LineWidth = new LineWidth(this.getLineWidthRaw());
+      const lineWidth: LineWidth = new LineWidth(this.getLineWidthRaw());
       valid = valid && lineWidth.validate(`LineWidth`);
 
-      var shadeColor: ShadeColor = new ShadeColor(this.getShadeColorRaw());
+      const shadeColor: ShadeColor = new ShadeColor(this.getShadeColorRaw());
       valid = valid && shadeColor.validate(`ShadeColor`);
 
       this.setValid(valid);
@@ -142,9 +163,9 @@ export class SparkLine implements SparklineInterface {
    }
    prepare(canvasEl?: HTMLCanvasElement): void {
       // measurements array
-      var linePoints: Array<number> = this.getLinePoints().getValue();
-      var coordinatesWorld: Array<number>;
-      var measurementsArray: Array<number>;
+      const linePoints: Array<number> = this.getLinePoints().getValue();
+      let coordinatesWorld: Array<number>;
+      let measurementsArray: Array<number>;
 
       measurementsArray = this.buildMeasurementsArray(linePoints);
       this.setMeasurementsArray(measurementsArray);
@@ -153,13 +174,13 @@ export class SparkLine implements SparklineInterface {
       this.setCoordinatesWorld(coordinatesWorld);
    }
    scale(canvasEl: HTMLCanvasElement): void {
-      var coordinatesCanvas: Array<any>;
-      var coordinatesViewport: Array<number>;
+      let coordinatesCanvas: Array<any>;
+      let coordinatesViewport: Array<number>;
       const coordinatesWorld: Array<number> = this.getCoordinatesWorld();
-      const dotRadius: number = this.getDotRadius().getValue()
-      const height: number = this.getCanvasHeight().getValue()
+      const dotRadius: number = this.getDotRadius().getValue();
+      const height: number = this.getCanvasHeight().getValue();
       const measurementsArray: Array<number> = this.getMeasurementsArray();
-      const width: number = this.getCanvasWidth().getValue()
+      const width: number = this.getCanvasWidth().getValue();
 
       coordinatesViewport = this.buildCoordinatesViewPort(width, height, dotRadius, measurementsArray, coordinatesWorld);
       this.setCoordinatesViewport(coordinatesViewport);
@@ -171,33 +192,33 @@ export class SparkLine implements SparklineInterface {
       const coordinatesCanvas: Array<any> = this.getCoordinatesCanvas();
       const ctx: CanvasRenderingContext2D = canvasEl.getContext('2d');
       const decorationPoints: Array<DecorationPoint> = this.getDecorationPoints().getValue();
-      const dotRadius: number = this.getDotRadius().getValue()
-      const height: number = this.getCanvasHeight().getValue()
+      const dotRadius: number = this.getDotRadius().getValue();
+      const height: number = this.getCanvasHeight().getValue();
       const lineColor: string = this.getLineColor().getValue();
       const measurementsArray: Array<number> = this.getMeasurementsArray();
       const measurementsArrayLength: number = measurementsArray.length;
       const shadeColor: string = this.getShadeColor().getValue();
-      const width: number = this.getCanvasWidth().getValue()
-      const lineWidth: number = this.getLineWidth().getValue()
+      const width: number = this.getCanvasWidth().getValue();
+      const lineWidth: number = this.getLineWidth().getValue();
       this.drawShade(ctx, width, height, shadeColor, coordinatesCanvas, measurementsArrayLength);
       this.drawLine(ctx, lineWidth, lineColor, coordinatesCanvas, measurementsArrayLength);
       this.drawDecorations(decorationPoints, dotRadius, measurementsArray, ctx, coordinatesCanvas);
    }
    showToolTips(canvasEl: HTMLCanvasElement): void {
-      var tooltipService: TooltipService;
+      let tooltipService: TooltipService;
 
       this.buildToolTips();
-      tooltipService = new TooltipService(canvasEl, this.getTooltips(), this.tooltipId)
+      tooltipService = new TooltipService(canvasEl, this.getTooltips(), this.tooltipId);
 
-      canvasEl.addEventListener('mousemove', function(event: any) {
+      canvasEl.addEventListener('mousemove', (event: any) => {
          // console.log(`RmsSparklineInlineNew::addEventListener`);
 
          // Note that when this function is called, this points to the target element!
          // console.log(`SparkLineComponent:ngAfterViewInit - handling mousemove`);
          tooltipService.handleMouseMove(event);
-      });
+     });
 
-      canvasEl.addEventListener('mouseout', function() {
+      canvasEl.addEventListener('mouseout', () => {
       // console.log(`RmsSparklineInlineNew::addEventListener`);
          tooltipService.handleMouseOut();
       });
@@ -208,7 +229,7 @@ export class SparkLine implements SparklineInterface {
     * buildMeasurementsArray
     */
    buildMeasurementsArray(linePoints: number[]): number[] {
-      let measurementsArray: number[] = []
+      let measurementsArray: number[] = [];
       measurementsArray = linePoints.slice(0);
       return measurementsArray;
    }
@@ -220,9 +241,9 @@ export class SparkLine implements SparklineInterface {
     * are removed before the actual line is drawn
     */
    buildCoordinatesWorld(measurementsArray: number[]): number[] {
-      let coordinatesWorld = [];
+      const coordinatesWorld = [];
       for (let i = 0;  i < measurementsArray.length; i++) {
-         coordinatesWorld.push([i,measurementsArray[i], 1]);
+         coordinatesWorld.push([i, measurementsArray[i], 1]);
          // console.log(`coordinatesWorld(` + i +`): ` + JSON.stringify(this.coordinatesWorld[i]));
       }
       return coordinatesWorld;
@@ -233,10 +254,10 @@ export class SparkLine implements SparklineInterface {
     * The sparkline is drawn on the canvas viewport, a subset of the canvas
     * drawing area, with padding between the two to make room for drawing
     * decoration shapes, when necessary.
-   */
+    */
    // scale methods
-   buildCoordinatesViewPort(attributesWidth:number, attributesHeight: number, attributesDotRadius: number, measurementsArray: number[], coordinatesWorld: number[]): number[] {
-      let coordinatesViewport = [];
+   buildCoordinatesViewPort(attributesWidth: number, attributesHeight: number, attributesDotRadius: number, measurementsArray: number[], coordinatesWorld: number[]): number[] {
+      const coordinatesViewport = [];
 
       const sX = (attributesWidth - attributesDotRadius * 2) / measurementsArray.length;
       const sY = (attributesHeight - attributesDotRadius * 2 ) / Math.max(...measurementsArray);
@@ -250,20 +271,20 @@ export class SparkLine implements SparklineInterface {
       return coordinatesViewport;
    }
    /**
-   * buildCoordinatesCanvas
-   *
-   * The world coordinates origin is at the bottom left, whereas the canvas and
-   * canvasViewport coordinates origin is at the top left, requiring the
-   * translation from bottom left to top left origin.
-   *
-   * Since canvas drawing always uses the canvas coordinates and the
-   * canvasViewport amounts to a padding around the canvas, a translation is
-   * required to move the canvasViewport coordinates:
-   */
+    * buildCoordinatesCanvas
+    *
+    * The world coordinates origin is at the bottom left, whereas the canvas and
+    * canvasViewport coordinates origin is at the top left, requiring the
+    * translation from bottom left to top left origin.
+    *
+    * Since canvas drawing always uses the canvas coordinates and the
+    * canvasViewport amounts to a padding around the canvas, a translation is
+    * required to move the canvasViewport coordinates:
+    */
    buildCoordinatesCanvas(attributesDotRadius: number, attributesHeight: number, measurementsArray: number[], coordinatesViewport: number[]): number[] {
 
       // Start function logic
-      let coordinatesCanvas = [];
+      const coordinatesCanvas = [];
 
       const dX = attributesDotRadius;
       const myHeight = attributesHeight - attributesDotRadius;
@@ -285,7 +306,13 @@ export class SparkLine implements SparklineInterface {
     * drawShade
     * TODO move this method to the shade-color object
     */
-   drawShade(ctx: CanvasRenderingContext2D, attributesLineWidth: number, attributesHeight: number, attributesShadeColor: string, coordinatesCanvas: number[], measurementsArrayLength: number) {
+   drawShade(
+       ctx: CanvasRenderingContext2D,
+       attributesLineWidth: number,
+       attributesHeight: number,
+       attributesShadeColor: string,
+       coordinatesCanvas: number[],
+       measurementsArrayLength: number) {
       ctx.clearRect(0, 0, attributesLineWidth, attributesHeight);
       // console.log(`shadeColor: ` + this.attributes.shadeColor);
       if (attributesShadeColor) {
@@ -308,11 +335,12 @@ export class SparkLine implements SparklineInterface {
     * Draw the path, on top of the shade area
     * https://www.w3schools.com/graphics/canvas_coordinates.asp
     */
-   drawLine(ctx: CanvasRenderingContext2D,
-      attributesLineWidth: number,
-      attributesLineColor: string,
-      coordinatesCanvas: number[],
-      measurementsArrayLength: number): void {
+    drawLine(
+        ctx: CanvasRenderingContext2D,
+        attributesLineWidth: number,
+        attributesLineColor: string,
+        coordinatesCanvas: number[],
+        measurementsArrayLength: number): void {
 
       ctx.beginPath();
       ctx.lineWidth = attributesLineWidth;
@@ -328,25 +356,34 @@ export class SparkLine implements SparklineInterface {
     * drawDecorations
     * TODO move this method to the decoration-points object
     */
-   drawDecorations(decorationPoints: Array<DecorationPoint>, attributesDotRadius: number, measurementsArray: number[], ctx: CanvasRenderingContext2D, coordinatesCanvas: Array<any>): void {
+   drawDecorations(
+       decorationPoints: Array<DecorationPoint>,
+       attributesDotRadius: number,
+       measurementsArray: number[],
+       ctx: CanvasRenderingContext2D,
+       coordinatesCanvas: Array<any>): void {
 
-      let decorationPointsArray: Array<DecorationPoint> = decorationPoints.slice(0);
-      if (attributesDotRadius > 0 && decorationPointsArray.length > 0) {
-      // console.log('decorationPoints = ' + JSON.stringify(this.attributes.decorationPoints));
-         for (let i = 0; i < decorationPointsArray.length; i++) {
-         // todo: a hack to solve a problem when running inside vaadin-grid
-            if (decorationPointsArray[i]['index'] > measurementsArray.length - 1) {
-            // do nothing
-            } else {
-               ctx.beginPath();
-               const index = decorationPointsArray[i]['index'];
-               ctx.arc(coordinatesCanvas[index][0], coordinatesCanvas[index][1], attributesDotRadius, 0, Math.PI * 2);
-               ctx.fillStyle = decorationPointsArray[i]['color'];
-               ctx.fill();
+        const INDEX = 'index';
+        const COLOR = 'color';
+        const MEASUREMENT_ARRAY_MINUS_ONE = measurementsArray.length - 1;
+        const decorationPointsArray: Array<DecorationPoint> = decorationPoints.slice(0);
+        if (attributesDotRadius > 0 && decorationPointsArray.length > 0) {
+        // console.log('decorationPoints = ' + JSON.stringify(this.attributes.decorationPoints));
+            // for (let i = 0; i < decorationPointsArray.length; i++) {
+            for (const decorationPoint of decorationPointsArray) {
+            // todo: a hack to solve a problem when running inside vaadin-grid
+                if (decorationPoint[INDEX] > MEASUREMENT_ARRAY_MINUS_ONE) {
+                // do nothing
+                } else {
+                    ctx.beginPath();
+                    const index = decorationPoint[INDEX];
+                    ctx.arc(coordinatesCanvas[index][0], coordinatesCanvas[index][1], attributesDotRadius, 0, Math.PI * 2);
+                    ctx.fillStyle = decorationPoint[COLOR];
+                    ctx.fill();
+                }
             }
-         }
-      }
-   }
+        }
+    }
    //
    // tooltip methods
    // TODO: Make the measurements array and object, and move this into it.
@@ -354,9 +391,9 @@ export class SparkLine implements SparklineInterface {
    buildToolTips(): void {
       const measurementsArray: Array<number> = this.getMeasurementsArray();
       const coordinatesCanvas: Array<any> = this.getCoordinatesCanvas();
-      var rect: Rectangle;
-      var tooltip: Tooltip;
-      var tooltips: Array<Tooltip> = [];
+      let rect: Rectangle;
+      let tooltip: Tooltip;
+      const tooltips: Array<Tooltip> = [];
       for (let i = 0; i < measurementsArray.length; i++) {
          rect = new Rectangle(coordinatesCanvas[i][0], coordinatesCanvas[i][1], 5, 25);
          tooltip = new Tooltip(rect, 'red',  measurementsArray[i].toString());
