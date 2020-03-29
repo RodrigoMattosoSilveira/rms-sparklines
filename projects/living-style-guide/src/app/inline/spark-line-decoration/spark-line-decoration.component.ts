@@ -30,19 +30,19 @@ export class SparkLineDecorationComponent implements OnInit {
 
     constructor(private livingStyleGuideService: LivingStyleGuideService) { }
 
-   branchUrlLsg: string = "";
-   branchUrlLib: string = "";
+   branchUrlLsg = '';
+   branchUrlLib = '';
    ngOnInit() {
       let branchName = 'master';
-      let projectName = 'living-style-guide'
-      let projectType = 'app'
-      let componentName = 'inline/spark-line-decoration'
+      let projectName = 'living-style-guide';
+      let projectType = 'app';
+      let componentName = 'inline/spark-line-decoration';
       this.branchUrlLsg = this.livingStyleGuideService.targetURL(branchName, projectName, projectType, componentName);
 
       branchName = 'master';
-      projectName = 'rmstek-sparklines'
-      projectType = 'lib'
-      componentName = 'spark-line'
+      projectName = 'rmstek-sparklines';
+      projectType = 'lib';
+      componentName = 'spark-line';
       this.branchUrlLib = this.livingStyleGuideService.targetURL(branchName, projectName, projectType, componentName);
    }
 }

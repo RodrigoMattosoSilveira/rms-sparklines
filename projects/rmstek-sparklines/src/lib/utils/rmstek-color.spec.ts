@@ -1,10 +1,10 @@
 import { RmstekColor } from './rmstek-color';
 
 describe(`RmstekColor`, () => {
-	let rmstekColor: RmstekColor;;
+	let rmstekColor: RmstekColor;
 	let allValid = null;
 	let allInvalid = null;
-	let validColorNames = [
+	const validColorNames = [
 		'CLEAR', 'TRANSPARENT', 'aliceBlue', 'antiqueWhite', 'aqua', 'aquamarine', 'azure', 'beige', 'bisque', 'black',
 		'blanchedAlmond', 'blue', 'blueViolet', 'brown', 'burlyWood', 'cadetBlue', 'chartreuse', 'chocolate', 'coral',
 		'cornflowerBlue', 'cornsilk', 'crimson', 'cyan', 'darkBlue', 'darkCyan', 'darkGoldenRod', 'darkGray', 'darkGrey',
@@ -272,7 +272,7 @@ describe(`RmstekColor`, () => {
 		'yellow XX',
 		'yellowGreen XX',
 	];
-	let validHexColorExpressions = [ /* https://www.w3schools.com/cssref/css_colors_legal.asp */
+	const validHexColorExpressions = [ /* https://www.w3schools.com/cssref/css_colors_legal.asp */
 		/* Hexadecimal Colors */
 		'#ff0000',   /* red */
 		'#00ff00',   /* green */
@@ -282,7 +282,7 @@ describe(`RmstekColor`, () => {
 		'#0f0',   /* green */
 		'#00f',   /* blue */
 	];
-	let invalidHexColorExpressions = [ /* https://www.w3schools.com/cssref/css_colors_legal.asp */
+	const invalidHexColorExpressions = [ /* https://www.w3schools.com/cssref/css_colors_legal.asp */
 		/* Hexadecimal Colors */
 		'123456',   /* must start with a “#” symbol */
 		'#afafah',  /* h” is not allow, valid letter from “a” to “f” */
@@ -292,31 +292,31 @@ describe(`RmstekColor`, () => {
 		'#afaf',    /*either 6 length or 3 length */
 		'#F0h',     /* “h” is not allow, valid letter from “a” to “f” */
 	];
-	let validRgbColorExpressions = [ /* https://www.w3schools.com/cssref/css_colors_legal.asp */
+	const validRgbColorExpressions = [ /* https://www.w3schools.com/cssref/css_colors_legal.asp */
 		/* RGB Colors */
 		'rgb(255, 0, 0)',   /* red */
 		'rgb(0, 255, 0)',   /* green */
 		'rgb(0, 0, 255)',   /* blue */
 	];
-	let invalidRgbColorExpressions = [ /* https://www.w3schools.com/cssref/css_colors_legal.asp */
+	const invalidRgbColorExpressions = [ /* https://www.w3schools.com/cssref/css_colors_legal.asp */
 		/* RGB Colors */
 		'rgb(255, 0, 0, 0.3)',  /* only 3 numbers allowed */
 		'rgb(0, 255, 700)',     /* numbers must be <256 */
 		'rgb(0, 0, #AAA)',      /* only numerals allowed */
 	];
-	let validRgbaColorExpressions = [ /* https://www.w3schools.com/cssref/css_colors_legal.asp */
+	const validRgbaColorExpressions = [ /* https://www.w3schools.com/cssref/css_colors_legal.asp */
 		/* RGBA Colors */
 		'rgba(255, 0, 0, 0.3)',   /* red with opacity */
 		'rgba(0, 255, 0, 0.6)',   /* green with opacity */
 		'rgba(0, 0, 255, 0.9)',   /* blue with opacity */
 	];
-	let invalidRgbaColorExpressions = [ /* https://www.w3schools.com/cssref/css_colors_legal.asp */
+	const invalidRgbaColorExpressions = [ /* https://www.w3schools.com/cssref/css_colors_legal.asp */
 		/* RGBA Colors */
 		'rgba(255, 0, 0, 3)',   /* red with opacity */
 		'rgba(0, 255, 0)',   /* green with opacity */
 		'rgba(0, 0, 255, 1.5)',   /* blue with opacity */
 	];
-	let validHslColorExpressions = [ /* https://www.w3schools.com/cssref/css_colors_legal.asp */
+	const validHslColorExpressions = [ /* https://www.w3schools.com/cssref/css_colors_legal.asp */
 		/* HSL Colors */
 		'hsl(120, 100%, 50%)',   /* green */
 		'hsl(120, 100%, 75%)',   /* light green */
@@ -329,21 +329,21 @@ describe(`RmstekColor`, () => {
 		// 'hsla(120, 100%, 70%, 0.6)',   /* dark green with opacity*/
 		// 'hsla(120,  60%, 70%, 0.8)',   /* pastel green with opacity  */
 	];
-	let invalidHslColorExpressions = [ /* https://www.w3schools.com/cssref/css_colors_legal.asp */
+	const invalidHslColorExpressions = [ /* https://www.w3schools.com/cssref/css_colors_legal.asp */
 		/* HSLA Colors */
 		'hsl(120, 100%, 50%, 0.2)',   /* green with opacity */
 		'hsla(120, 100%, 75%, 40)',   /* light green with opacity */
 		'hsl(120, 100%, 70%, 0.6)',   /* dark green with opacity*/
 		'hslv(120,  60%, 70%, 2)',   /* pastel green with opacity  */
 	];
-	let validHslaColorExpressions = [ /* https://www.w3schools.com/cssref/css_colors_legal.asp */
+	const validHslaColorExpressions = [ /* https://www.w3schools.com/cssref/css_colors_legal.asp */
 		/* HSLA Colors */
 		'hsla(120, 100%, 50%, 0.1)',   /* green with opacity */
 		'hsla(120, 100%, 75%, 0.4)',   /* light green with opacity */
 		'hsla(120, 100%, 70%, 0.6)',   /* dark green with opacity*/
 		'hsla(120,  60%, 70%, 1)',   /* pastel green with opacity  */
 	];
-	let invalidHslaColorExpressions = [ /* https://www.w3schools.com/cssref/css_colors_legal.asp */
+	const invalidHslaColorExpressions = [ /* https://www.w3schools.com/cssref/css_colors_legal.asp */
 		/* HSLA Colors */
 		'hsl(120, 100%, 50%, 0.2)',   /* green with opacity */
 		'hsla(120, 100%, 75%, 40)',   /* light green with opacity */
@@ -352,9 +352,9 @@ describe(`RmstekColor`, () => {
 	];
 
 	beforeEach(() => {
+		rmstekColor = new RmstekColor(``);
 	});
 	it(`has a valid object`, () => {
-      rmstekColor = new RmstekColor(``);
 		expect(rmstekColor).toBeTruthy;
 	});
 	describe(`color names`, () => {
