@@ -393,11 +393,15 @@ export class SparkLine implements SparklineInterface {
       const coordinatesCanvas: Array<any> = this.getCoordinatesCanvas();
       let rect: Rectangle;
       let tooltip: Tooltip;
+      let tipX: number;
+      let tipY: number;
       const tooltips: Array<Tooltip> = [];
       for (let i = 0; i < measurementsArray.length; i++) {
-         rect = new Rectangle(coordinatesCanvas[i][0], coordinatesCanvas[i][1], 5, 25);
-         tooltip = new Tooltip(rect, 'red',  measurementsArray[i].toString());
-         tooltips.push(tooltip);
+          tipX = coordinatesCanvas[i][0] - 3 < 0 ? 0 : coordinatesCanvas[i][0] - 3;
+          tipY = coordinatesCanvas[i][1] - 13 < 0 ? 0 : coordinatesCanvas[i][1] - 13;
+          rect = new Rectangle(tipX, tipY, 6, 26);
+          tooltip = new Tooltip(rect, 'red',  measurementsArray[i].toString());
+          tooltips.push(tooltip);
          // console.log(`coordinatesTips(` + i +`): ` + JSON.stringify(this.coordinatesTips[i]));
       }
       this.setTooltips(tooltips);

@@ -46,6 +46,7 @@ export class TooltipService {
 
       // Get the position of the canvas element relative to the document
       // https://plainjs.com/javascript/styles/get-the-position-of-an-element-relative-to-the-document-24/
+      // https://www.html5canvastutorials.com/advanced/html5-canvas-mouse-coordinates/
       rect = canvasEl.getBoundingClientRect();
       scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
       scrollTop = window.pageYOffset || document.documentElement.scrollTop;
