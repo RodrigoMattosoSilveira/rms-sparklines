@@ -8,7 +8,7 @@ addons:
 git:
    quiet: true
    submodules: false
-# safelist
+# no safelist; build all checkins; see tag.sh and publish.sh 
 branches:
    only:
       - master
