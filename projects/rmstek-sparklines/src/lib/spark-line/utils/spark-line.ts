@@ -33,6 +33,7 @@ export class SparkLine implements SparklineInterface {
     private tooltipId = `rms-spark-line-tooltip`;
     private tooltips: Array<Tooltip>;
     private valid: boolean;
+    private tooltipService: TooltipService;
 
     // decorationPoints
     getDecorationPoints(): DecorationPoints { return this.decorationPoints; }
@@ -205,25 +206,27 @@ export class SparkLine implements SparklineInterface {
       this.drawDecorations(decorationPoints, dotRadius, measurementsArray, ctx, coordinatesCanvas);
    }
    showToolTips(canvasEl: HTMLCanvasElement): void {
-      let tooltipService: TooltipService;
-
       this.buildToolTips();
-      tooltipService = new TooltipService(canvasEl, this.getTooltips(), this.tooltipId);
+      this.tooltipService = new TooltipService(canvasEl, this.getTooltips(), this.tooltipId);
 
       canvasEl.addEventListener('mousemove', (event: any) => {
          // console.log(`RmsSparklineInlineNew::addEventListener`);
 
          // Note that when this function is called, this points to the target element!
          // console.log(`SparkLineComponent:ngAfterViewInit - handling mousemove`);
-         tooltipService.handleMouseMove(event);
+         this.tooltipService.handleMouseMove(event);
      });
 
       canvasEl.addEventListener('mouseout', () => {
       // console.log(`RmsSparklineInlineNew::addEventListener`);
-         tooltipService.handleMouseOut();
+         this.tooltipService.handleMouseOut();
       });
 
    }
+   removeToolTips(canvasEl: HTMLCanvasElement): void {
+       canvasEl.removeEventListener('mousemove', this.tooltipService.handleMouseMove);
+       canvasEl.removeEventListener('mouseout', this.tooltipService.handleMouseOut);
+    }
    // prepare methods
    /**
     * buildMeasurementsArray

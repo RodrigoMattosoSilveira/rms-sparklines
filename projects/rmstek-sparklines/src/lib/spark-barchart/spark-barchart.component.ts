@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
 import { BarchartService } from '../services/barchart.service';
 import { Bar3d } from '../services/bar-3d';
 
@@ -7,7 +7,7 @@ import { Bar3d } from '../services/bar-3d';
   templateUrl: './spark-barchart.component.html',
   styleUrls: ['./spark-barchart.component.css']
 })
-export class SparkBarchartComponent implements AfterViewInit {
+export class SparkBarchartComponent implements AfterViewInit, OnDestroy {
     // @Input('spark_color') lineColor: string;
 
     @Input() barGap = 6;
@@ -121,5 +121,9 @@ export class SparkBarchartComponent implements AfterViewInit {
          });
 
       }
+    }
+    ngOnDestroy() {
+        this.sparklineCanvas.nativeElement.addEventListener('mousemove');
+        this.sparklineCanvas.nativeElement.addEventListener('mouseout');
     }
 }
