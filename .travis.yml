@@ -23,14 +23,14 @@ before_script:
    - echo "before_script has no steps"
 script:
    - echo "script execution"
-   - yarn lib:reset
+   - npm install
    - ng test rmstek-sparklines  --karmaConfig=./projects/rmstek-sparklines/karma.conf.travisci.js
    - ng test living-style-guide --karmaConfig=./projects/living-style-guide/karma.conf.travisci.js
    - ng e2e
    - ng build living-style-guide --prod --base-href /rms-sparklines/ --deploy-url https://rodrigomattososilveira.github.io/rms-sparklines/
 before_cache:
    - echo "before_cache has no steps"
-cache: yarn
+cache: npm
 before_deploy:
    - echo "before_deploy has no steps"
 deploy:
