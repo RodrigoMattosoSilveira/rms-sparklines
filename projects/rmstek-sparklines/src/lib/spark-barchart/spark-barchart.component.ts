@@ -122,8 +122,7 @@ export class SparkBarchartComponent implements AfterViewInit, OnDestroy {
 
       }
     }
+    // TODO add this when we migrate Barchar to OO
     ngOnDestroy() {
-        this.sparklineCanvas.nativeElement.addEventListener('mousemove');
-        this.sparklineCanvas.nativeElement.addEventListener('mouseout');
     }
 }
