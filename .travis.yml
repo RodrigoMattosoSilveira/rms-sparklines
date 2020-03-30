@@ -20,7 +20,7 @@ before_install:
    - export PATH="$HOME/.yarn/bin:$PATH"
 install:
    - echo "install execution"
-   - npm install -g @angular/cli@7.3.9
+   - npm install -g @angular/cli@9.1.0
 before_script:
    - echo "before_script has no steps"
 script:
