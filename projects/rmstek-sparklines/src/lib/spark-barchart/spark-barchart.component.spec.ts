@@ -10,7 +10,7 @@ describe('SparkBarchartComponent', () => {
     let compiledFixture: HTMLElement;
     let canvasEl: HTMLCanvasElement;
     let canvasCtx: CanvasRenderingContext2D;
-    const POSITIVE_SPARK_BARCHART_FINGERPRINT = '86cca0d26692a1d84172ec38a60fa224';
+    const POSITIVE_SPARK_BARCHART_FINGERPRINT = '08569536c76f793de4586d711931515c';
     const NEGATIVE_SPARK_BARCHART_FINGERPRINT = 'a6655396e2dc149d298f77a5cfd46e0c';
     const TRI_SPARK_BARCHART_FINGERPRINT = 'e206706980f9d282aa06eb514593497e';
     const DUAL_SPARK_BARCHART_FINGERPRINT = '32611f7fdc0762c426f340da6b41c6bf';

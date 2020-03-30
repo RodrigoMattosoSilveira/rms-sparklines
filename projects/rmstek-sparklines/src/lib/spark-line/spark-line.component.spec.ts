@@ -11,7 +11,7 @@ describe('SparkLineComponent', () => {
     let canvasCtx: CanvasRenderingContext2D;
     const SIMPLE_SPARK_LINE_FINGERPRINT = '80e9a4ed2a8258fc7629a70eec3e09bc';
     const DECORATED_SPARK_LINE_FINGERPRINT = '80e9a4ed2a8258fc7629a70eec3e09bc';
-    const SHADED_SPARK_LINE_FINGERPRINT = '40d183caf56375d5e9dcaea9e551f55a';
+    const SHADED_SPARK_LINE_FINGERPRINT = '6c4f44888141a88fba086d72481728fa';
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({

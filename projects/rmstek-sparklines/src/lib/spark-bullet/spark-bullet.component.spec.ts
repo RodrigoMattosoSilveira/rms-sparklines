@@ -10,7 +10,7 @@ describe('SparkBulletComponent', () => {
     let compiledFixture: HTMLElement;
     let canvasEl: HTMLCanvasElement;
     let canvasCtx: CanvasRenderingContext2D;
-    const SPARK_BULLET_FINGERPRINT_HORIZONTAL_A = '131a4c03f462cca935068716c24e65d8';
+    const SPARK_BULLET_FINGERPRINT_HORIZONTAL_A = '00cf940f7dc26273a3a63702458c0607';
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({

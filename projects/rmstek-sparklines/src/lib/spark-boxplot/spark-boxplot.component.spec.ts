@@ -10,7 +10,7 @@ describe('SparkBoxplotComponent', () => {
     let compiledFixture: HTMLElement;
     let canvasEl: HTMLCanvasElement;
     let canvasCtx: CanvasRenderingContext2D;
-    const SPARK_BOXPLOT_FINGERPRINT = '3485d405eda1c78058f9df24a2f35e52';
+    const SPARK_BOXPLOT_FINGERPRINT = 'a7596c5440cd21f1756205bf30b0c4fa';
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
