@@ -1,6 +1,11 @@
 {
   "name": "rms-sparklines",
   "version": "0.3.5-alhpa.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RodrigoMattosoSilveira/rms-sparklines"
+  },
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -20,6 +25,7 @@
     "lib:ready": "run-s lib:build lib:clr lib:pack",
     "lib:reset": "run-s npm:reset lib:build rm -rf node_modules/ npm install lib:add",
     "lib:test": "ng test rmstek-sparklines",
+    "lib:link": "npm link ./dist/rmstek-sparklines",
     "reset:node_modules": "rm -rf node_modules/",
     "reset:package_lock": "rm -f package-lock.json",
     "reset:install": "npm install",
@@ -71,8 +77,5 @@
     "ts-node": "~8.8.1",
     "tslint": "~6.1.0",
     "typescript": "~3.8.3"
-  },
-  "optionalDependencies": {
-    "@rmstek/sparklines": "file:dist/rmstek-sparklines"
   }
 }
