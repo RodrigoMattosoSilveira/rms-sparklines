@@ -224,8 +224,12 @@ export class SparkLine implements SparklineInterface {
 
    }
    removeToolTips(canvasEl: HTMLCanvasElement): void {
-       canvasEl.removeEventListener('mousemove', this.tooltipService.handleMouseMove);
-       canvasEl.removeEventListener('mouseout', this.tooltipService.handleMouseOut);
+     console.log('SparkLine:removeToolTips - About to remove event handler');
+     console.log('SparkLine:removeToolTips - tooltipService: ' + this.tooltipService ? 'defined' :'undefined');
+     if (this.tooltipService ) {
+       canvasEl.removeEventListener('mousemove', this.tooltipService.handleMouseMove, false);
+       canvasEl.removeEventListener('mousemove', this.tooltipService.handleMouseOut, false);
+     }
     }
    // prepare methods
    /**

@@ -68,6 +68,7 @@ export class SparkLineComponent implements AfterViewInit, OnDestroy {
       }
    }
    ngOnDestroy() {
-       this.drawingObj.removeToolTips(this.canvasEl);
+     // console.log('SparkLineComponent:OnDestroy');
+     this.drawingObj.removeToolTips(this.canvasEl);
    }
 }
