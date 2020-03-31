@@ -43,26 +43,26 @@ export class ComparativeMeasure {
       this.setValid(true);
       comparativeMeasureRaw = this.getComparativeMeasureRaw();
       if (comparativeMeasureRaw === null) {
-         console.log(`ComparativeMeasure:validate - comparativeMeasure is null: ` + JSON.stringify(comparativeMeasureRaw));
+         // console.log(`ComparativeMeasure:validate - comparativeMeasure is null: ` + JSON.stringify(comparativeMeasureRaw));
          this.setValid(false);
       }
       else {
          comparativeMeasureAny = JSON.parse(this.getComparativeMeasureRaw());
          if (typeof comparativeMeasureAny !== 'object') {
-            console.log(`ComparativeMeasure:validate - comparativeMeasure is not an object: ` + JSON.stringify(comparativeMeasureRaw));
+            // console.log(`ComparativeMeasure:validate - comparativeMeasure is not an object: ` + JSON.stringify(comparativeMeasureRaw));
             this.setValid(false);
          }
          else {
             if(Object.keys(comparativeMeasureAny).length != 3) {
-               console.log(`ComparativeMeasure:validate - comparativeMeasure has more than 2 keys: ` + JSON.stringify(comparativeMeasureAny));
+               // console.log(`ComparativeMeasure:validate - comparativeMeasure has more than 2 keys: ` + JSON.stringify(comparativeMeasureAny));
                this.setValid(false);
             }
             if(Object.keys(comparativeMeasureAny).length != 3) {
-               console.log(`ComparativeMeasure:validate - comparativeMeasure has more than 2 keys: ` + JSON.stringify(comparativeMeasureAny));
+               // console.log(`ComparativeMeasure:validate - comparativeMeasure has more than 2 keys: ` + JSON.stringify(comparativeMeasureAny));
                this.setValid(false);
             }
             if(!comparativeMeasureAny.hasOwnProperty("value")) {
-               console.log(`ComparativeMeasure:validate - comparativeMeasure does not have the value property: ` + JSON.stringify(comparativeMeasureAny));
+               // console.log(`ComparativeMeasure:validate - comparativeMeasure does not have the value property: ` + JSON.stringify(comparativeMeasureAny));
                this.setValid(false);
             }
             else {
@@ -76,7 +76,7 @@ export class ComparativeMeasure {
                }
             }
             if(!comparativeMeasureAny.hasOwnProperty("color")) {
-               console.log(`ComparativeMeasure:validate - comparativeMeasure does not have the color property: ` + JSON.stringify(comparativeMeasureAny));
+               // console.log(`ComparativeMeasure:validate - comparativeMeasure does not have the color property: ` + JSON.stringify(comparativeMeasureAny));
                this.setValid(false);
             }
             else {

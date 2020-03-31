@@ -33,7 +33,7 @@ export class SparkBulletComponent implements AfterViewInit, OnDestroy {
          this.qualitativeRanges,
          this.width.toString());
       if (!this.sparkBullet.validate()) {
-         console.log(`SparkBulletComponent:ngAfterViewInit - Invalid arguments`);
+         // console.log(`SparkBulletComponent:ngAfterViewInit - Invalid arguments`);
       } else {
          this.sparkBullet.prepare();
          this.sparkBullet.scale(this.canvasEl);

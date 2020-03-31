@@ -59,7 +59,7 @@ export class SparkLineComponent implements AfterViewInit, OnDestroy {
          this.shadeColor);
 
       if (!this.drawingObj.validate()) {
-         console.log(`SparkLineComponent:ngAfterViewInit - Invalid arguments`);
+         // console.log(`SparkLineComponent:ngAfterViewInit - Invalid arguments`);
       } else {
          this.drawingObj.prepare();
          this.drawingObj.scale(this.canvasEl);

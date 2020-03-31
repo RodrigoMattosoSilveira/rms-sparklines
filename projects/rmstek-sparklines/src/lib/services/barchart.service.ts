@@ -568,13 +568,13 @@ export class BarchartService {
 
       // Bar gap must be equal or higher than 1
       if (barGap < 1) {
-         console.log('barChart::constructor: barGap less than 1: ' + barGap);
+         // console.log('barChart::constructor: barGap less than 1: ' + barGap);
          valid = false;
       }
 
       // fillColorMinus must be a valid CSS color
       if (!this.cssColorString.isValid(fillColorMinus)) {
-          console.log(`BarchartService:drawNew - fillColorMinus is invalid: ` + fillColorMinus);
+          // console.log(`BarchartService:drawNew - fillColorMinus is invalid: ` + fillColorMinus);
           valid = false;
       }
 

@@ -20,7 +20,7 @@ export class DecorationPoints {
       this.setValid(true);
       decorationPointsRaw = this.getValueRaw();
       if (decorationPointsRaw === null) {
-         console.log(message + ` decorationPointsRaw is null: `);
+         // console.log(message + ` decorationPointsRaw is null: `);
          this.setValid(false);
       }
       else {
@@ -29,7 +29,7 @@ export class DecorationPoints {
             decorationPoint = new DecorationPoint(JSON.stringify(decorationPointsWork[i]));
             if (!decorationPoint.validate(`DecorationPoints`)) {
                this.setValid(false);
-               console.log(`DecorationPoints - Invalid decoration point: ` + decorationPoint.getValueRaw());
+               // console.log(`DecorationPoints - Invalid decoration point: ` + decorationPoint.getValueRaw());
             }
             else {
                this.getValue().push(decorationPoint);

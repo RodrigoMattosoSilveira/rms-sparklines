@@ -52,7 +52,7 @@ export class SparkBarchartComponent implements AfterViewInit, OnDestroy {
               this.fillColorZero,
               this.minimumBarWidth,
               this.sparklineCanvas) != true) {
-           console.log(`SparkBarchartComponent:ngAfterViewInit - Invalid arguments`)
+           // console.log(`SparkBarchartComponent:ngAfterViewInit - Invalid arguments`)
         }
         else {
            canvasEl = this.barchartService.setupCanvasEl(this.sparklineCanvas,

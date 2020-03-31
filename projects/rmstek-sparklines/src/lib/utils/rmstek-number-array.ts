@@ -16,7 +16,7 @@ export class RmstekNumberArray {
       var value: Array<number> = [];
       for (let i = 0; i < valueParsed.length; i++) {
          if(isNaN(Number(valueParsed[i]))) {
-            console.log(failMessage + ` : ` + valueParsed[i]);
+            // console.log(failMessage + ` : ` + valueParsed[i]);
              valid = false;
          }
          else {
