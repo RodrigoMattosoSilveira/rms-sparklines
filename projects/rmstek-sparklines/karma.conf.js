@@ -21,7 +21,7 @@ module.exports = function (config) {
       reports: ['html', 'lcovonly'],
       fixWebpackSourcePaths: true
     },
-    reporters: ['progress', 'kjhtml', 'mocha'],
+    reporters: ['mocha'],
     // reporter options
     mochaReporter: {
       colors: {

@@ -68,7 +68,7 @@ export class ComparativeMeasure {
             else {
                let number = Number(comparativeMeasureAny.value);
                if(isNaN(number)) {
-                  console.log(`ComparativeMeasure:validate - comparativeMeasure value is not a number: ` + JSON.stringify(comparativeMeasureAny));
+                  // console.log(`ComparativeMeasure:validate - comparativeMeasure value is not a number: ` + JSON.stringify(comparativeMeasureAny));
                   this.setValid(false);
                }
                else {
@@ -81,7 +81,7 @@ export class ComparativeMeasure {
             }
             else {
                if (!cssColorString.isValid(comparativeMeasureAny.color)) {
-                   console.log(`ComparativeMeasure:validate - comparativeMeasure color is invalid: ` + JSON.stringify(comparativeMeasureAny));
+                   // console.log(`ComparativeMeasure:validate - comparativeMeasure color is invalid: ` + JSON.stringify(comparativeMeasureAny));
                    this.setValid(false);
                }
                else {
@@ -89,13 +89,13 @@ export class ComparativeMeasure {
                }
             }
             if(!comparativeMeasureAny.hasOwnProperty("lineWidth")) {
-               console.log(`ComparativeMeasure:validate - comparativeMeasure does not have the lineWidth property: ` + JSON.stringify(comparativeMeasureAny));
+               // console.log(`ComparativeMeasure:validate - comparativeMeasure does not have the lineWidth property: ` + JSON.stringify(comparativeMeasureAny));
                this.setValid(false);
             }
             else {
                let number = Number(comparativeMeasureAny.lineWidth);
                if(isNaN(number)) {
-                  console.log(`ComparativeMeasure:validate - comparativeMeasure lineWidth is not a number: ` + JSON.stringify(comparativeMeasureAny));
+                  // console.log(`ComparativeMeasure:validate - comparativeMeasure lineWidth is not a number: ` + JSON.stringify(comparativeMeasureAny));
                   this.setValid(false);
                }
                else {

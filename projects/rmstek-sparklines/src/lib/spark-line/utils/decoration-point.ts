@@ -28,27 +28,27 @@ export class DecorationPoint {
       // must have a the index key
       if (!valueOBJ.hasOwnProperty('index')) {
          valid = false;
-         console.log('DecorationPoint has no index key: '  + this.getValueRaw());
+         // console.log('DecorationPoint has no index key: '  + this.getValueRaw());
       }
       else {
          // the index key value must be a number
          rmstekNumber = new RmstekNumber(valueOBJ.index);
          if (!rmstekNumber.validate('DecorationPoint')) {
             valid = false;
-            console.log('DecorationPoint index value is not a number: '  + this.getValueRaw());
+            // console.log('DecorationPoint index value is not a number: '  + this.getValueRaw());
          }
       }
       // must have a color key
       if (!valueOBJ.hasOwnProperty('color')) {
          valid = false;
-         console.log('DecorationPoint has no color key: '  + this.getValueRaw());
+         // console.log('DecorationPoint has no color key: '  + this.getValueRaw());
       }
       else {
          // the color key value must be a valid color
          rmstekColor = new RmstekColor(valueOBJ.color);
          if (!rmstekColor.validate('DecorationPoint')) {
             valid = false;
-            console.log('DecorationPoint color value is invalid: '  + this.getValueRaw());
+            // console.log('DecorationPoint color value is invalid: '  + this.getValueRaw());
          }
       }
       if (valid) {

@@ -532,23 +532,23 @@ export class BarchartService {
 
       // Must have 8 arguments
       if (arguments.length !== 8) {
-          console.log(`BarchartService:drawNew - Invalid number of arguments: ` + arguments.length);
+          // console.log(`BarchartService:drawNew - Invalid number of arguments: ` + arguments.length);
           throw new Error('barChart::constructor: invalid number of arguments: ' + arguments.length);
       }
 
       // canvasEl must be provided
       if (sparklineCanvas === null) {
-          console.log(`BarchartService:drawNew - sparklineCanvas is null`);
+          // console.log(`BarchartService:drawNew - sparklineCanvas is null`);
           throw new Error('barChar::constructor: canvasEl is null');
       }
       if (sparklineCanvas.nativeElement.tagName !== `CANVAS`) {
-          console.log(`BarchartService:drawNew - sparklineCanvas tag is not CANVAS`);
+          // console.log(`BarchartService:drawNew - sparklineCanvas tag is not CANVAS`);
           throw new Error('barChar::constructor: canvasEl is is not CANVAS: ' + sparklineCanvas.nativeElement.tagName);
       }
 
       // chartType must be valid
       if (this.VALID_TYPES.findIndex(checkCartType) === -1) {
-          console.log(`BarchartService:drawNew - checkCartType is invalid: ` + checkCartType);
+          // console.log(`BarchartService:drawNew - checkCartType is invalid: ` + checkCartType);
           valid = false;
       }
       function checkCartType(chartTypeX: string): boolean {
@@ -556,13 +556,13 @@ export class BarchartService {
       }
 
       if (barHeights.length === 0) {
-          console.log(`BarchartService:drawNew - barHeights is invalid: ` + barHeights);
+          // console.log(`BarchartService:drawNew - barHeights is invalid: ` + barHeights);
           valid = false;
       }
 
       // Minimum barWidth must be equal or higher than 3
       if (minimumBarWidth < 3) {
-         console.log('barChart::constructor: minimumBarWidth less than 3: ' + minimumBarWidth);
+         // console.log('barChart::constructor: minimumBarWidth less than 3: ' + minimumBarWidth);
          valid = false;
       }
 
@@ -580,13 +580,13 @@ export class BarchartService {
 
              // fillColorPlus must be a valid CSS color
       if (!this.cssColorString.isValid(fillColorPlus)) {
-          console.log(`BarchartService:drawNew - fillColorPlus is invalid: ` + fillColorPlus);
+          // console.log(`BarchartService:drawNew - fillColorPlus is invalid: ` + fillColorPlus);
           valid = false;
       }
 
       // fillColorZero must be a valid CSS color
       if (!this.cssColorString.isValid(fillColorZero)) {
-          console.log(`BarchartService:drawNew - fillColorZero is invalid: ` + fillColorZero);
+          // console.log(`BarchartService:drawNew - fillColorZero is invalid: ` + fillColorZero);
           valid = false;
       }
       return valid;

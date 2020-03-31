@@ -159,7 +159,7 @@ export class SparkBullet implements SparklineInterface {
         const heightRaw = this.getHeightRaw();
         const height = Number(this.getHeightRaw());
         if (isNaN(height)) {
-            console.log(`SparkBullet:validate - height value is not a number: ` + JSON.stringify(heightRaw));
+            // console.log(`SparkBullet:validate - height value is not a number: ` + JSON.stringify(heightRaw));
             valid = false;
         } else {
             this.setHeight(height);  // force it into a number if it is a valid numeric string
@@ -179,7 +179,7 @@ export class SparkBullet implements SparklineInterface {
         const widthRaw = this.getWidthRaw();
         const widthRawNumber = Number(this.getWidthRaw());
         if (isNaN(widthRawNumber)) {
-            console.log(`SparkBullet:validate - width value is not a number: ` + JSON.stringify(widthRaw));
+            // console.log(`SparkBullet:validate - width value is not a number: ` + JSON.stringify(widthRaw));
             valid = false;
         } else {
             this.setWidth(widthRawNumber);  // force it into a number if it is a valid numeric string

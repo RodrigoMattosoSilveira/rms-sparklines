@@ -43,6 +43,6 @@ export class SparkBulletComponent implements AfterViewInit, OnDestroy {
       }
    }
    ngOnDestroy() {
-       this.sparkBullet.removeToolTips(this.sparklineCanvas.nativeElement);
+       this.sparkBullet.removeToolTips(this.canvasEl);
    }
 }

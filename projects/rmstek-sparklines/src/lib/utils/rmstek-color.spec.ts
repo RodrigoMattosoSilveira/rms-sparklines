@@ -355,7 +355,7 @@ describe(`RmstekColor`, () => {
 		rmstekColor = new RmstekColor(``);
 	});
 	it(`has a valid object`, () => {
-		expect(rmstekColor).toBeTruthy;
+		expect(rmstekColor).toBeTruthy();
 	});
 	describe(`color names`, () => {
       it(`validates valid color names`, () => {
@@ -379,7 +379,7 @@ describe(`RmstekColor`, () => {
 				for (let coloExpression of validHexColorExpressions) {
 					// console.log(`::validHexColorExpressions: ` + coloExpression);
 					if (rmstekColor.isValidColorExpressionHex(coloExpression) === false) {
-						console.log(`::validHexColorExpressions will fail: ` + coloExpression);
+						// console.log(`::validHexColorExpressions will fail: ` + coloExpression);
 					}
 					expect(rmstekColor.isValidColorExpressionHex(coloExpression)).toEqual(true);
 				}
@@ -389,7 +389,7 @@ describe(`RmstekColor`, () => {
 				for (let coloExpression of invalidHexColorExpressions) {
 					// console.log(`::invalidHexColorExpressions: ` + coloExpression);
 					if (rmstekColor.isValidColorExpressionHex(coloExpression) === true) {
-						console.log(`::validHexColorExpressions will fail: ` + coloExpression);
+						// console.log(`::validHexColorExpressions will fail: ` + coloExpression);
 					}
 					expect(rmstekColor.isValidColorExpressionHex(coloExpression)).toEqual(false);
 				}
@@ -401,7 +401,7 @@ describe(`RmstekColor`, () => {
 				for (let coloExpression of validRgbColorExpressions) {
 					// console.log(`::validRgbColorExpressions: ` + coloExpression);
 					if (rmstekColor.isValidRgbColorExpression(coloExpression) === false) {
-						console.log(`::validRgbColorExpressions will fail: ` + coloExpression);
+						// console.log(`::validRgbColorExpressions will fail: ` + coloExpression);
 					}
 					expect(rmstekColor.isValidRgbColorExpression(coloExpression)).toEqual(true);
 				}
@@ -411,7 +411,7 @@ describe(`RmstekColor`, () => {
 				for (let coloExpression of invalidRgbColorExpressions) {
 					// console.log(`::invalidRgbColorExpressions: ` + coloExpression);
 					if (rmstekColor.isValidRgbColorExpression(coloExpression) === true) {
-						console.log(`::invalidRgbColorExpressions will fail: ` + coloExpression);
+						// console.log(`::invalidRgbColorExpressions will fail: ` + coloExpression);
 					}
 					expect(rmstekColor.isValidRgbColorExpression(coloExpression)).toEqual(false);
 				}
@@ -423,7 +423,7 @@ describe(`RmstekColor`, () => {
 				for (let coloExpression of validRgbaColorExpressions) {
 					// console.log(`::validRgbaColorExpressions: ` + coloExpression);
 					if (rmstekColor.isValidRgbaColorExpression(coloExpression) === false) {
-						console.log(`::validRgbaColorExpressions will fail: ` + coloExpression);
+						// console.log(`::validRgbaColorExpressions will fail: ` + coloExpression);
 					}
 					expect(rmstekColor.isValidRgbaColorExpression(coloExpression)).toEqual(true);
 				}
@@ -433,7 +433,7 @@ describe(`RmstekColor`, () => {
 				for (let coloExpression of invalidRgbaColorExpressions) {
 					// console.log(`::invalidRgbColorExpressions: ` + coloExpression);
 					if (rmstekColor.isValidRgbaColorExpression(coloExpression) === true) {
-						console.log(`::validRgbaColorExpressions will fail: ` + coloExpression);
+						// console.log(`::validRgbaColorExpressions will fail: ` + coloExpression);
 					}
 					expect(rmstekColor.isValidRgbaColorExpression(coloExpression)).toEqual(false);
 				}
@@ -445,7 +445,7 @@ describe(`RmstekColor`, () => {
 				for (let coloExpression of validHslColorExpressions) {
 					// console.log(`::validHslColorExpressions: ` + coloExpression);
 					if (rmstekColor.isValidHslColorExpression(coloExpression) === false) {
-						console.log(`::validHslColorExpressions will fail: ` + coloExpression);
+						// console.log(`::validHslColorExpressions will fail: ` + coloExpression);
 					}
 					expect(rmstekColor.isValidHslColorExpression(coloExpression)).toEqual(true);
 				}
@@ -455,7 +455,7 @@ describe(`RmstekColor`, () => {
 				for (let coloExpression of invalidHslColorExpressions) {
 					// console.log(`::invalidHslColorExpressions: ` + coloExpression);
 					if (rmstekColor.isValidHslColorExpression(coloExpression) === true) {
-						console.log(`::invalidHslColorExpressions will fail: ` + coloExpression);
+						// console.log(`::invalidHslColorExpressions will fail: ` + coloExpression);
 					}
 					expect(rmstekColor.isValidHslColorExpression(coloExpression)).toEqual(false);
 				}
@@ -467,7 +467,7 @@ describe(`RmstekColor`, () => {
 				for (let coloExpression of validHslaColorExpressions) {
 					// console.log(`::validHslaColorExpressions: ` + coloExpression);
 					if (rmstekColor.isValidHslaColorExpression(coloExpression) === false) {
-						console.log(`::validHslaColorExpressions will fail: ` + coloExpression);
+						// console.log(`::validHslaColorExpressions will fail: ` + coloExpression);
 					}
 					expect(rmstekColor.isValidHslaColorExpression(coloExpression)).toEqual(true);
 				}
@@ -477,7 +477,7 @@ describe(`RmstekColor`, () => {
 				for (let coloExpression of invalidHslaColorExpressions) {
 					// console.log(`::invalidHslaColorExpressions: ` + coloExpression);
 					if (rmstekColor.isValidHslaColorExpression(coloExpression) === true) {
-						console.log(`::invalidHslaColorExpressions will fail: ` + coloExpression);
+						// console.log(`::invalidHslaColorExpressions will fail: ` + coloExpression);
 					}
 					expect(rmstekColor.isValidHslaColorExpression(coloExpression)).toEqual(false);
 				}
@@ -504,7 +504,7 @@ describe(`RmstekColor`, () => {
 			for (let coloString of allValid) {
 				// console.log(`::allValid: ` + coloString);
 				if (rmstekColor.isValid(coloString) === false) {
-					console.log(`::allValid will fail: ` + coloString);
+					// console.log(`::allValid will fail: ` + coloString);
 				}
 				expect(rmstekColor.isValid(coloString)).toEqual(true);
 			}
@@ -514,7 +514,7 @@ describe(`RmstekColor`, () => {
 			for (let coloString of allInvalid) {
 				// console.log(`::allInvalid: ` + coloString);
 				if (rmstekColor.isValid(coloString) === true) {
-					console.log(`::allInvalid will fail: ` + coloString);
+					// console.log(`::allInvalid will fail: ` + coloString);
 				}
 				expect(rmstekColor.isValid(coloString)).toEqual(false);
 			}
