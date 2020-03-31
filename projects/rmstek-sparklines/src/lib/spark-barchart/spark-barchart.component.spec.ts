@@ -15,14 +15,14 @@ describe('SparkBarchartComponent', () => {
     const TRI_SPARK_BARCHART_FINGERPRINT = 'e206706980f9d282aa06eb514593497e';
     const DUAL_SPARK_BARCHART_FINGERPRINT = '32611f7fdc0762c426f340da6b41c6bf';
 
-    beforeEach(async(() => {
+    beforeEach(async() => {
         TestBed.configureTestingModule({
         declarations: [ SparkBarchartComponent ]
         })
         .compileComponents();
-    }));
+    });
 
-    beforeEach(() => {
+    beforeEach(async() => {
         fixture = TestBed.createComponent(SparkBarchartComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -31,18 +31,18 @@ describe('SparkBarchartComponent', () => {
         canvasCtx = component.ctx;
     });
 
-    it('should create', () => {
+    it('should create', async() => {
         expect(component).toBeTruthy();
     });
 
-    it('should be canvas', () => {
+    it('should be canvas', async() => {
         expect(canvasEl).toBeTruthy();
         expect(canvasEl.tagName).toBe('CANVAS');
         expect(canvasEl.width).toBe(128);
         expect(canvasEl.height).toBe(32);
     });
 
-    it('should have the right properties', () => {
+    it('should have the right properties', async() => {
         expect(component.barGap).toBe(6);
         expect(component.barHeights).toBe(JSON.stringify([1, 2, 3, 4, 5, 6, 7, 8, 9]));
         expect(component.chartType).toBe('positive');
@@ -54,14 +54,14 @@ describe('SparkBarchartComponent', () => {
         expect(component.minimumBarWidth).toBe(3);
         expect(component.width).toBe(128);
     });
-    describe('Positive bar chart should', () => {
-        it('succeed drawing the with default parameters', () => {
+    describe('Positive bar chart should', async() => {
+        it('succeed drawing the with default parameters', async() => {
             component.ngAfterViewInit();
             const imageData = canvasCtx.getImageData(0, 0, component.width, component.height);
             const figerPrint = Md5.hashStr(imageData.data.toString());
             expect(figerPrint).toBe(POSITIVE_SPARK_BARCHART_FINGERPRINT);
         });
-        it('fail drawing with non-default parameters', () => {
+        it('fail drawing with non-default parameters', async () => {
             component.fillColorPlus = 'red';
             component.ngAfterViewInit();
             const imageData = canvasCtx.getImageData(0, 0, component.width, component.height);
@@ -69,18 +69,18 @@ describe('SparkBarchartComponent', () => {
             expect(figerPrint).not.toBe(POSITIVE_SPARK_BARCHART_FINGERPRINT);
         });
     });
-    describe('Negative bar chart should', () => {
-        beforeEach(() => {
+    describe('Negative bar chart should', async() => {
+        beforeEach(async() => {
             component.barHeights = JSON.stringify([-4, 3, -7, -8, -1, 1, 3, -2, -5, 3, -5, 8]);
             component.chartType = 'negative';
         });
-        it('succeed drawing the with default parameters', () => {
+        it('succeed drawing the with default parameters', async() => {
             component.ngAfterViewInit();
             const imageData = canvasCtx.getImageData(0, 0, component.width, component.height);
             const figerPrint = Md5.hashStr(imageData.data.toString());
             expect(figerPrint).toBe(NEGATIVE_SPARK_BARCHART_FINGERPRINT);
         });
-        it('fail drawing with non-default parameters', () => {
+        it('fail drawing with non-default parameters', async() => {
             component.fillColorMinus = 'green';
             component.ngAfterViewInit();
             const imageData = canvasCtx.getImageData(0, 0, component.width, component.height);
@@ -88,18 +88,18 @@ describe('SparkBarchartComponent', () => {
             expect(figerPrint).not.toBe(NEGATIVE_SPARK_BARCHART_FINGERPRINT);
         });
     });
-    describe('Tri bar chart should', () => {
-        beforeEach(() => {
+    describe('Tri bar chart should', async() => {
+        beforeEach(async() => {
             component.barHeights = JSON.stringify([-4, 3, 0, -8, -1, 1, 3, 0, -5, 0, -5, 8]);
             component.chartType = 'tri';
         });
-        it('succeed drawing the with default parameters', () => {
+        it('succeed drawing the with default parameters', async() => {
             component.ngAfterViewInit();
             const imageData = canvasCtx.getImageData(0, 0, component.width, component.height);
             const figerPrint = Md5.hashStr(imageData.data.toString());
             expect(figerPrint).toBe(TRI_SPARK_BARCHART_FINGERPRINT );
         });
-        it('fail drawing with non-default parameters', () => {
+        it('fail drawing with non-default parameters',async () => {
             component.fillColorMinus = 'green';
             component.ngAfterViewInit();
             const imageData = canvasCtx.getImageData(0, 0, component.width, component.height);
@@ -107,18 +107,18 @@ describe('SparkBarchartComponent', () => {
             expect(figerPrint).not.toBe(TRI_SPARK_BARCHART_FINGERPRINT );
         });
     });
-    describe('Dual bar chart should', () => {
-        beforeEach(() => {
+    describe('Dual bar chart should',async () => {
+        beforeEach(async() => {
             component.barHeights = JSON.stringify([-4, 3, -7, -8, -1, 1, 3, -2, -5, 3, -5, 8]);
             component.chartType = 'dual';
         });
-        it('succeed drawing the with default parameters', () => {
+        it('succeed drawing the with default parameters', async() => {
             component.ngAfterViewInit();
             const imageData = canvasCtx.getImageData(0, 0, component.width, component.height);
             const figerPrint = Md5.hashStr(imageData.data.toString());
             expect(figerPrint).toBe(DUAL_SPARK_BARCHART_FINGERPRINT);
         });
-        it('fail drawing with non-default parameters', () => {
+        it('fail drawing with non-default parameters', async() => {
             component.fillColorMinus = 'green';
             component.ngAfterViewInit();
             const imageData = canvasCtx.getImageData(0, 0, component.width, component.height);
