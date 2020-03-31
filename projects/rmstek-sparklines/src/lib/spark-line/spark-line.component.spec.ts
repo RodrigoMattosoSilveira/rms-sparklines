@@ -41,11 +41,8 @@ describe('SparkLineComponent', () => {
     });
     describe('Simple line chart should', () => {
         beforeEach(() => {
-            component.linePoints = JSON.stringify([4, 3, 7, 8, 1, 4, 9, 2, 5, 3, 5, 9]);
-            component.decorationPoints = JSON.stringify([]);
-            component.shadeColor = ``;
         });
-        it('succeed drawing the with default parameters', () => {
+        it('succeed drawing with default parameters', () => {
             component.ngAfterViewInit();
             const imageData = canvasCtx.getImageData(0, 0, component.canvasWidth, component.canvasHeight);
             const figerPrint = Md5.hashStr(imageData.data.toString());
@@ -61,7 +58,7 @@ describe('SparkLineComponent', () => {
     });
     describe('Decorated line chart should', () => {
         beforeEach(() => {
-            component.linePoints = JSON.stringify([4, 3, 7, 8, 1, 4, 9, 2, 5, 3, 5, 9]);
+            // component.linePoints = JSON.stringify([4, 3, 7, 8, 1, 4, 9, 2, 5, 3, 5, 9]);
             component.decorationPoints = JSON.stringify([{index: 0, color: 'red'}, {index: 11, color: 'black'}]);
             component.shadeColor = ``;
         });
@@ -81,7 +78,6 @@ describe('SparkLineComponent', () => {
         });
     describe('Shadded line chart should', () => {
         beforeEach(() => {
-            component.linePoints = JSON.stringify([4, 3, 7, 8, 1, 4, 9, 2, 5, 3, 5, 9]);
             component.decorationPoints = JSON.stringify([{index: 0, color: 'red'}, {index: 11, color: 'black'}]);
             component.shadeColor = `LightBlue`;
         });
