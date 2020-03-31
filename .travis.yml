@@ -24,9 +24,9 @@ before_script:
 script:
    - echo "script execution"
    - npm install
-   - ng test rmstek-sparklines  --karmaConfig=./projects/rmstek-sparklines/karma.conf.travisci.js
    - ng build rmstek-sparklines
    - npm link ./dist/rmstek-sparklines
+   - ng test rmstek-sparklines  --karmaConfig=./projects/rmstek-sparklines/karma.conf.travisci.js
    - ng test living-style-guide --karmaConfig=./projects/living-style-guide/karma.conf.travisci.js
    - ng e2e
    - ng build living-style-guide --prod --base-href /rms-sparklines/ --deploy-url https://rodrigomattososilveira.github.io/rms-sparklines/
