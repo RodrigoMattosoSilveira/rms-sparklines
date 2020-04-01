@@ -55,6 +55,12 @@ describe('SparkBarchartComponent', () => {
         expect(component.width).toBe(128);
     });
     describe('Positive bar chart should', async() => {
+      it('run it once to warm it up', async() => {
+          component.ngAfterViewInit();
+          const imageData = canvasCtx.getImageData(0, 0, component.width, component.height);
+          const figerPrint = Md5.hashStr(imageData.data.toString());
+          expect(1).toBe(1);
+      });
         it('succeed drawing the with default parameters', async() => {
             component.ngAfterViewInit();
             const imageData = canvasCtx.getImageData(0, 0, component.width, component.height);
