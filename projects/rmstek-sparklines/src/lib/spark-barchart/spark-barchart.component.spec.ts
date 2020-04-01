@@ -20,9 +20,6 @@ describe('SparkBarchartComponent', () => {
         declarations: [ SparkBarchartComponent ]
         })
         .compileComponents();
-    });
-
-    beforeEach(async() => {
         fixture = TestBed.createComponent(SparkBarchartComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -31,12 +28,8 @@ describe('SparkBarchartComponent', () => {
         canvasCtx = component.ctx;
     });
 
-    it('should create', async() => {
+    it('should create CANVAS component', async() => {
         expect(component).toBeTruthy();
-    });
-
-    it('should be canvas', async() => {
-        expect(canvasEl).toBeTruthy();
         expect(canvasEl.tagName).toBe('CANVAS');
         expect(canvasEl.width).toBe(128);
         expect(canvasEl.height).toBe(32);
