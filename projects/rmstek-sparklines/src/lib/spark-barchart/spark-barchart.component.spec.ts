@@ -7,7 +7,6 @@ import '../services/arrayExtensions';
 describe('SparkBarchartComponent', () => {
     let component: SparkBarchartComponent;
     let fixture: ComponentFixture<SparkBarchartComponent>;
-    let compiledFixture: HTMLElement;
     let canvasEl: HTMLCanvasElement;
     let canvasCtx: CanvasRenderingContext2D;
     const POSITIVE_SPARK_BARCHART_FINGERPRINT = '08569536c76f793de4586d711931515c';
@@ -24,7 +23,6 @@ describe('SparkBarchartComponent', () => {
         component = fixture.componentInstance;
         fixture.detectChanges();
         canvasEl = fixture.nativeElement.querySelector('canvas');
-        compiledFixture = fixture.debugElement.nativeElement;
         canvasCtx = component.ctx;
     });
 
@@ -48,7 +46,18 @@ describe('SparkBarchartComponent', () => {
         expect(component.width).toBe(128);
     });
     describe('Positive bar chart should', async() => {
-        it('succeed drawing the with default parameters', async() => {
+      beforeEach(async() => {
+          TestBed.configureTestingModule({
+          declarations: [ SparkBarchartComponent ]
+          })
+          .compileComponents();
+          fixture = TestBed.createComponent(SparkBarchartComponent);
+          component = fixture.componentInstance;
+          fixture.detectChanges();
+          canvasEl = fixture.nativeElement.querySelector('canvas');
+          canvasCtx = component.ctx;
+      });
+      it('succeed drawing the with default parameters', async() => {
             component.ngAfterViewInit();
             const imageData = canvasCtx.getImageData(0, 0, component.width, component.height);
             const fingerPrint = Md5.hashStr(imageData.data.toString());
