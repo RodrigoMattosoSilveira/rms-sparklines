@@ -46,18 +46,17 @@ describe('SparkBarchartComponent', () => {
         expect(component.width).toBe(128);
     });
     describe('Positive bar chart should', async() => {
-      beforeEach(async() => {
-          TestBed.configureTestingModule({
-          declarations: [ SparkBarchartComponent ]
-          })
-          .compileComponents();
-          fixture = TestBed.createComponent(SparkBarchartComponent);
-          component = fixture.componentInstance;
-          fixture.detectChanges();
-          canvasEl = fixture.nativeElement.querySelector('canvas');
-          canvasCtx = component.ctx;
-      });
       it('succeed drawing the with default parameters', async() => {
+            component.barGap = 6;
+            component.barHeights = JSON.stringify([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+            component.chartType = 'positive';
+            component.className = 'rmstek-spark-barchart';
+            component.fillColorMinus = 'red';
+            component.fillColorPlus = 'blue';
+            component.fillColorZero = 'green';
+            component.height = 32;
+            component.minimumBarWidth = 3;
+            component.width = 128;
             component.ngAfterViewInit();
             const imageData = canvasCtx.getImageData(0, 0, component.width, component.height);
             const fingerPrint = Md5.hashStr(imageData.data.toString());
