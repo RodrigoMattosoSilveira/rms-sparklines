@@ -60,6 +60,7 @@ export class SparkBarchartComponent implements AfterViewInit, OnDestroy {
                 this.height,
                 this.className);
           this.ctx = this.barchartService.setupCtx(canvasEl);
+          this.ctx.clearRect(0, 0,this.width, this.height);
 
           // Debug
          // this.ctx.fillStyle = fillColorMinus;
