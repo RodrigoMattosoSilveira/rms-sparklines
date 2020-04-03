@@ -46,6 +46,10 @@ describe('SparkBarchartComponent', () => {
         expect(component.width).toBe(128);
     });
     describe('Positive bar chart should', async() => {
+      beforeEach(async() => {
+          component.barHeights = JSON.stringify([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+          component.chartType = 'positive';
+      });
       it('succeed drawing the with default parameters', async() => {
             component.ngAfterViewInit();
             const imageData = canvasCtx.getImageData(0, 0, component.width, component.height);
