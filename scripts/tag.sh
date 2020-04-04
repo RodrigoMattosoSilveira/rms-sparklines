@@ -41,12 +41,13 @@ is_feature_branch_version() {
   fi
 }
 
-if [is_travis_branch_master] || [is_feature_branch_version]; then
+if [is_travis_branch_master] then
    # Only tagging master
    get_version
    get_name
 
    GITTAG="$PACKAGE_NAME@$PACKAGE_VERSION"
+   echo RMS-SPARKLINES: Tagging $GITTAG
    openssl aes-256-cbc -k "$travis_key_password" -d -md sha256 -a -in rms-sparkline-travis.enc -out rms-sparkline-travis-key
    echo "Host github.com" > $HOME/.ssh/config
    echo "  IdentityFile rms-sparkline-travis-key" >> $HOME/.ssh/config
