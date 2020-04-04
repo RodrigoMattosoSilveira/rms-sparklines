@@ -33,13 +33,12 @@ is_travis_branch_master() {
 #
 if is_travis_branch_master ;
 then
-   ng build rmstek-sparklines --prod
    echo RMS-SPARKLINES: Publishing "$(ls dist/sparklines | grep tgz)"
    get_version
 
    npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
    npm whoami
-   git reset --hard # removes staged and working directory changes
+   # git reset --hard # removes staged and working directory changes
    cd dist/rmstek-sparklines
    npm publish --access public
 fi

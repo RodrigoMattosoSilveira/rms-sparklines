@@ -45,6 +45,7 @@ deploy:
      keep_history: true
    # Deploy the component to npm registry
    - provider: script
+     skip_cleanup: true
      script: ./scripts/publish.sh "$(ls dist/rmstek-sparklines | grep tgz)"
    # tag the build
    - provider: script
