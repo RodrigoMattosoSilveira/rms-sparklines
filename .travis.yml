@@ -8,8 +8,9 @@ addons:
 git:
    quiet: true
    submodules: false
-# no safelist; build all checkins; see tag.sh and publish.sh
-
+branches:
+  only:
+  - master
 before_install:
    - echo "before_install steps"
    - export DISPLAY=:99.0
