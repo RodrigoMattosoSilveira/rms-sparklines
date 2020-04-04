@@ -11,6 +11,7 @@ git:
 branches:
   only:
   - master
+  - issue-50-oop-bar-chart
 before_install:
    - echo "before_install steps"
    - export DISPLAY=:99.0
