@@ -23,17 +23,17 @@ export class QualitativeRanges {
       this.setValid(true);
       qualitativeRangesRaw = this.getQualitativeRangesRaw();
       if (qualitativeRangesRaw === null) {
-         console.log(`QualitativeRanges:validate - qualitative ranges is null: ` + JSON.stringify(qualitativeRangesRaw));
+         // console.log(`QualitativeRanges:validate - qualitative ranges is null: ` + JSON.stringify(qualitativeRangesRaw));
          this.setValid(false);
       }
       else {
          qualitativeRangesAny = JSON.parse(qualitativeRangesRaw);
          if (qualitativeRangesAny.length == 0) {
-             console.log(`QualitativeRanges:validate - qualitativeRanges array is empty`);
+             // console.log(`QualitativeRanges:validate - qualitativeRanges array is empty`);
              this.setValid(false);
          }
          if (qualitativeRangesAny.length > 3) {
-             console.log(`QualitativeRanges:validate - qualitativeRanges array has more than 3 qualitativeRanges`);
+             // console.log(`QualitativeRanges:validate - qualitativeRanges array has more than 3 qualitativeRanges`);
              this.setValid(false);
          }
          for (var i = 0; i < qualitativeRangesAny.length; i++) {
@@ -87,7 +87,7 @@ export class QualitativeRanges {
       }
       return tooltips;
    }
-   draw(ctx: CanvasRenderingContext2D): void { 
+   draw(ctx: CanvasRenderingContext2D): void {
       var qualitativeRanges: Array<QualitativeRange> = this.sortQualitativeRangeHighLow();
       for (let i = 0; i < qualitativeRanges.length; i++) {
          qualitativeRanges[i].draw(ctx);

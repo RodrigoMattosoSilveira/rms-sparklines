@@ -34,13 +34,13 @@ export class QualitativeRange {
       this.setValid(true);
       qualitativeRangeRaw = this.getQualitativeRangeRaw();
       if (qualitativeRangeRaw === null) {
-         console.log(`QualitativeRange:validate - qualitative range is null: ` + qualitativeRangeRaw);
+         // console.log(`QualitativeRange:validate - qualitative range is null: ` + qualitativeRangeRaw);
          this.setValid(false);
       }
       else {
          qualitativeRangeAny = JSON.parse(qualitativeRangeRaw);
          if (typeof qualitativeRangeAny !== 'object') {
-            console.log(`QualitativeRange:validate - qualitativeRange is not an object: ` + qualitativeRangeRaw);
+            // console.log(`QualitativeRange:validate - qualitativeRange is not an object: ` + qualitativeRangeRaw);
             this.setValid(false);
          }
          else {
@@ -55,17 +55,17 @@ export class QualitativeRange {
             // }
             //
             if(Object.keys(qualitativeRangeAny).length != 2) {
-               console.log(`QualitativeRange:validate - qualitativeRange has more than 2 keys: ` + JSON.stringify(qualitativeRangeAny));
+               // console.log(`QualitativeRange:validate - qualitativeRange has more than 2 keys: ` + JSON.stringify(qualitativeRangeAny));
                this.setValid(false);
             }
             if(!qualitativeRangeAny.hasOwnProperty("value")) {
-               console.log(`QualitativeRange:validate - qualitativeRange does not have the value property: ` + JSON.stringify(qualitativeRangeAny));
+               // console.log(`QualitativeRange:validate - qualitativeRange does not have the value property: ` + JSON.stringify(qualitativeRangeAny));
                this.setValid(false);
             }
             else {
                let number = Number(qualitativeRangeAny.value);
                if(isNaN(number)) {
-                  console.log(`QualitativeRange:validate - qualitativeRange value is not a number: ` + JSON.stringify(qualitativeRangeAny));
+                  // console.log(`QualitativeRange:validate - qualitativeRange value is not a number: ` + JSON.stringify(qualitativeRangeAny));
                   this.setValid(false);
                }
                else {
@@ -74,12 +74,12 @@ export class QualitativeRange {
 
             }
             if(!qualitativeRangeAny.hasOwnProperty("color")) {
-               console.log(`QualitativeRange:validate - qualitativeRange does not have the color property: ` + JSON.stringify(qualitativeRangeAny));
+               // console.log(`QualitativeRange:validate - qualitativeRange does not have the color property: ` + JSON.stringify(qualitativeRangeAny));
                this.setValid(false);
             }
             else {
                if (!cssColorString.isValid(qualitativeRangeAny.color)) {
-                   console.log(`QualitativeRange:validate - qualitativeRange color is invalid: ` +  + JSON.stringify(qualitativeRangeAny));
+                   // console.log(`QualitativeRange:validate - qualitativeRange color is invalid: ` +  + JSON.stringify(qualitativeRangeAny));
                    this.setValid(false);
                }
                else {

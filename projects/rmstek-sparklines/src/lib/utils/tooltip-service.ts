@@ -2,36 +2,38 @@ import { Tooltip } from './tooltip';
 
 export class TooltipService {
    canvasEl: HTMLCanvasElement;
+   tooltips: Array<Tooltip>;
+   tooltipId: string;
    getClassEl(): HTMLCanvasElement { return this.canvasEl; }
    setupCanvasEl(value: HTMLCanvasElement) { this.canvasEl = value; }
-   tooltips: Array<Tooltip>;
+   // tooltips: Array<Tooltip>;
    getTooltips(): Array<Tooltip> { return this.tooltips; }
    setTooltips(value: Array<Tooltip>) { this.tooltips = value; }
-   tooltipId: string;
+   // tooltipId: string;
    getTooltipId(): string { return this.tooltipId; }
    setTooltipId(value: string) { this.tooltipId = value; }
    constructor(canvasEl: HTMLCanvasElement, tooltips: Array<Tooltip>, tooltipId: string) {
-      var thisThis: any = this;
+      const thisThis: any = this;
 
       this.setupCanvasEl(canvasEl);
       this.setTooltips(tooltips);
       this.setTooltipId(tooltipId);
 
-      canvasEl.addEventListener('mousemove', function(event: any) {
+      canvasEl.addEventListener('mousemove', (event: any) => {
          // console.log(`TooltipService::addEventListener`);
          thisThis.handleMouseMove(event);
       });
 
-      canvasEl.addEventListener('mouseout', function() {
+      canvasEl.addEventListener('mouseout', () => {
       // console.log(`TooltipService::addEventListener`);
          thisThis.handleMouseOut();
       });
 
    }
    handleMouseMove($event: MouseEvent) {
-      var canvasEl = this.getClassEl();
-      var tooltips: Array<Tooltip> = this.getTooltips();
-      var tooltipId: string = this.getTooltipId();
+      const canvasEl = this.getClassEl();
+      const tooltips: Array<Tooltip> = this.getTooltips();
+      const tooltipId: string = this.getTooltipId();
       let tooltip: HTMLCanvasElement;
       let mySpan: HTMLSpanElement;
       const fontDefinition = '12px FUTURA';
@@ -44,6 +46,7 @@ export class TooltipService {
 
       // Get the position of the canvas element relative to the document
       // https://plainjs.com/javascript/styles/get-the-position-of-an-element-relative-to-the-document-24/
+      // https://www.html5canvastutorials.com/advanced/html5-canvas-mouse-coordinates/
       rect = canvasEl.getBoundingClientRect();
       scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
       scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -53,11 +56,11 @@ export class TooltipService {
       const mouseY = $event.clientY - rect.top + window.pageYOffset || document.documentElement.scrollTop;
       // console.log(`BarChart::handleMouseMove mouseX: ` + mouseX + `, mouseY: ` + mouseY);
 
-      for (let i = 0; i < tooltips.length; i++) {
-           const tipX = tooltips[i].rect.getX();
-           const tipWidth = tooltips[i].rect.getWidth();
-           let tipHeight = tooltips[i].rect.getHeight();
-           let tipY = tooltips[i].rect.getY();
+      for (const toolTip of tooltips) {
+           const tipX = toolTip.rect.getX();
+           const tipWidth = toolTip.rect.getWidth();
+           let tipHeight = toolTip.rect.getHeight();
+           let tipY = toolTip.rect.getY();
            if (tipHeight < 0) {
                tipY += tipHeight;
                tipHeight *= -1;
@@ -76,7 +79,7 @@ export class TooltipService {
                mySpan.id = 'mySpanId';
                mySpan.style.font = fontDefinition;
                mySpan.style.textAlign = 'center';
-               mySpan.innerHTML = '' + tooltips[i].tip;
+               mySpan.innerHTML = '' + toolTip.tip;
                body = document.getElementsByTagName('body')[0];
                body.appendChild(mySpan);
                mySpan = document.getElementById('mySpanId');
@@ -111,7 +114,7 @@ export class TooltipService {
                ctx.fill();
                ctx.fillStyle = 'red';
                ctx.font = fontDefinition;
-               ctx.fillText('' + tooltips[i].tip, 1, height - 2);
+               ctx.fillText('' + toolTip.tip, 1, height - 2);
 
                body = document.getElementsByTagName('body')[0];
                body.appendChild(tooltip);
@@ -130,7 +133,7 @@ export class TooltipService {
       }
    }
    handleMouseOut() {
-      var tooltipId: string = this.getTooltipId();
+      const tooltipId: string = this.getTooltipId();
       // Remove the existing tooltip, if present
       const tooltipEl = document.getElementById(tooltipId);
       if (tooltipEl) {

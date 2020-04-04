@@ -11,13 +11,13 @@ export class Tooltip {
       this.tip = tip;
    }
    getRect(): Rectangle { return this.rect; }
-   setRect(value: Rectangle): void { this.rect = value }
+   setRect(value: Rectangle): void { this.rect = value; }
 
    getColor(): string { return this.color; }
-   setColor(value: string): void { this.color = value }
+   setColor(value: string): void { this.color = value; }
 
    getTip(): string { return this.tip; }
-   setTip(value: string): void { this.tip = value }
+   setTip(value: string): void { this.tip = value; }
 
    draw(ctx: CanvasRenderingContext2D) {}
 }

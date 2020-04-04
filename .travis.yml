@@ -8,10 +8,8 @@ addons:
 git:
    quiet: true
    submodules: false
-# safelist
-branches:
-   only:
-      - master
+# no safelist; build all checkins; see tag.sh and publish.sh
+
 before_install:
    - echo "before_install steps"
    - export DISPLAY=:99.0
@@ -20,19 +18,21 @@ before_install:
    - export PATH="$HOME/.yarn/bin:$PATH"
 install:
    - echo "install execution"
-   - npm install -g @angular/cli@7.3.9
+   - npm install -g @angular/cli@9.1.0
 before_script:
    - echo "before_script has no steps"
 script:
    - echo "script execution"
-   - yarn lib:reset
+   - npm install
+   - ng build rmstek-sparklines
+   - npm link ./dist/rmstek-sparklines
    - ng test rmstek-sparklines  --karmaConfig=./projects/rmstek-sparklines/karma.conf.travisci.js
    - ng test living-style-guide --karmaConfig=./projects/living-style-guide/karma.conf.travisci.js
    - ng e2e
    - ng build living-style-guide --prod --base-href /rms-sparklines/ --deploy-url https://rodrigomattososilveira.github.io/rms-sparklines/
 before_cache:
    - echo "before_cache has no steps"
-cache: yarn
+cache: npm
 before_deploy:
    - echo "before_deploy has no steps"
 deploy:

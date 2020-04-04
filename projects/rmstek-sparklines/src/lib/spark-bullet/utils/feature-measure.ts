@@ -40,28 +40,28 @@ export class FeatureMeasure {
       this.setValid(true);
       featureMeasureRaw = this.getFeatureMeasureRaw();
       if (featureMeasureRaw === null) {
-         console.log(`FeatureMeasure:validate - featureMeasureRaw is null: ` + JSON.stringify(featureMeasureRaw));
+         // console.log(`FeatureMeasure:validate - featureMeasureRaw is null: ` + JSON.stringify(featureMeasureRaw));
          this.setValid(false);
       }
       else {
          var featureMeasureAny: any = JSON.parse(featureMeasureRaw);
          if (typeof featureMeasureAny !== 'object') {
-            console.log(`FeatureMeasure:validate - featureMeasureRaw is not an object: ` + JSON.stringify(featureMeasureRaw));
+            // console.log(`FeatureMeasure:validate - featureMeasureRaw is not an object: ` + JSON.stringify(featureMeasureRaw));
             this.setValid(false);
          }
          else {
             if(Object.keys(featureMeasureAny).length != 2) {
-               console.log(`FeatureMeasure:validate - featureMeasure has more than 2 keys: ` + JSON.stringify(featureMeasureAny));
+               // console.log(`FeatureMeasure:validate - featureMeasure has more than 2 keys: ` + JSON.stringify(featureMeasureAny));
                this.setValid(false);
             }
             if(!featureMeasureAny.hasOwnProperty("value")) {
-               console.log(`FeatureMeasure:validate - featureMeasure does not have the value property: ` + JSON.stringify(featureMeasureAny));
+               // console.log(`FeatureMeasure:validate - featureMeasure does not have the value property: ` + JSON.stringify(featureMeasureAny));
                this.setValid(false);
             }
             else {
                let number = Number(featureMeasureAny.value);
                if(isNaN(number)) {
-                  console.log(`FeatureMeasure:validate - featureMeasure value is not a number: ` + JSON.stringify(featureMeasureAny));
+                  // console.log(`FeatureMeasure:validate - featureMeasure value is not a number: ` + JSON.stringify(featureMeasureAny));
                   this.setValid(false);
                }
                else {
@@ -69,12 +69,12 @@ export class FeatureMeasure {
                }
             }
             if(!featureMeasureAny.hasOwnProperty("color")) {
-               console.log(`FeatureMeasure:validate - featureMeasure does not have the color property: ` + JSON.stringify(featureMeasureAny));
+               // console.log(`FeatureMeasure:validate - featureMeasure does not have the color property: ` + JSON.stringify(featureMeasureAny));
                this.setValid(false);
             }
             else {
                if (!cssColorString.isValid(featureMeasureAny.color)) {
-                   console.log(`FeatureMeasure:validate - featureMeasure color is invalid: ` +  + JSON.stringify(featureMeasureAny));
+                   // console.log(`FeatureMeasure:validate - featureMeasure color is invalid: ` +  + JSON.stringify(featureMeasureAny));
                    this.setValid(false);
                }
                else {

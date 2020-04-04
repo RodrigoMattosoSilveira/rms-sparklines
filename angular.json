@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/living-style-guide",
             "index": "projects/living-style-guide/src/index.html",
             "main": "projects/living-style-guide/src/main.ts",
@@ -50,6 +51,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
@@ -142,6 +147,11 @@
           "options": {
             "tsConfig": "projects/rmstek-sparklines/tsconfig.lib.json",
             "project": "projects/rmstek-sparklines/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/rmstek-sparklines/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -167,5 +177,8 @@
       }
     }
   },
-  "defaultProject": "living-style-guide"
+  "defaultProject": "living-style-guide",
+  "cli": {
+    "analytics": "3620e5e5-8965-472a-a7e9-fdc93284edd2"
+  }
 }

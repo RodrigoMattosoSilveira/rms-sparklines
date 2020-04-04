@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
 import { BarchartService } from '../services/barchart.service';
 import { Bar3d } from '../services/bar-3d';
 
@@ -7,7 +7,7 @@ import { Bar3d } from '../services/bar-3d';
   templateUrl: './spark-barchart.component.html',
   styleUrls: ['./spark-barchart.component.css']
 })
-export class SparkBarchartComponent implements AfterViewInit {
+export class SparkBarchartComponent implements AfterViewInit, OnDestroy {
     // @Input('spark_color') lineColor: string;
 
     @Input() barGap = 6;
@@ -52,7 +52,7 @@ export class SparkBarchartComponent implements AfterViewInit {
               this.fillColorZero,
               this.minimumBarWidth,
               this.sparklineCanvas) != true) {
-           console.log(`SparkBarchartComponent:ngAfterViewInit - Invalid arguments`)
+           // console.log(`SparkBarchartComponent:ngAfterViewInit - Invalid arguments`)
         }
         else {
            canvasEl = this.barchartService.setupCanvasEl(this.sparklineCanvas,
@@ -60,6 +60,7 @@ export class SparkBarchartComponent implements AfterViewInit {
                 this.height,
                 this.className);
           this.ctx = this.barchartService.setupCtx(canvasEl);
+          this.ctx.clearRect(0, 0,this.width, this.height);
 
           // Debug
          // this.ctx.fillStyle = fillColorMinus;
@@ -121,5 +122,8 @@ export class SparkBarchartComponent implements AfterViewInit {
          });
 
       }
+    }
+    // TODO add this when we migrate Barchar to OO
+    ngOnDestroy() {
     }
 }

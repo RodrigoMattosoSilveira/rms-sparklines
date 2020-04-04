@@ -31,7 +31,7 @@ is_feature_branch_version() {
    fi
 }
 
-if is_travis_branch_master || is_feature_branch_version; then
+if is_travis_branch_master; then
    yarn lib:reset
    echo Publihing "$(ls dist/sparklines | grep tgz)"
    get_version

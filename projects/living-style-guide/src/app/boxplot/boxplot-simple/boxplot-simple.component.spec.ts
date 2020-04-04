@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BoxplotSimpleComponent } from './boxplot-simple.component';
 
 import { AngularMaterialModuleModule } from '../../utils/angular-material-module/angular-material-module.module';
-import { HttpModule } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RmstekSparklinesModule } from '@rmstek/sparklines';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
@@ -19,7 +18,6 @@ describe('BoxplotSimpleComponent', () => {
     imports: [
       AngularMaterialModuleModule,
       RmstekSparklinesModule,
-      HttpModule,
       HttpClientModule,
       MarkdownModule.forRoot({
         loader: HttpClient, // optional, only if you use [src] attribute

@@ -26,15 +26,15 @@ describe(`SparkBullet`, () => {
 		sparkBullet = new SparkBullet(comparativeMeasureRaw, featureMeasureRaw, heightRaw, qualitativeRangesRaw, widthRaw);
 	});
 
-   it(`should be created`, () => {
-      sparkBullet = new SparkBullet(``, ``, '', ``, ``);
-      expect(sparkBullet).toBeTruthy();
-   });
+  it(`should be created`, () => {
+    sparkBullet = new SparkBullet(``, ``, '', ``, ``);
+    expect(sparkBullet).toBeTruthy();
+  });
 	describe(`constructor method`, () => {
 		beforeEach(() => {
 			sparkBullet = new SparkBullet(comparativeMeasureRaw, featureMeasureRaw, heightRaw, qualitativeRangesRaw, widthRaw);
 		});
-      it(`sets comparativeMeasureRaw correctly`, () => {
+    it(`sets comparativeMeasureRaw correctly`, () => {
          expect(sparkBullet.getComparativeMeasurRaw()).toEqual(comparativeMeasureRaw);
 		});
 		it(`sets featureMeasureRaw correctly`, () => {
