@@ -79,10 +79,13 @@ describe('SparkLineComponent', async() => {
             component.shadeColor = `LightBlue`;
         }));
         it('succeed drawing the with default parameters', async() => {
+            const SHADED_SPARK_LINE_FINGERPRINT_TRAVIS = '1d9cfce01c8b8127d8fd95a15d9d3c1a';
+            let fingerMatch = false;
             component.ngAfterViewInit();
             const imageData = canvasCtx.getImageData(0, 0, component.canvasWidth, component.canvasHeight);
-            const figerPrint = Md5.hashStr(imageData.data.toString());
-            expect(figerPrint).toBe(SHADED_SPARK_LINE_FINGERPRINT);
+            const fingerPrint = Md5.hashStr(imageData.data.toString());
+            fingerMatch = fingerPrint == SHADED_SPARK_LINE_FINGERPRINT || fingerPrint == SHADED_SPARK_LINE_FINGERPRINT_TRAVIS;
+            expect(fingerPrint).toBe(SHADED_SPARK_LINE_FINGERPRINT);
         });
         it('fail drawing with non-default parameters', async() => {
             component.shadeColor = `green`;

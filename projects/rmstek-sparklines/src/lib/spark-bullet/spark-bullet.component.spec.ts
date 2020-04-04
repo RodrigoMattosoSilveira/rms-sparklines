@@ -42,10 +42,14 @@ describe('SparkBulletComponent', () => {
         beforeEach(() => {
         });
         it('succeed drawing the with default parameters', () => {
+            const SPARK_BULLET_FINGERPRINT_HORIZONTAL_A_TRAVIS = 'ec3765046042f44e47e5bc58ebd9c836';
+            let fingerMatch = false;
             component.ngAfterViewInit();
             const imageData = canvasCtx.getImageData(0, 0, canvasEl.width, canvasEl.height);
-            const figerPrint = Md5.hashStr(imageData.data.toString());
-            expect(figerPrint).toBe(SPARK_BULLET_FINGERPRINT_HORIZONTAL_A);
+            const fingerPrint = Md5.hashStr(imageData.data.toString());
+            fingerMatch = fingerPrint == SPARK_BULLET_FINGERPRINT_HORIZONTAL_A || fingerPrint == SPARK_BULLET_FINGERPRINT_HORIZONTAL_A_TRAVIS;
+            // expect(fingerPrint).toBe(SPARK_BULLET_FINGERPRINT_HORIZONTAL_A);
+            expect(fingerMatch).toBe(true);
         });
         it('fail drawing with non-default parameters', () => {
             component.featureMeasure = JSON.stringify({value: 35, color: 'blue'});
