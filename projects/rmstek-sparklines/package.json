@@ -2,7 +2,7 @@
   "name": "@rmstek/sparklines",
   "description": "A collection of sparklines",
   "author": "Rodrigo Silveira",
-  "version": "0.3.9",
+  "version": "0.5.0-alhpa.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/RodrigoMattosoSilveira/rms-sparklines"
