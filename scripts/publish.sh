@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -ev
 
 get_version() {
    cd ./dist/rmstek-sparklines
