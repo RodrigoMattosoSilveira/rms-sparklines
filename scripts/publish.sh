@@ -38,6 +38,7 @@ then
 
    npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
    npm whoami
+   ng build rmstek-sparklines --prod
    git reset --hard # removes staged and working directory changes
    cd dist/rmstek-sparklines
    npm publish --access public
