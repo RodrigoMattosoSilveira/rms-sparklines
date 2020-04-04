@@ -31,13 +31,13 @@ is_feature_branch_version() {
    fi
 }
 
-if is_travis_branch_master; then
-   yarn lib:reset
+if [is_travis_branch_master] || [is_feature_branch_version] ; then
    echo Publihing "$(ls dist/sparklines | grep tgz)"
    get_version
 
    npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
    npm whoami
    git reset --hard # removes staged and working directory changes
-   npm publish dist/rmstek-sparklines/$1 --access public
+   cd dist/rmstek-sparklines
+   npm publish --access public
 fi
