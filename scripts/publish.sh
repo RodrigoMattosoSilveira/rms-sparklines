@@ -19,25 +19,25 @@ is_travis_branch_master() {
    fi
 }
 
-is_feature_branch_version() {
-   # use the component version
-   regex='^[[:digit:]]+(\.[[:digit:]]+)+(-[[:alnum:]]+)+'
-   if [[ ${PACKAGE_VERSION} =~ $regex ]]; then
-      echo "✅ Version ${PACKAGE_VERSION} is a feature branch version"
-      return 0
-   else
-      echo "🚫 Version ${PACKAGE_VERSION} is not a feature branch version"
-      return 1
-   fi
-}
-
-if is_travis_branch_master; then
-   yarn lib:reset
-   echo Publihing "$(ls dist/sparklines | grep tgz)"
+# is_feature_branch_version() {
+#    # use the component version
+#    regex='^[[:digit:]]+(\.[[:digit:]]+)+(-[[:alnum:]]+)+'
+#    if [[ ${PACKAGE_VERSION} =~ $regex ]]; then
+#       echo "✅ Version ${PACKAGE_VERSION} is a feature branch version"
+#       return 0
+#    else
+#       echo "🚫 Version ${PACKAGE_VERSION} is not a feature branch version"
+#       return 1
+#    fi
+# }
+#
+if [is_travis_branch_master] ; then
+   echo RMS-SPARKLINES: Publishing "$(ls dist/sparklines | grep tgz)"
    get_version
 
    npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
    npm whoami
    git reset --hard # removes staged and working directory changes
-   npm publish dist/rmstek-sparklines/$1 --access public
+   cd dist/rmstek-sparklines
+   npm publish --access public
 fi

@@ -1,6 +1,6 @@
 {
   "name": "rms-sparklines",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "repository": {
     "type": "git",
     "url": "https://github.com/RodrigoMattosoSilveira/rms-sparklines"
@@ -13,23 +13,20 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "lib:add": "npm install ./dist/rmstek-sparklines/ -O",
-    "lib:build": "ng build rmstek-sparklines",
+    "lib:build": "ng build rmstek-sparklines --prod",
     "lib:dev": "ng build rmstek-sparklines && rm -rf node_modules/@rmstek/sparklines && cp -r dist/rmstek-sparklines node_modules/@rmstek/sparklines",
-    "lib:build:watch": "ng build rmstek-sparklines --watch",
+    "lib:build:watch": "ng build rmstek-sparklines  --prod --watch",
     "lib:chglog": "cp ./projects/rmstek-sparklines/CHANGELOG.md ./dist/rmstek-sparklines",
     "lib:license": "cp ./projects/rmstek-sparklines/LICENSE ./dist/library",
     "lib:readme": "cp ./projects/rmstek-sparklines/README.md ./dist/rmstek-sparklines",
     "lib:clr": "run-s lib:chglog lib:license lib:readme",
     "lib:pack": "run-s lib_setup cd dist/rmstek-sparklines npm pack",
     "lib:ready": "run-s lib:build lib:clr lib:pack",
-    "lib:reset": "run-s npm:reset lib:build rm -rf node_modules/ npm install lib:add",
     "lib:test": "ng test rmstek-sparklines",
     "lib:link": "npm link ./dist/rmstek-sparklines",
     "reset:node_modules": "rm -rf node_modules/",
     "reset:package_lock": "rm -f package-lock.json",
-    "reset:install": "npm install",
-    "npm:reset": "run-s reset:*"
+    "reset:all": "npm run reset:node_modules && npm run reset:package_lock && npm install"
   },
   "private": true,
   "dependencies": {
@@ -43,7 +40,7 @@
     "@angular/platform-browser": "~9.1.0",
     "@angular/platform-browser-dynamic": "~9.1.0",
     "@angular/router": "~9.1.0",
-    "@types/mathjs": "^5.0.1",
+    "@types/mathjs": "6.0.4",
     "core-js": "^3.5.0",
     "mathjs": "^6.6.1",
     "ngx-markdown": "^9.0.0",
@@ -59,7 +56,6 @@
     "@angular/language-service": "~9.1.0",
     "@types/jasmine": "~3.5.10",
     "@types/jasminewd2": "~2.0.3",
-    "@types/mathjs": "6.0.4",
     "@types/node": "^13.9.5",
     "codelyzer": "^5.1.2",
     "jasmine-core": "~3.5.0",

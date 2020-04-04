@@ -30,24 +30,24 @@ is_travis_branch_master() {
   fi
 }
 
-# is_feature_branch_version() {
-#   regex='^[[:digit:]]+(\.[[:digit:]]+)+(-[[:alnum:]]+)+'
-#   if [[ ${PACKAGE_VERSION} =~ $regex ]]; then
-#     echo "✅ Version ${PACKAGE_VERSION} is a feature branch version"
-#     return 0
-#   else
-#     echo "🚫 Version ${PACKAGE_VERSION} is not a feature branch version"
-#     return 1
-#   fi
-# }
+is_feature_branch_version() {
+  regex='^[[:digit:]]+(\.[[:digit:]]+)+(-[[:alnum:]]+)+'
+  if [[ ${PACKAGE_VERSION} =~ $regex ]]; then
+    echo "✅ Version ${PACKAGE_VERSION} is a feature branch version"
+    return 0
+  else
+    echo "🚫 Version ${PACKAGE_VERSION} is not a feature branch version"
+    return 1
+  fi
+}
 
-if is_travis_branch_master; then
+if [is_travis_branch_master] then
    # Only tagging master
-   yarn lib:build
    get_version
    get_name
 
    GITTAG="$PACKAGE_NAME@$PACKAGE_VERSION"
+   echo RMS-SPARKLINES: Tagging $GITTAG
    openssl aes-256-cbc -k "$travis_key_password" -d -md sha256 -a -in rms-sparkline-travis.enc -out rms-sparkline-travis-key
    echo "Host github.com" > $HOME/.ssh/config
    echo "  IdentityFile rms-sparkline-travis-key" >> $HOME/.ssh/config

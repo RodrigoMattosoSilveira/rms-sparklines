@@ -24,7 +24,7 @@ before_script:
 script:
    - echo "script execution"
    - npm install
-   - ng build rmstek-sparklines
+   - ng build rmstek-sparklines --prod
    - npm link ./dist/rmstek-sparklines
    - ng test rmstek-sparklines  --karmaConfig=./projects/rmstek-sparklines/karma.conf.travisci.js
    - ng test living-style-guide --karmaConfig=./projects/living-style-guide/karma.conf.travisci.js
