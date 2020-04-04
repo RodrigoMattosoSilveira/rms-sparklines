@@ -31,7 +31,8 @@ is_travis_branch_master() {
 #    fi
 # }
 #
-if [is_travis_branch_master] ; then
+if is_travis_branch_master ;
+then
    echo RMS-SPARKLINES: Publishing "$(ls dist/sparklines | grep tgz)"
    get_version
 
