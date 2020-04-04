@@ -85,7 +85,8 @@ describe('SparkLineComponent', async() => {
             const imageData = canvasCtx.getImageData(0, 0, component.canvasWidth, component.canvasHeight);
             const fingerPrint = Md5.hashStr(imageData.data.toString());
             fingerMatch = fingerPrint == SHADED_SPARK_LINE_FINGERPRINT || fingerPrint == SHADED_SPARK_LINE_FINGERPRINT_TRAVIS;
-            expect(fingerPrint).toBe(SHADED_SPARK_LINE_FINGERPRINT);
+            // expect(fingerPrint).toBe(SHADED_SPARK_LINE_FINGERPRINT);
+            expect(fingerMatch).toBe(true);
         });
         it('fail drawing with non-default parameters', async() => {
             component.shadeColor = `green`;
