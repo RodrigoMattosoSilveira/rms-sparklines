@@ -23,7 +23,7 @@ export class SparkBarchartComponent implements AfterViewInit, OnDestroy {
 
     // see https://blog.angular-university.io/angular-viewchild/
     // for a in-depth discussion on @ViewChild
-    @ViewChild('sparklineCanvas') sparklineCanvas: ElementRef;
+    @ViewChild('sparklineCanvas', {static: false}) sparklineCanvas: ElementRef;
     ctx: CanvasRenderingContext2D;
 
     constructor(private barchartService: BarchartService) { }

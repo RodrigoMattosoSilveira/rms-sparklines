@@ -39,7 +39,7 @@ export class SparkLineComponent implements AfterViewInit, OnDestroy {
    // A string giving the color of the dot marking the highest value. Any valid CSS color.
    @Input() shadeColor = ``;
 
-   @ViewChild('sparklineCanvas') sparklineCanvas: ElementRef;
+   @ViewChild('sparklineCanvas', {static: false}) sparklineCanvas: ElementRef;
    canvasEl: HTMLCanvasElement;
 
    constructor() { }
