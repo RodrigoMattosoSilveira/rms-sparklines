@@ -3,13 +3,15 @@ import { SparkBarchartComponent } from './spark-barchart/spark-barchart.componen
 import { SparkBoxplotComponent } from './spark-boxplot/spark-boxplot.component';
 import { SparkLineComponent } from './spark-line/spark-line.component';
 import { SparkBulletComponent } from './spark-bullet/spark-bullet.component';
+import { SparkBarChartComponentOop } from './spark-bar-chart/spark-bar-chart.component';
 
 @NgModule({
   declarations: [
      SparkBarchartComponent,
      SparkBoxplotComponent,
      SparkLineComponent,
-     SparkBulletComponent
+     SparkBulletComponent,
+     SparkBarChartComponentOop
   ],
   imports: [
   ],
