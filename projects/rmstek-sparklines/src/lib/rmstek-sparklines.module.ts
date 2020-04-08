@@ -20,6 +20,7 @@ import { SparkBarChartComponentOop } from './spark-bar-chart/spark-bar-chart.com
      SparkBoxplotComponent,
      SparkLineComponent,
      SparkBulletComponent,
+     SparkBarChartComponentOop
   ]
 })
 export class RmstekSparklinesModule { }

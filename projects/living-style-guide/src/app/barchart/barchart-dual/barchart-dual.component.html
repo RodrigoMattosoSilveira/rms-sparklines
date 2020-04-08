@@ -5,19 +5,19 @@
     </mat-card-header>
     <mat-card-content>
         <p>
-      <rmstek-spark-barchart
+      <rmstek-spark-bar-chart
+        [barChartType] = "chartType"
 				[barGap] = "barGap"
 				[barHeights] = "barHeights"
-				[chartType] = "chartType"
+        [canvasHeight] = "height"
+        [canvasWidth] = "width"
 				[className] = "className"
 				[fillColorMinus] = "fillColorMinus"
 				[fillColorPlus] = "fillColorPlus"
 				[fillColorZero] = "fillColorZero"
-				[height] = "height"
 				[minimumBarWidth] = "minimumBarWidth"
-				[width] = "width"
-			>
-			</rmstek-spark-barchart>
+      >
+			</rmstek-spark-bar-chart>
         </p>
         <h4>Highlights</h4>
         <markdown ngPreserveWhitespaces>
