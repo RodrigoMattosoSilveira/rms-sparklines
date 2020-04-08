@@ -34,6 +34,10 @@ export class SparkBarchart implements SparklineInterface {
       private fillColorZeroRaw: string,
       private minimumBarWidthRaw: string
   ) {}
+
+  /**
+   Vaildate the arguments and set them up for processing;
+   */
   validate(): boolean {
     let valid = true;
 
@@ -69,8 +73,24 @@ export class SparkBarchart implements SparklineInterface {
 
     return valid;
   }
+
+  /**
+   Use the arguments to build the sparkline in world coordinates
+   */
   prepare(canvasEl?: HTMLCanvasElement): void {};
+
+  /**
+   Scale the sparkline's world coordinsates to canvas coordinates
+   */
   scale(canvasEl: HTMLCanvasElement): void {};
+
+  /**
+   Draw the sparkline
+   */
   draw(canvasEl: HTMLCanvasElement): void {};
+
+  /**
+   Set up the tooltip handling
+   */
   showToolTips(canvasEl: HTMLCanvasElement): void {};
 }
