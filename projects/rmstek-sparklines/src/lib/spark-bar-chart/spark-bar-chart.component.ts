@@ -41,10 +41,19 @@ export class SparkBarChartComponentOop implements AfterViewInit, OnDestroy {
       this.fillColorMinus,
       this.fillColorPlus,
       this.fillColorZero ,
-      this.minimumBarWidth.toString()
+      this.minimumBarWidth.toString(),
+      this.sparklineCanvas
     )
-
+    if (!this.drawingObj.validate()) {
+       console.log(`SparkLineComponent:ngAfterViewInit - Invalid arguments`);
+    } else {
+       this.drawingObj.prepare();
+       this.drawingObj.scale();
+       this.drawingObj.draw();
+       this.drawingObj.showToolTips();
+    }
   }
+  
   ngOnDestroy() {
   }
 }

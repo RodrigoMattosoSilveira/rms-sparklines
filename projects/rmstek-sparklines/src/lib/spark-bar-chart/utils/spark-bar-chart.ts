@@ -1,3 +1,5 @@
+import { ElementRef } from '@angular/core';
+
 import { SparklineInterface} from '../../utils/sparkline-interface';
 import { BarChartType } from './bar-chart-type';
 import { BarGap } from './bar-gap';
@@ -9,6 +11,7 @@ import { FillColorMinus} from './fill-color-minus';
 import { FillColorPlus} from './fill-color-plus';
 import { FillColorZero} from './fill-color-zero';
 import { MinimumBarWidth } from './minimum-bar-width';
+import { CanvasElement } from '../../utils/canvas-element';
 
 export class SparkBarchart implements SparklineInterface {
   private barChartType: BarChartType;
@@ -21,6 +24,7 @@ export class SparkBarchart implements SparklineInterface {
   private fillColorPlus: FillColorPlus;
   private fillColorZero: FillColorZero;
   private minimumBarWidth: MinimumBarWidth;
+  private sparklineCanvas: CanvasElement;
 
   constructor(
       private barChartTypeRaw: string,
@@ -32,7 +36,8 @@ export class SparkBarchart implements SparklineInterface {
       private fillColorMinusRaw: string,
       private fillColorPlusRaw: string,
       private fillColorZeroRaw: string,
-      private minimumBarWidthRaw: string
+      private minimumBarWidthRaw: string,
+      private sparklineCanvasRaw: ElementRef
   ) {}
 
   /**
@@ -71,26 +76,31 @@ export class SparkBarchart implements SparklineInterface {
     this.minimumBarWidth = new MinimumBarWidth(this.minimumBarWidthRaw);
     valid = valid &&   this.minimumBarWidth.validate(`MinimumBarWidth`);
 
+    this.sparklineCanvas = new CanvasElement(this.sparklineCanvasRaw);
+    valid = valid &&   this.sparklineCanvas.validate(`CanvasElement`);
+
     return valid;
   }
 
   /**
    Use the arguments to build the sparkline in world coordinates
    */
-  prepare(canvasEl?: HTMLCanvasElement): void {};
+  prepare(): void {};
 
   /**
    Scale the sparkline's world coordinsates to canvas coordinates
    */
-  scale(canvasEl: HTMLCanvasElement): void {};
+  scale(): void {};
 
   /**
    Draw the sparkline
    */
-  draw(canvasEl: HTMLCanvasElement): void {};
+  draw(): void {
+
+  };
 
   /**
    Set up the tooltip handling
    */
-  showToolTips(canvasEl: HTMLCanvasElement): void {};
+  showToolTips(): void {};
 }
