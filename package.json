@@ -24,6 +24,7 @@
     "lib:pack": "run-s lib_setup cd dist/rmstek-sparklines npm pack",
     "lib:ready": "run-s lib:build lib:clr lib:pack",
     "lib:test": "ng test rmstek-sparklines",
+		"lib:test:nowatch": "ng test rmstek-sparklines --nowatch",
     "lib:link": "npm link ./dist/rmstek-sparklines",
     "reset:node_modules": "rm -rf node_modules/",
     "reset:package_lock": "rm -f package-lock.json",
