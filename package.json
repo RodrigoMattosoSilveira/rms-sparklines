@@ -14,6 +14,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "lib:build": "ng build rmstek-sparklines --prod",
+    "lib:build:link": "ng build rmstek-sparklines --prod && npm link ./dist/rmstek-sparklines",
     "lib:dev": "ng build rmstek-sparklines && rm -rf node_modules/@rmstek/sparklines && cp -r dist/rmstek-sparklines node_modules/@rmstek/sparklines",
     "lib:build:watch": "ng build rmstek-sparklines  --prod --watch",
     "lib:chglog": "cp ./projects/rmstek-sparklines/CHANGELOG.md ./dist/rmstek-sparklines",
