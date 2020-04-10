@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SparkBarChartComponentOop } from './spark-bar-chart.component';
+import { SparkBarChartOopComponent } from './spark-bar-chart.component';
 
 describe('SparkBarChartComponent', () => {
-  let component: SparkBarChartComponentOop;
-  let fixture: ComponentFixture<SparkBarChartComponentOop>;
+  let component: SparkBarChartOopComponent;
+  let fixture: ComponentFixture<SparkBarChartOopComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SparkBarChartComponentOop ]
+      declarations: [ SparkBarChartOopComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SparkBarChartComponentOop);
+    fixture = TestBed.createComponent(SparkBarChartOopComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
