@@ -1,6 +1,6 @@
 {
   "name": "rms-sparklines",
-  "version": "0.3.9",
+  "version": "0.5.0-alhpa.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/RodrigoMattosoSilveira/rms-sparklines"
@@ -14,6 +14,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "lib:build": "ng build rmstek-sparklines --prod",
+    "lib:build:link": "ng build rmstek-sparklines --prod && npm link ./dist/rmstek-sparklines",
     "lib:dev": "ng build rmstek-sparklines && rm -rf node_modules/@rmstek/sparklines && cp -r dist/rmstek-sparklines node_modules/@rmstek/sparklines",
     "lib:build:watch": "ng build rmstek-sparklines  --prod --watch",
     "lib:chglog": "cp ./projects/rmstek-sparklines/CHANGELOG.md ./dist/rmstek-sparklines",
@@ -23,6 +24,7 @@
     "lib:pack": "run-s lib_setup cd dist/rmstek-sparklines npm pack",
     "lib:ready": "run-s lib:build lib:clr lib:pack",
     "lib:test": "ng test rmstek-sparklines",
+		"lib:test:nowatch": "ng test rmstek-sparklines --nowatch",
     "lib:link": "npm link ./dist/rmstek-sparklines",
     "reset:node_modules": "rm -rf node_modules/",
     "reset:package_lock": "rm -f package-lock.json",

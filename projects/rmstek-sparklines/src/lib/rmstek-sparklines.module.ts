@@ -5,19 +5,19 @@ import { SparkLineComponent } from './spark-line/spark-line.component';
 import { SparkBulletComponent } from './spark-bullet/spark-bullet.component';
 
 @NgModule({
-  declarations: [
-     SparkBarchartComponent,
-     SparkBoxplotComponent,
-     SparkLineComponent,
-     SparkBulletComponent
-  ],
-  imports: [
-  ],
-  exports: [
-     SparkBarchartComponent,
-     SparkBoxplotComponent,
-     SparkLineComponent,
-     SparkBulletComponent,
-  ]
+	declarations: [
+		SparkBarchartComponent,
+		SparkBoxplotComponent,
+		SparkLineComponent,
+		SparkBulletComponent
+	],
+	imports: [
+	],
+	exports: [
+		SparkBarchartComponent,
+		SparkBoxplotComponent,
+		SparkLineComponent,
+		SparkBulletComponent
+	]
 })
 export class RmstekSparklinesModule { }

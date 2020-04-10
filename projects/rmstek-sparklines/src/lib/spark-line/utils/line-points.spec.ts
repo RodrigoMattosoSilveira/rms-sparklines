@@ -2,19 +2,19 @@ import { TestBed } from '@angular/core/testing';
 
 import {LinePoints } from './line-points';
 
-describe(`DecorationPoints`, () => {
+describe(`LinePoints`, () => {
    var testaObj: LinePoints;
    var valueRaw: string;
    describe(`should be`, () => {
       beforeEach(() => {
-         valueRaw = `decorationPointsRaw`;
+         valueRaw = `LinePoints`;
    		testaObj = new LinePoints(valueRaw);
    	});
       it(`created`, () => {
          expect(testaObj).toBeTruthy();
       });
       it(`initialized correctly`, () => {
-         expect(testaObj.getValueRaw()).toBeTruthy(`decorationPointsRaw`);
+         expect(testaObj.getValueRaw()).toBeTruthy(`LinePoints`);
       });
    });
    describe(`should be`, () => {

@@ -7,13 +7,8 @@ import { SparkLine } from './utils/spark-line';
   styleUrls: ['./spark-line.component.css']
 })
 export class SparkLineComponent implements AfterViewInit, OnDestroy {
-   measurementsArray: number[];
-   coordinatesWorld: number[];
-   coordinatesViewport: number[];
-   coordinatesCanvas: number[];
-   ctx: CanvasRenderingContext2D;
-   coordinateTips: any[];
    drawingObj: SparkLine;
+   canvasEl: HTMLCanvasElement;
 
    // A number giving the height of the sparkline box in pixels. By default, uses the height of the Canvas element.
    @Input() canvasHeight = 32;
@@ -39,8 +34,7 @@ export class SparkLineComponent implements AfterViewInit, OnDestroy {
    // A string giving the color of the dot marking the highest value. Any valid CSS color.
    @Input() shadeColor = ``;
 
-   @ViewChild('sparklineCanvas') sparklineCanvas: ElementRef;
-   canvasEl: HTMLCanvasElement;
+   @ViewChild('sparklineCanvas', {static: false}) sparklineCanvas: ElementRef;
 
    constructor() { }
 
