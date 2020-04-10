@@ -4,9 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.5.0-alhpa.1] - 2020-mm-dd
+## [0.5.0] - 2020-04-10
 #### Changed
-* Migrated BarChart to the new OO paradigm
+* Did not migrate BarChart to the new OO paradigm, kept most changes
 
 ## [0.3.9] - 2020-04-04
 #### Changed
