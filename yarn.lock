@@ -1247,10 +1247,10 @@
   resolved "https://registry.yarnpkg.com/@types/marked/-/marked-0.7.3.tgz#3859f6fea52a2b73f42283018bd34b03f3c4fb3f"
   integrity sha512-WXdEKuT3azHxLTThd5dwnpLt2Q9QiC8iKj09KZRtVqro3pX8hhY+GbD8FZOae6SBBEJ22yKJn3c7ejL0aucAcA==
 
-"@types/mathjs@^5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@types/mathjs/-/mathjs-5.0.1.tgz#b98e163ea396b4f27bec20ee25ffb8fe9e656af8"
-  integrity sha512-EFBuueI+BRed9bnUO6/9my55b4FH+VQIvqMm58h9JGbtaGCkqr3YSDhnmVbM1SJjF//8SURERSypzNwejOk7lA==
+"@types/mathjs@6.0.4":
+  version "6.0.4"
+  resolved "https://registry.yarnpkg.com/@types/mathjs/-/mathjs-6.0.4.tgz#0adf7335b27a5385e0dd4f766e0c53931c5c2375"
+  integrity sha512-hIxf6lfCuUbsI/iz5cevHQjKvSS+XIGPwUyYZ4GjUPrUCh9egUhLlK0d7V31jtSt1WGt6dlclnlYMNOov9JZAA==
   dependencies:
     decimal.js "^10.0.0"
 
@@ -2519,9 +2519,9 @@ cli-width@^2.0.0:
   integrity sha1-/xnt6Kml5XkyQUewwR8PvLq+1jk=
 
 clipboard@^2.0.0:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/clipboard/-/clipboard-2.0.4.tgz#836dafd66cf0fea5d71ce5d5b0bf6e958009112d"
-  integrity sha512-Vw26VSLRpJfBofiVaFb/I8PVfdI1OxKcYShe6fm0sP/DtmiWQNCjhM/okTvdCo0G+lMMm1rMYbk4IK4x1X+kgQ==
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/clipboard/-/clipboard-2.0.6.tgz#52921296eec0fdf77ead1749421b21c968647376"
+  integrity sha512-g5zbiixBRk/wyKakSwCKd7vQXDjFnAMGHoEyBogG/bw9kTD9GvdAvaoRR1ALcEzt3pVKxZR0pViekPMIS0QyGg==
   dependencies:
     good-listener "^1.2.2"
     select "^1.1.2"
@@ -7481,9 +7481,9 @@ prepend-http@^2.0.0:
   integrity sha1-6SQ0v6XqjBn0HN/UAddBo8gZ2Jc=
 
 prismjs@^1.16.0:
-  version "1.16.0"
-  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.16.0.tgz#406eb2c8aacb0f5f0f1167930cb83835d10a4308"
-  integrity sha512-OA4MKxjFZHSvZcisLGe14THYsug/nF6O1f0pAJc0KN0wTyAcLqmsbE+lTGKSpyh+9pEW57+k6pg2AfYR+coyHA==
+  version "1.23.0"
+  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.23.0.tgz#d3b3967f7d72440690497652a9d40ff046067f33"
+  integrity sha512-c29LVsqOaLbBHuIbsTxaKENh1N2EQBOHaWv7gkHN4dgRbxSREqDnDbtFJYdpPauS4YCplMSNCABQ6Eeor69bAA==
   optionalDependencies:
     clipboard "^2.0.0"
 
