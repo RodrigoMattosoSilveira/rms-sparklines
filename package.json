@@ -44,7 +44,7 @@
     "@angular/router": "~9.1.0",
     "@types/mathjs": "6.0.4",
     "core-js": "^3.5.0",
-    "mathjs": "^6.6.1",
+    "mathjs": "^7.5.1",
     "ngx-markdown": "^9.0.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
